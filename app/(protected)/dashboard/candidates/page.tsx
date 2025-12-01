@@ -67,7 +67,7 @@ export default function CandidatesPage() {
   }, [candidatesToShow, searchTerm, selectedCity, selectedPosition, selectedExperience, selectedCuisine])
 
   const handleContactCandidate = (candidateId: string) => {
-    toast.info('Контакты кандидата будут доступны после одобрения модератором')
+    toast('Контакты кандидата будут доступны после одобрения модератором')
   }
 
   if (!mounted || !userId) {

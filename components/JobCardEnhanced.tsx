@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
@@ -11,8 +11,7 @@ import { cn } from '@/lib/utils'
 import { toast } from 'react-hot-toast'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { useResponseStore } from '@/stores/useOnboardingStore'
-import type { JobRelevance } from '@/lib/jobRecommendations'
-import type { Job } from '@/lib/mockData'
+import type { JobRelevance, Job } from '@/lib/jobRecommendations'
 import type { OnboardingFormData } from '@/types/onboarding.types'
 
 interface JobCardEnhancedProps {
@@ -89,7 +88,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
     return 'bg-orange-500/20 border-orange-500'
   }
 
-  const getStatusLabel = (status: MatchAnalysis['overall']['status']) => {
+  const getStatusLabel = (status: MatchAnalysis['overall']['status']): string => {
     switch (status) {
       case 'perfect':
         return 'Идеальное совпадение'
@@ -97,6 +96,8 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
         return 'Хорошее совпадение'
       case 'needs-improvement':
         return 'Требуются доработки'
+      default:
+        return 'Неизвестно'
     }
   }
 
@@ -175,34 +176,34 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
           
           {/* Новые индикаторы */}
           <div className="flex flex-wrap gap-2 text-xs">
-            {job.hoursPerWeek && (
+            {(job as any).hoursPerWeek && (
               <Badge variant="outline" className="flex items-center gap-1">
                 <Clock className="w-3 h-3" />
-                {job.hoursPerWeek} ч/нед
+                {(job as any).hoursPerWeek} ч/нед
               </Badge>
             )}
-            {job.workload && (
+            {(job as any).workload && (
               <Badge 
                 variant="outline" 
                 className={cn(
-                  job.workload === 'high' && 'border-orange-500 text-orange-700',
-                  job.workload === 'medium' && 'border-primary text-primary',
-                  job.workload === 'low' && 'border-green-500 text-green-700'
+                  (job as any).workload === 'high' && 'border-orange-500 text-orange-700',
+                  (job as any).workload === 'medium' && 'border-primary text-primary',
+                  (job as any).workload === 'low' && 'border-green-500 text-green-700'
                 )}
               >
-                {job.workload === 'high' && 'Высокая загруженность'}
-                {job.workload === 'medium' && 'Средняя загруженность'}
-                {job.workload === 'low' && 'Низкая загруженность'}
+                {(job as any).workload === 'high' && 'Высокая загруженность'}
+                {(job as any).workload === 'medium' && 'Средняя загруженность'}
+                {(job as any).workload === 'low' && 'Низкая загруженность'}
               </Badge>
             )}
-            {job.urgency && job.urgency !== 'normal' && (
+            {(job as any).urgency && (job as any).urgency !== 'normal' && (
               <Badge 
                 variant="destructive" 
                 className="flex items-center gap-1"
               >
                 <AlertTriangle className="w-3 h-3" />
-                {job.urgency === 'urgent' && 'Срочно'}
-                {job.urgency === 'very-urgent' && 'Очень срочно'}
+                {(job as any).urgency === 'urgent' && 'Срочно'}
+                {(job as any).urgency === 'very-urgent' && 'Очень срочно'}
               </Badge>
             )}
           </div>
@@ -269,7 +270,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                     <Sparkles className="w-4 h-4" />
                   </Button>
                 </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Детальный анализ совпадения</DialogTitle>
                   <DialogDescription>
@@ -401,8 +402,9 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                     </ul>
                   </div>
                 </div>
-              </DialogContent>
-            </Dialog>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
         )}
       </CardContent>

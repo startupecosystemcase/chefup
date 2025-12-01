@@ -169,10 +169,10 @@ export default function JobDetailPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {job.companyLogo && (
+            {(job as any).companyLogo && (
               <div className="flex items-center gap-4">
                 <img
-                  src={job.companyLogo}
+                  src={(job as any).companyLogo}
                   alt="Логотип компании"
                   className="w-16 h-16 object-contain rounded-lg"
                 />
@@ -181,35 +181,35 @@ export default function JobDetailPage() {
                 </div>
               </div>
             )}
-            {job.companyDescription && (
+            {(job as any).companyDescription && (
               <div>
                 <h4 className="font-semibold mb-2">О компании</h4>
-                <p className="text-sm text-muted-foreground">{job.companyDescription}</p>
+                <p className="text-sm text-muted-foreground">{(job as any).companyDescription}</p>
               </div>
             )}
-            {job.companyAddress && (
+            {(job as any).companyAddress && (
               <div>
                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-primary" />
                   Адрес
                 </h4>
-                <p className="text-sm text-muted-foreground">{job.companyAddress}</p>
+                <p className="text-sm text-muted-foreground">{(job as any).companyAddress}</p>
               </div>
             )}
-            {job.companyContacts && (
+            {(job as any).companyContacts && (
               <div>
                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                   <Phone className="w-4 h-4 text-primary" />
                   Контакты
                 </h4>
-                <p className="text-sm text-muted-foreground">{job.companyContacts}</p>
+                <p className="text-sm text-muted-foreground">{(job as any).companyContacts}</p>
               </div>
             )}
-            {job.companyPhotos && job.companyPhotos.length > 0 && (
+            {(job as any).companyPhotos && (job as any).companyPhotos.length > 0 && (
               <div>
                 <h4 className="font-semibold mb-2">Фото</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                  {job.companyPhotos.map((photo, idx) => (
+                  {(job as any).companyPhotos.map((photo: string, idx: number) => (
                     <img
                       key={idx}
                       src={photo}

@@ -9,7 +9,6 @@ import type { JobPosting } from '@/types/job.types'
 import type { EducationItem, Enrollment, Certificate } from '@/types/education.types'
 import type { Event, Participation } from '@/types/events.types'
 import type { Response } from '@/types/responses.types'
-import type { EducationItem, Enrollment, Certificate } from '@/types/education.types'
 
 export type UserRole = 'applicant' | 'employer' | 'moderator'
 

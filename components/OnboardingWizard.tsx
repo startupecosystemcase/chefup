@@ -19,7 +19,7 @@ import { ProgressIndicator } from '@/components/onboarding/ProgressIndicator'
 import { onboardingSchema, type OnboardingFormData } from '@/types/onboarding.types'
 import { useOnboardingStore } from '@/stores/useOnboardingStore'
 import { positionIcons, educationIcons, venueFormatIcons, goalIcons, experienceIcons } from '@/lib/onboardingIcons'
-import { Sparkles, User, Briefcase, Target, CheckCircle2 } from 'lucide-react'
+import { Sparkles, User, Briefcase, Target, CheckCircle2, GraduationCap, Building2, DollarSign } from 'lucide-react'
 import {
   cities,
   ageRanges,
@@ -367,7 +367,7 @@ export function OnboardingWizard() {
                         <FormControl>
                           <BadgeSelector
                             options={certificates}
-                            selected={field.value}
+                            selected={field.value || []}
                             onChange={field.onChange}
                           />
                         </FormControl>
@@ -384,7 +384,7 @@ export function OnboardingWizard() {
                         <FormControl>
                           <BadgeSelector
                             options={cuisines}
-                            selected={field.value}
+                            selected={field.value || []}
                             onChange={field.onChange}
                           />
                         </FormControl>
@@ -401,7 +401,7 @@ export function OnboardingWizard() {
                         <FormControl>
                           <BadgeSelector
                             options={additionalSkills}
-                            selected={field.value}
+                            selected={field.value || []}
                             onChange={field.onChange}
                           />
                         </FormControl>

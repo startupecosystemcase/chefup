@@ -9,17 +9,21 @@ interface BadgeOption {
 }
 
 interface BadgeSelectorProps {
-  options: BadgeOption[]
+  options: readonly BadgeOption[] | readonly { readonly value: string; readonly label: string }[]
   selected: string[]
   onChange: (selected: string[]) => void
   className?: string
+  maxSelections?: number
 }
 
-export function BadgeSelector({ options, selected, onChange, className }: BadgeSelectorProps) {
+export function BadgeSelector({ options, selected, onChange, className, maxSelections }: BadgeSelectorProps) {
   const toggleSelection = (value: string) => {
     if (selected.includes(value)) {
       onChange(selected.filter((v) => v !== value))
     } else {
+      if (maxSelections && selected.length >= maxSelections) {
+        return
+      }
       onChange([...selected, value])
     }
   }

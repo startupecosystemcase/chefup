@@ -10,7 +10,7 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { useOnboardingStore, usePortfolioStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
-import { Share2, Instagram, Telegram, Facebook, Linkedin, Globe, Youtube } from 'lucide-react'
+import { Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube } from 'lucide-react'
 import {
   cities,
   ageRanges,
@@ -38,7 +38,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
     // В реальном приложении здесь будет toast
   }
 
-  const getLabel = (value: string, options: Array<{ value: string; label: string }>) => {
+  const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
     return options.find((opt) => opt.value === value)?.label || value
   }
 
@@ -174,7 +174,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                     >
-                      <Telegram className="w-5 h-5" />
+                      <Send className="w-5 h-5" />
                       <span>Telegram</span>
                     </a>
                   )}

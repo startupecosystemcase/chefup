@@ -166,6 +166,8 @@ export default function Home() {
                   </Card>
                 )
               })}
+                </div>
+              </div>
             </div>
             
             <div className="text-center">

@@ -36,12 +36,12 @@ export default function ResumePage() {
     setMounted(true)
   }, [userId, router])
 
-  const getLabel = (value: string, options: Array<{ value: string; label: string }>) => {
+  const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
     return options.find((opt) => opt.value === value)?.label || value
   }
 
   const handleDownloadPDF = () => {
-    toast.info('Функция экспорта в PDF будет доступна в следующей версии')
+    toast('Функция экспорта в PDF будет доступна в следующей версии')
     // В реальном приложении здесь будет генерация PDF
   }
 

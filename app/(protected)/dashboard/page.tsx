@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
-import { Plus, Crown, Share2, Instagram, Telegram, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, Avatar as AvatarIcon } from 'lucide-react'
+import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
 import { ProfileCompleteness } from '@/components/ProfileCompleteness'
@@ -51,7 +51,7 @@ export default function DashboardPage() {
     }
   }, [userId, router])
 
-  const getLabel = (value: string, options: Array<{ value: string; label: string }>) => {
+  const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
     return options.find((opt) => opt.value === value)?.label || value
   }
 
@@ -684,7 +684,7 @@ export default function DashboardPage() {
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-2 block flex items-center gap-2">
-                        <Telegram className="w-4 h-4" />
+                        <Send className="w-4 h-4" />
                         Telegram
                       </label>
                       <Input
@@ -775,7 +775,7 @@ export default function DashboardPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                 >
-                  <Telegram className="w-5 h-5" />
+                  <Send className="w-5 h-5" />
                   <span>Telegram</span>
                 </a>
               )}
