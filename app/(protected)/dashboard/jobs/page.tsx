@@ -34,7 +34,7 @@ export default function JobsPage() {
 
   // Вычисляем рекомендации для соискателей
   const recommendedJobs = useMemo(() => {
-    if (userRole !== 'applicant' || !formData.position) {
+    if (userRole !== 'applicant' || (!formData.desiredPosition && !formData.currentPosition)) {
       return []
     }
     const recommendations = getRecommendedJobs(mockJobs, formData)
@@ -83,7 +83,7 @@ export default function JobsPage() {
       jobs = filteredJobs
       
       // Умная сортировка: сначала релевантные, затем близкие по навыкам
-      if (userRole === 'applicant' && formData.position) {
+      if (userRole === 'applicant' && (formData.desiredPosition || formData.currentPosition)) {
         const jobsWithRelevance = jobs.map(job => {
           const relevance = getRecommendedJobs([job], formData)[0]
           return { job, relevance: relevance?.score || 0 }
@@ -100,7 +100,7 @@ export default function JobsPage() {
 
   // Функция для получения релевантности вакансии
   const getJobRelevance = (jobId: string): JobRelevance | null => {
-    if (userRole === 'applicant' && formData.position) {
+    if (userRole === 'applicant' && (formData.desiredPosition || formData.currentPosition)) {
       return recommendedJobs.find(r => r.job.id === jobId) || null
     }
     return null

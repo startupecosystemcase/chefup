@@ -90,9 +90,10 @@ export default function ResumePage() {
                 <CardTitle className="text-2xl mb-1">
                   {formData.firstName || 'Имя'} {formData.lastName || 'Фамилия'}
                 </CardTitle>
-                {formData.position && (
+                {(formData.desiredPosition || formData.currentPosition) && (
                   <p className="text-lg text-muted-foreground">
-                    {getLabel(formData.position, positions)}
+                    {formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
+                    {!formData.desiredPosition && formData.currentPosition && getLabel(formData.currentPosition, positions)}
                   </p>
                 )}
                 <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
@@ -142,7 +143,7 @@ export default function ResumePage() {
         )}
 
         {/* Опыт работы */}
-        {(formData.experience || formData.position || formData.rank) && (
+        {(formData.experience || formData.desiredPosition || formData.currentPosition || formData.rank) && (
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -157,10 +158,15 @@ export default function ResumePage() {
                   <p className="font-medium">{getLabel(formData.experience, experienceRanges)}</p>
                 </div>
               )}
-              {formData.position && (
+              {(formData.currentPosition || formData.desiredPosition) && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Текущая позиция</p>
-                  <p className="font-medium">{getLabel(formData.position, positions)}</p>
+                  <p className="text-sm text-muted-foreground mb-1">
+                    {formData.currentPosition ? 'Текущая позиция' : 'Желаемая позиция'}
+                  </p>
+                  <p className="font-medium">
+                    {formData.currentPosition && getLabel(formData.currentPosition, positions)}
+                    {!formData.currentPosition && formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
+                  </p>
                 </div>
               )}
               {formData.rank && (

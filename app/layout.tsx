@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+
+const inter = Inter({ 
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700', '900'],
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   title: 'ChefUp - Профессиональная экосистема для HoReCa',
@@ -13,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ru">
-      <body className="min-h-screen bg-background antialiased">
+    <html lang="ru" className={inter.variable}>
+      <body className={`min-h-screen bg-white antialiased ${inter.className}`}>
         {children}
         <Toaster position="top-right" />
       </body>

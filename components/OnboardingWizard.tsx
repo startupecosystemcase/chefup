@@ -1,25 +1,66 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-hot-toast'
+import Confetti from 'react-confetti'
 import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Textarea } from '@/components/ui/textarea'
-import { BadgeSelector } from '@/components/BadgeSelector'
-import { VisualCardSelector } from '@/components/onboarding/VisualCardSelector'
-import { ProgressIndicator } from '@/components/onboarding/ProgressIndicator'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { ProgressMotivator } from '@/components/onboarding/ProgressMotivator'
+import { StepIcon } from '@/components/onboarding/StepIcon'
+import { SelectableCard } from '@/components/onboarding/SelectableCard'
+import { SelectableBadge } from '@/components/onboarding/SelectableBadge'
 import { onboardingSchema, type OnboardingFormData } from '@/types/onboarding.types'
-import { useOnboardingStore } from '@/stores/useOnboardingStore'
-import { positionIcons, educationIcons, venueFormatIcons, goalIcons, experienceIcons } from '@/lib/onboardingIcons'
-import { Sparkles, User, Briefcase, Target, CheckCircle2, GraduationCap, Building2, DollarSign } from 'lucide-react'
+import { useOnboardingStore, useAuthStore } from '@/stores/useOnboardingStore'
+import {
+  User,
+  Briefcase,
+  Utensils,
+  DollarSign,
+  Target,
+  Phone,
+  MessageCircle,
+  Send,
+  ArrowLeft,
+  ArrowRight,
+  Star,
+  Copy,
+  CheckCircle2,
+  ChefHat,
+  UtensilsCrossed,
+  Coffee,
+  Cake,
+  GraduationCap,
+  BookOpen,
+  Flame,
+  Award,
+  ShieldCheck,
+  ScrollText,
+  Palette,
+  Calculator,
+  Users,
+  Beef,
+  Croissant,
+  Soup,
+  Drumstick,
+  Pizza,
+  Search,
+  UserPlus,
+  Plane,
+  Sparkles,
+  Building2,
+  Store,
+  Hotel,
+  Package,
+  Instagram,
+  Link as LinkIcon,
+} from 'lucide-react'
 import {
   cities,
   ageRanges,
@@ -34,12 +75,26 @@ import {
   additionalSkills,
   salaryRanges,
 } from '@/lib/data'
+import {
+  positionIcons,
+  cuisineIcons,
+  educationIcons,
+  rankIcons,
+  venueFormatIcons,
+  goalIcons,
+  skillIcons,
+  certificateIcons,
+} from '@/lib/onboardingData'
 
 const TOTAL_STEPS = 5
+
+const stepIcons = [User, Briefcase, Utensils, DollarSign, Target]
 
 export function OnboardingWizard() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
   const { formData, setFormData } = useOnboardingStore()
 
   const form = useForm<OnboardingFormData>({
@@ -47,45 +102,59 @@ export function OnboardingWizard() {
     defaultValues: {
       firstName: formData.firstName || '',
       lastName: formData.lastName || '',
+      phone: formData.phone || '',
       city: formData.city || '',
       age: formData.age || '',
+      whatsapp: formData.whatsapp || '',
+      telegram: formData.telegram || '',
       experience: formData.experience || '',
-      position: formData.position || '',
+      currentPosition: formData.currentPosition || '',
+      desiredPosition: formData.desiredPosition || '',
+      hasTeam: formData.hasTeam || '',
       education: formData.education || '',
       rank: formData.rank || '',
-      hasTeam: formData.hasTeam || false,
-      certificates: formData.certificates || [],
       cuisines: formData.cuisines || [],
+      certificates: formData.certificates || [],
       additionalSkills: formData.additionalSkills || [],
+      currentVenueFormat: formData.currentVenueFormat || '',
       preferredVenueFormat: formData.preferredVenueFormat || '',
+      currentSalary: formData.currentSalary || '',
       salaryExpectation: formData.salaryExpectation || '',
       goals: formData.goals || [],
-      phone: formData.phone || '',
-      email: formData.email || '',
+      instagram: formData.instagram || '',
+      portfolio: formData.portfolio || '',
       about: formData.about || '',
+      rating: formData.rating || 0,
+      suggestions: formData.suggestions || '',
+      email: formData.email || '',
+      avatarUrl: formData.avatarUrl || '',
+      username: formData.username || '',
+      telegramUsername: formData.telegramUsername || '',
     },
   })
 
-  const progress = (currentStep / TOTAL_STEPS) * 100
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [currentStep])
 
   const validateStep = async (step: number): Promise<boolean> => {
     let fieldsToValidate: (keyof OnboardingFormData)[] = []
 
     switch (step) {
       case 1:
-        fieldsToValidate = ['firstName', 'lastName', 'city', 'age']
+        fieldsToValidate = ['firstName', 'lastName', 'phone', 'city', 'age']
         break
       case 2:
-        fieldsToValidate = ['experience', 'position', 'education', 'rank']
+        fieldsToValidate = ['experience', 'currentPosition', 'desiredPosition', 'hasTeam', 'education', 'rank']
         break
       case 3:
         fieldsToValidate = ['cuisines']
         break
       case 4:
-        fieldsToValidate = ['preferredVenueFormat', 'salaryExpectation']
+        fieldsToValidate = ['currentVenueFormat', 'preferredVenueFormat', 'currentSalary', 'salaryExpectation']
         break
       case 5:
-        fieldsToValidate = ['goals', 'phone']
+        fieldsToValidate = ['goals', 'about', 'rating']
         break
     }
 
@@ -100,9 +169,6 @@ export function OnboardingWizard() {
       return
     }
 
-    const currentData = form.getValues()
-    setFormData(currentData)
-
     if (currentStep < TOTAL_STEPS) {
       setCurrentStep(currentStep + 1)
     }
@@ -114,478 +180,814 @@ export function OnboardingWizard() {
     }
   }
 
-  const onSubmit = async (data: OnboardingFormData) => {
+  const handleSubmit = async (data: OnboardingFormData) => {
+    const isValid = await validateStep(5)
+    if (!isValid) {
+      toast.error('Пожалуйста, заполните все обязательные поля')
+      return
+    }
+
     setFormData(data)
-    toast.success('Анкета успешно сохранена!')
-    router.push('/dashboard')
+    setShowConfetti(true)
+    setTimeout(() => {
+      setShowSuccess(true)
+      setShowConfetti(false)
+    }, 2000)
   }
 
-  const stepLabels = ['Личные данные', 'Опыт', 'Навыки', 'Работа', 'Финал']
+  const handleCopyProfileLink = () => {
+    const userId = useAuthStore.getState().userId
+    const profileUrl = `${window.location.origin}/profile/${userId}`
+    navigator.clipboard.writeText(profileUrl)
+    toast.success('Ссылка скопирована!')
+  }
+
+  if (showSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#F97316]/10 to-white p-5">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-2xl w-full text-center space-y-8"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+            className="w-24 h-24 mx-auto rounded-full bg-[#F97316] flex items-center justify-center"
+          >
+            <CheckCircle2 className="w-12 h-12 text-white" />
+          </motion.div>
+          
+          <h1 className="text-4xl md:text-5xl font-black text-[#0F172A]">
+            Поздравляем! Ты в ChefUp!
+          </h1>
+          
+          <p className="text-xl text-[#64748B]">
+            Твой профессиональный профиль готов. Скоро начнут приходить офферы.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={handleCopyProfileLink}
+              className="min-h-[56px]"
+            >
+              <Copy className="w-5 h-5 mr-2" />
+              Скопировать ссылку на профиль
+            </Button>
+            <Button
+              size="lg"
+              className="bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[56px]"
+              onClick={() => router.push('/dashboard')}
+            >
+              Перейти в личный кабинет
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
+  const StepIconComponent = stepIcons[currentStep - 1]
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-8">
-      <Card className="mx-auto max-w-4xl">
-        <CardHeader className="text-center pb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Sparkles className="w-8 h-8 text-primary" />
-            <CardTitle className="text-3xl">Создайте свой профиль</CardTitle>
-          </div>
-          <ProgressIndicator currentStep={currentStep} totalSteps={TOTAL_STEPS} stepLabels={stepLabels} />
-          <div className="mt-4">
-            <Progress value={progress} className="h-3" />
-            <div className="flex justify-between text-sm text-muted-foreground mt-2">
-              <span>Прогресс заполнения</span>
-              <span className="font-semibold text-primary">{Math.round(progress)}%</span>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {currentStep === 1 && (
-                <div className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Имя *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Введите имя" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Фамилия *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Введите фамилию" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="city"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Город *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Выберите город" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {cities.map((city) => (
-                              <SelectItem key={city.value} value={city.value}>
-                                {city.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="age"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Возраст *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Выберите возраст" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {ageRanges.map((age) => (
-                              <SelectItem key={age.value} value={age.value}>
-                                {age.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              )}
+    <div className="min-h-screen bg-white py-8 px-4 md:px-8">
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={500}
+        />
+      )}
 
-              {currentStep === 2 && (
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <Briefcase className="w-5 h-5 text-primary" />
-                      Опыт работы *
-                    </h3>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <StepIcon icon={StepIconComponent} />
+        </div>
+
+        <ProgressMotivator currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+
+        <FormProvider {...form}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+              <AnimatePresence mode="wait">
+                {/* Шаг 1: Личная информация */}
+                {currentStep === 1 && (
+                  <motion.div
+                    key="step1"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-6"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Имя *</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="Введите имя" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Фамилия *</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="Введите фамилию" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Номер телефона *</FormLabel>
+                          <FormControl>
+                            <Input {...field} readOnly placeholder="+7 (___) ___-__-__" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Город *</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите город" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {cities.map((city) => (
+                                <SelectItem key={city.value} value={city.value}>
+                                  {city.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="age"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Возраст *</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите возраст" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {ageRanges.map((age) => (
+                                <SelectItem key={age.value} value={age.value}>
+                                  {age.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="whatsapp"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>WhatsApp</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
+                              <Input {...field} placeholder="+7 (___) ___-__-__" className="pl-10" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="telegram"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Telegram</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Send className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
+                              <Input {...field} placeholder="@username" className="pl-10" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
+                )}
+
+                {/* Шаг 2: Опыт и квалификация */}
+                {currentStep === 2 && (
+                  <motion.div
+                    key="step2"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-6"
+                  >
                     <FormField
                       control={form.control}
                       name="experience"
                       render={({ field }) => (
                         <FormItem>
-                          <FormControl>
-                            <VisualCardSelector
-                              options={experienceRanges.map((exp) => ({
-                                value: exp.value,
-                                label: exp.label,
-                                icon: experienceIcons[exp.value] || <Briefcase className="w-6 h-6" />,
-                              }))}
-                              selected={field.value || ''}
-                              onChange={field.onChange}
-                            />
-                          </FormControl>
+                          <FormLabel>Опыт работы в HoReCa *</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите опыт" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {experienceRanges.map((exp) => (
+                                <SelectItem key={exp.value} value={exp.value}>
+                                  {exp.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
 
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <User className="w-5 h-5 text-primary" />
-                      Текущая позиция *
-                    </h3>
                     <FormField
                       control={form.control}
-                      name="position"
+                      name="currentPosition"
                       render={({ field }) => (
                         <FormItem>
-                          <FormControl>
-                            <VisualCardSelector
-                              options={positions.map((pos) => ({
-                                value: pos.value,
-                                label: pos.label,
-                                icon: positionIcons[pos.value] || <Briefcase className="w-6 h-6" />,
-                              }))}
-                              selected={field.value || ''}
-                              onChange={field.onChange}
-                            />
-                          </FormControl>
+                          <FormLabel>Текущая позиция *</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {positions.map((pos) => {
+                              const Icon = positionIcons[pos.value] || User
+                              return (
+                                <SelectableCard
+                                  key={pos.value}
+                                  icon={Icon}
+                                  label={pos.label}
+                                  value={pos.value}
+                                  selected={field.value === pos.value}
+                                  onSelect={field.onChange}
+                                />
+                              )
+                            })}
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
 
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <GraduationCap className="w-5 h-5 text-primary" />
-                      Образование *
-                    </h3>
+                    <FormField
+                      control={form.control}
+                      name="desiredPosition"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Желаемая позиция *</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {positions.map((pos) => {
+                              const Icon = positionIcons[pos.value] || User
+                              return (
+                                <SelectableCard
+                                  key={pos.value}
+                                  icon={Icon}
+                                  label={pos.label}
+                                  value={pos.value}
+                                  selected={field.value === pos.value}
+                                  onSelect={field.onChange}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="hasTeam"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Есть своя команда? *</FormLabel>
+                          <div className="grid grid-cols-2 gap-4">
+                            <SelectableCard
+                              label="Да"
+                              value="yes"
+                              selected={field.value === 'yes'}
+                              onSelect={field.onChange}
+                            />
+                            <SelectableCard
+                              label="Нет"
+                              value="no"
+                              selected={field.value === 'no'}
+                              onSelect={field.onChange}
+                            />
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
                     <FormField
                       control={form.control}
                       name="education"
                       render={({ field }) => (
                         <FormItem>
-                          <FormControl>
-                            <VisualCardSelector
-                              options={educationLevels.map((edu) => ({
-                                value: edu.value,
-                                label: edu.label,
-                                icon: educationIcons[edu.value] || <GraduationCap className="w-6 h-6" />,
-                              }))}
-                              selected={field.value || ''}
-                              onChange={field.onChange}
-                            />
-                          </FormControl>
+                          <FormLabel>Образование и квалификация *</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {educationLevels.map((edu) => {
+                              const Icon = educationIcons[edu.value] || GraduationCap
+                              return (
+                                <SelectableCard
+                                  key={edu.value}
+                                  icon={Icon}
+                                  label={edu.label}
+                                  value={edu.value}
+                                  selected={field.value === edu.value}
+                                  onSelect={field.onChange}
+                                />
+                              )
+                            })}
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name="rank"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Разряд *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Выберите разряд" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {ranks.map((rank) => (
-                              <SelectItem key={rank.value} value={rank.value}>
-                                {rank.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="hasTeam"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Управляете командой? *</FormLabel>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={(value) => field.onChange(value === 'true')}
-                            value={field.value ? 'true' : 'false'}
-                            className="flex gap-6"
-                          >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="true" id="team-yes" />
-                              <label htmlFor="team-yes">Да</label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="false" id="team-no" />
-                              <label htmlFor="team-no">Нет</label>
-                            </div>
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              )}
 
-              {currentStep === 3 && (
-                <div className="space-y-6">
-                  <FormField
-                    control={form.control}
-                    name="certificates"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Сертификаты</FormLabel>
-                        <FormControl>
-                          <BadgeSelector
-                            options={certificates}
-                            selected={field.value || []}
-                            onChange={field.onChange}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="cuisines"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Кухни *</FormLabel>
-                        <FormControl>
-                          <BadgeSelector
-                            options={cuisines}
-                            selected={field.value || []}
-                            onChange={field.onChange}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="additionalSkills"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Дополнительные навыки</FormLabel>
-                        <FormControl>
-                          <BadgeSelector
-                            options={additionalSkills}
-                            selected={field.value || []}
-                            onChange={field.onChange}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              )}
+                    <FormField
+                      control={form.control}
+                      name="rank"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Разряд повара *</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {ranks.map((rank) => {
+                              const Icon = rankIcons[rank.value] || Star
+                              return (
+                                <SelectableCard
+                                  key={rank.value}
+                                  icon={Icon}
+                                  label={rank.label}
+                                  value={rank.value}
+                                  selected={field.value === rank.value}
+                                  onSelect={field.onChange}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
+                )}
 
-              {currentStep === 4 && (
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <Building2 className="w-5 h-5 text-primary" />
-                      Предпочитаемый формат заведения *
-                    </h3>
+                {/* Шаг 3: Специализация и навыки */}
+                {currentStep === 3 && (
+                  <motion.div
+                    key="step3"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-6"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="cuisines"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Кухни и специализация *</FormLabel>
+                          <div className="flex flex-wrap gap-3">
+                            {cuisines.map((cuisine) => {
+                              const Icon = cuisineIcons[cuisine.value] || Utensils
+                              return (
+                                <SelectableBadge
+                                  key={cuisine.value}
+                                  icon={Icon}
+                                  label={cuisine.label}
+                                  value={cuisine.value}
+                                  selected={!!(field.value?.includes(cuisine.value))}
+                                  onToggle={(value) => {
+                                    const current = field.value || []
+                                    if (current.includes(value)) {
+                                      field.onChange(current.filter((v) => v !== value))
+                                    } else {
+                                      field.onChange([...current, value])
+                                    }
+                                  }}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="certificates"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Сертификаты</FormLabel>
+                          <div className="flex flex-wrap gap-3">
+                            {certificates.map((cert) => {
+                              const Icon = certificateIcons[cert.value] || Award
+                              return (
+                                <SelectableBadge
+                                  key={cert.value}
+                                  icon={Icon}
+                                  label={cert.label}
+                                  value={cert.value}
+                                  selected={!!(field.value?.includes(cert.value))}
+                                  onToggle={(value) => {
+                                    const current = field.value || []
+                                    if (current.includes(value)) {
+                                      field.onChange(current.filter((v) => v !== value))
+                                    } else {
+                                      field.onChange([...current, value])
+                                    }
+                                  }}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="additionalSkills"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Дополнительные навыки</FormLabel>
+                          <div className="flex flex-wrap gap-3">
+                            {additionalSkills.map((skill) => {
+                              const Icon = skillIcons[skill.value] || Users
+                              return (
+                                <SelectableBadge
+                                  key={skill.value}
+                                  icon={Icon}
+                                  label={skill.label}
+                                  value={skill.value}
+                                  selected={!!(field.value?.includes(skill.value))}
+                                  onToggle={(value) => {
+                                    const current = field.value || []
+                                    if (current.includes(value)) {
+                                      field.onChange(current.filter((v) => v !== value))
+                                    } else {
+                                      field.onChange([...current, value])
+                                    }
+                                  }}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
+                )}
+
+                {/* Шаг 4: Условия и ожидания */}
+                {currentStep === 4 && (
+                  <motion.div
+                    key="step4"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-6"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="currentVenueFormat"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Текущий формат заведения *</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {venueFormats.map((venue) => {
+                              const Icon = venueFormatIcons[venue.value] || Building2
+                              return (
+                                <SelectableCard
+                                  key={venue.value}
+                                  icon={Icon}
+                                  label={venue.label}
+                                  value={venue.value}
+                                  selected={field.value === venue.value}
+                                  onSelect={field.onChange}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
                     <FormField
                       control={form.control}
                       name="preferredVenueFormat"
                       render={({ field }) => (
                         <FormItem>
-                          <FormControl>
-                            <VisualCardSelector
-                              options={venueFormats.map((format) => ({
-                                value: format.value,
-                                label: format.label,
-                                icon: venueFormatIcons[format.value] || <Building2 className="w-6 h-6" />,
-                              }))}
-                              selected={field.value || ''}
-                              onChange={field.onChange}
-                            />
-                          </FormControl>
+                          <FormLabel>Желаемый формат заведения *</FormLabel>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {venueFormats.map((venue) => {
+                              const Icon = venueFormatIcons[venue.value] || Building2
+                              return (
+                                <SelectableCard
+                                  key={venue.value}
+                                  icon={Icon}
+                                  label={venue.label}
+                                  value={venue.value}
+                                  selected={field.value === venue.value}
+                                  onSelect={field.onChange}
+                                />
+                              )
+                            })}
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <DollarSign className="w-5 h-5 text-primary" />
-                      Ожидаемая зарплата *
-                    </h3>
+
+                    <FormField
+                      control={form.control}
+                      name="currentSalary"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Текущая зарплата *</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите диапазон" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {salaryRanges.map((range) => (
+                                <SelectItem key={range.value} value={range.value}>
+                                  {range.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
                     <FormField
                       control={form.control}
                       name="salaryExpectation"
                       render={({ field }) => (
                         <FormItem>
-                          <FormControl>
-                            <VisualCardSelector
-                              options={salaryRanges.map((range) => ({
-                                value: range.value,
-                                label: range.label,
-                                icon: <DollarSign className="w-6 h-6" />,
-                              }))}
-                              selected={field.value || ''}
-                              onChange={field.onChange}
-                            />
-                          </FormControl>
+                          <FormLabel>Желаемая зарплата *</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите диапазон" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {salaryRanges.map((range) => (
+                                <SelectItem key={range.value} value={range.value}>
+                                  {range.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
-                </div>
-              )}
+                  </motion.div>
+                )}
 
-              {currentStep === 5 && (
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                      <Target className="w-5 h-5 text-primary" />
-                      Цели и интересы *
-                    </h3>
+                {/* Шаг 5: Финал и о себе */}
+                {currentStep === 5 && (
+                  <motion.div
+                    key="step5"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-6"
+                  >
                     <FormField
                       control={form.control}
                       name="goals"
                       render={({ field }) => (
                         <FormItem>
+                          <FormLabel>Цели использования ChefUp *</FormLabel>
+                          <div className="flex flex-wrap gap-3">
+                            {[
+                              { value: 'find-job', label: 'Найти работу', icon: Search },
+                              { value: 'find-employees', label: 'Найти сотрудников', icon: UserPlus },
+                              { value: 'internship', label: 'Стажировки', icon: Plane },
+                              { value: 'personal-brand', label: 'Личный бренд', icon: Sparkles },
+                              { value: 'learning', label: 'Обучение', icon: GraduationCap },
+                            ].map((goal) => {
+                              const Icon = goal.icon
+                              return (
+                                <SelectableBadge
+                                  key={goal.value}
+                                  icon={Icon}
+                                  label={goal.label}
+                                  value={goal.value}
+                                  selected={!!(field.value?.includes(goal.value))}
+                                  onToggle={(value) => {
+                                    const current = field.value || []
+                                    if (current.includes(value)) {
+                                      field.onChange(current.filter((v) => v !== value))
+                                    } else {
+                                      field.onChange([...current, value])
+                                    }
+                                  }}
+                                />
+                              )
+                            })}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="instagram"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Instagram</FormLabel>
                           <FormControl>
-                            <VisualCardSelector
-                              options={goals.map((goal) => ({
-                                value: goal.value,
-                                label: goal.label,
-                                icon: goalIcons[goal.value] || <Target className="w-6 h-6" />,
-                              }))}
-                              selected={field.value || []}
-                              onChange={field.onChange}
-                              multiple={true}
+                            <div className="relative">
+                              <Instagram className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
+                              <Input {...field} placeholder="@username" className="pl-10" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="portfolio"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Портфолио (ссылка)</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
+                              <Input {...field} placeholder="https://..." className="pl-10" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="about"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Расскажите о себе *</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              placeholder="Минимум 50 символов..."
+                              className="min-h-[120px]"
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Телефон *</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="+7 (XXX) XXX-XX-XX"
-                            {...field}
-                            onChange={(e) => {
-                              const value = e.target.value.replace(/\D/g, '')
-                              let formatted = '+7'
-                              if (value.length > 1) {
-                                formatted += ` (${value.slice(1, 4)}`
-                                if (value.length > 4) {
-                                  formatted += `) ${value.slice(4, 7)}`
-                                  if (value.length > 7) {
-                                    formatted += `-${value.slice(7, 9)}`
-                                    if (value.length > 9) {
-                                      formatted += `-${value.slice(9, 11)}`
-                                    }
-                                  }
-                                }
-                              }
-                              field.onChange(formatted)
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input type="email" placeholder="email@example.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="about"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>О себе</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            placeholder="Расскажите о себе..."
-                            className="min-h-[100px]"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              )}
 
-              <div className="flex justify-between gap-4 pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleBack}
-                  disabled={currentStep === 1}
-                >
-                  Назад
-                </Button>
+                    <FormField
+                      control={form.control}
+                      name="rating"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Оцените анкету ChefUp *</FormLabel>
+                          <div className="flex gap-2">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <motion.button
+                                key={star}
+                                type="button"
+                                onClick={() => field.onChange(star)}
+                                whileHover={{ scale: 1.2 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="text-4xl"
+                              >
+                                <Star
+                                  className={`w-12 h-12 ${
+                                    star <= (field.value || 0)
+                                      ? 'fill-[#F97316] text-[#F97316]'
+                                      : 'text-gray-300'
+                                  }`}
+                                />
+                              </motion.button>
+                            ))}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="suggestions"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Ваши идеи и предложения</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              placeholder="Что можно улучшить?"
+                              className="min-h-[100px]"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Навигация */}
+              <div className="flex gap-4 pt-8 border-t">
+                {currentStep > 1 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleBack}
+                    className="flex-1 md:flex-initial min-h-[56px]"
+                  >
+                    <ArrowLeft className="w-5 h-5 mr-2" />
+                    Назад
+                  </Button>
+                )}
                 {currentStep < TOTAL_STEPS ? (
-                  <Button type="button" onClick={handleNext}>
+                  <Button
+                    type="button"
+                    onClick={handleNext}
+                    className="flex-1 bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[56px]"
+                  >
                     Далее
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 ) : (
-                  <Button type="submit">Сохранить</Button>
+                  <Button
+                    type="submit"
+                    className="flex-1 bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[56px]"
+                  >
+                    Создать профиль
+                    <CheckCircle2 className="w-5 h-5 ml-2" />
+                  </Button>
                 )}
               </div>
             </form>
-          </FormProvider>
-        </CardContent>
-      </Card>
+          </Form>
+        </FormProvider>
+      </div>
     </div>
   )
 }
-

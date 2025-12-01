@@ -479,7 +479,8 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <span className="text-muted-foreground">Позиция: </span>
-                    {formData.position && getLabel(formData.position, positions)}
+                    {(formData.desiredPosition && getLabel(formData.desiredPosition, positions)) || 
+                     (formData.currentPosition && getLabel(formData.currentPosition, positions))}
                   </div>
                   <div>
                     <span className="text-muted-foreground">Образование: </span>

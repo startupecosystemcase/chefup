@@ -21,8 +21,9 @@ export function calculateJobRelevance(
   const reasons: string[] = []
 
   // 1. Соответствие позиции (40 баллов)
-  if (applicantData.position) {
-    const applicantPosition = positions.find(p => p.value === applicantData.position)?.label
+  const position = applicantData.desiredPosition || applicantData.currentPosition
+  if (position) {
+    const applicantPosition = positions.find(p => p.value === position)?.label
     if (applicantPosition && job.position.toLowerCase().includes(applicantPosition.toLowerCase())) {
       score += 40
       reasons.push('Соответствие желаемой должности')

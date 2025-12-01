@@ -36,7 +36,7 @@ export default function JobDetailPage() {
   const existingResponse = userId ? getResponseByJobId(jobId, userId) : undefined
 
   // Вычисляем релевантность для соискателей
-  const relevance = userRole === 'applicant' && formData.position
+  const relevance = userRole === 'applicant' && (formData.desiredPosition || formData.currentPosition)
     ? getRecommendedJobs(mockJobs, formData).find((r) => r.job.id === jobId)
     : null
 

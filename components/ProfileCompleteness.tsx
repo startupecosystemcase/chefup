@@ -15,7 +15,8 @@ const requiredFields = [
   { key: 'lastName', label: 'Фамилия', weight: 5 },
   { key: 'city', label: 'Город', weight: 5 },
   { key: 'age', label: 'Возраст', weight: 5 },
-  { key: 'position', label: 'Должность', weight: 10 },
+  { key: 'currentPosition', label: 'Текущая должность', weight: 5 },
+  { key: 'desiredPosition', label: 'Желаемая должность', weight: 5 },
   { key: 'experience', label: 'Опыт работы', weight: 10 },
   { key: 'education', label: 'Образование', weight: 5 },
   { key: 'cuisines', label: 'Специализация', weight: 10 },
@@ -119,7 +120,7 @@ export function ProfileCompleteness({ formData }: ProfileCompletenessProps) {
 
       {/* Микро-награды */}
       <div className="flex flex-wrap gap-2">
-        {formData.position && (
+        {(formData.currentPosition || formData.desiredPosition) && (
           <Badge variant="secondary" className="text-xs">
             ✓ Заполнил должность
           </Badge>
