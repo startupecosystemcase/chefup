@@ -16,9 +16,11 @@ interface AuthState {
   userId: string | null
   userRole: UserRole | null
   username: string | null
+  phone: string | null
   setUserId: (id: string) => void
   setUserRole: (role: UserRole) => void
   setUsername: (username: string) => void
+  setPhone: (phone: string) => void
   clearAuth: () => void
   subscriptionStatus: 'BASIC' | 'PRO'
   setSubscriptionStatus: (status: 'BASIC' | 'PRO') => void
@@ -46,10 +48,12 @@ export const useAuthStore = create<AuthState>()(
       userId: null,
       userRole: null,
       username: null,
+      phone: null,
       setUserId: (id: string) => set({ userId: id }),
       setUserRole: (role: UserRole) => set({ userRole: role }),
       setUsername: (username: string) => set({ username }),
-      clearAuth: () => set({ userId: null, userRole: null, username: null, subscriptionStatus: 'BASIC', notifications: true, profilePrivacy: 'public' }),
+      setPhone: (phone: string) => set({ phone }),
+      clearAuth: () => set({ userId: null, userRole: null, username: null, phone: null, subscriptionStatus: 'BASIC', notifications: true, profilePrivacy: 'public' }),
       subscriptionStatus: 'BASIC',
       setSubscriptionStatus: (status: 'BASIC' | 'PRO') => set({ subscriptionStatus: status }),
       notifications: true,

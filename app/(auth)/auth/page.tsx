@@ -31,6 +31,7 @@ export default function AuthPage() {
   const userId = useAuthStore((state) => state.userId)
   const setUserId = useAuthStore((state) => state.setUserId)
   const setUserRole = useAuthStore((state) => state.setUserRole)
+  const setPhone = useAuthStore((state) => state.setPhone)
   const [isLoading, setIsLoading] = useState(false)
 
   // Проверка на активную авторизацию
@@ -54,6 +55,7 @@ export default function AuthPage() {
     const userId = crypto.randomUUID()
     setUserId(userId)
     setUserRole(data.role as UserRole)
+    setPhone(data.phone) // Сохраняем номер телефона
     
     setTimeout(() => {
       setIsLoading(false)

@@ -96,17 +96,18 @@ export function OnboardingWizard() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const { formData, setFormData } = useOnboardingStore()
+  const authPhone = useAuthStore((state) => state.phone)
 
   const form = useForm<OnboardingFormData>({
     resolver: zodResolver(onboardingSchema),
     defaultValues: {
       firstName: formData.firstName || '',
       lastName: formData.lastName || '',
-      phone: formData.phone || '',
+      phone: formData.phone || authPhone || '',
       city: formData.city || '',
       age: formData.age || '',
-      whatsapp: formData.whatsapp || '',
-      telegram: formData.telegram || '',
+      whatsapp: formData.whatsapp || authPhone || '',
+      telegram: formData.telegram || authPhone || '',
       experience: formData.experience || '',
       currentPosition: formData.currentPosition || '',
       desiredPosition: formData.desiredPosition || '',
@@ -137,6 +138,25 @@ export function OnboardingWizard() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [currentStep])
 
+  // Автозаполнение полей телефона при загрузке
+  useEffect(() => {
+    if (authPhone) {
+      const currentPhone = form.getValues('phone')
+      const currentWhatsapp = form.getValues('whatsapp')
+      const currentTelegram = form.getValues('telegram')
+      
+      if (!currentPhone || currentPhone === '') {
+        form.setValue('phone', authPhone, { shouldValidate: true })
+      }
+      if (!currentWhatsapp || currentWhatsapp === '') {
+        form.setValue('whatsapp', authPhone)
+      }
+      if (!currentTelegram || currentTelegram === '') {
+        form.setValue('telegram', authPhone)
+      }
+    }
+  }, [authPhone, form])
+
   const validateStep = async (step: number): Promise<boolean> => {
     let fieldsToValidate: (keyof OnboardingFormData)[] = []
 
@@ -163,9 +183,16 @@ export function OnboardingWizard() {
   }
 
   const handleNext = async () => {
+    // Убеждаемся, что телефон заполнен перед валидацией
+    if (currentStep === 1 && authPhone && !form.getValues('phone')) {
+      form.setValue('phone', authPhone, { shouldValidate: true })
+    }
+    
     const isValid = await validateStep(currentStep)
     if (!isValid) {
       toast.error('Пожалуйста, заполните все обязательные поля')
+      // Показываем ошибки валидации
+      form.trigger()
       return
     }
 
@@ -319,7 +346,12 @@ export function OnboardingWizard() {
                         <FormItem>
                           <FormLabel>Номер телефона *</FormLabel>
                           <FormControl>
-                            <Input {...field} readOnly placeholder="+7 (___) ___-__-__" />
+                            <Input 
+                              {...field} 
+                              value={field.value || authPhone || ''}
+                              readOnly 
+                              placeholder="+7 (___) ___-__-__" 
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -385,7 +417,12 @@ export function OnboardingWizard() {
                           <FormControl>
                             <div className="relative">
                               <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
-                              <Input {...field} placeholder="+7 (___) ___-__-__" className="pl-10" />
+                              <Input 
+                                {...field} 
+                                value={field.value || authPhone || ''}
+                                placeholder="+7 (___) ___-__-__" 
+                                className="pl-10" 
+                              />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -402,7 +439,12 @@ export function OnboardingWizard() {
                           <FormControl>
                             <div className="relative">
                               <Send className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
-                              <Input {...field} placeholder="@username" className="pl-10" />
+                              <Input 
+                                {...field} 
+                                value={field.value || authPhone || ''}
+                                placeholder="@username или номер телефона" 
+                                className="pl-10" 
+                              />
                             </div>
                           </FormControl>
                           <FormMessage />
