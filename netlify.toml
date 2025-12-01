@@ -11,15 +11,4 @@
 [functions]
   node_bundler = "esbuild"
 
-# Redirects для поддомена admin
-[[redirects]]
-  from = "https://admin.chefupkz.netlify.app/*"
-  to = "/dashboard/moderate/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://admin.chefupkz.netlify.app"
-  to = "/dashboard/moderate/jobs"
-  status = 200
-  force = true
+# Поддомен admin обрабатывается через middleware
