@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gilroy font через CDN */
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 24.6 95% 53.1%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .gradient-dark-to-white {
+    background: linear-gradient(180deg, #0F172A 0%, #FFFFFF 60%);
+  }
+  
+  .fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Стиль Apple/Linear - мягкие тени */
+  .card-soft-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .card-soft-shadow-hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Топовое совпадение - мягкое свечение */
+  .top-match-glow {
+    position: relative;
+    background: white;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(249, 115, 22, 0.15), 0 0 40px rgba(249, 115, 22, 0.1);
+  }
+
+  .top-match-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.05));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .top-match-glow:hover::before {
+    opacity: 1;
+  }
+
+  /* Модальные окна - глубокие тени */
+  .modal-shadow {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Кнопки - микро-тени */
+  .button-shadow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .button-shadow:active {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.05);
+    transform: translateY(1px);
+  }
+
+  /* Dropdown меню */
+  .dropdown-shadow {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Микроанимации */
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.4s ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  /* Мобильные улучшения */
+  @media (max-width: 768px) {
+    .card-soft-shadow {
+      border-radius: 1rem;
+    }
+
+    .card-hover:hover {
+      transform: none;
+    }
+  }
+
+  /* Safe area для мобильных устройств */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  @keyframes glow {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+  }
+  
+  .orange-glow {
+    animation: glow 4s ease-in-out infinite;
+  }
+  
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 0.2;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+  }
+  
+  .glow-pulse {
+    animation: glow-pulse 6s ease-in-out infinite;
+  }
+  
+  .profession-card {
+    transition: all 0.3s ease;
+  }
+  
+  .profession-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(249, 115, 22, 0.15);
+  }
+}
+

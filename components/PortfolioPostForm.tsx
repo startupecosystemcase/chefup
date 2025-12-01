@@ -1,0 +1,262 @@
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { Image as ImageIcon, Video, Link as LinkIcon, X, Plus } from 'lucide-react'
+import type { PortfolioPost } from '@/types/portfolio.types'
+
+interface PortfolioPostFormProps {
+  onSubmit: (post: Omit<PortfolioPost, 'id' | 'createdAt'>) => void
+  onCancel?: () => void
+  initialData?: Partial<PortfolioPost>
+}
+
+export function PortfolioPostForm({ onSubmit, onCancel, initialData }: PortfolioPostFormProps) {
+  const [title, setTitle] = useState(initialData?.title || '')
+  const [text, setText] = useState(initialData?.text || '')
+  const [images, setImages] = useState<string[]>(initialData?.images || [])
+  const [videos, setVideos] = useState<string[]>(initialData?.videos || [])
+  const [links, setLinks] = useState<Array<{ url: string; title: string; description?: string }>>(
+    initialData?.links || []
+  )
+  const [newVideoUrl, setNewVideoUrl] = useState('')
+  const [newLink, setNewLink] = useState({ url: '', title: '', description: '' })
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && images.length < 20) {
+      const newImages: string[] = []
+      Array.from(files)
+        .slice(0, 20 - images.length)
+        .forEach((file) => {
+          const reader = new FileReader()
+          reader.onload = (event) => {
+            if (event.target?.result) {
+              newImages.push(event.target.result as string)
+              if (newImages.length === Math.min(files.length, 20 - images.length)) {
+                setImages([...images, ...newImages])
+              }
+            }
+          }
+          reader.readAsDataURL(file)
+        })
+    }
+  }
+
+  const removeImage = (index: number) => {
+    setImages(images.filter((_, i) => i !== index))
+  }
+
+  const addVideo = () => {
+    if (newVideoUrl.trim()) {
+      setVideos([...videos, newVideoUrl.trim()])
+      setNewVideoUrl('')
+    }
+  }
+
+  const removeVideo = (index: number) => {
+    setVideos(videos.filter((_, i) => i !== index))
+  }
+
+  const addLink = () => {
+    if (newLink.url.trim() && newLink.title.trim()) {
+      setLinks([...links, { ...newLink }])
+      setNewLink({ url: '', title: '', description: '' })
+    }
+  }
+
+  const removeLink = (index: number) => {
+    setLinks(links.filter((_, i) => i !== index))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (title && text) {
+      onSubmit({
+        title,
+        text,
+        images,
+        videos: videos.length > 0 ? videos : undefined,
+        links: links.length > 0 ? links : undefined,
+      })
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <Label htmlFor="title">Заголовок *</Label>
+        <Input
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Введите заголовок"
+          required
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="text">Текст *</Label>
+        <Textarea
+          id="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Опишите ваш пост"
+          className="min-h-[120px]"
+          required
+        />
+      </div>
+
+      {/* Фотографии */}
+      <div>
+        <Label>Фотографии ({images.length}/20)</Label>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleImageUpload}
+          className="hidden"
+          id="image-upload"
+          disabled={images.length >= 20}
+        />
+        <label htmlFor="image-upload">
+          <Button type="button" variant="outline" asChild disabled={images.length >= 20}>
+            <span>
+              <ImageIcon className="w-4 h-4 mr-2" />
+              Добавить фото
+            </span>
+          </Button>
+        </label>
+        {images.length > 0 && (
+          <div className="grid grid-cols-4 gap-2 mt-4">
+            {images.map((img, index) => (
+              <div key={index} className="relative group">
+                <img
+                  src={img}
+                  alt={`Upload ${index + 1}`}
+                  className="w-full h-24 object-cover rounded-md"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute top-1 right-1 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Видео */}
+      <div>
+        <Label>Видео (YouTube, Vimeo и т.д.)</Label>
+        <div className="flex gap-2">
+          <Input
+            value={newVideoUrl}
+            onChange={(e) => setNewVideoUrl(e.target.value)}
+            placeholder="https://youtube.com/watch?v=..."
+            type="url"
+          />
+          <Button type="button" variant="outline" onClick={addVideo}>
+            <Plus className="w-4 h-4 mr-2" />
+            Добавить
+          </Button>
+        </div>
+        {videos.length > 0 && (
+          <div className="space-y-2 mt-4">
+            {videos.map((video, index) => (
+              <div key={index} className="flex items-center justify-between p-2 border rounded-md">
+                <span className="text-sm truncate flex-1">{video}</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeVideo(index)}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Ссылки */}
+      <div>
+        <Label>Ссылки</Label>
+        <div className="space-y-2">
+          <Input
+            value={newLink.url}
+            onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
+            placeholder="URL"
+            type="url"
+          />
+          <Input
+            value={newLink.title}
+            onChange={(e) => setNewLink({ ...newLink, title: e.target.value })}
+            placeholder="Название ссылки"
+          />
+          <Textarea
+            value={newLink.description}
+            onChange={(e) => setNewLink({ ...newLink, description: e.target.value })}
+            placeholder="Описание (необязательно)"
+            className="min-h-[60px]"
+          />
+          <Button type="button" variant="outline" onClick={addLink}>
+            <LinkIcon className="w-4 h-4 mr-2" />
+            Добавить ссылку
+          </Button>
+        </div>
+        {links.length > 0 && (
+          <div className="space-y-2 mt-4">
+            {links.map((link, index) => (
+              <div key={index} className="p-3 border rounded-md">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="font-medium">{link.title}</p>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-primary hover:underline"
+                    >
+                      {link.url}
+                    </a>
+                    {link.description && (
+                      <p className="text-sm text-muted-foreground mt-1">{link.description}</p>
+                    )}
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeLink(index)}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="flex gap-4">
+        {onCancel && (
+          <Button type="button" variant="outline" onClick={onCancel} className="flex-1">
+            Отмена
+          </Button>
+        )}
+        <Button type="submit" className="flex-1">
+          Опубликовать
+        </Button>
+      </div>
+    </form>
+  )
+}
+
