@@ -98,6 +98,18 @@ export function OnboardingWizard() {
   const { formData, setFormData } = useOnboardingStore()
   const authPhone = useAuthStore((state) => state.phone)
 
+  // Проверяем параметр step из URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const stepParam = params.get('step')
+    if (stepParam) {
+      const step = parseInt(stepParam, 10)
+      if (step >= 1 && step <= TOTAL_STEPS) {
+        setCurrentStep(step)
+      }
+    }
+  }, [])
+
   const form = useForm<OnboardingFormData>({
     resolver: zodResolver(onboardingSchema),
     defaultValues: {

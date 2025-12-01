@@ -229,45 +229,6 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
         </CardContent>
       </Card>
 
-      {/* Рекомендации по улучшению */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
-            Рекомендации по улучшению
-          </CardTitle>
-          <CardDescription>Как повысить релевантность вашего профиля</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {analytics.recommendations.map((rec, idx) => (
-              <div
-                key={idx}
-                className={cn(
-                  'p-3 rounded-lg border flex items-start gap-3',
-                  rec.priority === 'high' && 'border-orange-200 bg-orange-50',
-                  rec.priority === 'medium' && 'border-primary/20 bg-primary/5',
-                  rec.priority === 'low' && 'border-muted bg-muted/50'
-                )}
-              >
-                {rec.priority === 'high' ? (
-                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                ) : (
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                )}
-                <div className="flex-1">
-                  <p className="text-sm">{rec.text}</p>
-                  {rec.type === 'course' && (
-                    <Button variant="link" size="sm" className="p-0 h-auto mt-1">
-                      Посмотреть курс →
-                    </Button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Динамика улучшений */}
       <Card>

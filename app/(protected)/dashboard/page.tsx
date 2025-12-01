@@ -383,13 +383,17 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Горячие рекомендации */}
-            <Card className="mb-6">
+          </>
+        )}
+
+        {/* Аналитика профиля и рекомендации (только для соискателей) */}
+        {userRole === 'applicant' && (
+          <div className="mb-6 space-y-6">
+            <ProfileAnalytics formData={formData} />
+            
+            {/* Персональные рекомендации на основе ChefUp AI */}
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                  Горячие рекомендации
-                </CardTitle>
                 <CardDescription>Улучшите свой профиль и получите больше совпадений</CardDescription>
               </CardHeader>
               <CardContent>
@@ -404,6 +408,7 @@ export default function DashboardPage() {
                       action: {
                         label: 'Добавить навыки',
                         onClick: () => router.push('/onboarding'),
+                        onboardingStep: 3, // Шаг 3 - Специализация и навыки
                       },
                     },
                     {
@@ -414,6 +419,7 @@ export default function DashboardPage() {
                       action: {
                         label: 'Заполнить',
                         onClick: () => router.push('/onboarding'),
+                        onboardingStep: 5, // Шаг 5 - Финал и о себе
                       },
                     },
                     {
@@ -426,17 +432,22 @@ export default function DashboardPage() {
                         onClick: () => setIsAvatarDialogOpen(true),
                       },
                     },
+                    {
+                      id: 'tip4',
+                      type: 'recommendation',
+                      title: 'Добавьте сертификат HACCP',
+                      description: 'Сертификаты повышают вашу релевантность для работодателей',
+                      impact: 'Повысит релевантность на 15%',
+                      action: {
+                        label: 'Добавить сертификат',
+                        onClick: () => router.push('/onboarding'),
+                        onboardingStep: 3, // Шаг 3 - Специализация и навыки
+                      },
+                    },
                   ]}
                 />
               </CardContent>
             </Card>
-          </>
-        )}
-
-        {/* Аналитика профиля (только для соискателей) */}
-        {userRole === 'applicant' && (
-          <div className="mb-6">
-            <ProfileAnalytics formData={formData} />
           </div>
         )}
 
