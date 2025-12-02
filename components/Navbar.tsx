@@ -63,11 +63,10 @@ export function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-1.5 md:gap-4 h-auto py-1.5 md:py-2">
-                  <Avatar className="h-7 w-7 md:h-8 md:w-8">
+                  <Avatar className="h-7 w-7 md:h-8 md:w-8 ring-2 ring-[#F97316]">
                     <AvatarImage src={formData.avatarUrl} />
-                    <AvatarFallback className="text-xs md:text-sm">
-                      {formData.firstName?.[0] || 'U'}
-                      {formData.lastName?.[0] || ''}
+                    <AvatarFallback className="text-xs md:text-sm bg-[#F97316] text-white">
+                      <User className="w-4 h-4 md:w-5 md:h-5" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden sm:flex flex-col items-start">

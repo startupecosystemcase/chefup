@@ -24,14 +24,43 @@ export function ImageWithSkeleton({
 
   useEffect(() => {
     // Предзагрузка изображения для предотвращения мерцания
+    if (!src || src.includes('YOUR_FILE_ID')) {
+      setError(true)
+      setLoaded(true)
+      return
+    }
+    
     const img = new Image()
+    img.crossOrigin = 'anonymous'
     img.onload = () => {
       setImageSrc(src)
       setTimeout(() => setLoaded(true), 100)
     }
     img.onerror = () => {
-      setError(true)
-      setLoaded(true)
+      // Попробуем альтернативный формат для Google Drive
+      if (src.includes('drive.google.com')) {
+        const fileId = src.match(/id=([^&]+)/)?.[1]
+        if (fileId) {
+          const altSrc = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`
+          const altImg = new Image()
+          altImg.crossOrigin = 'anonymous'
+          altImg.onload = () => {
+            setImageSrc(altSrc)
+            setTimeout(() => setLoaded(true), 100)
+          }
+          altImg.onerror = () => {
+            setError(true)
+            setLoaded(true)
+          }
+          altImg.src = altSrc
+        } else {
+          setError(true)
+          setLoaded(true)
+        }
+      } else {
+        setError(true)
+        setLoaded(true)
+      }
     }
     img.src = src
   }, [src])

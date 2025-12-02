@@ -68,10 +68,10 @@ const moderatorMenuItems = [
 const bottomNavItems = [
   { href: '/dashboard', icon: LayoutDashboard },
   { href: '/dashboard/chat', icon: MessageSquare },
-  { href: '/dashboard', icon: User },
+  { href: '/dashboard/resume', icon: FileText },
 ]
 
-function MobileMenuContent() {
+function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
   const pathname = usePathname()
   const userRole = useAuthStore((state) => state.userRole)
 
@@ -91,27 +91,24 @@ function MobileMenuContent() {
           <Link
             key={item.href}
             href={item.href}
+            onClick={onItemClick}
             className={cn(
-              'relative flex items-center gap-5 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300',
-              'group hover:scale-[1.02] active:scale-[0.98]',
+              'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-300',
               isActive
-                ? 'bg-primary/15 text-primary shadow-lg shadow-primary/10 backdrop-blur-sm'
-                : 'text-muted-foreground hover:bg-white/40 dark:hover:bg-gray-800/40 hover:text-foreground backdrop-blur-sm'
+                ? 'text-primary'
+                : 'text-muted-foreground hover:text-foreground'
             )}
           >
-            {isActive && (
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent" />
-            )}
             <Icon className={cn(
-              'relative z-10 h-5 w-5 transition-all duration-300',
-              isActive && 'scale-110'
+              'h-4 w-4 transition-all duration-300',
+              isActive && 'text-primary'
             )} />
             <span className={cn(
-              'relative z-10 transition-all duration-300',
-              isActive && 'font-semibold'
+              'transition-all duration-300',
+              isActive && 'font-semibold text-primary'
             )}>{item.label}</span>
             {isActive && (
-              <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/50" />
+              <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary ml-auto" />
             )}
           </Link>
         )
@@ -139,7 +136,9 @@ export function MobileBottomNav() {
         <div className="relative flex items-center justify-around h-16 px-4">
           {bottomNavItems.map((item, index) => {
             const Icon = item.icon
-            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href + '/'))
+            const isActive = item.href === '/dashboard' 
+              ? pathname === '/dashboard' 
+              : pathname === item.href || pathname?.startsWith(item.href + '/')
             
             return (
               <Link
@@ -179,12 +178,9 @@ export function MobileBottomNav() {
                 <Menu className="w-6 h-6" />
               </button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-white/20 dark:border-gray-700/20">
-              <SheetHeader className="p-6 border-b border-white/20 dark:border-gray-700/20">
-                <SheetTitle className="text-left">Меню</SheetTitle>
-              </SheetHeader>
+            <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0 bg-white backdrop-blur-xl border-r border-white/20 dark:border-gray-700/20">
               <div className="p-4 overflow-y-auto max-h-[calc(100vh-80px)]">
-                <MobileMenuContent />
+                <MobileMenuContent onItemClick={() => setIsMenuOpen(false)} />
               </div>
             </SheetContent>
           </Sheet>

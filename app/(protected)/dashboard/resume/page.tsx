@@ -20,7 +20,7 @@ import {
   venueFormats,
   salaryRanges,
 } from '@/lib/data'
-import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign } from 'lucide-react'
+import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 export default function ResumePage() {
@@ -56,21 +56,21 @@ export default function ResumePage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
-      <div className="mx-auto max-w-4xl">
-        <div className="mb-8 md:mb-8 flex items-center justify-between">
+    <div className="p-4 md:p-6 lg:p-8 w-full">
+      <div className="mx-auto max-w-5xl w-full">
+        <div className="mb-8 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold mb-2">Моё резюме</h1>
             <p className="text-muted-foreground">
               Автоматически сформировано на основе вашей анкеты
             </p>
           </div>
-          <div className="flex gap-4">
-            <Button variant="outline" onClick={handleShareResume}>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <Button variant="outline" onClick={handleShareResume} className="w-full sm:w-auto">
               <Share2 className="w-4 h-4 mr-2" />
               Поделиться
             </Button>
-            <Button onClick={handleDownloadPDF}>
+            <Button onClick={handleDownloadPDF} className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Скачать PDF
             </Button>
@@ -118,9 +118,14 @@ export default function ResumePage() {
         {(formData.phone || formData.email) && (
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4">
-                <FileText className="w-5 h-5" />
-                Контактная информация
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <FileText className="w-5 h-5" />
+                  Контактная информация
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Pencil className="w-4 h-4" />
+                </Button>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -146,9 +151,14 @@ export default function ResumePage() {
         {(formData.experience || formData.desiredPosition || formData.currentPosition || formData.rank) && (
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4">
-                <Briefcase className="w-5 h-5" />
-                Опыт работы
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Briefcase className="w-5 h-5" />
+                  Опыт работы
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Pencil className="w-4 h-4" />
+                </Button>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -183,9 +193,14 @@ export default function ResumePage() {
         {formData.education && (
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4">
-                <GraduationCap className="w-5 h-5" />
-                Образование
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <GraduationCap className="w-5 h-5" />
+                  Образование
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Pencil className="w-4 h-4" />
+                </Button>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -198,9 +213,14 @@ export default function ResumePage() {
         {formData.cuisines && formData.cuisines.length > 0 && (
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4">
-                <Award className="w-5 h-5" />
-                Специализация
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Award className="w-5 h-5" />
+                  Специализация
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Pencil className="w-4 h-4" />
+                </Button>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -276,17 +296,18 @@ export default function ResumePage() {
               <CardTitle>О себе</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground whitespace-pre-wrap">{formData.about}</p>
+              <p className="text-muted-foreground whitespace-pre-wrap break-words">{formData.about}</p>
             </CardContent>
           </Card>
         )}
 
         {/* Действия */}
-        <div className="flex gap-4">
-          <Button onClick={() => router.push('/onboarding')} variant="outline" className="flex-1">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button onClick={() => router.push('/onboarding')} variant="outline" className="flex-1 text-sm">
+            <Pencil className="w-4 h-4 mr-2" />
             Редактировать анкету
           </Button>
-          <Button onClick={handleShareResume} className="flex-1">
+          <Button onClick={handleShareResume} className="flex-1 text-sm">
             <Share2 className="w-4 h-4 mr-2" />
             Поделиться резюме
           </Button>

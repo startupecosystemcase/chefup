@@ -100,10 +100,13 @@ export default function PracticePage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
-      <div className="mx-auto max-w-6xl">
+    <div className="p-4 md:p-6 lg:p-8 w-full">
+      <div className="mx-auto max-w-7xl w-full">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Практика и обучение</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-3">
+            <BookOpen className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+            Практика и обучение
+          </h1>
           <p className="text-muted-foreground">
             Доступ к тренингам, мастер-классам, курсам и образовательным программам
           </p>
@@ -113,19 +116,19 @@ export default function PracticePage() {
         <Card className="mb-8">
           <CardContent className="pt-6">
             <div className="space-y-4">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="relative flex-1">
+              <div className="flex flex-col md:flex-row gap-3 md:gap-4">
+                <div className="relative flex-1 min-w-0">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Поиск по названию, описанию или автору"
-                    className="pl-9"
+                    placeholder="Поиск по названию"
+                    className="pl-9 w-full"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <Select value={selectedType} onValueChange={(value) => setSelectedType(value as EducationType | 'all')}>
-                  <SelectTrigger className="w-full md:w-[200px]">
-                    <SelectValue placeholder="Тип обучения" />
+                  <SelectTrigger className="w-full md:w-[180px]">
+                    <SelectValue placeholder="Тип" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Все типы</SelectItem>
@@ -136,7 +139,7 @@ export default function PracticePage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-3 md:gap-4 flex-wrap">
                 <div className="flex items-center gap-4">
                   <Filter className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm font-medium">Цена:</span>

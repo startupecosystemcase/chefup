@@ -10,8 +10,8 @@ export function Footer() {
           {/* Логотип и описание */}
           <div className="md:col-span-2">
             <div className="mb-6">
-              <span className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight">
-                <span className="text-white">chef</span>
+              <span className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight" style={{ fontFamily: 'Gilroy, sans-serif' }}>
+                <span className="text-white">Chef</span>
                 <span className="text-[#F97316]">Up</span>
               </span>
             </div>

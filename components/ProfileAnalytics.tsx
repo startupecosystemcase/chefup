@@ -75,7 +75,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
   return (
     <div className="space-y-8">
       {/* Средняя зарплата по должности */}
-      <Card className="glass">
+      <Card className="glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)] border-t border-gray-200/50">
         <CardHeader>
           <CardTitle className="flex items-center gap-4">
             <DollarSign className="w-5 h-5 text-primary" />
@@ -84,7 +84,11 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
           <CardDescription>Сравнение ваших ожиданий с рынком</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-4">
+          <div className="text-center p-4 bg-white border border-border/50 rounded-lg">
+            <div className="text-3xl font-bold text-primary mb-1">{analytics.salary.average.toLocaleString()} ₸</div>
+            <div className="text-xs text-muted-foreground">Средняя зарплата</div>
+          </div>
+          <div className="space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Минимум: {analytics.salary.min.toLocaleString()} ₸</span>
               <span className="text-muted-foreground">Максимум: {analytics.salary.max.toLocaleString()} ₸</span>
@@ -105,9 +109,6 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
               </div>
             </div>
             <div className="text-center">
-              <p className="text-sm text-muted-foreground">
-                Средняя зарплата: <span className="font-semibold">{analytics.salary.average.toLocaleString()} ₸</span>
-              </p>
               <Badge variant={salaryStatus.status === 'above' ? 'default' : 'secondary'} className="mt-2">
                 {salaryStatus.text}
               </Badge>
@@ -117,7 +118,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
       </Card>
 
       {/* Индекс востребованности */}
-      <Card>
+      <Card className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)] border-t border-gray-200/50">
         <CardHeader>
           <CardTitle className="flex items-center gap-4">
             <TrendingUp className="w-5 h-5 text-primary" />
@@ -126,16 +127,16 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
           <CardDescription>Общий показатель спроса на вашу должность</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-3xl font-bold text-primary">{analytics.demand.score}%</span>
-              <Badge variant={analytics.demand.trend === 'up' ? 'default' : 'secondary'} className="flex items-center gap-1">
-                {analytics.demand.trend === 'up' && <ArrowUp className="w-3 h-3" />}
-                {analytics.demand.trend === 'down' && <ArrowDown className="w-3 h-3" />}
-                {analytics.demand.trend === 'stable' && <Minus className="w-3 h-3" />}
-                {analytics.demand.trend === 'up' ? 'Растёт' : analytics.demand.trend === 'down' ? 'Падает' : 'Стабильно'}
-              </Badge>
-            </div>
+          <div className="text-center p-4 bg-white border border-border/50 rounded-lg mb-4">
+            <div className="text-3xl font-bold text-primary mb-1">{analytics.demand.score}%</div>
+            <Badge variant={analytics.demand.trend === 'up' ? 'default' : 'secondary'} className="flex items-center gap-1 mx-auto mt-2 w-fit">
+              {analytics.demand.trend === 'up' && <ArrowUp className="w-3 h-3" />}
+              {analytics.demand.trend === 'down' && <ArrowDown className="w-3 h-3" />}
+              {analytics.demand.trend === 'stable' && <Minus className="w-3 h-3" />}
+              {analytics.demand.trend === 'up' ? 'Растёт' : analytics.demand.trend === 'down' ? 'Падает' : 'Стабильно'}
+            </Badge>
+          </div>
+          <div className="space-y-3">
             <Progress value={analytics.demand.score} className="h-3" />
             <p className="text-sm text-muted-foreground">
               Высокий спрос на специалистов вашего профиля на рынке труда

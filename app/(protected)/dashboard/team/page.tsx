@@ -48,8 +48,8 @@ export default function TeamPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
-      <div className="mx-auto max-w-6xl">
+    <div className="p-4 md:p-6 lg:p-8 w-full">
+      <div className="mx-auto max-w-7xl w-full">
         <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold mb-2">Команда</h1>
@@ -121,8 +121,8 @@ export default function TeamPage() {
         {teamMembers.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-8">
-                У вас пока нет участников в команде
+              <p className="text-muted-foreground mb-4 text-lg">
+                У вас пока нет участников в команде 😢
               </p>
               <p className="text-sm text-muted-foreground">
                 Для руководящих должностей наличие команды является преимуществом

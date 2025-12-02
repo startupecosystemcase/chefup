@@ -31,8 +31,8 @@ export function StickyHeader() {
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
         <div className="flex items-center justify-between h-20 md:h-24 lg:h-28">
-          <div className="flex items-center -ml-2 md:-ml-4">
-            <Logo className="h-10 md:h-12 lg:h-14" />
+          <div className="flex items-center justify-start -ml-4 md:-ml-6 lg:-ml-8">
+            <Logo className="h-12 md:h-14 lg:h-16" />
           </div>
           
           <div className="flex items-center gap-3 md:gap-4">
@@ -40,7 +40,7 @@ export function StickyHeader() {
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="h-11 w-11 md:h-12 md:w-12"
+                className="h-11 w-11 md:h-12 md:w-12 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
                 onClick={() => router.push('/dashboard')}
                 aria-label="Профиль"
               >

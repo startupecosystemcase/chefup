@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
-import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles } from 'lucide-react'
+import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
 import { ProfileCompleteness } from '@/components/ProfileCompleteness'
@@ -30,6 +30,7 @@ import {
   cuisines,
   goals,
 } from '@/lib/data'
+import { getRecommendedSkills } from '@/lib/recommendations'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -295,17 +296,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6 md:p-8 lg:p-12">
-      <div className="mx-auto max-w-6xl">
+    <div className="p-4 md:p-6 lg:p-8 w-full">
+      <div className="mx-auto max-w-7xl w-full">
         {/* Header */}
         <div className="mb-8 md:mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="relative group">
               <Avatar className="h-20 w-20 md:h-24 md:w-24 ring-4 ring-primary/10 shadow-lg">
                 <AvatarImage src={formData.avatarUrl} alt={`${formData.firstName} ${formData.lastName}`} />
-                <AvatarFallback className="text-xl md:text-2xl bg-gradient-to-br from-primary/20 to-[#FB923C]/20">
-                  {formData.firstName?.[0] || 'U'}
-                  {formData.lastName?.[0] || ''}
+                <AvatarFallback className="bg-gradient-to-br from-primary/20 to-[#FB923C]/20 flex items-center justify-center">
+                  <ChefHat className="w-10 h-10 md:w-12 md:h-12 text-[#F97316]" />
                 </AvatarFallback>
               </Avatar>
               <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>
@@ -364,7 +364,9 @@ export default function DashboardPage() {
                   PRO
                 </>
               ) : (
-                'BASIC'
+                <>
+                  Статус аккаунта: BASIC
+                </>
               )}
             </Badge>
           </div>
@@ -373,7 +375,7 @@ export default function DashboardPage() {
         {/* Прогресс заполненности профиля */}
         {userRole === 'applicant' && (
           <>
-            <Card className="mb-8 md:mb-12 glass">
+            <Card className="mb-8 md:mb-12 glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)]">
               <CardHeader>
                 <CardTitle>Заполненность профиля</CardTitle>
                 <CardDescription>Чем больше информации, тем выше ваши шансы найти работу</CardDescription>
@@ -388,197 +390,89 @@ export default function DashboardPage() {
 
         {/* Аналитика профиля и рекомендации (только для соискателей) */}
         {userRole === 'applicant' && (
-          <div className="mb-8 md:mb-12 space-y-8 md:space-y-10">
+          <div className="mb-8 md:mb-12 space-y-6 md:space-y-8">
             <ProfileAnalytics formData={formData} />
             
             {/* Персональные рекомендации на основе ChefUp AI */}
-            <Card className="glass">
+            <Card className="glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)]">
               <CardHeader>
                 <CardDescription className="text-base">Улучшите свой профиль и получите больше совпадений</CardDescription>
               </CardHeader>
               <CardContent>
                 <ProfileTips
-                  tips={[
-                    {
-                      id: 'tip1',
-                      type: 'hot',
-                      title: 'Добавьте навыки "Пицца-овен" и "Тестомес"',
-                      description: 'Эти навыки часто требуются в вакансиях, подходящих вашему профилю',
-                      impact: 'Увеличит количество совпадений на 34%',
-                      action: {
-                        label: 'Добавить навыки',
-                        onClick: () => router.push('/onboarding'),
-                        onboardingStep: 3, // Шаг 3 - Специализация и навыки
-                      },
-                    },
-                    {
-                      id: 'tip2',
-                      type: 'recommendation',
-                      title: 'Заполните раздел "О себе"',
-                      description: 'Расскажите о себе работодателям - это повысит ваши шансы',
-                      action: {
-                        label: 'Заполнить',
-                        onClick: () => router.push('/onboarding'),
-                        onboardingStep: 5, // Шаг 5 - Финал и о себе
-                      },
-                    },
-                    {
-                      id: 'tip3',
-                      type: 'recommendation',
-                      title: 'Добавьте фото профиля',
-                      description: 'Профили с фото получают в 2 раза больше просмотров',
-                      action: {
-                        label: 'Добавить фото',
-                        onClick: () => setIsAvatarDialogOpen(true),
-                      },
-                    },
-                    {
-                      id: 'tip4',
-                      type: 'recommendation',
-                      title: 'Добавьте сертификат HACCP',
-                      description: 'Сертификаты повышают вашу релевантность для работодателей',
-                      impact: 'Повысит релевантность на 15%',
-                      action: {
-                        label: 'Добавить сертификат',
-                        onClick: () => router.push('/onboarding'),
-                        onboardingStep: 3, // Шаг 3 - Специализация и навыки
-                      },
-                    },
-                  ]}
+                  tips={(() => {
+                    const currentPosition = formData.desiredPosition || formData.currentPosition
+                    const recommendedSkills = getRecommendedSkills(currentPosition, formData.additionalSkills || [])
+                    const tips: any[] = []
+                    
+                    // Рекомендации по навыкам на основе профессии
+                    if (recommendedSkills.length > 0) {
+                      recommendedSkills.slice(0, 3).forEach((skill, idx) => {
+                        tips.push({
+                          id: `skill-${idx}`,
+                          type: 'hot' as const,
+                          title: `Добавьте навык "${skill}"`,
+                          description: 'Этот навык часто требуется для вашей профессии и повысит вашу релевантность',
+                          impact: 'Увеличит количество совпадений на 20-30%',
+                          action: {
+                            label: 'Добавить навык',
+                            onClick: () => router.push('/onboarding?step=3'),
+                            onboardingStep: 3,
+                          },
+                        })
+                      })
+                    }
+                    
+                    // Остальные рекомендации
+                    if (!formData.about) {
+                      tips.push({
+                        id: 'about',
+                        type: 'recommendation' as const,
+                        title: 'Заполните раздел "О себе"',
+                        description: 'Расскажите о себе работодателям - это повысит ваши шансы',
+                        action: {
+                          label: 'Заполнить',
+                          onClick: () => router.push('/onboarding?step=5'),
+                          onboardingStep: 5,
+                        },
+                      })
+                    }
+                    
+                    if (!formData.avatarUrl) {
+                      tips.push({
+                        id: 'avatar',
+                        type: 'recommendation' as const,
+                        title: 'Добавьте фото профиля',
+                        description: 'Профили с фото получают в 2 раза больше просмотров',
+                        action: {
+                          label: 'Добавить фото',
+                          onClick: () => setIsAvatarDialogOpen(true),
+                        },
+                      })
+                    }
+                    
+                    if (!formData.certificates || formData.certificates.length === 0) {
+                      tips.push({
+                        id: 'certificate',
+                        type: 'recommendation' as const,
+                        title: 'Добавьте сертификаты',
+                        description: 'Сертификаты повышают вашу релевантность для работодателей',
+                        impact: 'Повысит релевантность на 15%',
+                        action: {
+                          label: 'Добавить сертификат',
+                          onClick: () => router.push('/onboarding?step=3'),
+                          onboardingStep: 3,
+                        },
+                      })
+                    }
+                    
+                    return tips.slice(0, 5) // Максимум 5 рекомендаций
+                  })()}
                 />
               </CardContent>
             </Card>
           </div>
         )}
-
-          {/* Моя анкета */}
-          <Card className="mb-8">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Моя анкета</CardTitle>
-                  <CardDescription>Ваши данные и предпочтения</CardDescription>
-                </div>
-                <Button variant="outline" onClick={() => router.push('/onboarding')}>
-                  Редактировать
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h3 className="mb-2 font-semibold">Личная информация</h3>
-                <div className="grid gap-4 text-sm">
-                  <div>
-                    <span className="text-muted-foreground">Город: </span>
-                    {formData.city && getLabel(formData.city, cities)}
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Возраст: </span>
-                    {formData.age && getLabel(formData.age, ageRanges)}
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              <div>
-                <h3 className="mb-2 font-semibold">Опыт и образование</h3>
-                <div className="grid gap-4 text-sm">
-                  <div>
-                    <span className="text-muted-foreground">Опыт: </span>
-                    {formData.experience && getLabel(formData.experience, experienceRanges)}
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Позиция: </span>
-                    {(formData.desiredPosition && getLabel(formData.desiredPosition, positions)) || 
-                     (formData.currentPosition && getLabel(formData.currentPosition, positions))}
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Образование: </span>
-                    {formData.education && getLabel(formData.education, educationLevels)}
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Разряд: </span>
-                    {formData.rank && getLabel(formData.rank, ranks)}
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              {formData.cuisines && formData.cuisines.length > 0 && (
-                <>
-                  <Separator />
-                  <div>
-                    <h3 className="mb-2 font-semibold">Кухни</h3>
-                    <div className="flex flex-wrap gap-4">
-                      {formData.cuisines.map((cuisine) => (
-                        <Badge key={cuisine} variant="secondary">
-                          {getLabel(cuisine, cuisines)}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
-
-              <Separator />
-
-              <div>
-                <h3 className="mb-2 font-semibold">Навыки</h3>
-                {((formData.certificates && formData.certificates.length > 0) || 
-                  (formData.additionalSkills && formData.additionalSkills.length > 0)) ? (
-                  <div className="space-y-4">
-                    {formData.additionalSkills && formData.additionalSkills.length > 0 && (
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-2">Дополнительные навыки</p>
-                        <SkillsProgress
-                          skills={formData.additionalSkills.map((skill) => ({
-                            name: skill,
-                            level: 75, // Mock уровень, в реальном приложении будет из данных
-                          }))}
-                        />
-                      </div>
-                    )}
-                    {formData.certificates && formData.certificates.length > 0 && (
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-2">Сертификаты</p>
-                        <div className="flex flex-wrap gap-4">
-                          {formData.certificates.map((cert, idx) => (
-                            <Badge key={idx} variant="secondary">
-                              {cert}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">Навыки не указаны</p>
-                )}
-              </div>
-
-              {formData.goals && formData.goals.length > 0 && (
-                <div>
-                  <h3 className="mb-2 font-semibold">Цели</h3>
-                  <div className="flex flex-wrap gap-4">
-                    {formData.goals.map((goal) => (
-                      <Badge key={goal} variant="outline">
-                        {getLabel(goal, goals)}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {formData.about && (
-                <div>
-                  <h3 className="mb-2 font-semibold">О себе</h3>
-                  <p className="text-sm text-muted-foreground">{formData.about}</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
 
           {/* Вакансии */}
           <Card className="mb-8">
@@ -599,37 +493,33 @@ export default function DashboardPage() {
                 <CardTitle>Микроблог / Портфолио</CardTitle>
                 <CardDescription>Публикуйте свои работы, достижения и делитесь опытом</CardDescription>
               </div>
-              <div className="flex gap-4">
+              {posts.length > 0 && (
                 <Dialog open={isPortfolioDialogOpen} onOpenChange={(open) => {
                   setIsPortfolioDialogOpen(open)
                   if (!open) setEditingPost(null)
                 }}>
                   <DialogTrigger asChild>
-                    <Button>
-                      <Plus className="w-4 h-4 mr-2" />
-                      {editingPost ? 'Редактировать пост' : 'Новый пост'}
+                    <Button variant="outline" size="icon" className="h-9 w-9">
+                      <Plus className="w-4 h-4" />
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle>
-                        {editingPost ? 'Редактировать пост' : 'Новый пост в портфолио'}
-                      </DialogTitle>
+                      <DialogTitle>Новый пост в портфолио</DialogTitle>
                       <DialogDescription>
                         Добавьте заголовок, описание, фотографии, видео и ссылки
                       </DialogDescription>
                     </DialogHeader>
                     <PortfolioPostForm
-                      onSubmit={editingPost ? handleUpdatePortfolioPost : handleAddPortfolioPost}
+                      onSubmit={handleAddPortfolioPost}
                       onCancel={() => {
                         setIsPortfolioDialogOpen(false)
                         setEditingPost(null)
                       }}
-                      initialData={editingPost || undefined}
                     />
                   </DialogContent>
                 </Dialog>
-              </div>
+              )}
             </div>
           </CardHeader>
           <CardContent>
@@ -638,10 +528,32 @@ export default function DashboardPage() {
                 <p className="text-lg text-muted-foreground mb-6">
                   У вас пока нет постов в микроблоге. Добавьте первый пост!
                 </p>
-                <Button onClick={() => setIsPortfolioDialogOpen(true)} size="lg">
-                  <Plus className="w-5 h-5 mr-2" />
-                  Создать первый пост
-                </Button>
+                <Dialog open={isPortfolioDialogOpen} onOpenChange={(open) => {
+                  setIsPortfolioDialogOpen(open)
+                  if (!open) setEditingPost(null)
+                }}>
+                  <DialogTrigger asChild>
+                    <Button size="lg">
+                      <Plus className="w-5 h-5 mr-2" />
+                      Создать первый пост
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Новый пост в портфолио</DialogTitle>
+                      <DialogDescription>
+                        Добавьте заголовок, описание, фотографии, видео и ссылки
+                      </DialogDescription>
+                    </DialogHeader>
+                    <PortfolioPostForm
+                      onSubmit={handleAddPortfolioPost}
+                      onCancel={() => {
+                        setIsPortfolioDialogOpen(false)
+                        setEditingPost(null)
+                      }}
+                    />
+                  </DialogContent>
+                </Dialog>
               </div>
             ) : (
               <div className="space-y-8">
@@ -845,11 +757,15 @@ export default function DashboardPage() {
         {/* Поделиться профилем */}
         <Card>
           <CardHeader>
-            <CardTitle>Поделиться профилем</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Share2 className="w-5 h-5 text-primary" />
+              Поделиться профилем
+            </CardTitle>
             <CardDescription>Поделитесь ссылкой на ваш профиль</CardDescription>
           </CardHeader>
           <CardContent>
             <Button onClick={handleShareProfile} className="w-full sm:w-auto">
+              <Share2 className="w-4 h-4 mr-2" />
               Копировать ссылку
             </Button>
           </CardContent>

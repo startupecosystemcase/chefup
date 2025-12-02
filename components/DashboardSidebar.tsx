@@ -88,12 +88,9 @@ export function DashboardSidebar() {
   }
 
   return (
-    <aside className="hidden md:block w-64 relative">
-      {/* Liquid Glass Background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/50 dark:from-gray-900/70 dark:via-gray-900/60 dark:to-gray-900/50 backdrop-blur-2xl border-r border-white/40 dark:border-gray-700/40 shadow-lg" />
-      
+    <aside className="hidden md:block w-64 relative bg-white border-r border-gray-200/50">
       {/* Content */}
-      <nav className="relative p-6 md:p-8 space-y-2">
+      <nav className="relative p-4 space-y-1">
         {menuItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
@@ -102,30 +99,24 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'relative flex items-center gap-5 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm font-medium transition-all duration-300',
-                'group hover:scale-[1.02] active:scale-[0.98]',
+                'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-300',
                 isActive
-                  ? 'bg-primary/15 text-primary shadow-lg shadow-primary/10 backdrop-blur-sm'
-                  : 'text-muted-foreground hover:bg-white/40 dark:hover:bg-gray-800/40 hover:text-foreground backdrop-blur-sm'
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              {/* Glass effect on active */}
-              {isActive && (
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent" />
-              )}
-              
               <Icon className={cn(
-                'relative z-10 h-4 w-4 md:h-5 md:w-5 transition-all duration-300',
-                isActive && 'scale-110'
+                'h-4 w-4 transition-all duration-300',
+                isActive && 'text-primary'
               )} />
               <span className={cn(
-                'relative z-10 text-xs md:text-sm transition-all duration-300',
-                isActive && 'font-semibold'
+                'transition-all duration-300',
+                isActive && 'font-semibold text-primary'
               )}>{item.label}</span>
               
               {/* Active indicator */}
               {isActive && (
-                <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/50" />
+                <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary ml-auto" />
               )}
             </Link>
           )
