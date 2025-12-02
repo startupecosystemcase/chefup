@@ -193,7 +193,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8 max-w-4xl mx-auto"
+                className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 max-w-4xl mx-auto"
               >
                 {[
                   { value: 14200, suffix: '+', label: 'Специалистов' },
@@ -208,9 +208,17 @@ export default function Home() {
                     transition={{ delay: 0.6 + idx * 0.1 }}
                     className="text-center"
                   >
-                    <div className="text-5xl md:text-7xl lg:text-8xl font-black text-[#0F172A] mb-2 leading-none">
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.6 + idx * 0.1 + 0.3 }}
+                      className="text-6xl md:text-7xl lg:text-8xl font-black text-[#0F172A] mb-3 leading-none"
+                      style={{
+                        textShadow: '0 0 20px rgba(249, 115, 22, 0.3)',
+                      }}
+                    >
                       <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                    </div>
+                    </motion.div>
                     <p className="text-sm md:text-base text-[#64748B] font-medium">{stat.label}</p>
                   </motion.div>
                 ))}
@@ -610,8 +618,9 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20, rotateY: -15 }}
                     whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
                     transition={{ delay: idx * 0.1 }}
-                    whileHover={{ rotateY: 5, scale: 1.02, z: 50 }}
-                    className="group perspective-1000"
+                    whileHover={{ rotateY: 5, scale: 1.02 }}
+                    className="group"
+                    style={{ perspective: 1000 }}
                   >
                     <Card className="h-full border-2 border-slate-700 hover:border-[#F97316] transition-all bg-slate-800/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl">
                       <CardContent className="p-5 md:p-6">
