@@ -23,8 +23,8 @@ export const imagePaths = {
     batumi: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_BATUMI',
   },
   team: {
-    muhammad: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_MUHAMMAD',
-    savva: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_SAVVA',
+    muhammad: 'https://drive.google.com/uc?export=view&id=1BEl4GLzVTTFA6tsBmTdZ0VYw3_2gX024',
+    savva: 'https://drive.google.com/uc?export=view&id=1Rr3dw1yZTiIhCYB4fe4I7lq6Zd7ijMrL',
   },
   partners: {
     vkusvill: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_VKUSVILL',
