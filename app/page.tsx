@@ -52,6 +52,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { ImageWithSkeleton } from '@/components/ImageWithSkeleton'
+import { imagePaths } from '@/lib/images'
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -86,15 +87,15 @@ export default function Home() {
   }
 
   const cities = [
-    { name: 'Астана', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Алматы', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Ташкент', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Бишкек', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Баку', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Тбилиси', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Шымкент', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Актобе', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
-    { name: 'Батуми', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
+    { name: 'Астана', image: imagePaths.cities.astana },
+    { name: 'Алматы', image: imagePaths.cities.almaty },
+    { name: 'Ташкент', image: imagePaths.cities.tashkent },
+    { name: 'Бишкек', image: imagePaths.cities.bishkek },
+    { name: 'Баку', image: imagePaths.cities.baku },
+    { name: 'Тбилиси', image: imagePaths.cities.tbilisi },
+    { name: 'Шымкент', image: imagePaths.cities.shymkent },
+    { name: 'Актобе', image: imagePaths.cities.aktobe },
+    { name: 'Батуми', image: imagePaths.cities.batumi },
   ]
   
   const teamMembers = [
@@ -102,15 +103,26 @@ export default function Home() {
       name: 'Мухаммад Магомедов',
       role: 'Основатель',
       description: 'Опытный шеф-повар, более 10 лет в общепите. Основатель Footage. Один из основателей стартапа Plus Vibe. Сооснователь производства готовой еды в Астане.',
-      image: '/team/muhammad.jpg',
+      image: imagePaths.team.muhammad,
     },
     {
       name: 'Савва Беневский',
       role: 'Фаундер, технический директор',
       description: 'Основатель венчурной студии Benevski (с 2016). Реализовал более 35 технологичных проектов. Председатель экспертного совета CASE — экосистемы инновационного менеджмента Центральной Азии.',
-      image: '/team/savva.jpg',
+      image: imagePaths.team.savva,
     },
   ]
+  
+  const partners = [
+    { name: 'ВкусВилл', logo: imagePaths.partners.vkusvill },
+    { name: 'Choco', logo: imagePaths.partners.choco },
+    { name: 'Рядом', logo: imagePaths.partners.ryadom },
+    { name: 'Яндекс Лавка', logo: imagePaths.partners.yandex },
+    { name: 'Airba Fresh', logo: imagePaths.partners.airba },
+    { name: 'URBO Coffee', logo: imagePaths.partners.urbo },
+  ]
+  
+  const hqImage = imagePaths.hq
 
   return (
     <div className="min-h-screen bg-white">
@@ -225,9 +237,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Ключевые цифры - отдельный блок */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+        {/* Ключевые цифры - отдельный блок с черным космическим фоном */}
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 dark-hero relative overflow-hidden">
+          <div className="absolute inset-0 bg-black" />
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          </div>
+          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
             <div className="max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -236,7 +253,7 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-12 md:mb-16"
               >
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
                   Ключевые цифры
                 </h2>
               </motion.div>
@@ -267,14 +284,14 @@ export default function Home() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.15 + 0.2, duration: 0.5 }}
-                      className="text-6xl md:text-7xl lg:text-8xl font-black text-[#0F172A] mb-4 leading-none"
+                      className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 leading-none"
                       style={{
-                        textShadow: '0 0 30px rgba(249, 115, 22, 0.2)',
+                        textShadow: '0 0 40px rgba(249, 115, 22, 0.5)',
                       }}
                     >
                       <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                     </motion.div>
-                    <p className="text-sm md:text-base text-[#64748B] font-normal">{stat.label}</p>
+                    <p className="text-sm md:text-base text-white/70 font-normal">{stat.label}</p>
                   </motion.div>
                 ))}
               </div>
@@ -282,12 +299,15 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Для кого - темный фон с Liquid Glass */}
-        <FadeUpSection className="py-24 md:py-32 lg:py-40 dark-hero relative overflow-hidden">
-          <div className="absolute inset-0 bg-black backdrop-blur-xl" />
+        {/* Для кого - белый фон с легким оранжевым свечением */}
+        <FadeUpSection className="py-24 md:py-32 lg:py-40 bg-white relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-[#FF7A2E]/5 rounded-full blur-3xl" />
+          </div>
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
                 Для кого
               </h2>
             </div>
@@ -298,17 +318,17 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#F97316]/50 transition-all bg-white shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl">
                   <CardHeader className="pb-4">
                     <motion.div
                       whileHover={{ rotateY: 15, rotateX: 5 }}
                       transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-4"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-4"
                     >
                       <ChefHat className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
                     </motion.div>
-                    <CardTitle className="text-xl md:text-2xl font-semibold text-white">Специалистам</CardTitle>
-                    <CardDescription className="text-sm md:text-base text-white/70">
+                    <CardTitle className="text-xl md:text-2xl font-semibold text-[#0F172A]">Специалистам</CardTitle>
+                    <CardDescription className="text-sm md:text-base text-[#64748B]">
                       Для специалистов сферы HoReCa
                     </CardDescription>
                   </CardHeader>
@@ -327,9 +347,9 @@ export default function Home() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-white/80 font-normal"
+                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] font-normal"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
@@ -353,17 +373,17 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#F97316]/50 transition-all bg-white shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl">
                   <CardHeader className="pb-4">
                     <motion.div
                       whileHover={{ rotateY: 15, rotateX: 5 }}
                       transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-4"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-4"
                     >
                       <Building2 className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
                     </motion.div>
-                    <CardTitle className="text-xl md:text-2xl font-semibold text-white">Компаниям</CardTitle>
-                    <CardDescription className="text-sm md:text-base text-white/70">
+                    <CardTitle className="text-xl md:text-2xl font-semibold text-[#0F172A]">Компаниям</CardTitle>
+                    <CardDescription className="text-sm md:text-base text-[#64748B]">
                       Для ресторанов, кафе, отелей, производств и других компаний
                     </CardDescription>
                   </CardHeader>
@@ -382,9 +402,9 @@ export default function Home() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-white/80 font-normal"
+                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] font-normal"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
@@ -407,11 +427,12 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Возможности для вас */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-black relative overflow-hidden">
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 dark-hero relative overflow-hidden">
+          <div className="absolute inset-0 bg-black" />
           {/* Декоративные элементы */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F97316]/10 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF7A2E]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
           </div>
           
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
@@ -559,26 +580,36 @@ export default function Home() {
                   title: 'Больше не искать работу через знакомых и чаты',
                   description: 'Всё честно, быстро и в одном месте.',
                   icon: CheckCircle2,
+                  iconColor: 'text-green-600',
+                  iconBg: 'bg-green-100',
                 },
                 {
                   title: 'Повар, бариста или официант мог легко перейти из маленького кафе в топовый ресторан или открыть своё дело',
                   description: 'Чтобы каждый имел шанс расти и строить настоящую карьеру.',
                   icon: TrendingUp,
+                  iconColor: 'text-[#F97316]',
+                  iconBg: 'bg-orange-100',
                 },
                 {
                   title: 'Рестораны не мучились месяцами в поисках надежной команды',
                   description: 'Нашли хорошего повара или бариста — и сразу на работу.',
                   icon: Clock,
+                  iconColor: 'text-blue-600',
+                  iconBg: 'bg-blue-100',
                 },
                 {
                   title: 'Люди перестали уезжать из профессии и из страны просто потому что «не видят перспективы»',
                   description: 'Чтобы талант оставался и развивался здесь, у нас дома.',
                   icon: Heart,
+                  iconColor: 'text-pink-600',
+                  iconBg: 'bg-pink-100',
                 },
                 {
                   title: 'У поваров, барменов и шефов появилось своё живое профессиональное сообщество',
                   description: 'Где делятся опытом, помогают друг другу и вместе растут.',
                   icon: Users,
+                  iconColor: 'text-purple-600',
+                  iconBg: 'bg-purple-100',
                 },
               ].map((item, idx) => {
                 const Icon = item.icon
@@ -597,9 +628,9 @@ export default function Home() {
                           initial={{ scale: 0, rotate: -180 }}
                           whileInView={{ scale: 1, rotate: 0 }}
                           transition={{ delay: idx * 0.15 + 0.2, type: 'spring', stiffness: 200 }}
-                          className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gray-100 flex items-center justify-center mb-4 md:mb-6"
+                          className={`w-14 h-14 md:w-16 md:h-16 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 md:mb-6 shadow-sm`}
                         >
-                          <Icon className="w-7 h-7 md:w-8 md:h-8 text-[#0F172A]" />
+                          <Icon className={`w-7 h-7 md:w-8 md:h-8 ${item.iconColor}`} />
                         </motion.div>
                         <h3 className="text-base md:text-lg font-semibold text-[#0F172A] mb-3">{item.title}</h3>
                         <p className="text-sm text-[#64748B] leading-relaxed font-normal">{item.description}</p>
@@ -694,7 +725,7 @@ export default function Home() {
                     className="group"
                     style={{ perspective: '1000px' }}
                   >
-                    <Card className="h-full border-2 border-slate-700 hover:border-[#F97316] transition-all bg-slate-800/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
+                    <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
                       <CardContent className="p-5 md:p-6">
                         <motion.div
                           animate={{
@@ -710,7 +741,7 @@ export default function Home() {
                           <Icon className="w-6 h-6 md:w-7 md:h-7 text-[#F97316]" />
                         </motion.div>
                         <h3 className="text-base md:text-lg font-semibold text-white mb-3">{feature.title}</h3>
-                        <p className="text-sm text-slate-300 leading-relaxed font-normal">{feature.description}</p>
+                        <p className="text-sm text-white/70 leading-relaxed font-normal">{feature.description}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -797,7 +828,7 @@ export default function Home() {
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="relative h-64 md:h-auto bg-[#0a0a0a]">
                     <ImageWithSkeleton
-                      src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+                      src={hqImage}
                       alt="Штаб-квартира ChefUp - Аэросъемка Астаны"
                       className="w-full h-full"
                       aspectRatio="16/9"
@@ -844,14 +875,7 @@ export default function Home() {
               </h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 max-w-6xl mx-auto">
-              {[
-                { name: 'ВкусВилл', logo: null },
-                { name: 'Choco', logo: null },
-                { name: 'Рядом', logo: null },
-                { name: 'Яндекс Лавка', logo: null },
-                { name: 'Airba Fresh', logo: null },
-                { name: 'URBO Coffee', logo: null },
-              ].map((partner, idx) => (
+              {partners.map((partner, idx) => (
                 <motion.div
                   key={partner.name}
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -859,10 +883,16 @@ export default function Home() {
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ delay: idx * 0.1, duration: 0.4 }}
                   whileHover={{ scale: 1.05, y: -4 }}
-                  className="h-24 md:h-28 bg-white rounded-xl flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer border-2 border-gray-200 hover:border-[#F97316]/50 shadow-sm hover:shadow-lg"
+                  className="h-24 md:h-28 bg-white rounded-xl flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer border-2 border-gray-200 hover:border-[#F97316]/50 shadow-sm hover:shadow-lg overflow-hidden"
                 >
                   {partner.logo ? (
-                    <img src={partner.logo} alt={partner.name} className="h-12 md:h-16 object-contain px-4" loading="lazy" />
+                    <ImageWithSkeleton
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="h-12 md:h-16 w-full object-contain px-4"
+                      aspectRatio="4/3"
+                      objectFit="contain"
+                    />
                   ) : (
                     <span className="text-xs md:text-sm font-semibold text-[#64748B] px-3 text-center">{partner.name}</span>
                   )}

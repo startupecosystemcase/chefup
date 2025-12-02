@@ -31,8 +31,8 @@ export function StickyHeader() {
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
         <div className="flex items-center justify-between h-18 md:h-20">
-          <div className="flex items-center">
-            <Logo className="h-8 md:h-9 lg:h-10" />
+          <div className="flex items-center -ml-2 md:-ml-4">
+            <Logo className="h-10 md:h-12 lg:h-14" />
           </div>
           
           <div className="flex items-center gap-3 md:gap-4">

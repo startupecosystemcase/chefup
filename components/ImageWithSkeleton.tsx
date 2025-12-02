@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 
 interface ImageWithSkeletonProps {
@@ -20,6 +20,21 @@ export function ImageWithSkeleton({
 }: ImageWithSkeletonProps) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
+  const [imageSrc, setImageSrc] = useState('')
+
+  useEffect(() => {
+    // Предзагрузка изображения для предотвращения мерцания
+    const img = new Image()
+    img.onload = () => {
+      setImageSrc(src)
+      setTimeout(() => setLoaded(true), 100)
+    }
+    img.onerror = () => {
+      setError(true)
+      setLoaded(true)
+    }
+    img.src = src
+  }, [src])
 
   const aspectRatioClass = {
     '16/9': 'aspect-video',
@@ -37,21 +52,19 @@ export function ImageWithSkeleton({
           <span className="text-white/50 text-sm">Ошибка загрузки</span>
         </div>
       ) : (
-        <img
-          src={src}
-          alt={alt}
-          className={cn(
-            'w-full h-full transition-all duration-500',
-            objectFit === 'cover' ? 'object-cover' : 'object-contain',
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1.5'
-          )}
-          onLoad={() => setLoaded(true)}
-          onError={() => {
-            setError(true)
-            setLoaded(true)
-          }}
-          loading="lazy"
-        />
+        imageSrc && (
+          <img
+            src={imageSrc}
+            alt={alt}
+            className={cn(
+              'w-full h-full transition-opacity duration-500',
+              objectFit === 'cover' ? 'object-cover' : 'object-contain',
+              loaded ? 'opacity-100' : 'opacity-0'
+            )}
+            loading="lazy"
+            decoding="async"
+          />
+        )
       )}
     </div>
   )
