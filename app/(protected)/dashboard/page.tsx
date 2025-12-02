@@ -135,17 +135,17 @@ export default function DashboardPage() {
     const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
 
     return (
-      <div className="p-6 md:p-8">
+      <div className="p-4 md:p-6 lg:p-8">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-3xl font-bold mb-8">Личный кабинет работодателя</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Личный кабинет работодателя</h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Всего вакансий</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold">{employerJobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold">{employerJobs.length}</div>
               </CardContent>
             </Card>
             <Card>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                 <CardTitle className="text-lg">На модерации</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-primary">{pendingJobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold text-primary">{pendingJobs.length}</div>
               </CardContent>
             </Card>
             <Card>
@@ -161,7 +161,7 @@ export default function DashboardPage() {
                 <CardTitle className="text-lg">Одобрено</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-600">{approvedJobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold text-green-600">{approvedJobs.length}</div>
               </CardContent>
             </Card>
           </div>
@@ -211,17 +211,17 @@ export default function DashboardPage() {
     const approvedJobs = jobs.filter((job) => job.status === 'approved')
 
     return (
-      <div className="p-6 md:p-8">
+      <div className="p-4 md:p-6 lg:p-8">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-3xl font-bold mb-8">Панель модератора</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Панель модератора</h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Вакансии на модерации</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-primary">{pendingJobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold text-primary">{pendingJobs.length}</div>
               </CardContent>
             </Card>
             <Card>
@@ -229,7 +229,7 @@ export default function DashboardPage() {
                 <CardTitle className="text-lg">Одобрено вакансий</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-600">{approvedJobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold text-green-600">{approvedJobs.length}</div>
               </CardContent>
             </Card>
             <Card>
@@ -237,12 +237,12 @@ export default function DashboardPage() {
                 <CardTitle className="text-lg">Всего вакансий</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold">{jobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold">{jobs.length}</div>
               </CardContent>
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <Card>
               <CardHeader>
                 <CardTitle>Быстрые действия</CardTitle>
@@ -295,10 +295,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-6 md:mb-8 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative group">
               <Avatar className="h-16 w-16">
@@ -348,15 +348,15 @@ export default function DashboardPage() {
               </Dialog>
             </div>
             <div>
-              <h1 className="text-2xl font-bold">
+              <h1 className="text-lg md:text-2xl font-bold">
                 {formData.firstName} {formData.lastName}
               </h1>
-              <p className="text-sm text-muted-foreground">ID: {userId.slice(0, 8)}</p>
+              <p className="text-xs md:text-sm text-muted-foreground">ID: {userId.slice(0, 8)}</p>
             </div>
           </div>
           
           {/* Статус подписки */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <Badge variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} className="text-sm px-4 py-2">
               {subscriptionStatus === 'PRO' ? (
                 <>

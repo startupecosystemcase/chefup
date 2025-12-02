@@ -59,7 +59,7 @@ export default function JobDetailPage() {
 
   if (!job) {
     return (
-      <div className="p-6 md:p-8">
+      <div className="p-4 md:p-6 lg:p-8">
         <div className="mx-auto max-w-4xl">
           <Card>
             <CardContent className="py-12 text-center">
@@ -75,7 +75,7 @@ export default function JobDetailPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
         <Button variant="ghost" onClick={() => router.back()} className="mb-4">
           ← Назад

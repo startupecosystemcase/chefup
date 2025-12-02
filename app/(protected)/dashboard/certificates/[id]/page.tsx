@@ -34,7 +34,7 @@ export default function CertificateDetailPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
         <Button variant="ghost" onClick={() => router.back()} className="mb-4">
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -48,7 +48,7 @@ export default function CertificateDetailPage() {
                 <Award className="w-12 h-12 text-primary" />
               </div>
             </div>
-            <CardTitle className="text-3xl mb-2">Сертификат</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl mb-2">Сертификат</CardTitle>
             <CardDescription className="text-lg">
               Подтверждает успешное прохождение обучения
             </CardDescription>

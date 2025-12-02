@@ -81,7 +81,7 @@ export default function EducationDetailPage() {
   const hasCertificate = enrollment?.status === 'certified'
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
         <Button variant="ghost" onClick={() => router.back()} className="mb-4">
           <ArrowLeft className="w-4 h-4 mr-2" />

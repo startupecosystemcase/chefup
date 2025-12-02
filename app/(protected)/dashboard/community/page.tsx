@@ -115,12 +115,12 @@ export default function CommunityPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Коммьюнити</h1>
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">Коммьюнити</h1>
               <p className="text-muted-foreground">
                 Мероприятия коммьюнити ChefUp: бизнес-завтраки, открытия ресторанов и многое другое
               </p>
@@ -247,7 +247,7 @@ export default function CommunityPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-2">
             {filteredEvents.map((event) => {
               const Icon = typeIcons[event.type]
               const participationStatus = getParticipationStatus(event.id!)

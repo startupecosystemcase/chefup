@@ -75,14 +75,14 @@ export default function CreateJobPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-6">
           <Button variant="ghost" onClick={() => router.back()} className="mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </Button>
-          <h1 className="text-3xl font-bold mb-2">Создать вакансию</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Создать вакансию</h1>
           <p className="text-muted-foreground">
             Заполните информацию о вакансии. После создания она будет отправлена на модерацию.
           </p>

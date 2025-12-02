@@ -48,21 +48,21 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <main className="container flex-1 px-4 py-8 md:px-8">
+      <main className="container flex-1 px-4 py-6 md:py-8 md:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           {/* Header */}
-          <div className="mb-8 flex items-center gap-4">
-            <Avatar className="h-16 w-16">
+          <div className="mb-6 md:mb-6 md:mb-8 flex items-center gap-3 md:gap-4">
+            <Avatar className="h-12 w-12 md:h-16 md:w-16">
               <AvatarFallback className="text-lg">
                 {formData.firstName?.[0] || 'U'}
                 {formData.lastName?.[0] || ''}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-2xl font-bold">
+              <h1 className="text-lg md:text-2xl font-bold">
                 {formData.firstName || 'Пользователь'} {formData.lastName || ''}
               </h1>
-              <p className="text-sm text-muted-foreground">Профиль #{id.slice(0, 8)}</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Профиль #{id.slice(0, 8)}</p>
             </div>
           </div>
 

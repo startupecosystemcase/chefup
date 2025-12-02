@@ -75,14 +75,14 @@ export default function CandidatesPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <Button variant="ghost" onClick={() => router.back()} className="mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </Button>
-          <h1 className="text-3xl font-bold mb-2">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">
             {job ? `Кандидаты на вакансию: ${job.title}` : 'Кандидаты'}
           </h1>
           <p className="text-muted-foreground">
@@ -171,7 +171,7 @@ export default function CandidatesPage() {
         </Card>
 
         {/* Список кандидатов */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredCandidates.length === 0 ? (
             <Card className="col-span-full">
               <CardContent className="py-12 text-center">

@@ -293,7 +293,7 @@ export function OnboardingWizard() {
   const StepIconComponent = stepIcons[currentStep - 1]
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4 md:px-8">
+    <div className="min-h-screen bg-white py-4 md:py-8 px-4 md:px-6 lg:px-8">
       {showConfetti && (
         <Confetti
           width={window.innerWidth}

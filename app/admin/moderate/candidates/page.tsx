@@ -88,13 +88,13 @@ export default function ModerateCandidatesPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <Button variant="ghost" onClick={() => router.back()} className="mb-4">
             Назад
           </Button>
-          <h1 className="text-3xl font-bold mb-2">Автоподбор кандидатов</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Автоподбор кандидатов</h1>
           <p className="text-muted-foreground">
             Проверьте автоматически подобранных кандидатов и отправьте финальный список работодателю
           </p>

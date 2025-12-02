@@ -118,7 +118,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
           <div className="relative">
             <div
               className={cn(
-                'w-20 h-20 rounded-full flex items-center justify-center border-4 font-bold text-2xl transition-all duration-500 animate-pulse',
+                'w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center border-4 font-bold text-lg md:text-2xl transition-all duration-500 animate-pulse',
                 getScoreBgColor(relevance.score),
                 getScoreColor(relevance.score)
               )}
@@ -144,9 +144,9 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
         </div>
       )}
 
-      <CardHeader className={cn('pb-3', relevance && 'pr-28')}>
+      <CardHeader className={cn('pb-3', relevance && 'pr-20 md:pr-28')}>
         <div className="flex items-start justify-between mb-2">
-          <CardTitle className="text-xl pr-4">{job.title}</CardTitle>
+          <CardTitle className="text-lg md:text-xl pr-2 md:pr-4">{job.title}</CardTitle>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline" className="flex items-center gap-1">

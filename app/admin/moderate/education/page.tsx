@@ -77,10 +77,10 @@ export default function ModerateEducationPage() {
   const pendingItems = items.filter((item) => item.status === 'pending' || item.status === 'draft')
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Модерация образовательных материалов</h1>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация образовательных материалов</h1>
           <p className="text-muted-foreground">
             Проверьте курсы, тренинги, вебинары и сертификации перед публикацией
           </p>
@@ -93,7 +93,7 @@ export default function ModerateEducationPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {pendingItems.map((item) => {
               const Icon = typeIcons[item.type]
 

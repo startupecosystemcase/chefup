@@ -86,10 +86,10 @@ export default function PartnersPage() {
   }, [allPartners])
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Партнёры</h1>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Партнёры</h1>
           <p className="text-muted-foreground">
             {userRole === 'employer'
               ? 'Проверенные партнёры для развития вашего ресторанного бизнеса'
@@ -134,7 +134,7 @@ export default function PartnersPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredPartners.map((partner) => {
               const Icon = typeIcons[partner.type]
 

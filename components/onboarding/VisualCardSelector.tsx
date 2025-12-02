@@ -39,7 +39,7 @@ export function VisualCardSelector<T extends string>({
   }
 
   return (
-    <div className={cn('grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4', className)}>
+    <div className={cn('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4', className)}>
       {options.map((option) => {
         const selectedState = isSelected(option.value)
         return (
@@ -48,7 +48,7 @@ export function VisualCardSelector<T extends string>({
             type="button"
             onClick={() => handleClick(option.value)}
             className={cn(
-              'relative p-6 rounded-xl border-2 transition-all duration-300 text-left group',
+              'relative p-4 md:p-6 rounded-xl border-2 transition-all duration-300 text-left group',
               'hover:scale-105 hover:shadow-lg',
               selectedState
                 ? 'border-primary bg-primary/5 shadow-md'
@@ -63,7 +63,7 @@ export function VisualCardSelector<T extends string>({
             {option.icon && (
               <div
                 className={cn(
-                  'w-12 h-12 rounded-lg flex items-center justify-center mb-3 transition-colors',
+                  'w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-2 md:mb-3 transition-colors',
                   selectedState ? 'bg-primary/10' : 'bg-muted group-hover:bg-primary/5'
                 )}
               >
@@ -72,7 +72,7 @@ export function VisualCardSelector<T extends string>({
                 </div>
               </div>
             )}
-            <h3 className={cn('font-semibold mb-1', selectedState ? 'text-primary' : 'text-foreground')}>
+            <h3 className={cn('font-semibold mb-1 text-sm md:text-base', selectedState ? 'text-primary' : 'text-foreground')}>
               {option.label}
             </h3>
             {option.description && (

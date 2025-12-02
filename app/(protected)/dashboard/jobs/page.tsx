@@ -107,10 +107,10 @@ export default function JobsPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Вакансии</h1>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Вакансии</h1>
           <p className="text-muted-foreground">
             {userRole === 'applicant' 
               ? 'Персональная лента вакансий, подобранных специально для вас'
@@ -144,15 +144,15 @@ export default function JobsPage() {
         )}
 
         {/* Поиск и фильтры */}
-        <Card className="mb-6">
-          <CardHeader>
+        <Card className="mb-4 md:mb-6">
+          <CardHeader className="p-4 md:p-6">
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4" />
-              <CardTitle>Поиск и фильтры</CardTitle>
+              <CardTitle className="text-base md:text-lg">Поиск и фильтры</CardTitle>
             </div>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          <CardContent className="p-4 md:p-6 pt-0">
+            <div className="space-y-3 md:space-y-4">
               {/* Поиск */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />

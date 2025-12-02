@@ -56,22 +56,22 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-8">
+      <div className="container flex h-14 md:h-16 items-center justify-between px-4 md:px-6 lg:px-8">
         <Logo />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {mounted && userId ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2 h-auto py-2">
-                  <Avatar className="h-8 w-8">
+                <Button variant="ghost" className="flex items-center gap-1.5 md:gap-2 h-auto py-1.5 md:py-2">
+                  <Avatar className="h-7 w-7 md:h-8 md:w-8">
                     <AvatarImage src={formData.avatarUrl} />
-                    <AvatarFallback>
+                    <AvatarFallback className="text-xs md:text-sm">
                       {formData.firstName?.[0] || 'U'}
                       {formData.lastName?.[0] || ''}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="flex flex-col items-start">
-                    <span className="text-sm font-medium">{getUserName()}</span>
+                  <div className="hidden sm:flex flex-col items-start">
+                    <span className="text-xs md:text-sm font-medium">{getUserName()}</span>
                     {userRole && (
                       <Badge variant="secondary" className="text-xs px-1.5 py-0">
                         {getRoleLabel()}
@@ -100,10 +100,10 @@ export function Navbar() {
             </DropdownMenu>
           ) : (
             <>
-              <Button variant="ghost" onClick={() => router.push('/auth')}>
+              <Button variant="ghost" size="sm" className="hidden sm:flex" onClick={() => router.push('/auth')}>
                 Войти
               </Button>
-              <Button onClick={() => router.push('/auth')}>
+              <Button size="sm" className="text-xs md:text-sm px-3 md:px-4" onClick={() => router.push('/auth')}>
                 Создать профиль
               </Button>
             </>

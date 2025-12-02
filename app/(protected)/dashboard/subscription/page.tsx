@@ -71,9 +71,9 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 text-center">
+        <div className="mb-6 md:mb-8 text-center">
           <h1 className="text-4xl font-bold mb-2">Управление подпиской</h1>
           <p className="text-muted-foreground text-lg">
             Выберите план, который подходит именно вам
@@ -81,7 +81,7 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Текущий статус */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <Card className={cn(
             'border-2 transition-all duration-300',
             subscriptionStatus === 'PRO' 
@@ -128,9 +128,9 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Преимущества PRO */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Преимущества PRO подписки</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {proBenefits.map((benefit, index) => {
               const Icon = benefit.icon
               return (

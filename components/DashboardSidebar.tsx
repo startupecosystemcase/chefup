@@ -72,7 +72,7 @@ export function DashboardSidebar() {
 
   if (!mounted) {
     return (
-      <aside className="w-64 border-r bg-background p-6">
+      <aside className="hidden md:block w-64 border-r bg-background p-4 md:p-6">
         <nav className="space-y-2">
           <div className="h-10 w-full animate-pulse bg-muted rounded-lg" />
         </nav>
@@ -88,7 +88,7 @@ export function DashboardSidebar() {
   }
 
   return (
-    <aside className="w-64 border-r bg-background p-6">
+    <aside className="hidden md:block w-64 border-r bg-background p-4 md:p-6">
       <nav className="space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon
@@ -98,14 +98,14 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors',
+                'flex items-center gap-3 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-sm font-medium transition-colors',
                 isActive
                   ? 'bg-primary/10 text-primary'
                   : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
               )}
             >
-              <Icon className="h-5 w-5" />
-              {item.label}
+              <Icon className="h-4 w-4 md:h-5 md:w-5" />
+              <span className="text-xs md:text-sm">{item.label}</span>
             </Link>
           )
         })}
