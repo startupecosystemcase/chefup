@@ -51,7 +51,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
       <main className="container flex-1 px-4 py-6 md:py-8 md:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           {/* Header */}
-          <div className="mb-6 md:mb-6 md:mb-8 flex items-center gap-3 md:gap-4">
+          <div className="mb-6 md:mb-8 flex items-center gap-3 md:gap-4">
             <Avatar className="h-12 w-12 md:h-16 md:w-16">
               <AvatarFallback className="text-lg">
                 {formData.firstName?.[0] || 'U'}
