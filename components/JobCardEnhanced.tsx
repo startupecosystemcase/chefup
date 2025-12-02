@@ -106,9 +106,9 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
   return (
     <Card
       className={cn(
-        'cursor-pointer card-hover relative overflow-hidden transition-all duration-300 bg-white animate-fade-in',
+        'cursor-pointer card-hover relative overflow-hidden transition-all duration-300 bg-white/90 backdrop-blur-sm animate-fade-in glass',
         isTopMatch ? 'top-match-glow animate-bounce-in' : 'card-soft-shadow',
-        !isTopMatch && relevance && 'border border-primary/20'
+        !isTopMatch && relevance && 'border-2 border-primary/20'
       )}
       onClick={onClick}
     >

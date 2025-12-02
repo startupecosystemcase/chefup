@@ -22,11 +22,23 @@ export function ScrollReveal({
     triggerOnce: true,
   })
 
+  const getInitialPosition = () => {
+    switch (direction) {
+      case 'up': return { y: 40, x: 0 }
+      case 'down': return { y: -40, x: 0 }
+      case 'left': return { y: 0, x: 40 }
+      case 'right': return { y: 0, x: -40 }
+      default: return { y: 40, x: 0 }
+    }
+  }
+
+  const initialPos = getInitialPosition()
+
   const variants = {
     hidden: {
       opacity: 0,
-      y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
-      x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+      y: initialPos.y,
+      x: initialPos.x,
     },
     visible: {
       opacity: 1,
@@ -35,7 +47,7 @@ export function ScrollReveal({
       transition: {
         duration: 0.6,
         delay,
-        ease: [0.4, 0, 0.2, 1], // Apple HIG easing
+        ease: [0.4, 0, 0.2, 1] as const, // Apple HIG easing
       },
     },
   }

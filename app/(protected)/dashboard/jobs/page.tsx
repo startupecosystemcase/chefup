@@ -246,38 +246,43 @@ export default function JobsPage() {
         </Card>
 
         {/* Список вакансий */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           {activeTab === 'recommended' && userRole === 'applicant' && recommendedJobs.length === 0 && (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <Sparkles className="w-12 h-12 mx-auto mb-8 text-muted-foreground" />
-                <p className="text-muted-foreground mb-2">
-                  Рекомендации появятся после заполнения анкеты
-                </p>
-                <Button variant="outline" onClick={() => router.push('/onboarding')}>
-                  Заполнить анкету
-                </Button>
-              </CardContent>
-            </Card>
+            <ScrollReveal>
+              <Card className="glass">
+                <CardContent className="py-16 text-center">
+                  <Sparkles className="w-12 h-12 mx-auto mb-6 text-muted-foreground" />
+                  <p className="text-lg text-muted-foreground mb-4">
+                    Рекомендации появятся после заполнения анкеты
+                  </p>
+                  <Button variant="outline" onClick={() => router.push('/onboarding')}>
+                    Заполнить анкету
+                  </Button>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           )}
 
           {jobsToDisplay.length === 0 ? (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground">Вакансии не найдены</p>
-              </CardContent>
-            </Card>
+            <ScrollReveal>
+              <Card className="glass">
+                <CardContent className="py-16 text-center">
+                  <p className="text-lg text-muted-foreground">Вакансии не найдены</p>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           ) : (
-            jobsToDisplay.map((job) => {
+            jobsToDisplay.map((job, index) => {
               const relevance = getJobRelevance(job.id)
               return (
-                <JobCardEnhanced
-                  key={job.id}
-                  job={job}
-                  relevance={relevance || null}
-                  applicantData={formData}
-                  onClick={() => router.push(`/dashboard/jobs/${job.id}`)}
-                />
+                <ScrollReveal key={job.id} delay={index * 0.1} direction="up">
+                  <JobCardEnhanced
+                    job={job}
+                    relevance={relevance || null}
+                    applicantData={formData}
+                    onClick={() => router.push(`/dashboard/jobs/${job.id}`)}
+                  />
+                </ScrollReveal>
               )
             })
           )}
