@@ -49,7 +49,9 @@ import {
   CheckCircle2,
   Phone,
   Building,
+  ExternalLink,
 } from 'lucide-react'
+import { ImageWithSkeleton } from '@/components/ImageWithSkeleton'
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -93,6 +95,21 @@ export default function Home() {
     { name: 'Шымкент', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
     { name: 'Актобе', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
     { name: 'Батуми', image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop' },
+  ]
+  
+  const teamMembers = [
+    {
+      name: 'Мухаммад Магомедов',
+      role: 'Основатель',
+      description: 'Опытный шеф-повар, более 10 лет в общепите. Основатель Footage. Один из основателей стартапа Plus Vibe. Сооснователь производства готовой еды в Астане.',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    },
+    {
+      name: 'Савва Беневский',
+      role: 'Фаундер, технический директор',
+      description: 'Основатель венчурной студии Benevski (с 2016). Реализовал более 35 технологичных проектов. Председатель экспертного совета CASE — экосистемы инновационного менеджмента Центральной Азии.',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    },
   ]
 
   return (
@@ -143,11 +160,28 @@ export default function Home() {
                 Максимальная эффективность работы в HoReCa
               </motion.h1>
 
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.15 }}
+                className="mb-6"
+              >
+                <a
+                  href="https://benevsky.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors text-sm md:text-base font-semibold"
+                >
+                  Powered by CASE
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </motion.div>
+
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-base md:text-xl lg:text-2xl text-[#64748B] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed"
+                className="text-base md:text-xl lg:text-2xl text-[#64748B] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed font-normal"
               >
                 ChefUp — это первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса
               </motion.p>
@@ -193,13 +227,14 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 max-w-4xl mx-auto"
+                className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-10 max-w-5xl mx-auto"
               >
                 {[
-                  { value: 14200, suffix: '+', label: 'Специалистов' },
-                  { value: 920, suffix: '+', label: 'Ресторанов' },
+                  { value: 2000, suffix: '+', label: 'Специалистов' },
+                  { value: 100, suffix: '+', label: 'Ресторанов' },
                   { value: 8, suffix: '', label: 'Стран' },
                   { value: 42, suffix: '', label: 'Городов' },
+                  { value: 10, suffix: '+', label: 'Лет опыта' },
                 ].map((stat, idx) => (
                   <motion.div
                     key={idx}
@@ -219,7 +254,7 @@ export default function Home() {
                     >
                       <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                     </motion.div>
-                    <p className="text-sm md:text-base text-[#64748B] font-medium">{stat.label}</p>
+                    <p className="text-sm md:text-base text-[#64748B] font-normal">{stat.label}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -227,11 +262,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Для кого - улучшенная версия */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+        {/* Для кого - темный фон с Liquid Glass */}
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 dark-hero relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
+          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-wide">
                 Для кого
               </h2>
             </div>
@@ -242,17 +278,17 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Card className="h-full border-2 border-transparent hover:border-gray-200 transition-all bg-white shadow-md hover:shadow-xl rounded-2xl">
+                <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl">
                   <CardHeader className="pb-4">
                     <motion.div
                       whileHover={{ rotateY: 15, rotateX: 5 }}
                       transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gray-100 flex items-center justify-center mb-4"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-4"
                     >
-                      <ChefHat className="w-7 h-7 md:w-8 md:h-8 text-[#0F172A]" />
+                      <ChefHat className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
                     </motion.div>
-                    <CardTitle className="text-xl md:text-2xl font-black text-[#0F172A]">Специалистам</CardTitle>
-                    <CardDescription className="text-sm md:text-base text-[#64748B]">
+                    <CardTitle className="text-xl md:text-2xl font-semibold text-white">Специалистам</CardTitle>
+                    <CardDescription className="text-sm md:text-base text-white/70">
                       Для специалистов сферы HoReCa
                     </CardDescription>
                   </CardHeader>
@@ -271,10 +307,10 @@ export default function Home() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B]"
+                            className="flex items-start gap-3 text-sm md:text-base text-white/80 font-normal"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#0F172A]" />
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
                           </motion.li>
@@ -297,17 +333,17 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Card className="h-full border-2 border-transparent hover:border-gray-200 transition-all bg-white shadow-md hover:shadow-xl rounded-2xl">
+                <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl">
                   <CardHeader className="pb-4">
                     <motion.div
                       whileHover={{ rotateY: 15, rotateX: 5 }}
                       transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gray-100 flex items-center justify-center mb-4"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-4"
                     >
-                      <Building2 className="w-7 h-7 md:w-8 md:h-8 text-[#0F172A]" />
+                      <Building2 className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
                     </motion.div>
-                    <CardTitle className="text-xl md:text-2xl font-black text-[#0F172A]">Компаниям</CardTitle>
-                    <CardDescription className="text-sm md:text-base text-[#64748B]">
+                    <CardTitle className="text-xl md:text-2xl font-semibold text-white">Компаниям</CardTitle>
+                    <CardDescription className="text-sm md:text-base text-white/70">
                       Для ресторанов, кафе, отелей, производств и других компаний
                     </CardDescription>
                   </CardHeader>
@@ -326,10 +362,10 @@ export default function Home() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B]"
+                            className="flex items-start gap-3 text-sm md:text-base text-white/80 font-normal"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#0F172A]" />
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
                           </motion.li>
@@ -354,7 +390,7 @@ export default function Home() {
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gray-50">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-wide">
                 Экосистема ChefUp
               </h2>
               <p className="text-base md:text-xl text-[#64748B] max-w-3xl mx-auto">
@@ -455,8 +491,8 @@ export default function Home() {
                         >
                           <Icon className={`w-6 h-6 md:w-7 md:h-7 ${feature.color}`} />
                         </motion.div>
-                        <h3 className="text-base md:text-lg font-bold text-[#0F172A] mb-3">{feature.title}</h3>
-                        <p className="text-sm text-[#64748B] leading-relaxed">{feature.description}</p>
+                        <h3 className="text-base md:text-lg font-semibold text-[#0F172A] mb-3">{feature.title}</h3>
+                        <p className="text-sm text-[#64748B] leading-relaxed font-normal">{feature.description}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -470,13 +506,13 @@ export default function Home() {
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-wide">
                 Наша миссия
               </h2>
-              <p className="text-base md:text-xl text-[#64748B] max-w-3xl mx-auto mb-4">
+              <p className="text-base md:text-xl text-[#64748B] max-w-3xl mx-auto mb-4 font-normal">
                 ChefUp — это место, где повара находят работу мечты, а рестораны — надёжных людей.
               </p>
-              <p className="text-sm md:text-lg text-[#64748B] max-w-2xl mx-auto">
+              <p className="text-sm md:text-lg text-[#64748B] max-w-2xl mx-auto font-normal">
                 Вместе мы делаем HoReCa в нашем регионе лучше.
               </p>
             </div>
@@ -529,8 +565,8 @@ export default function Home() {
                         >
                           <Icon className="w-7 h-7 md:w-8 md:h-8 text-[#0F172A]" />
                         </motion.div>
-                        <h3 className="text-base md:text-lg font-bold text-[#0F172A] mb-3">{item.title}</h3>
-                        <p className="text-sm text-[#64748B] leading-relaxed">{item.description}</p>
+                        <h3 className="text-base md:text-lg font-semibold text-[#0F172A] mb-3">{item.title}</h3>
+                        <p className="text-sm text-[#64748B] leading-relaxed font-normal">{item.description}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -550,10 +586,10 @@ export default function Home() {
           
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-wide">
                 Возможности экосистемы
               </h2>
-              <p className="text-base md:text-lg text-slate-300">
+              <p className="text-base md:text-lg text-slate-300 font-normal">
                 Технологии будущего для HoReCa уже сегодня
               </p>
             </div>
@@ -637,8 +673,8 @@ export default function Home() {
                         >
                           <Icon className="w-6 h-6 md:w-7 md:h-7 text-[#F97316]" />
                         </motion.div>
-                        <h3 className="text-base md:text-lg font-bold text-white mb-3">{feature.title}</h3>
-                        <p className="text-sm text-slate-300 leading-relaxed">{feature.description}</p>
+                        <h3 className="text-base md:text-lg font-semibold text-white mb-3">{feature.title}</h3>
+                        <p className="text-sm text-slate-300 leading-relaxed font-normal">{feature.description}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -652,10 +688,10 @@ export default function Home() {
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-wide">
                 География присутствия
               </h2>
-              <p className="text-base md:text-xl text-[#64748B] max-w-2xl mx-auto">
+              <p className="text-base md:text-xl text-[#64748B] max-w-2xl mx-auto font-normal">
                 Мы работаем в крупнейших городах Центральной Евразии
               </p>
             </div>
@@ -670,18 +706,19 @@ export default function Home() {
                   transition={{ delay: idx * 0.1 }}
                   className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-gray-300 cursor-pointer bg-white shadow-md hover:shadow-xl transition-all"
                 >
-                  <div className="relative h-48 overflow-hidden">
-                    <img
+                  <div className="relative h-48 overflow-hidden bg-[#0a0a0a]">
+                    <ImageWithSkeleton
                       src={city.image}
                       alt={city.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      loading="lazy"
+                      className="w-full h-full group-hover:scale-110 transition-transform duration-300"
+                      aspectRatio="16/9"
+                      objectFit="cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                    <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
                       <div className="flex items-center gap-2 text-white">
                         <MapPin className="w-5 h-5" />
-                        <h3 className="font-bold text-lg">{city.name}</h3>
+                        <h3 className="font-semibold text-lg">{city.name}</h3>
                       </div>
                     </div>
                   </div>
@@ -696,8 +733,8 @@ export default function Home() {
               >
                 <div className="text-center p-6">
                   <Globe className="w-12 h-12 text-[#0F172A] mx-auto mb-3" />
-                  <h3 className="font-bold text-lg text-[#0F172A] mb-2">И еще 33 города</h3>
-                  <p className="text-sm text-[#64748B]">Центральной Евразии</p>
+                  <h3 className="font-semibold text-lg text-[#0F172A] mb-2">И еще 33 города</h3>
+                  <p className="text-sm text-[#64748B] font-normal">Центральной Евразии</p>
                 </div>
               </motion.div>
             </div>
@@ -710,20 +747,21 @@ export default function Home() {
             <div className="max-w-4xl mx-auto">
               <Card className="border-2 border-gray-200 shadow-lg rounded-2xl overflow-hidden">
                 <div className="grid md:grid-cols-2 gap-0">
-                  <div className="relative h-64 md:h-auto">
-                    <img
-                      src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop"
-                      alt="Штаб-квартира ChefUp"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
+                  <div className="relative h-64 md:h-auto bg-[#0a0a0a]">
+                    <ImageWithSkeleton
+                      src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+                      alt="Штаб-квартира ChefUp - Аэросъемка Астаны"
+                      className="w-full h-full"
+                      aspectRatio="16/9"
+                      objectFit="cover"
                     />
                   </div>
                   <CardContent className="p-6 md:p-8 flex flex-col justify-center">
                     <div className="flex items-center gap-3 mb-4">
                       <Building className="w-8 h-8 text-[#F97316]" />
-                      <h3 className="text-xl md:text-2xl font-black text-[#0F172A]">Штаб-квартира</h3>
+                      <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A]">Штаб-квартира</h3>
                     </div>
-                    <p className="text-base md:text-lg text-[#64748B] leading-relaxed">
+                    <p className="text-base md:text-lg text-[#64748B] leading-relaxed font-normal">
                       Астана, Индустриальный парк,<br />
                       улица Кендірлі, 4
                     </p>
@@ -738,10 +776,10 @@ export default function Home() {
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-wide">
                 Отзывы
               </h2>
-              <p className="text-base md:text-xl text-[#64748B] max-w-2xl mx-auto">
+              <p className="text-base md:text-xl text-[#64748B] max-w-2xl mx-auto font-normal">
                 Чего добились наши пользователи
               </p>
             </div>
@@ -753,28 +791,32 @@ export default function Home() {
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 tracking-wide">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-wide">
                 Нам доверяют лидеры рынка СНГ
               </h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 max-w-6xl mx-auto">
               {[
-                'ВкусВилл',
-                'Choco',
-                'Рядом',
-                'Яндекс Лавка',
-                'Airba Fresh',
-                'URBO Coffee',
+                { name: 'ВкусВилл', logo: null },
+                { name: 'Choco', logo: null },
+                { name: 'Рядом', logo: null },
+                { name: 'Яндекс Лавка', logo: null },
+                { name: 'Airba Fresh', logo: null },
+                { name: 'URBO Coffee', logo: null },
               ].map((partner, idx) => (
                 <motion.div
-                  key={partner}
+                  key={partner.name}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.1 }}
                   whileHover={{ scale: 1.1, filter: 'grayscale(0%)' }}
-                  className="h-20 md:h-24 bg-gray-100 rounded-xl flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer border-2 border-transparent hover:border-gray-200"
+                  className="h-20 md:h-24 bg-white rounded-xl flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer border-2 border-gray-200 hover:border-[#F97316]/30 shadow-sm hover:shadow-md"
                 >
-                  <span className="text-xs md:text-sm font-semibold text-[#64748B] px-3 text-center">{partner}</span>
+                  {partner.logo ? (
+                    <img src={partner.logo} alt={partner.name} className="h-12 md:h-16 object-contain px-4" />
+                  ) : (
+                    <span className="text-xs md:text-sm font-semibold text-[#64748B] px-3 text-center">{partner.name}</span>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -796,10 +838,10 @@ export default function Home() {
                 >
                   <Trophy className="w-10 h-10 md:w-12 md:h-12 text-white" />
                 </motion.div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-wide">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-wide">
                   Получи оффер уже завтра
                 </h2>
-                <p className="text-base md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-base md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-normal">
                   Присоединяйся к тысячам специалистов, которые уже нашли работу мечты
                 </p>
                 <motion.div
@@ -815,7 +857,7 @@ export default function Home() {
                 >
                   <Button
                     size="lg"
-                    className="bg-white hover:bg-white/90 text-[#F97316] text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full md:w-auto shadow-lg shadow-black/20 font-black"
+                    className="bg-white hover:bg-white/90 text-white text-sm md:text-base px-8 md:px-10 py-4 md:py-5 h-auto min-h-[56px] md:min-h-[60px] w-full md:w-auto shadow-lg shadow-black/20 font-semibold"
                     onClick={() => router.push('/auth')}
                   >
                     Создать профиль бесплатно
@@ -840,6 +882,58 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </FadeUpSection>
+
+        {/* Наша команда */}
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+            <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-wide">
+                Наша команда
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
+              {teamMembers.map((member, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.15 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                >
+                  <Card className="h-full border-2 border-gray-200 hover:border-gray-300 transition-all bg-white shadow-md hover:shadow-xl rounded-2xl overflow-hidden">
+                    <CardContent className="p-6 md:p-8">
+                      <div className="flex flex-col md:flex-row gap-6">
+                        <div className="flex-shrink-0">
+                          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-100 shadow-lg mx-auto md:mx-0">
+                            <ImageWithSkeleton
+                              src={member.image}
+                              alt={member.name}
+                              className="w-full h-full"
+                              aspectRatio="1/1"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1 text-center md:text-left">
+                          <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A] mb-2">
+                            {member.name}
+                          </h3>
+                          <p className="text-sm md:text-base text-[#F97316] font-semibold mb-3">
+                            {member.role}
+                          </p>
+                          <p className="text-sm md:text-base text-[#64748B] leading-relaxed font-normal">
+                            {member.description}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </FadeUpSection>
       </main>
