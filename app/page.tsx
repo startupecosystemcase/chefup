@@ -635,11 +635,12 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Возможности экосистемы - технологичный стиль */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 dark-hero relative overflow-hidden">
+          <div className="absolute inset-0 bg-black" />
           {/* Декоративные элементы */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-[#F97316]/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl" />
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
           </div>
           
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
