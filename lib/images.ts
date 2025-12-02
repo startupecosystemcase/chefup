@@ -21,6 +21,8 @@ export const imagePaths = {
     shymkent: 'https://drive.google.com/uc?export=view&id=1T6oZ5wuVaAaFCK9Bs2doPMpiNWF0Fsrk',
     aktobe: 'https://drive.google.com/uc?export=view&id=1_1m2g8P86yPsoiqekQAPO_Rg4CyRxz_F',
     batumi: 'https://drive.google.com/uc?export=view&id=1agavKSGoBRw8Dtn-iPPgkXv0W2C-tIfk',
+    // Резервная ссылка для возможного дополнительного города
+    extra: 'https://drive.google.com/uc?export=view&id=1zEonDuf-1s7fJqL9ioPTniOul7a8iLLZ',
   },
   team: {
     muhammad: 'https://drive.google.com/uc?export=view&id=1BEl4GLzVTTFA6tsBmTdZ0VYw3_2gX024',
