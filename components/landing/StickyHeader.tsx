@@ -25,15 +25,17 @@ export function StickyHeader() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/20' 
-          : 'bg-white/60 backdrop-blur-lg'
+          ? 'bg-white/90 backdrop-blur-2xl shadow-sm border-b border-white/30' 
+          : 'bg-white/70 backdrop-blur-xl'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Logo className="h-5 md:h-7" />
+        <div className="flex items-center justify-between h-18 md:h-20">
+          <div className="flex items-center">
+            <Logo className="h-8 md:h-9 lg:h-10" />
+          </div>
           
-          <div className="flex items-center gap-2 md:gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             {userId ? (
               <Button 
                 variant="ghost" 
@@ -56,7 +58,7 @@ export function StickyHeader() {
                   <User className="w-5 h-5" />
                 </Button>
                 <Button
-                  className="bg-[#F97316] hover:bg-[#F97316]/90 text-white text-sm md:text-base px-4 md:px-6 py-2 md:py-3 h-9 md:h-11"
+                  className="bg-[#F97316] hover:bg-[#F97316]/90 text-white text-sm md:text-base px-5 md:px-6 py-2.5 md:py-3 h-10 md:h-11"
                   onClick={() => router.push('/auth')}
                 >
                   Создать профиль
