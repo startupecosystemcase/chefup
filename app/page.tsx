@@ -620,9 +620,9 @@ export default function Home() {
                     transition={{ delay: idx * 0.1 }}
                     whileHover={{ rotateY: 5, scale: 1.02 }}
                     className="group"
-                    style={{ perspective: 1000 }}
+                    style={{ perspective: '1000px' }}
                   >
-                    <Card className="h-full border-2 border-slate-700 hover:border-[#F97316] transition-all bg-slate-800/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl">
+                    <Card className="h-full border-2 border-slate-700 hover:border-[#F97316] transition-all bg-slate-800/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
                       <CardContent className="p-5 md:p-6">
                         <motion.div
                           animate={{
