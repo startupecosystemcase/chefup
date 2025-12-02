@@ -21,6 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru" className={inter.variable}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+      </head>
       <body className={`min-h-screen bg-white antialiased ${inter.className}`}>
         {children}
         <Toaster position="top-right" />

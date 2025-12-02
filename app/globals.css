@@ -340,4 +340,13 @@
   .text-hierarchy-3 {
     @apply text-xl md:text-2xl font-semibold;
   }
+  
+  /* 3D perspective for cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
 }
