@@ -72,7 +72,7 @@ export function DashboardSidebar() {
 
   if (!mounted) {
     return (
-      <aside className="hidden md:block w-64 border-r bg-background p-4 md:p-6">
+      <aside className="hidden md:block w-64 p-4 md:p-6">
         <nav className="space-y-2">
           <div className="h-10 w-full animate-pulse bg-muted rounded-lg" />
         </nav>
@@ -88,8 +88,12 @@ export function DashboardSidebar() {
   }
 
   return (
-    <aside className="hidden md:block w-64 border-r bg-background p-4 md:p-6">
-      <nav className="space-y-2">
+    <aside className="hidden md:block w-64 relative">
+      {/* Liquid Glass Background */}
+      <div className="absolute inset-0 bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl border-r border-white/30 dark:border-gray-700/30" />
+      
+      {/* Content */}
+      <nav className="relative p-4 md:p-6 space-y-1">
         {menuItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
@@ -98,14 +102,31 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-sm font-medium transition-colors',
+                'relative flex items-center gap-3 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm font-medium transition-all duration-300',
+                'group hover:scale-[1.02] active:scale-[0.98]',
                 isActive
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                  ? 'bg-primary/15 text-primary shadow-lg shadow-primary/10 backdrop-blur-sm'
+                  : 'text-muted-foreground hover:bg-white/40 dark:hover:bg-gray-800/40 hover:text-foreground backdrop-blur-sm'
               )}
             >
-              <Icon className="h-4 w-4 md:h-5 md:w-5" />
-              <span className="text-xs md:text-sm">{item.label}</span>
+              {/* Glass effect on active */}
+              {isActive && (
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent" />
+              )}
+              
+              <Icon className={cn(
+                'relative z-10 h-4 w-4 md:h-5 md:w-5 transition-all duration-300',
+                isActive && 'scale-110'
+              )} />
+              <span className={cn(
+                'relative z-10 text-xs md:text-sm transition-all duration-300',
+                isActive && 'font-semibold'
+              )}>{item.label}</span>
+              
+              {/* Active indicator */}
+              {isActive && (
+                <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/50" />
+              )}
             </Link>
           )
         })}
@@ -113,4 +134,3 @@ export function DashboardSidebar() {
     </aside>
   )
 }
-

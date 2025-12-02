@@ -1,50 +1,195 @@
 'use client'
 
+import { useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { LayoutDashboard, Briefcase, MessageSquare, User, FileText } from 'lucide-react'
-import { useAuthStore } from '@/stores/useOnboardingStore'
+import { 
+  LayoutDashboard, 
+  MessageSquare, 
+  User, 
+  Menu,
+  Crown,
+  Users,
+  BookOpen,
+  Calendar,
+  Briefcase,
+  FileText,
+  FilePlus,
+  UserCheck,
+  History,
+  GraduationCap,
+  Settings,
+  Shield,
+  Search,
+  CheckCircle,
+  Award,
+  Handshake
+} from 'lucide-react'
+import { useAuthStore, type UserRole } from '@/stores/useOnboardingStore'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 
-const navItems = [
-  { href: '/dashboard', label: 'Главная', icon: LayoutDashboard },
+const applicantMenuItems = [
+  { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
+  { href: '/dashboard/resume', label: 'Моё резюме', icon: FileText },
+  { href: '/dashboard/subscription', label: 'Подписка', icon: Crown },
+  { href: '/dashboard/team', label: 'Команда', icon: Users },
+  { href: '/dashboard/practice', label: 'Практика', icon: BookOpen },
+  { href: '/dashboard/certificates', label: 'Сертификаты', icon: Award },
+  { href: '/dashboard/community', label: 'Коммьюнити', icon: Calendar },
   { href: '/dashboard/jobs', label: 'Вакансии', icon: Briefcase },
-  { href: '/dashboard/responses', label: 'Отклики', icon: FileText },
-  { href: '/dashboard/chat', label: 'Чат', icon: MessageSquare },
-  { href: '/dashboard', label: 'Профиль', icon: User },
+  { href: '/dashboard/responses', label: 'Мои отклики', icon: FileText },
+  { href: '/dashboard/resumes', label: 'Сообщество', icon: FileText },
+  { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
+  { href: '/dashboard/settings', label: 'Настройки', icon: Settings },
 ]
+
+const employerMenuItems = [
+  { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
+  { href: '/dashboard/jobs/create', label: 'Подать вакансию', icon: FilePlus },
+  { href: '/dashboard/candidates', label: 'Кандидаты', icon: UserCheck },
+  { href: '/dashboard/jobs/history', label: 'История вакансий', icon: History },
+  { href: '/dashboard/education', label: 'Образование', icon: GraduationCap },
+  { href: '/dashboard/hr-system', label: 'HR-система', icon: Settings },
+  { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
+  { href: '/dashboard/settings', label: 'Настройки', icon: Settings },
+]
+
+const moderatorMenuItems = [
+  { href: '/dashboard', label: 'Главная', icon: LayoutDashboard },
+  { href: '/dashboard/moderate/jobs', label: 'Проверка вакансий', icon: CheckCircle },
+  { href: '/dashboard/moderate/candidates', label: 'Автоподбор кандидатов', icon: Search },
+  { href: '/dashboard/moderate/profiles', label: 'Модерация профилей', icon: Shield },
+  { href: '/dashboard/moderate/education', label: 'Модерация образования', icon: BookOpen },
+  { href: '/dashboard/moderate/events', label: 'Модерация событий', icon: Calendar },
+  { href: '/dashboard/moderate/users', label: 'Управление пользователями', icon: Users },
+]
+
+const bottomNavItems = [
+  { href: '/dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/chat', icon: MessageSquare },
+  { href: '/dashboard', icon: User },
+]
+
+function MobileMenuContent() {
+  const pathname = usePathname()
+  const userRole = useAuthStore((state) => state.userRole)
+
+  let menuItems = applicantMenuItems
+  if (userRole === 'employer') {
+    menuItems = employerMenuItems
+  } else if (userRole === 'moderator') {
+    menuItems = moderatorMenuItems
+  }
+
+  return (
+    <nav className="space-y-1">
+      {menuItems.map((item) => {
+        const Icon = item.icon
+        const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              'relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300',
+              'group hover:scale-[1.02] active:scale-[0.98]',
+              isActive
+                ? 'bg-primary/15 text-primary shadow-lg shadow-primary/10 backdrop-blur-sm'
+                : 'text-muted-foreground hover:bg-white/40 dark:hover:bg-gray-800/40 hover:text-foreground backdrop-blur-sm'
+            )}
+          >
+            {isActive && (
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent" />
+            )}
+            <Icon className={cn(
+              'relative z-10 h-5 w-5 transition-all duration-300',
+              isActive && 'scale-110'
+            )} />
+            <span className={cn(
+              'relative z-10 transition-all duration-300',
+              isActive && 'font-semibold'
+            )}>{item.label}</span>
+            {isActive && (
+              <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/50" />
+            )}
+          </Link>
+        )
+      })}
+    </nav>
+  )
+}
 
 export function MobileBottomNav() {
   const pathname = usePathname()
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   if (!userId) return null
 
-  // Показываем только на мобильных устройствах
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-border md:hidden safe-area-bottom">
-      <div className="flex items-center justify-around h-16">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+    <>
+      {/* Liquid Glass Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden safe-area-bottom">
+        {/* Glass effect background */}
+        <div className="absolute inset-0 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/20 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]" />
+        
+        {/* Content */}
+        <div className="relative flex items-center justify-around h-16 px-4">
+          {bottomNavItems.map((item, index) => {
+            const Icon = item.icon
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href + '/'))
+            
+            return (
+              <Link
+                key={index}
+                href={item.href}
+                className={cn(
+                  'relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300',
+                  'hover:scale-110 active:scale-95',
+                  isActive
+                    ? 'bg-primary/20 text-primary shadow-lg shadow-primary/20'
+                    : 'text-muted-foreground hover:bg-white/50 dark:hover:bg-gray-800/50'
+                )}
+              >
+                <Icon className={cn(
+                  'w-6 h-6 transition-all duration-300',
+                  isActive && 'scale-110'
+                )} />
+                {isActive && (
+                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />
+                )}
+              </Link>
+            )
+          })}
           
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex flex-col items-center justify-center flex-1 h-full min-w-[44px] min-h-[44px] transition-colors',
-                isActive ? 'text-primary' : 'text-muted-foreground'
-              )}
-            >
-              <Icon className="w-5 h-5 mb-1" />
-              <span className="text-xs font-medium">{item.label}</span>
-            </Link>
-          )
-        })}
-      </div>
-    </nav>
+          {/* Menu Button */}
+          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <SheetTrigger asChild>
+              <button
+                className={cn(
+                  'relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300',
+                  'hover:scale-110 active:scale-95',
+                  isMenuOpen
+                    ? 'bg-primary/20 text-primary shadow-lg shadow-primary/20'
+                    : 'text-muted-foreground hover:bg-white/50 dark:hover:bg-gray-800/50'
+                )}
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-white/20 dark:border-gray-700/20">
+              <SheetHeader className="p-6 border-b border-white/20 dark:border-gray-700/20">
+                <SheetTitle className="text-left">Меню</SheetTitle>
+              </SheetHeader>
+              <div className="p-4 overflow-y-auto max-h-[calc(100vh-80px)]">
+                <MobileMenuContent />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </nav>
+    </>
   )
 }
-
