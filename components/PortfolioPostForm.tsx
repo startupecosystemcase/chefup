@@ -86,33 +86,34 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <div>
-        <Label htmlFor="title">Заголовок *</Label>
+        <Label htmlFor="title" className="text-base mb-3 block">Заголовок *</Label>
         <Input
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Введите заголовок"
+          className="h-12 text-base"
           required
         />
       </div>
 
       <div>
-        <Label htmlFor="text">Текст *</Label>
+        <Label htmlFor="text" className="text-base mb-3 block">Текст *</Label>
         <Textarea
           id="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Опишите ваш пост"
-          className="min-h-[120px]"
+          className="min-h-[150px] text-base"
           required
         />
       </div>
 
       {/* Фотографии */}
       <div>
-        <Label>Фотографии ({images.length}/20)</Label>
+        <Label className="text-base mb-4 block">Фотографии ({images.length}/20)</Label>
         <input
           type="file"
           accept="image/*"
@@ -125,13 +126,13 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
         <label htmlFor="image-upload">
           <Button type="button" variant="outline" asChild disabled={images.length >= 20}>
             <span>
-              <ImageIcon className="w-4 h-4 mr-2" />
+              <ImageIcon className="w-5 h-5 mr-2" />
               Добавить фото
             </span>
           </Button>
         </label>
         {images.length > 0 && (
-          <div className="grid grid-cols-4 gap-4 mt-8">
+          <div className="grid grid-cols-4 gap-4 mt-6">
             {images.map((img, index) => (
               <div key={index} className="relative group">
                 <img

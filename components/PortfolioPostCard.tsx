@@ -87,7 +87,7 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
 
         {/* Видео */}
         {post.videos && post.videos.length > 0 && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {post.videos.map((videoUrl, index) => {
               const embedUrl = getVideoEmbedUrl(videoUrl)
               return (

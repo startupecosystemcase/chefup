@@ -392,9 +392,9 @@ export default function DashboardPage() {
             <ProfileAnalytics formData={formData} />
             
             {/* Персональные рекомендации на основе ChefUp AI */}
-            <Card>
+            <Card className="glass">
               <CardHeader>
-                <CardDescription>Улучшите свой профиль и получите больше совпадений</CardDescription>
+                <CardDescription className="text-base">Улучшите свой профиль и получите больше совпадений</CardDescription>
               </CardHeader>
               <CardContent>
                 <ProfileTips
@@ -634,17 +634,17 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {posts.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground mb-8">
+              <div className="text-center py-16">
+                <p className="text-lg text-muted-foreground mb-6">
                   У вас пока нет постов в микроблоге. Добавьте первый пост!
                 </p>
-                <Button onClick={() => setIsPortfolioDialogOpen(true)}>
-                  <Plus className="w-4 h-4 mr-2" />
+                <Button onClick={() => setIsPortfolioDialogOpen(true)} size="lg">
+                  <Plus className="w-5 h-5 mr-2" />
                   Создать первый пост
                 </Button>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {posts.map((post) => (
                   <PortfolioPostCard
                     key={post.id}
@@ -660,9 +660,9 @@ export default function DashboardPage() {
         </Card>
 
         {/* Ссылки на соцсети */}
-        <Card className="mb-8">
+        <Card className="mb-10 md:mb-12 glass">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <CardTitle>Ссылки на соцсети</CardTitle>
                 <CardDescription>Добавьте ссылки на ваши социальные сети</CardDescription>
@@ -670,20 +670,20 @@ export default function DashboardPage() {
               <Dialog open={isSocialLinksDialogOpen} onOpenChange={setIsSocialLinksDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline">
-                    <Plus className="w-4 h-4 mr-2" />
+                    <Plus className="w-5 h-5 mr-2" />
                     Редактировать
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="glass modal-shadow">
                   <DialogHeader>
                     <DialogTitle>Ссылки на соцсети</DialogTitle>
                     <DialogDescription>
                       Добавьте ссылки на ваши профили в социальных сетях
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
+                      <label className="text-base font-medium mb-3 block flex items-center gap-3">
                         <Instagram className="w-4 h-4" />
                         Instagram
                       </label>
@@ -754,7 +754,7 @@ export default function DashboardPage() {
                         type="url"
                       />
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 pt-4">
                       <Button variant="outline" onClick={() => setIsSocialLinksDialogOpen(false)} className="flex-1">
                         Отмена
                       </Button>
@@ -768,16 +768,16 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-6">
               {socialLinks.instagram && (
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-primary/5"
                 >
-                  <Instagram className="w-5 h-5" />
-                  <span>Instagram</span>
+                  <Instagram className="w-6 h-6" />
+                  <span className="font-medium">Instagram</span>
                 </a>
               )}
               {socialLinks.telegram && (
@@ -785,10 +785,10 @@ export default function DashboardPage() {
                   href={socialLinks.telegram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-primary/5"
                 >
-                  <Send className="w-5 h-5" />
-                  <span>Telegram</span>
+                  <Send className="w-6 h-6" />
+                  <span className="font-medium">Telegram</span>
                 </a>
               )}
               {socialLinks.facebook && (
@@ -796,10 +796,10 @@ export default function DashboardPage() {
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-primary/5"
                 >
-                  <Facebook className="w-5 h-5" />
-                  <span>Facebook</span>
+                  <Facebook className="w-6 h-6" />
+                  <span className="font-medium">Facebook</span>
                 </a>
               )}
               {socialLinks.linkedin && (
@@ -807,10 +807,10 @@ export default function DashboardPage() {
                   href={socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-primary/5"
                 >
-                  <Linkedin className="w-5 h-5" />
-                  <span>LinkedIn</span>
+                  <Linkedin className="w-6 h-6" />
+                  <span className="font-medium">LinkedIn</span>
                 </a>
               )}
               {socialLinks.youtube && (
@@ -818,10 +818,10 @@ export default function DashboardPage() {
                   href={socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-primary/5"
                 >
-                  <Youtube className="w-5 h-5" />
-                  <span>YouTube</span>
+                  <Youtube className="w-6 h-6" />
+                  <span className="font-medium">YouTube</span>
                 </a>
               )}
               {socialLinks.website && (
@@ -829,10 +829,10 @@ export default function DashboardPage() {
                   href={socialLinks.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-primary/5"
                 >
-                  <Globe className="w-5 h-5" />
-                  <span>Веб-сайт</span>
+                  <Globe className="w-6 h-6" />
+                  <span className="font-medium">Веб-сайт</span>
                 </a>
               )}
               {Object.keys(socialLinks).length === 0 && (
