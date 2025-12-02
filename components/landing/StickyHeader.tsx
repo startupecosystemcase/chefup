@@ -30,7 +30,7 @@ export function StickyHeader() {
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
-        <div className="flex items-center justify-between h-18 md:h-20">
+        <div className="flex items-center justify-between h-20 md:h-24 lg:h-28">
           <div className="flex items-center -ml-2 md:-ml-4">
             <Logo className="h-10 md:h-12 lg:h-14" />
           </div>
@@ -40,25 +40,25 @@ export function StickyHeader() {
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="h-10 w-10 md:h-11 md:w-11"
+                className="h-11 w-11 md:h-12 md:w-12"
                 onClick={() => router.push('/dashboard')}
                 aria-label="Профиль"
               >
-                <User className="w-5 h-5" />
+                <User className="w-6 h-6" />
               </Button>
             ) : (
               <>
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="h-10 w-10 md:h-11 md:w-11"
+                  className="h-11 w-11 md:h-12 md:w-12"
                   onClick={() => router.push('/auth')}
                   aria-label="Войти"
                 >
-                  <User className="w-5 h-5" />
+                  <User className="w-6 h-6" />
                 </Button>
                 <Button
-                  className="bg-[#F97316] hover:bg-[#F97316]/90 text-white text-sm md:text-base px-5 md:px-6 py-2.5 md:py-3 h-10 md:h-11"
+                  className="bg-[#F97316] hover:bg-[#F97316]/90 text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-11 md:h-12"
                   onClick={() => router.push('/auth')}
                 >
                   Создать профиль

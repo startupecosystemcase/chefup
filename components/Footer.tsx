@@ -9,7 +9,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-16 mb-12">
           {/* Логотип и описание */}
           <div className="md:col-span-2">
-            <Logo variant="default" className="mb-6 h-10 md:h-12 lg:h-14" />
+            <div className="mb-6">
+              <span className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight">
+                <span className="text-white">chef</span>
+                <span className="text-[#F97316]">Up</span>
+              </span>
+            </div>
             <p className="text-sm md:text-base text-white/70 leading-relaxed max-w-md font-normal">
               Профессиональная экосистема для поиска работы, нетворкинга и обучения в сфере HoReCa
             </p>

@@ -102,24 +102,15 @@ export default function Home() {
     {
       name: 'Мухаммад Магомедов',
       role: 'Основатель',
-      description: 'Опытный шеф-повар, более 10 лет в общепите. Основатель Footage. Один из основателей стартапа Plus Vibe. Сооснователь производства готовой еды в Астане.',
+      description: 'Опытный шеф-повар, более 10 лет в общепите. Основатель ChefUp и кофаундер +Vibe. Сооснователь производства готовой еды в Астане.',
       image: imagePaths.team.muhammad,
     },
     {
       name: 'Савва Беневский',
       role: 'Фаундер, технический директор',
-      description: 'Основатель венчурной студии Benevski (с 2016). Реализовал более 35 технологичных проектов. Председатель экспертного совета CASE — экосистемы инновационного менеджмента Центральной Азии.',
+      description: 'Основатель венчурной студии Benevsky (с 2016). Реализовал более 35 технологичных проектов. Председатель экспертного совета CASE — экосистемы инновационного менеджмента Центральной Азии.',
       image: imagePaths.team.savva,
     },
-  ]
-  
-  const partners = [
-    { name: 'ВкусВилл', logo: imagePaths.partners.vkusvill },
-    { name: 'Choco', logo: imagePaths.partners.choco },
-    { name: 'Рядом', logo: imagePaths.partners.ryadom },
-    { name: 'Яндекс Лавка', logo: imagePaths.partners.yandex },
-    { name: 'Airba Fresh', logo: imagePaths.partners.airba },
-    { name: 'URBO Coffee', logo: imagePaths.partners.urbo },
   ]
   
   const hqImage = imagePaths.hq
@@ -866,41 +857,6 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Партнёры */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
-            <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
-                Нам доверяют лидеры рынка СНГ
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 max-w-6xl mx-auto">
-              {partners.map((partner, idx) => (
-                <motion.div
-                  key={partner.name}
-                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ delay: idx * 0.1, duration: 0.4 }}
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  className="h-24 md:h-28 bg-white rounded-xl flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer border-2 border-gray-200 hover:border-[#F97316]/50 shadow-sm hover:shadow-lg overflow-hidden"
-                >
-                  {partner.logo ? (
-                    <ImageWithSkeleton
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="h-12 md:h-16 w-full object-contain px-4"
-                      aspectRatio="4/3"
-                      objectFit="contain"
-                    />
-                  ) : (
-                    <span className="text-xs md:text-sm font-semibold text-[#64748B] px-3 text-center">{partner.name}</span>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </FadeUpSection>
 
         {/* Final CTA */}
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#F97316]/10 via-white to-[#F97316]/5">
