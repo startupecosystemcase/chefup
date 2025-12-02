@@ -92,7 +92,7 @@ function MobileMenuContent() {
             key={item.href}
             href={item.href}
             className={cn(
-              'relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300',
+              'relative flex items-center gap-5 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300',
               'group hover:scale-[1.02] active:scale-[0.98]',
               isActive
                 ? 'bg-primary/15 text-primary shadow-lg shadow-primary/10 backdrop-blur-sm'
@@ -132,8 +132,8 @@ export function MobileBottomNav() {
     <>
       {/* Liquid Glass Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden safe-area-bottom">
-        {/* Glass effect background */}
-        <div className="absolute inset-0 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/20 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]" />
+        {/* Glass effect background with gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/70 to-white/60 dark:from-gray-900/80 dark:via-gray-900/70 dark:to-gray-900/60 backdrop-blur-2xl border-t border-white/30 dark:border-gray-700/30 shadow-[0_-8px_32px_rgba(0,0,0,0.12)]" />
         
         {/* Content */}
         <div className="relative flex items-center justify-around h-16 px-4">
@@ -146,16 +146,16 @@ export function MobileBottomNav() {
                 key={index}
                 href={item.href}
                 className={cn(
-                  'relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300',
+                  'relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 min-h-[56px] min-w-[56px]',
                   'hover:scale-110 active:scale-95',
                   isActive
-                    ? 'bg-primary/20 text-primary shadow-lg shadow-primary/20'
-                    : 'text-muted-foreground hover:bg-white/50 dark:hover:bg-gray-800/50'
+                    ? 'bg-gradient-to-br from-primary/25 via-primary/20 to-primary/15 text-primary shadow-lg shadow-primary/25 backdrop-blur-sm'
+                    : 'text-muted-foreground hover:bg-white/60 dark:hover:bg-gray-800/60 backdrop-blur-sm'
                 )}
               >
                 <Icon className={cn(
                   'w-6 h-6 transition-all duration-300',
-                  isActive && 'scale-110'
+                  isActive && 'scale-110 drop-shadow-sm'
                 )} />
                 {isActive && (
                   <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />

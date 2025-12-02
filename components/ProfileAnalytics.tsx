@@ -73,18 +73,18 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
   const salaryStatus = getSalaryStatus()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Средняя зарплата по должности */}
-      <Card>
+      <Card className="glass">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-4">
             <DollarSign className="w-5 h-5 text-primary" />
             Средняя зарплата по должности
           </CardTitle>
           <CardDescription>Сравнение ваших ожиданий с рынком</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Минимум: {analytics.salary.min.toLocaleString()} ₸</span>
               <span className="text-muted-foreground">Максимум: {analytics.salary.max.toLocaleString()} ₸</span>
@@ -119,7 +119,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
       {/* Индекс востребованности */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-4">
             <TrendingUp className="w-5 h-5 text-primary" />
             Индекс востребованности
           </CardTitle>
@@ -147,7 +147,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
       {/* Индикатор совпадения с вакансиями */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-4">
             <Target className="w-5 h-5 text-primary" />
             Совпадение с вакансиями
           </CardTitle>
@@ -201,7 +201,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
       {/* Статистика видимости */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-4">
             <Eye className="w-5 h-5 text-primary" />
             Статистика видимости
           </CardTitle>
@@ -233,7 +233,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
       {/* Динамика улучшений */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-4">
             <TrendingUp className="w-5 h-5 text-primary" />
             Динамика улучшений
           </CardTitle>

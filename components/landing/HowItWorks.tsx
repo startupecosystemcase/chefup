@@ -79,7 +79,7 @@ export function HowItWorks() {
         >
           <Card className="bg-white border-2 border-[#F97316]/20">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-[#0F172A] mb-4">
+              <h3 className="text-2xl font-bold text-[#0F172A] mb-8">
                 {steps[activeStep - 1].title}
               </h3>
               <p className="text-lg text-[#64748B]">

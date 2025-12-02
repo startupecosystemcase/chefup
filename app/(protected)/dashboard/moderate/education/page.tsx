@@ -79,7 +79,7 @@ export default function ModerateEducationPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация образовательных материалов</h1>
           <p className="text-muted-foreground">
             Проверьте курсы, тренинги, вебинары и сертификации перед публикацией
@@ -100,7 +100,7 @@ export default function ModerateEducationPage() {
               return (
                 <Card key={item.id} className="h-full flex flex-col">
                   <CardHeader>
-                    <div className="flex items-start gap-3 mb-2">
+                    <div className="flex items-start gap-5 mb-2">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-primary" />
                       </div>
@@ -116,7 +116,7 @@ export default function ModerateEducationPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col justify-between">
-                    <p className="text-sm text-muted-foreground mb-4">{item.description}</p>
+                    <p className="text-sm text-muted-foreground mb-8">{item.description}</p>
                     {selectedItem?.id === item.id ? (
                       <div className="space-y-4 p-4 border rounded-md bg-muted/50">
                         <div>
@@ -130,7 +130,7 @@ export default function ModerateEducationPage() {
                             className="min-h-[100px]"
                           />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-4">
                           <Button
                             variant="outline"
                             size="sm"
@@ -162,7 +162,7 @@ export default function ModerateEducationPage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="flex gap-2">
+                      <div className="flex gap-4">
                         <Button
                           variant="destructive"
                           size="sm"

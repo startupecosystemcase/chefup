@@ -118,7 +118,7 @@ export function TestimonialsSwiper() {
               onClick={() => setSelectedTestimonial(testimonial)}
             >
               <CardContent className="p-6">
-                <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-start gap-4 mb-8">
                   <Avatar className="w-16 h-16">
                     <AvatarImage src={testimonial.avatar} />
                     <AvatarFallback className="bg-[#F97316]/10 text-[#F97316] text-lg">
@@ -133,7 +133,7 @@ export function TestimonialsSwiper() {
                     </div>
                   </div>
                 </div>
-                <p className="text-[#64748B] mb-4 italic">"{testimonial.quote}"</p>
+                <p className="text-[#64748B] mb-8 italic">"{testimonial.quote}"</p>
                 <div className="pt-4 border-t border-gray-100">
                   <div className="flex items-center justify-between text-xs">
                     <div>
@@ -151,7 +151,7 @@ export function TestimonialsSwiper() {
       <Dialog open={!!selectedTestimonial} onOpenChange={() => setSelectedTestimonial(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-8">
               <Avatar className="w-20 h-20">
                 <AvatarImage src={selectedTestimonial?.avatar} />
                 <AvatarFallback className="bg-[#F97316]/10 text-[#F97316] text-xl">

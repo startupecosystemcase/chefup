@@ -131,7 +131,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
           </Button>
         </label>
         {images.length > 0 && (
-          <div className="grid grid-cols-4 gap-2 mt-4">
+          <div className="grid grid-cols-4 gap-4 mt-8">
             {images.map((img, index) => (
               <div key={index} className="relative group">
                 <img
@@ -155,7 +155,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       {/* Видео */}
       <div>
         <Label>Видео (YouTube, Vimeo и т.д.)</Label>
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           <Input
             value={newVideoUrl}
             onChange={(e) => setNewVideoUrl(e.target.value)}
@@ -168,7 +168,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
           </Button>
         </div>
         {videos.length > 0 && (
-          <div className="space-y-2 mt-4">
+          <div className="space-y-4 mt-8">
             {videos.map((video, index) => (
               <div key={index} className="flex items-center justify-between p-2 border rounded-md">
                 <span className="text-sm truncate flex-1">{video}</span>
@@ -189,7 +189,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       {/* Ссылки */}
       <div>
         <Label>Ссылки</Label>
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Input
             value={newLink.url}
             onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
@@ -213,7 +213,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
           </Button>
         </div>
         {links.length > 0 && (
-          <div className="space-y-2 mt-4">
+          <div className="space-y-4 mt-8">
             {links.map((link, index) => (
               <div key={index} className="p-3 border rounded-md">
                 <div className="flex items-start justify-between">

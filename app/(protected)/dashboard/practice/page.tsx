@@ -102,7 +102,7 @@ export default function PracticePage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Практика и обучение</h1>
           <p className="text-muted-foreground">
             Доступ к тренингам, мастер-классам, курсам и образовательным программам
@@ -110,7 +110,7 @@ export default function PracticePage() {
         </div>
 
         {/* Фильтры */}
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardContent className="pt-6">
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row gap-4">
@@ -137,7 +137,7 @@ export default function PracticePage() {
                 </Select>
               </div>
               <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <Filter className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm font-medium">Цена:</span>
                 </div>
@@ -194,42 +194,42 @@ export default function PracticePage() {
                     <CardDescription className="text-sm">Автор: {item.author}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col">
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{item.description}</p>
-                    <div className="space-y-2 text-sm mb-4">
-                      <div className="flex items-center gap-2 text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mb-8 line-clamp-3">{item.description}</p>
+                    <div className="space-y-4 text-sm mb-8">
+                      <div className="flex items-center gap-4 text-muted-foreground">
                         <Clock className="w-4 h-4" />
                         <span>{item.duration}</span>
                       </div>
                       {item.maxParticipants && (
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-4 text-muted-foreground">
                           <Users className="w-4 h-4" />
                           <span>До {item.maxParticipants} участников</span>
                         </div>
                       )}
                       {item.startDate && (
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-4 text-muted-foreground">
                           <Calendar className="w-4 h-4" />
                           <span>{new Date(item.startDate).toLocaleDateString('ru-RU')}</span>
                         </div>
                       )}
                       {item.location && (
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-4 text-muted-foreground">
                           <MapPin className="w-4 h-4" />
                           <span className="text-xs">{item.location}</span>
                         </div>
                       )}
                       {item.isOnline && !item.location && (
-                        <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="flex items-center gap-4 text-muted-foreground">
                           <Video className="w-4 h-4" />
                           <span>Онлайн</span>
                         </div>
                       )}
-                      <div className="flex items-center gap-2 font-semibold">
+                      <div className="flex items-center gap-4 font-semibold">
                         <DollarSign className="w-4 h-4 text-primary" />
                         <span>{item.price === 0 ? 'Бесплатно' : `${item.price.toLocaleString('ru-RU')} ₸`}</span>
                       </div>
                     </div>
-                    <div className="mt-auto space-y-2">
+                    <div className="mt-auto space-y-4">
                       {enrolled ? (
                         <Button variant="outline" className="w-full" asChild>
                           <Link href={`/dashboard/practice/${item.id}`}>

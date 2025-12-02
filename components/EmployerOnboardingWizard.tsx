@@ -110,7 +110,7 @@ export function EmployerOnboardingWizard() {
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-5 mb-8">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
               <Building2 className="w-6 h-6 text-primary" />
             </div>

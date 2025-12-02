@@ -40,7 +40,7 @@ export default function JobsHistoryPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8 flex items-center justify-between">
+        <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold mb-2">История вакансий</h1>
             <p className="text-muted-foreground">
@@ -55,7 +55,7 @@ export default function JobsHistoryPage() {
         {employerJobs.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4">У вас пока нет созданных вакансий</p>
+              <p className="text-muted-foreground mb-8">У вас пока нет созданных вакансий</p>
               <Button onClick={() => router.push('/dashboard/jobs/create')}>
                 Создать первую вакансию
               </Button>
@@ -70,14 +70,14 @@ export default function JobsHistoryPage() {
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
+                        <div className="flex items-center gap-5 mb-2">
                           <CardTitle className="text-xl">{job.title}</CardTitle>
                           <Badge variant={status.variant} className="flex items-center gap-1">
                             {status.icon}
                             {status.label}
                           </Badge>
                         </div>
-                        <div className="flex flex-wrap gap-2 mb-2">
+                        <div className="flex flex-wrap gap-4 mb-2">
                           <Badge variant="outline" className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" />
                             {job.city}, {job.country}
@@ -101,7 +101,7 @@ export default function JobsHistoryPage() {
                   <CardContent>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 text-sm">
+                        <div className="flex items-center gap-4 text-sm">
                           <DollarSign className="w-4 h-4 text-primary" />
                           <span className="font-semibold">{job.salary}</span>
                         </div>
@@ -111,7 +111,7 @@ export default function JobsHistoryPage() {
                           </div>
                         )}
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-4">
                         <Button variant="outline" asChild>
                           <Link href={`/dashboard/candidates?jobId=${job.id}`}>
                             <Eye className="w-4 h-4 mr-2" />

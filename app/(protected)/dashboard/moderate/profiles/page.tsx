@@ -83,7 +83,7 @@ export default function ModerateProfilesPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация профилей</h1>
           <p className="text-muted-foreground">
             Проверьте профили и микроблоги пользователей
@@ -122,12 +122,12 @@ export default function ModerateProfilesPage() {
                   <CardContent>
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <h4 className="font-semibold mb-2 flex items-center gap-4">
                           <User className="w-4 h-4" />
                           Посты в микроблоге: {userPosts.length}
                         </h4>
                         {userPosts.length > 0 && (
-                          <div className="space-y-2">
+                          <div className="space-y-4">
                             {userPosts.slice(0, 3).map((post) => (
                               <div key={post.id} className="p-3 border rounded-md">
                                 <p className="font-medium text-sm">{post.title}</p>
@@ -140,7 +140,7 @@ export default function ModerateProfilesPage() {
                         )}
                       </div>
 
-                      <div className="flex gap-2">
+                      <div className="flex gap-4">
                         <Button variant="outline" asChild>
                           <Link href={`/profile/${profile.userId}`}>
                             <Eye className="w-4 h-4 mr-2" />

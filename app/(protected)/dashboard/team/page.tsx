@@ -50,7 +50,7 @@ export default function TeamPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8 flex items-center justify-between">
+        <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold mb-2">Команда</h1>
             <p className="text-muted-foreground">
@@ -105,7 +105,7 @@ export default function TeamPage() {
         </div>
 
         {/* Поиск */}
-        <div className="mb-6">
+        <div className="mb-8">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
@@ -121,7 +121,7 @@ export default function TeamPage() {
         {teamMembers.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-8">
                 У вас пока нет участников в команде
               </p>
               <p className="text-sm text-muted-foreground">

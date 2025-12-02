@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t bg-white">
       <div className="container mx-auto px-5 lg:px-[120px] py-8">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-5">
             <span className="text-2xl font-bold text-[#0F172A]">ChefUp</span>
             <span className="text-sm text-[#64748B]">© 2025</span>
           </div>

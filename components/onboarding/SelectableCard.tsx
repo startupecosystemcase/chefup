@@ -30,7 +30,7 @@ export function SelectableCard({
       animate={selected ? { scale: 1 } : { scale: 1 }}
       className={cn(
         'p-3 md:p-4 rounded-lg border-2 transition-all duration-300 text-left',
-        'flex flex-col items-center gap-2 md:gap-3',
+        'flex flex-col items-center gap-4 md:gap-5',
         selected
           ? 'bg-[#F97316] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-4 ring-[#F97316]/30'
           : 'bg-gray-100 text-gray-700 border-gray-200 hover:border-[#F97316]/30',

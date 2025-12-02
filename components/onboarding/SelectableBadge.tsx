@@ -30,7 +30,7 @@ export function SelectableBadge({
       animate={selected ? { scale: 1 } : { scale: 1 }}
       className={cn(
         'px-4 py-2 rounded-full border-2 transition-all duration-300',
-        'flex items-center gap-2 text-sm font-medium',
+        'flex items-center gap-4 text-sm font-medium',
         selected
           ? 'bg-[#F97316] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-2 ring-[#F97316]/30'
           : 'bg-gray-100 text-gray-700 border-gray-200 hover:border-[#F97316]/30',

@@ -77,8 +77,8 @@ export default function CreateJobPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-6">
-          <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <div className="mb-8">
+          <Button variant="ghost" onClick={() => router.back()} className="mb-8">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </Button>
@@ -90,7 +90,7 @@ export default function CreateJobPage() {
 
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <FileText className="w-5 h-5 text-primary" />
               <CardTitle>Информация о вакансии</CardTitle>
             </div>
@@ -283,9 +283,9 @@ export default function CreateJobPage() {
 
                 <div>
                   <FormLabel>Требования *</FormLabel>
-                  <div className="space-y-2 mt-2">
+                  <div className="space-y-4 mt-2">
                     {requirements.map((req, index) => (
-                      <div key={index} className="flex gap-2">
+                      <div key={index} className="flex gap-4">
                         <Input
                           value={req}
                           onChange={(e) => {
@@ -307,7 +307,7 @@ export default function CreateJobPage() {
                         )}
                       </div>
                     ))}
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                       <Input
                         value={newRequirement}
                         onChange={(e) => setNewRequirement(e.target.value)}

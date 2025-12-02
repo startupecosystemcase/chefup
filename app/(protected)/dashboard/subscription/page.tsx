@@ -73,7 +73,7 @@ export default function SubscriptionPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8 text-center">
+        <div className="mb-8 md:mb-8 text-center">
           <h1 className="text-4xl font-bold mb-2">Управление подпиской</h1>
           <p className="text-muted-foreground text-lg">
             Выберите план, который подходит именно вам
@@ -81,7 +81,7 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Текущий статус */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <Card className={cn(
             'border-2 transition-all duration-300',
             subscriptionStatus === 'PRO' 
@@ -114,7 +114,7 @@ export default function SubscriptionPage() {
             </CardHeader>
             <CardContent>
               {subscriptionStatus === 'PRO' ? (
-                <div className="flex items-center gap-2 text-primary">
+                <div className="flex items-center gap-4 text-primary">
                   <CheckCircle className="w-5 h-5" />
                   <span className="font-medium">PRO подписка активна. Наслаждайтесь всеми преимуществами!</span>
                 </div>
@@ -128,8 +128,8 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Преимущества PRO */}
-        <div className="mb-6 md:mb-8">
-          <h2 className="text-2xl font-bold mb-6 text-center">Преимущества PRO подписки</h2>
+        <div className="mb-8 md:mb-8">
+          <h2 className="text-2xl font-bold mb-8 text-center">Преимущества PRO подписки</h2>
           <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {proBenefits.map((benefit, index) => {
               const Icon = benefit.icon
@@ -143,7 +143,7 @@ export default function SubscriptionPage() {
                 >
                   <CardHeader>
                     <div className={cn(
-                      'w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300',
+                      'w-12 h-12 rounded-lg flex items-center justify-center mb-8 transition-all duration-300',
                       benefit.bgColor
                     )}>
                       <Icon className={cn('w-6 h-6', benefit.color)} />
@@ -163,7 +163,7 @@ export default function SubscriptionPage() {
         {subscriptionStatus === 'BASIC' && (
           <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
             <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
+              <CardTitle className="text-2xl flex items-center gap-4">
                 <Crown className="w-6 h-6 text-primary" />
                 Активировать PRO подписку
               </CardTitle>

@@ -36,14 +36,14 @@ export default function CertificateDetailPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <Button variant="ghost" onClick={() => router.back()} className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Назад
         </Button>
 
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-8">
               <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
                 <Award className="w-12 h-12 text-primary" />
               </div>
@@ -54,7 +54,7 @@ export default function CertificateDetailPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-4">
               <h2 className="text-2xl font-bold">{certificate.educationTitle}</h2>
               <p className="text-muted-foreground">
                 Номер сертификата: {certificate.certificateNumber}
@@ -64,7 +64,7 @@ export default function CertificateDetailPage() {
             <div className="border-t pt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Дата выдачи:</span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <Calendar className="w-4 h-4" />
                   <span className="font-medium">
                     {format(new Date(certificate.issuedAt), 'dd MMMM yyyy', { locale: ru })}
@@ -74,7 +74,7 @@ export default function CertificateDetailPage() {
             </div>
 
             <div className="border-t pt-6">
-              <p className="text-sm text-muted-foreground text-center mb-4">
+              <p className="text-sm text-muted-foreground text-center mb-8">
                 Данный сертификат подтверждает успешное прохождение образовательной программы
                 и может быть использован для подтверждения квалификации.
               </p>

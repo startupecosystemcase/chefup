@@ -38,12 +38,12 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
   }
 
   return (
-    <Card className="mb-6">
+    <Card className="mb-8">
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="text-xl mb-2">{post.title}</CardTitle>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <span>{formatDate(post.createdAt)}</span>
               {post.updatedAt && post.updatedAt !== post.createdAt && (
                 <Badge variant="outline" className="text-xs">Обновлено</Badge>
@@ -51,7 +51,7 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
             </div>
           </div>
           {showActions && (
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               {onEdit && (
                 <Button variant="ghost" size="sm" onClick={() => onEdit(post)}>
                   Редактировать
@@ -71,7 +71,7 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
 
         {/* Изображения */}
         {post.images && post.images.length > 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {post.images.map((img, index) => (
               <div key={index} className="relative group">
                 <img
@@ -122,10 +122,10 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
 
         {/* Ссылки */}
         {post.links && post.links.length > 0 && (
-          <div className="space-y-2">
+          <div className="space-y-4">
             {post.links.map((link, index) => (
               <div key={index} className="p-3 border rounded-md hover:bg-muted/50 transition-colors">
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-5">
                   <ExternalLink className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <a

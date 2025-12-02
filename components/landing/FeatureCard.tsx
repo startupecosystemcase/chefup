@@ -27,7 +27,7 @@ export function FeatureCard({ icon: Icon, title, stat, description }: FeatureCar
           <motion.div
             animate={hovered ? { rotate: 360, scale: 1.2 } : { rotate: 0, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="w-16 h-16 rounded-full bg-[#F97316]/10 flex items-center justify-center mb-4"
+            className="w-16 h-16 rounded-full bg-[#F97316]/10 flex items-center justify-center mb-8"
           >
             <Icon className="w-8 h-8 text-[#F97316]" />
           </motion.div>

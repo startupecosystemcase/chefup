@@ -42,7 +42,7 @@ export default function ResumesPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Резюме</h1>
           <p className="text-muted-foreground">
             Список зарегистрированных участников платформы
@@ -50,7 +50,7 @@ export default function ResumesPage() {
         </div>
 
         {/* Поиск и фильтры */}
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardContent className="p-6">
             <div className="space-y-4">
               {/* Поиск */}
@@ -153,8 +153,8 @@ export default function ResumesPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="space-y-5">
+                    <div className="flex flex-wrap gap-4">
                       <Badge variant="outline" className="text-xs">
                         <MapPin className="w-3 h-3 mr-1" />
                         {resume.city}

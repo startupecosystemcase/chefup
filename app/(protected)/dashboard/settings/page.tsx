@@ -108,8 +108,8 @@ export default function SettingsPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2">
+        <div className="mb-8 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-4">
             <Settings className="w-8 h-8" />
             Настройки
           </h1>
@@ -120,7 +120,7 @@ export default function SettingsPage() {
           {/* Контактная информация */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Phone className="w-5 h-5" />
                 Контактная информация
               </CardTitle>
@@ -161,7 +161,7 @@ export default function SettingsPage() {
           {/* Username и Telegram */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <User className="w-5 h-5" />
                 Username и Telegram
               </CardTitle>
@@ -182,7 +182,7 @@ export default function SettingsPage() {
                 {usernameSuggestions.length > 0 && (
                   <div className="mt-2">
                     <p className="text-sm text-muted-foreground mb-2">Этот username занят. Предлагаем:</p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-4">
                       {usernameSuggestions.slice(0, 3).map((suggestion, idx) => (
                         <Button
                           key={idx}
@@ -225,7 +225,7 @@ export default function SettingsPage() {
           {/* Уведомления */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Bell className="w-5 h-5" />
                 Уведомления
               </CardTitle>
@@ -249,7 +249,7 @@ export default function SettingsPage() {
           {/* Приватность */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Lock className="w-5 h-5" />
                 Приватность
               </CardTitle>
@@ -277,7 +277,7 @@ export default function SettingsPage() {
           {/* Удаление аккаунта */}
           <Card className="border-destructive/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-destructive">
+              <CardTitle className="flex items-center gap-4 text-destructive">
                 <Trash2 className="w-5 h-5" />
                 Удаление аккаунта
               </CardTitle>
@@ -290,7 +290,7 @@ export default function SettingsPage() {
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
+                    <DialogTitle className="flex items-center gap-4">
                       <AlertTriangle className="w-5 h-5 text-destructive" />
                       Подтвердите удаление
                     </DialogTitle>

@@ -88,7 +88,7 @@ export default function PartnersPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Партнёры</h1>
           <p className="text-muted-foreground">
             {userRole === 'employer'
@@ -98,7 +98,7 @@ export default function PartnersPage() {
         </div>
 
         {/* Фильтры */}
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="relative flex-1">
@@ -151,15 +151,15 @@ export default function PartnersPage() {
                     <CardDescription className="line-clamp-3">{partner.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col">
-                    <div className="space-y-3 mb-4">
+                    <div className="space-y-5 mb-8">
                       <div>
-                        <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                        <h4 className="text-sm font-semibold mb-2 flex items-center gap-4">
                           <Gift className="w-4 h-4 text-primary" />
                           Преимущества:
                         </h4>
                         <ul className="text-sm text-muted-foreground space-y-1">
                           {partner.benefits.slice(0, 3).map((benefit, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
+                            <li key={idx} className="flex items-start gap-4">
                               <span className="text-primary mt-1">•</span>
                               <span>{benefit}</span>
                             </li>
@@ -172,7 +172,7 @@ export default function PartnersPage() {
                           <h4 className="text-sm font-semibold mb-2">Предложения:</h4>
                           <ul className="text-sm text-muted-foreground space-y-1">
                             {partner.offers.slice(0, 2).map((offer, idx) => (
-                              <li key={idx} className="flex items-start gap-2">
+                              <li key={idx} className="flex items-start gap-4">
                                 <span className="text-primary mt-1">•</span>
                                 <span>{offer}</span>
                               </li>
@@ -188,7 +188,7 @@ export default function PartnersPage() {
                       )}
                     </div>
 
-                    <div className="mt-auto space-y-2 pt-4 border-t">
+                    <div className="mt-auto space-y-4 pt-4 border-t">
                       {partner.website && (
                         <Button variant="outline" className="w-full" asChild>
                           <a href={partner.website} target="_blank" rel="noopener noreferrer">
@@ -197,7 +197,7 @@ export default function PartnersPage() {
                           </a>
                         </Button>
                       )}
-                      <div className="flex gap-2 text-xs text-muted-foreground">
+                      <div className="flex gap-4 text-xs text-muted-foreground">
                         {partner.contactEmail && (
                           <a
                             href={`mailto:${partner.contactEmail}`}

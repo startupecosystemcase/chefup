@@ -73,7 +73,7 @@ export function DashboardSidebar() {
   if (!mounted) {
     return (
       <aside className="hidden md:block w-64 p-4 md:p-6">
-        <nav className="space-y-2">
+        <nav className="space-y-4">
           <div className="h-10 w-full animate-pulse bg-muted rounded-lg" />
         </nav>
       </aside>
@@ -89,11 +89,11 @@ export function DashboardSidebar() {
 
   return (
     <aside className="hidden md:block w-64 relative">
-      {/* Liquid Glass Background */}
-      <div className="absolute inset-0 bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl border-r border-white/30 dark:border-gray-700/30" />
+      {/* Liquid Glass Background with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/50 dark:from-gray-900/70 dark:via-gray-900/60 dark:to-gray-900/50 backdrop-blur-2xl border-r border-white/40 dark:border-gray-700/40 shadow-lg" />
       
       {/* Content */}
-      <nav className="relative p-4 md:p-6 space-y-1">
+      <nav className="relative p-6 md:p-8 space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
@@ -102,7 +102,7 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'relative flex items-center gap-3 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm font-medium transition-all duration-300',
+                'relative flex items-center gap-5 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm font-medium transition-all duration-300',
                 'group hover:scale-[1.02] active:scale-[0.98]',
                 isActive
                   ? 'bg-primary/15 text-primary shadow-lg shadow-primary/10 backdrop-blur-sm'

@@ -109,14 +109,14 @@ export default function ModerateUsersPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Управление пользователями</h1>
           <p className="text-muted-foreground">
             Управляйте пользователями платформы, блокируйте и разблокируйте аккаунты
           </p>
         </div>
 
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
             <CardTitle>Поиск пользователей</CardTitle>
           </CardHeader>
@@ -151,7 +151,7 @@ export default function ModerateUsersPage() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-1">
+                      <div className="flex items-center gap-5 mb-1">
                         <CardTitle>
                           {user.firstName} {user.lastName}
                         </CardTitle>
@@ -173,7 +173,7 @@ export default function ModerateUsersPage() {
                         <span className="ml-2">• Регистрация: {user.createdAt}</span>
                       </CardDescription>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                       {user.status === 'active' ? (
                         <Button
                           variant="destructive"

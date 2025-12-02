@@ -34,7 +34,7 @@ export default function CertificatesPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Мои сертификаты</h1>
           <p className="text-muted-foreground">
             Все полученные сертификаты об обучении и прохождении курсов
@@ -44,8 +44,8 @@ export default function CertificatesPage() {
         {certificates.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <Award className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-muted-foreground mb-4">У вас пока нет сертификатов</p>
+              <Award className="w-16 h-16 mx-auto mb-8 text-muted-foreground" />
+              <p className="text-muted-foreground mb-8">У вас пока нет сертификатов</p>
               <Button asChild>
                 <Link href="/dashboard/practice">Посмотреть доступные курсы</Link>
               </Button>
@@ -56,7 +56,7 @@ export default function CertificatesPage() {
             {certificates.map((certificate) => (
               <Card key={certificate.id} className="card-hover">
                 <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between mb-8">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Award className="w-6 h-6 text-primary" />
                     </div>
@@ -69,13 +69,13 @@ export default function CertificatesPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <Calendar className="w-4 h-4" />
                       <span>
                         Выдан: {format(new Date(certificate.issuedAt), 'dd MMMM yyyy', { locale: ru })}
                       </span>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                       <Button variant="outline" className="flex-1" asChild>
                         <Link href={`/dashboard/certificates/${certificate.id}`}>
                           <Download className="w-4 h-4 mr-2" />

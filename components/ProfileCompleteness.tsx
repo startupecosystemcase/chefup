@@ -86,29 +86,29 @@ export function ProfileCompleteness({ formData }: ProfileCompletenessProps) {
   const missingFields = getMissingFields()
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium">Заполненность профиля</span>
-          <span className="text-sm font-bold text-primary">{completeness}%</span>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-base font-medium">Заполненность профиля</span>
+          <span className="text-lg font-bold text-primary bg-gradient-to-r from-primary to-[#FB923C] bg-clip-text text-transparent">{completeness}%</span>
         </div>
-        <Progress value={completeness} className="h-3" />
+        <Progress value={completeness} className="h-4 rounded-full" />
       </div>
 
       {completeness === 100 && (
-        <Badge variant="default" className="flex items-center gap-2 w-fit">
-          <CheckCircle2 className="w-4 h-4" />
+        <Badge variant="default" className="flex items-center gap-3 px-4 py-2 w-fit bg-gradient-to-r from-primary to-[#FB923C]">
+          <CheckCircle2 className="w-5 h-5" />
           Профиль заполнен на 100%
         </Badge>
       )}
 
       {missingFields.length > 0 && (
-        <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
-          <div className="flex items-start gap-2 mb-2">
-            <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+        <div className="p-5 rounded-xl bg-gradient-to-br from-orange-50 to-orange-100/50 border border-orange-200/50 backdrop-blur-sm">
+          <div className="flex items-start gap-4 mb-3">
+            <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-medium text-orange-800 mb-1">Не заполнены обязательные поля:</p>
-              <ul className="text-xs text-orange-700 space-y-1">
+              <p className="text-base font-medium text-orange-800 mb-2">Не заполнены обязательные поля:</p>
+              <ul className="text-sm text-orange-700 space-y-2">
                 {missingFields.map((field, idx) => (
                   <li key={idx}>• {field}</li>
                 ))}
@@ -119,7 +119,7 @@ export function ProfileCompleteness({ formData }: ProfileCompletenessProps) {
       )}
 
       {/* Микро-награды */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {(formData.currentPosition || formData.desiredPosition) && (
           <Badge variant="secondary" className="text-xs">
             ✓ Заполнил должность

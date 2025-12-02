@@ -77,8 +77,8 @@ export default function CandidatesPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
-          <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <div className="mb-8 md:mb-8">
+          <Button variant="ghost" onClick={() => router.back()} className="mb-8">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </Button>
@@ -97,7 +97,7 @@ export default function CandidatesPage() {
         </div>
 
         {/* Фильтры */}
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
             <CardTitle>Поиск и фильтры</CardTitle>
           </CardHeader>
@@ -198,24 +198,24 @@ export default function CandidatesPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col justify-between">
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <Briefcase className="w-4 h-4" />
                       {candidate.position}
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <Clock className="w-4 h-4" />
                       {candidate.experience}
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <ChefHat className="w-4 h-4" />
                       {candidate.cuisine}
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                  <p className="text-sm text-muted-foreground mb-8 line-clamp-3">
                     {candidate.about}
                   </p>
-                  <div className="flex gap-2">
+                  <div className="flex gap-4">
                     <Button variant="outline" className="flex-1" asChild>
                       <Link href={`/profile/${candidate.id}`}>
                         Профиль

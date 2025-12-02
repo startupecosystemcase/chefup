@@ -29,7 +29,7 @@ export function BadgeSelector({ options, selected, onChange, className, maxSelec
   }
 
   return (
-    <div className={cn('flex flex-wrap gap-2', className)}>
+    <div className={cn('flex flex-wrap gap-4', className)}>
       {options.map((option) => {
         const isSelected = selected.includes(option.value)
         return (

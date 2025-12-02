@@ -646,7 +646,7 @@ export function OnboardingWizard() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Кухни и специализация *</FormLabel>
-                          <div className="flex flex-wrap gap-3">
+                          <div className="flex flex-wrap gap-5">
                             {cuisines.map((cuisine) => {
                               const Icon = cuisineIcons[cuisine.value] || Utensils
                               return (
@@ -679,7 +679,7 @@ export function OnboardingWizard() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Сертификаты</FormLabel>
-                          <div className="flex flex-wrap gap-3">
+                          <div className="flex flex-wrap gap-5">
                             {certificates.map((cert) => {
                               const Icon = certificateIcons[cert.value] || Award
                               return (
@@ -712,7 +712,7 @@ export function OnboardingWizard() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Дополнительные навыки</FormLabel>
-                          <div className="flex flex-wrap gap-3">
+                          <div className="flex flex-wrap gap-5">
                             {additionalSkills.map((skill) => {
                               const Icon = skillIcons[skill.value] || Users
                               return (
@@ -869,7 +869,7 @@ export function OnboardingWizard() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Цели использования ChefUp *</FormLabel>
-                          <div className="flex flex-wrap gap-3">
+                          <div className="flex flex-wrap gap-5">
                             {[
                               { value: 'find-job', label: 'Найти работу', icon: Search },
                               { value: 'find-employees', label: 'Найти сотрудников', icon: UserPlus },
@@ -960,7 +960,7 @@ export function OnboardingWizard() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Оцените анкету ChefUp *</FormLabel>
-                          <div className="flex gap-2">
+                          <div className="flex gap-4">
                             {[1, 2, 3, 4, 5].map((star) => (
                               <motion.button
                                 key={star}

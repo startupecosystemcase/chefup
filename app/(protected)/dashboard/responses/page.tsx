@@ -52,7 +52,7 @@ export default function ResponsesPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Мои отклики</h1>
           <p className="text-muted-foreground">
             Отслеживайте статус ваших откликов на вакансии
@@ -62,8 +62,8 @@ export default function ResponsesPage() {
         {responsesWithJobs.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <Send className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-muted-foreground mb-4">У вас пока нет откликов</p>
+              <Send className="w-12 h-12 mx-auto mb-8 text-muted-foreground" />
+              <p className="text-muted-foreground mb-8">У вас пока нет откликов</p>
               <Button onClick={() => router.push('/dashboard/jobs')}>
                 Найти вакансии
               </Button>
@@ -82,7 +82,7 @@ export default function ResponsesPage() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <CardTitle className="mb-2">{job.title}</CardTitle>
-                        <div className="flex flex-wrap gap-2 mb-2">
+                        <div className="flex flex-wrap gap-4 mb-2">
                           <Badge variant="outline">{job.city}</Badge>
                           <Badge variant="outline">{job.position}</Badge>
                           <Badge variant={statusInfo.variant} className="flex items-center gap-1">
@@ -114,7 +114,7 @@ export default function ResponsesPage() {
                       </Button>
                     </div>
                     {response.employerComment && (
-                      <div className="mt-4 p-3 bg-muted/50 rounded-lg">
+                      <div className="mt-8 p-3 bg-muted/50 rounded-lg">
                         <p className="text-sm font-medium mb-1">Комментарий работодателя:</p>
                         <p className="text-sm text-muted-foreground">{response.employerComment}</p>
                       </div>

@@ -36,7 +36,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 24.6 95% 53.1%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -48,14 +48,71 @@
     @apply bg-background text-foreground;
     font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Apple HIG: Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Apple HIG: Minimum touch target size */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
 @layer utilities {
+  /* Gradients for accents */
   .gradient-dark-to-white {
     background: linear-gradient(180deg, #0F172A 0%, #FFFFFF 60%);
   }
   
+  .gradient-primary {
+    background: linear-gradient(135deg, #F97316 0%, #FB923C 50%, #FDBA74 100%);
+  }
+  
+  .gradient-primary-subtle {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(251, 146, 60, 0.05) 100%);
+  }
+  
+  .gradient-glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+  
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Airiness - Increased spacing */
+  .airy-section {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+  
+  .airy-card {
+    @apply p-8 md:p-10 lg:p-12;
+  }
+  
+  .airy-gap {
+    @apply space-y-6 md:space-y-8 lg:space-y-10;
+  }
+  
+  /* Fade animations */
   .fade-in-up {
     animation: fadeInUp 0.7s ease-out forwards;
     opacity: 0;
@@ -72,29 +129,42 @@
     }
   }
   
+  /* Interactive scrolling effects */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Card hover with Apple HIG principles */
   .card-hover {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
   }
 
-  /* Стиль Apple/Linear - мягкие тени */
+  /* Apple HIG: Soft shadows */
   .card-soft-shadow {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
   }
 
   .card-soft-shadow-hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 16px 48px rgba(0, 0, 0, 0.06);
   }
 
-  /* Топовое совпадение - мягкое свечение */
+  /* Top match glow with gradient */
   .top-match-glow {
     position: relative;
     background: white;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(249, 115, 22, 0.15), 0 0 40px rgba(249, 115, 22, 0.1);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(249, 115, 22, 0.15), 0 0 60px rgba(249, 115, 22, 0.1);
   }
 
   .top-match-glow::before {
@@ -103,7 +173,7 @@
     inset: -2px;
     border-radius: inherit;
     padding: 2px;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.05));
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(251, 146, 60, 0.1), rgba(249, 115, 22, 0.05));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -116,34 +186,45 @@
     opacity: 1;
   }
 
-  /* Модальные окна - глубокие тени */
+  /* Modal windows - deep shadows */
   .modal-shadow {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.15), 0 12px 32px rgba(0, 0, 0, 0.1);
   }
 
-  /* Кнопки - микро-тени */
+  /* Buttons with gradients and Apple HIG */
   .button-shadow {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .button-shadow:active {
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0.05);
-    transform: translateY(1px);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.08);
+    transform: translateY(1px) scale(0.98);
+  }
+  
+  .button-gradient {
+    background: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+  }
+  
+  .button-gradient:hover {
+    background: linear-gradient(135deg, #FB923C 0%, #F97316 100%);
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    transform: translateY(-1px);
   }
 
-  /* Dropdown меню */
+  /* Dropdown menu */
   .dropdown-shadow {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
   }
 
-  /* Микроанимации */
+  /* Micro-animations with Apple HIG timing */
   @keyframes bounce-in {
     0% {
-      transform: scale(0.8);
+      transform: scale(0.9);
       opacity: 0;
     }
     50% {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
     100% {
       transform: scale(1);
@@ -152,7 +233,7 @@
   }
 
   .animate-bounce-in {
-    animation: bounce-in 0.4s ease-out;
+    animation: bounce-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   @keyframes fade-in {
@@ -167,11 +248,30 @@
   .animate-fade-in {
     animation: fade-in 0.3s ease-out;
   }
+  
+  /* Apple HIG: Spring animations */
+  @keyframes spring-in {
+    0% {
+      transform: scale(0.8) translateY(20px);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.05) translateY(-2px);
+    }
+    100% {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-spring-in {
+    animation: spring-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 
-  /* Мобильные улучшения */
+  /* Mobile improvements */
   @media (max-width: 768px) {
     .card-soft-shadow {
-      border-radius: 1rem;
+      border-radius: 1.25rem;
     }
 
     .card-hover:hover {
@@ -179,7 +279,7 @@
     }
   }
 
-  /* Safe area для мобильных устройств */
+  /* Safe area for mobile devices */
   .safe-area-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
@@ -215,12 +315,29 @@
   }
   
   .profession-card {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .profession-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(249, 115, 22, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(249, 115, 22, 0.2);
+  }
+  
+  /* Apple HIG: Focus states */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  
+  /* Apple HIG: Visual hierarchy */
+  .text-hierarchy-1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight;
+  }
+  
+  .text-hierarchy-2 {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+  }
+  
+  .text-hierarchy-3 {
+    @apply text-xl md:text-2xl font-semibold;
   }
 }
-

@@ -17,7 +17,7 @@ export function SkillsProgress({ skills, className }: SkillsProgressProps) {
   return (
     <div className={cn('space-y-4', className)}>
       {skills.map((skill, idx) => (
-        <div key={idx} className="space-y-2">
+        <div key={idx} className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">{skill.name}</span>
           </div>

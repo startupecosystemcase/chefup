@@ -90,7 +90,7 @@ export default function ModerateEventsPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация участия в событиях</h1>
           <p className="text-muted-foreground">
             Проверьте и одобрите заявки на участие в событиях
@@ -118,7 +118,7 @@ export default function ModerateEventsPage() {
                     <CardDescription>
                       {format(new Date(event.date), 'dd MMMM yyyy', { locale: ru })} в {event.time} • {event.location}
                     </CardDescription>
-                    <div className="mt-4 flex items-center justify-between">
+                    <div className="mt-8 flex items-center justify-between">
                       <Badge variant="outline">
                         Заявок на модерации: {pendingParticipations.length}
                       </Badge>
@@ -163,14 +163,14 @@ export default function ModerateEventsPage() {
                                     Подал заявку: {format(new Date(participation.appliedAt), 'dd MMM yyyy HH:mm', { locale: ru })}
                                   </CardDescription>
                                   {candidate && (
-                                    <div className="mt-2 flex flex-wrap gap-2">
+                                    <div className="mt-2 flex flex-wrap gap-4">
                                       <Badge variant="outline">{candidate.position}</Badge>
                                       <Badge variant="outline">{candidate.city}</Badge>
                                       <Badge variant="outline">{candidate.experience}</Badge>
                                     </div>
                                   )}
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-4">
                                   <Button
                                     variant="outline"
                                     size="sm"
@@ -202,7 +202,7 @@ export default function ModerateEventsPage() {
                                       className="min-h-[100px]"
                                     />
                                   </div>
-                                  <div className="flex gap-2">
+                                  <div className="flex gap-4">
                                     <Button
                                       variant="outline"
                                       size="sm"
@@ -245,7 +245,7 @@ export default function ModerateEventsPage() {
                             )}
                             {!selectedEventId && (
                               <CardContent className="pt-0">
-                                <div className="flex gap-2">
+                                <div className="flex gap-4">
                                   <Button
                                     variant="outline"
                                     size="sm"

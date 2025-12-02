@@ -19,6 +19,7 @@ import { useOnboardingStore } from '@/stores/useOnboardingStore'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { getRecommendedJobs, filterByRelevanceThreshold, type JobRelevance } from '@/lib/jobRecommendations'
 import { JobCardEnhanced } from '@/components/JobCardEnhanced'
+import { ScrollReveal } from '@/components/ScrollReveal'
 
 export default function JobsPage() {
   const router = useRouter()
@@ -109,7 +110,7 @@ export default function JobsPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Вакансии</h1>
           <p className="text-muted-foreground">
             {userRole === 'applicant' 
@@ -120,9 +121,9 @@ export default function JobsPage() {
 
         {/* Вкладки для соискателей */}
         {userRole === 'applicant' && (
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'recommended' | 'all')} className="mb-6">
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'recommended' | 'all')} className="mb-8">
             <TabsList>
-              <TabsTrigger value="recommended" className="flex items-center gap-2">
+              <TabsTrigger value="recommended" className="flex items-center gap-4">
                 <Sparkles className="w-4 h-4" />
                 Рекомендации
                 {recommendedJobs.length > 0 && (
@@ -144,15 +145,15 @@ export default function JobsPage() {
         )}
 
         {/* Поиск и фильтры */}
-        <Card className="mb-4 md:mb-6">
+        <Card className="mb-8 md:mb-8">
           <CardHeader className="p-4 md:p-6">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <Filter className="w-4 h-4" />
               <CardTitle className="text-base md:text-lg">Поиск и фильтры</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="p-4 md:p-6 pt-0">
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-5 md:space-y-4">
               {/* Поиск */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -249,7 +250,7 @@ export default function JobsPage() {
           {activeTab === 'recommended' && userRole === 'applicant' && recommendedJobs.length === 0 && (
             <Card>
               <CardContent className="py-12 text-center">
-                <Sparkles className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+                <Sparkles className="w-12 h-12 mx-auto mb-8 text-muted-foreground" />
                 <p className="text-muted-foreground mb-2">
                   Рекомендации появятся после заполнения анкеты
                 </p>

@@ -90,8 +90,8 @@ export default function ModerateCandidatesPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 md:mb-8">
-          <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <div className="mb-8 md:mb-8">
+          <Button variant="ghost" onClick={() => router.back()} className="mb-8">
             Назад
           </Button>
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Автоподбор кандидатов</h1>
@@ -101,7 +101,7 @@ export default function ModerateCandidatesPage() {
         </div>
 
         {job && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle>Вакансия: {job.title}</CardTitle>
               <CardDescription>
@@ -119,8 +119,8 @@ export default function ModerateCandidatesPage() {
           </Card>
         ) : (
           <>
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            <div className="mb-8 flex items-center justify-between">
+              <div className="flex items-center gap-4">
                 <Sparkles className="w-5 h-5 text-primary" />
                 <span className="font-semibold">
                   Автоматически найдено: {autoMatches.length} кандидатов
@@ -131,7 +131,7 @@ export default function ModerateCandidatesPage() {
               </Badge>
             </div>
 
-            <div className="space-y-4 mb-6">
+            <div className="space-y-4 mb-8">
               {autoMatches.map((match) => {
                 const candidate = mockResumes.find((c) => c.id === match.candidateId)
                 if (!candidate) return null
@@ -155,7 +155,7 @@ export default function ModerateCandidatesPage() {
                           <AvatarFallback>{candidate.avatarFallback}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
+                          <div className="flex items-center gap-5 mb-2">
                             <CardTitle className="text-lg">
                               {candidate.firstName} {candidate.lastName}
                             </CardTitle>
@@ -167,7 +167,7 @@ export default function ModerateCandidatesPage() {
                               {match.score}%
                             </Badge>
                           </div>
-                          <div className="flex flex-wrap gap-2 mb-2">
+                          <div className="flex flex-wrap gap-4 mb-2">
                             <Badge variant="outline" className="flex items-center gap-1">
                               <MapPin className="w-3 h-3" />
                               {candidate.city}

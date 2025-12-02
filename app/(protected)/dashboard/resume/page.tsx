@@ -58,14 +58,14 @@ export default function ResumePage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-6 md:mb-8 flex items-center justify-between">
+        <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold mb-2">Моё резюме</h1>
             <p className="text-muted-foreground">
               Автоматически сформировано на основе вашей анкеты
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-4">
             <Button variant="outline" onClick={handleShareResume}>
               <Share2 className="w-4 h-4 mr-2" />
               Поделиться
@@ -77,7 +77,7 @@ export default function ResumePage() {
           </div>
         </div>
 
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
             <div className="flex items-center gap-4">
               <Avatar className="h-20 w-20">
@@ -116,9 +116,9 @@ export default function ResumePage() {
 
         {/* Контакты */}
         {(formData.phone || formData.email) && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <FileText className="w-5 h-5" />
                 Контактная информация
               </CardTitle>
@@ -144,9 +144,9 @@ export default function ResumePage() {
 
         {/* Опыт работы */}
         {(formData.experience || formData.desiredPosition || formData.currentPosition || formData.rank) && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Briefcase className="w-5 h-5" />
                 Опыт работы
               </CardTitle>
@@ -181,9 +181,9 @@ export default function ResumePage() {
 
         {/* Образование */}
         {formData.education && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <GraduationCap className="w-5 h-5" />
                 Образование
               </CardTitle>
@@ -196,15 +196,15 @@ export default function ResumePage() {
 
         {/* Специализация */}
         {formData.cuisines && formData.cuisines.length > 0 && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Award className="w-5 h-5" />
                 Специализация
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-4">
                 {formData.cuisines.map((cuisine) => (
                   <Badge key={cuisine} variant="secondary" className="text-sm py-1 px-3">
                     {getLabel(cuisine, cuisines)}
@@ -217,9 +217,9 @@ export default function ResumePage() {
 
         {/* Предпочтения */}
         {(formData.preferredVenueFormat || formData.salaryExpectation) && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Target className="w-5 h-5" />
                 Предпочтения
               </CardTitle>
@@ -250,15 +250,15 @@ export default function ResumePage() {
 
         {/* Цели */}
         {formData.goals && formData.goals.length > 0 && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-4">
                 <Target className="w-5 h-5" />
                 Цели и интересы
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-4">
                 {formData.goals.map((goal) => (
                   <Badge key={goal} variant="outline" className="text-sm py-1 px-3">
                     {getLabel(goal, goals)}
@@ -271,7 +271,7 @@ export default function ResumePage() {
 
         {/* О себе */}
         {formData.about && (
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle>О себе</CardTitle>
             </CardHeader>

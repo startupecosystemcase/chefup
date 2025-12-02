@@ -83,15 +83,15 @@ export default function EducationDetailPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <Button variant="ghost" onClick={() => router.back()} className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Назад
         </Button>
 
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-3">
+            <div className="flex items-start justify-between mb-8">
+              <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
@@ -106,26 +106,26 @@ export default function EducationDetailPage() {
             <CardDescription className="text-base">Автор: {education.author}</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="flex items-center gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="flex items-center gap-4">
                 <Clock className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm">{education.duration}</span>
               </div>
               {education.maxParticipants && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <Users className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm">До {education.maxParticipants} участников</span>
                 </div>
               )}
               {education.startDate && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <Calendar className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm">
                     {format(new Date(education.startDate), 'dd MMM yyyy', { locale: ru })}
                   </span>
                 </div>
               )}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <DollarSign className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold">
                   {education.price === 0 ? 'Бесплатно' : `${education.price.toLocaleString('ru-RU')} ₸`}
@@ -134,14 +134,14 @@ export default function EducationDetailPage() {
             </div>
 
             {education.location && (
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-4 mb-8">
                 <MapPin className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm">{education.location}</span>
               </div>
             )}
 
             {education.isOnline && !education.location && (
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-4 mb-8">
                 <Video className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm">Онлайн формат</span>
               </div>
@@ -165,14 +165,14 @@ export default function EducationDetailPage() {
               {education.materials && education.materials.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-2">Материалы</h3>
-                  <div className="space-y-2">
+                  <div className="space-y-4">
                     {education.materials.map((material, index) => (
                       <a
                         key={index}
                         href={material}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-primary hover:underline"
+                        className="flex items-center gap-4 text-primary hover:underline"
                       >
                         <Download className="w-4 h-4" />
                         <span>Материал {index + 1}</span>

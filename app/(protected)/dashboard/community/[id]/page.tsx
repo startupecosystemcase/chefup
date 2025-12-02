@@ -79,15 +79,15 @@ export default function EventDetailPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <Button variant="ghost" onClick={() => router.back()} className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Назад
         </Button>
 
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-3">
+            <div className="flex items-start justify-between mb-8">
+              <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
@@ -102,8 +102,8 @@ export default function EventDetailPage() {
             <CardDescription className="text-base">Организатор: {event.organizer}</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="flex items-center gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="flex items-center gap-4">
                 <Calendar className="w-4 h-4 text-muted-foreground" />
                 <div className="text-sm">
                   <div className="font-medium">
@@ -112,18 +112,18 @@ export default function EventDetailPage() {
                   <div className="text-muted-foreground">{event.time}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <MapPin className="w-4 h-4 text-muted-foreground" />
                 <div className="text-sm">
                   <div className="font-medium">{event.location}</div>
                   <div className="text-muted-foreground text-xs">{event.address}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <Users className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm">До {event.maxParticipants} участников</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <DollarSign className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold">
                   {event.price === 0 ? 'Бесплатно' : `${event.price.toLocaleString('ru-RU')} ₸`}
@@ -142,7 +142,7 @@ export default function EventDetailPage() {
               {event.tags && event.tags.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-2">Теги</h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-4">
                     {event.tags.map((tag, index) => (
                       <Badge key={index} variant="outline">
                         {tag}

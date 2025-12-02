@@ -137,9 +137,9 @@ export default function DashboardPage() {
     return (
       <div className="p-4 md:p-6 lg:p-8">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Личный кабинет работодателя</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8">Личный кабинет работодателя</h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Всего вакансий</CardTitle>
@@ -213,9 +213,9 @@ export default function DashboardPage() {
     return (
       <div className="p-4 md:p-6 lg:p-8">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Панель модератора</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8">Панель модератора</h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Вакансии на модерации</CardTitle>
@@ -248,7 +248,7 @@ export default function DashboardPage() {
                 <CardTitle>Быстрые действия</CardTitle>
                 <CardDescription>Основные функции модерации</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className="space-y-4">
                 <Button
                   variant="outline"
                   className="w-full justify-start"
@@ -295,15 +295,15 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-6 md:p-8 lg:p-12">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-6 md:mb-8 flex items-center justify-between">
+        <div className="mb-8 md:mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="relative group">
-              <Avatar className="h-16 w-16">
+              <Avatar className="h-20 w-20 md:h-24 md:w-24 ring-4 ring-primary/10 shadow-lg">
                 <AvatarImage src={formData.avatarUrl} alt={`${formData.firstName} ${formData.lastName}`} />
-                <AvatarFallback className="text-lg">
+                <AvatarFallback className="text-xl md:text-2xl bg-gradient-to-br from-primary/20 to-[#FB923C]/20">
                   {formData.firstName?.[0] || 'U'}
                   {formData.lastName?.[0] || ''}
                 </AvatarFallback>
@@ -356,7 +356,7 @@ export default function DashboardPage() {
           </div>
           
           {/* Статус подписки */}
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-4 md:gap-5">
             <Badge variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} className="text-sm px-4 py-2">
               {subscriptionStatus === 'PRO' ? (
                 <>
@@ -373,7 +373,7 @@ export default function DashboardPage() {
         {/* Прогресс заполненности профиля */}
         {userRole === 'applicant' && (
           <>
-            <Card className="mb-6">
+            <Card className="mb-8 md:mb-12 glass">
               <CardHeader>
                 <CardTitle>Заполненность профиля</CardTitle>
                 <CardDescription>Чем больше информации, тем выше ваши шансы найти работу</CardDescription>
@@ -388,7 +388,7 @@ export default function DashboardPage() {
 
         {/* Аналитика профиля и рекомендации (только для соискателей) */}
         {userRole === 'applicant' && (
-          <div className="mb-6 space-y-6">
+          <div className="mb-8 md:mb-12 space-y-8 md:space-y-10">
             <ProfileAnalytics formData={formData} />
             
             {/* Персональные рекомендации на основе ChefUp AI */}
@@ -452,7 +452,7 @@ export default function DashboardPage() {
         )}
 
           {/* Моя анкета */}
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -467,7 +467,7 @@ export default function DashboardPage() {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="mb-2 font-semibold">Личная информация</h3>
-                <div className="grid gap-2 text-sm">
+                <div className="grid gap-4 text-sm">
                   <div>
                     <span className="text-muted-foreground">Город: </span>
                     {formData.city && getLabel(formData.city, cities)}
@@ -483,7 +483,7 @@ export default function DashboardPage() {
 
               <div>
                 <h3 className="mb-2 font-semibold">Опыт и образование</h3>
-                <div className="grid gap-2 text-sm">
+                <div className="grid gap-4 text-sm">
                   <div>
                     <span className="text-muted-foreground">Опыт: </span>
                     {formData.experience && getLabel(formData.experience, experienceRanges)}
@@ -511,7 +511,7 @@ export default function DashboardPage() {
                   <Separator />
                   <div>
                     <h3 className="mb-2 font-semibold">Кухни</h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-4">
                       {formData.cuisines.map((cuisine) => (
                         <Badge key={cuisine} variant="secondary">
                           {getLabel(cuisine, cuisines)}
@@ -543,7 +543,7 @@ export default function DashboardPage() {
                     {formData.certificates && formData.certificates.length > 0 && (
                       <div>
                         <p className="text-sm text-muted-foreground mb-2">Сертификаты</p>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-4">
                           {formData.certificates.map((cert, idx) => (
                             <Badge key={idx} variant="secondary">
                               {cert}
@@ -561,7 +561,7 @@ export default function DashboardPage() {
               {formData.goals && formData.goals.length > 0 && (
                 <div>
                   <h3 className="mb-2 font-semibold">Цели</h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-4">
                     {formData.goals.map((goal) => (
                       <Badge key={goal} variant="outline">
                         {getLabel(goal, goals)}
@@ -581,7 +581,7 @@ export default function DashboardPage() {
           </Card>
 
           {/* Вакансии */}
-          <Card className="mb-6">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle>Вакансии</CardTitle>
               <CardDescription>Подходящие вакансии для вас</CardDescription>
@@ -592,14 +592,14 @@ export default function DashboardPage() {
           </Card>
 
         {/* Микроблог / Портфолио */}
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Микроблог / Портфолио</CardTitle>
                 <CardDescription>Публикуйте свои работы, достижения и делитесь опытом</CardDescription>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-4">
                 <Dialog open={isPortfolioDialogOpen} onOpenChange={(open) => {
                   setIsPortfolioDialogOpen(open)
                   if (!open) setEditingPost(null)
@@ -635,7 +635,7 @@ export default function DashboardPage() {
           <CardContent>
             {posts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-8">
                   У вас пока нет постов в микроблоге. Добавьте первый пост!
                 </p>
                 <Button onClick={() => setIsPortfolioDialogOpen(true)}>
@@ -660,7 +660,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Ссылки на соцсети */}
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
@@ -683,7 +683,7 @@ export default function DashboardPage() {
                   </DialogHeader>
                   <div className="space-y-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
                         <Instagram className="w-4 h-4" />
                         Instagram
                       </label>
@@ -695,7 +695,7 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
                         <Send className="w-4 h-4" />
                         Telegram
                       </label>
@@ -707,7 +707,7 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
                         <Facebook className="w-4 h-4" />
                         Facebook
                       </label>
@@ -719,7 +719,7 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
                         <Linkedin className="w-4 h-4" />
                         LinkedIn
                       </label>
@@ -731,7 +731,7 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
                         <Youtube className="w-4 h-4" />
                         YouTube
                       </label>
@@ -743,7 +743,7 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
                         <Globe className="w-4 h-4" />
                         Веб-сайт
                       </label>
@@ -774,7 +774,7 @@ export default function DashboardPage() {
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
                   <span>Instagram</span>
@@ -785,7 +785,7 @@ export default function DashboardPage() {
                   href={socialLinks.telegram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Send className="w-5 h-5" />
                   <span>Telegram</span>
@@ -796,7 +796,7 @@ export default function DashboardPage() {
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Facebook className="w-5 h-5" />
                   <span>Facebook</span>
@@ -807,7 +807,7 @@ export default function DashboardPage() {
                   href={socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
                   <span>LinkedIn</span>
@@ -818,7 +818,7 @@ export default function DashboardPage() {
                   href={socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Youtube className="w-5 h-5" />
                   <span>YouTube</span>
@@ -829,7 +829,7 @@ export default function DashboardPage() {
                   href={socialLinks.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Globe className="w-5 h-5" />
                   <span>Веб-сайт</span>

@@ -64,7 +64,7 @@ export default function JobDetailPage() {
           <Card>
             <CardContent className="py-12 text-center">
               <p className="text-muted-foreground">Вакансия не найдена</p>
-              <Button className="mt-4" onClick={() => router.push('/dashboard/jobs')}>
+              <Button className="mt-8" onClick={() => router.push('/dashboard/jobs')}>
                 Вернуться к вакансиям
               </Button>
             </CardContent>
@@ -77,13 +77,13 @@ export default function JobDetailPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-4xl">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <Button variant="ghost" onClick={() => router.back()} className="mb-8">
           ← Назад
         </Button>
 
         {/* Карточка вакансии с релевантностью */}
         {userRole === 'applicant' && relevance && (
-          <div className="mb-6">
+          <div className="mb-8">
             <JobCardEnhanced
               job={job}
               relevance={relevance}
@@ -94,12 +94,12 @@ export default function JobDetailPage() {
         )}
 
         {/* Основная информация */}
-        <Card className="mb-6 card-soft-shadow">
+        <Card className="mb-8 card-soft-shadow">
           <CardHeader>
             <div className="flex items-start justify-between">
               <div>
                 <CardTitle className="text-2xl mb-2">{job.title}</CardTitle>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-4">
                   <Badge variant="outline" className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
                     {job.city}, {job.country}
@@ -137,7 +137,7 @@ export default function JobDetailPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <h3 className="font-semibold mb-2 flex items-center gap-4">
                 <DollarSign className="w-4 h-4 text-primary" />
                 Зарплата
               </h3>
@@ -161,9 +161,9 @@ export default function JobDetailPage() {
         </Card>
 
         {/* Информация о партнёре/компании */}
-        <Card className="mb-6 card-soft-shadow">
+        <Card className="mb-8 card-soft-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-4">
               <Building2 className="w-5 h-5 text-primary" />
               Информация о компании
             </CardTitle>
@@ -189,7 +189,7 @@ export default function JobDetailPage() {
             )}
             {(job as any).companyAddress && (
               <div>
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                <h4 className="font-semibold mb-2 flex items-center gap-4">
                   <MapPin className="w-4 h-4 text-primary" />
                   Адрес
                 </h4>
@@ -198,7 +198,7 @@ export default function JobDetailPage() {
             )}
             {(job as any).companyContacts && (
               <div>
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                <h4 className="font-semibold mb-2 flex items-center gap-4">
                   <Phone className="w-4 h-4 text-primary" />
                   Контакты
                 </h4>
@@ -208,7 +208,7 @@ export default function JobDetailPage() {
             {(job as any).companyPhotos && (job as any).companyPhotos.length > 0 && (
               <div>
                 <h4 className="font-semibold mb-2">Фото</h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {(job as any).companyPhotos.map((photo: string, idx: number) => (
                     <img
                       key={idx}

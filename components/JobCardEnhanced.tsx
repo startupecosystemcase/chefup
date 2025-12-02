@@ -148,7 +148,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
         <div className="flex items-start justify-between mb-2">
           <CardTitle className="text-lg md:text-xl pr-2 md:pr-4">{job.title}</CardTitle>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-4">
           <Badge variant="outline" className="flex items-center gap-1">
             <MapPin className="w-3 h-3" />
             {job.city}
@@ -168,14 +168,14 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
       <CardContent className="space-y-4">
         <CardDescription className="line-clamp-2">{job.description}</CardDescription>
 
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
             <DollarSign className="w-4 h-4 text-primary" />
             <span className="font-semibold">{job.salary}</span>
           </div>
           
           {/* Новые индикаторы */}
-          <div className="flex flex-wrap gap-2 text-xs">
+          <div className="flex flex-wrap gap-4 text-xs">
             {(job as any).hoursPerWeek && (
               <Badge variant="outline" className="flex items-center gap-1">
                 <Clock className="w-3 h-3" />
@@ -211,7 +211,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
 
         {/* Расширенная аналитика (только для рекомендованных) */}
         {relevance && analysis && (
-          <div className="space-y-3 pt-3 border-t border-border/50">
+          <div className="space-y-5 pt-3 border-t border-border/50">
             {/* Сводная шкала */}
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -227,7 +227,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
             </div>
 
             {/* Быстрые индикаторы - белый фон */}
-            <div className="grid grid-cols-3 gap-2 text-xs">
+            <div className="grid grid-cols-3 gap-4 text-xs">
               <div className="flex flex-col items-center p-2 rounded-md bg-white border border-border/50">
                 <BarChart3 className="w-4 h-4 mb-1 text-primary" />
                 <span className="font-semibold">{analysis.skills.match}%</span>
@@ -246,7 +246,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
             </div>
 
             {/* Кнопки действий */}
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               {existingResponse ? (
                 <Button variant="outline" size="sm" className="flex-1" disabled>
                   <CheckCircle className="w-4 h-4 mr-2" />
@@ -278,7 +278,7 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                   </DialogDescription>
                 </DialogHeader>
 
-                <div className="space-y-6 mt-4">
+                <div className="space-y-6 mt-8">
                   {/* Общий показатель */}
                   <div className="p-4 rounded-lg border-2 bg-gradient-to-r from-primary/10 to-primary/5">
                     <div className="flex items-center justify-between mb-2">
@@ -294,21 +294,21 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                   </div>
 
                   {/* Соответствие навыков */}
-                  <div className="space-y-3">
-                    <h3 className="font-semibold flex items-center gap-2">
+                  <div className="space-y-5">
+                    <h3 className="font-semibold flex items-center gap-4">
                       <BarChart3 className="w-5 h-5 text-primary" />
                       Соответствие навыков: {analysis.skills.match}%
                     </h3>
                     <Progress value={analysis.skills.match} className="h-2" />
                     {analysis.skills.missing.length > 0 && (
                       <div className="p-3 rounded-md bg-orange-50 border border-orange-200">
-                        <p className="text-sm font-medium mb-2 flex items-center gap-2 text-orange-800">
+                        <p className="text-sm font-medium mb-2 flex items-center gap-4 text-orange-800">
                           <AlertCircle className="w-4 h-4" />
                           Отсутствующие навыки:
                         </p>
                         <ul className="text-sm text-orange-700 space-y-1">
                           {analysis.skills.missing.map((skill, idx) => (
-                            <li key={idx} className="flex items-center gap-2">
+                            <li key={idx} className="flex items-center gap-4">
                               <XCircle className="w-3 h-3" />
                               {skill}
                             </li>
@@ -318,13 +318,13 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                     )}
                     {analysis.skills.extra.length > 0 && (
                       <div className="p-3 rounded-md bg-green-50 border border-green-200">
-                        <p className="text-sm font-medium mb-2 flex items-center gap-2 text-green-800">
+                        <p className="text-sm font-medium mb-2 flex items-center gap-4 text-green-800">
                           <CheckCircle2 className="w-4 h-4" />
                           Дополнительные навыки:
                         </p>
                         <ul className="text-sm text-green-700 space-y-1">
                           {analysis.skills.extra.map((skill, idx) => (
-                            <li key={idx} className="flex items-center gap-2">
+                            <li key={idx} className="flex items-center gap-4">
                               <CheckCircle2 className="w-3 h-3" />
                               {skill}
                             </li>
@@ -335,8 +335,8 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                   </div>
 
                   {/* Соответствие опыта */}
-                  <div className="space-y-3">
-                    <h3 className="font-semibold flex items-center gap-2">
+                  <div className="space-y-5">
+                    <h3 className="font-semibold flex items-center gap-4">
                       <TrendingUp className="w-5 h-5 text-primary" />
                       Соответствие опыта: {analysis.experience.match}%
                     </h3>
@@ -354,8 +354,8 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                   </div>
 
                   {/* Соответствие зарплаты */}
-                  <div className="space-y-3">
-                    <h3 className="font-semibold flex items-center gap-2">
+                  <div className="space-y-5">
+                    <h3 className="font-semibold flex items-center gap-4">
                       <DollarSign className="w-5 h-5 text-primary" />
                       Соответствие зарплатных ожиданий: {analysis.salary.match}%
                     </h3>
@@ -390,11 +390,11 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                   </div>
 
                   {/* Ключевые совпадения */}
-                  <div className="space-y-2">
+                  <div className="space-y-4">
                     <h3 className="font-semibold">Ключевые совпадения:</h3>
                     <ul className="space-y-1">
                       {relevance.reasons.map((reason, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm">
+                        <li key={idx} className="flex items-center gap-4 text-sm">
                           <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
                           {reason}
                         </li>

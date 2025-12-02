@@ -51,8 +51,8 @@ export function ProfileTips({ tips, onDismiss }: ProfileTipsProps) {
   if (visibleTips.length === 0) return null
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2 mb-4">
+    <div className="space-y-5">
+      <div className="flex items-center gap-4 mb-8">
         <Brain className="w-5 h-5 text-[#F97316]" />
         <h3 className="text-lg font-semibold">Персональные рекомендации на основе ChefUp AI</h3>
       </div>
@@ -67,9 +67,9 @@ export function ProfileTips({ tips, onDismiss }: ProfileTipsProps) {
           )}
         >
           <CardContent className="pt-4">
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start justify-between gap-5">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-4 mb-2">
                   {tip.type === 'hot' && (
                     <Badge variant="default" className="bg-[#F97316]">
                       <Brain className="w-3 h-3 mr-1" />

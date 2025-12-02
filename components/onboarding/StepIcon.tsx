@@ -16,7 +16,7 @@ export function StepIcon({ icon: Icon, className }: StepIconProps) {
       animate={{ scale: 1, rotate: 0 }}
       transition={{ type: 'spring', stiffness: 200, damping: 15 }}
       className={cn(
-        'w-16 h-16 rounded-full bg-[#F97316]/10 flex items-center justify-center mb-6',
+        'w-16 h-16 rounded-full bg-[#F97316]/10 flex items-center justify-center mb-8',
         'shadow-lg shadow-[#F97316]/20',
         className
       )}
