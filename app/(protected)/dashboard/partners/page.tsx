@@ -2,10 +2,10 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { mockPartnersApplicants, mockPartnersEmployers } from '@/lib/mockPartners'
@@ -86,11 +86,11 @@ export default function PartnersPage() {
   }, [allPartners])
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Партнёры</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Партнёры</h1>
+          <p className="text-muted-foreground dark:text-gray-400">
             {userRole === 'employer'
               ? 'Проверенные партнёры для развития вашего ресторанного бизнеса'
               : 'Специальные предложения и бонусы от наших партнёров'}
@@ -98,12 +98,12 @@ export default function PartnersPage() {
         </div>
 
         {/* Фильтры */}
-        <Card className="mb-8">
-          <CardContent className="pt-6">
+        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+          <div className="p-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-gray-400" />
+                <AnimatedInput
                   placeholder="Поиск партнёров..."
                   className="pl-9"
                   value={searchTerm}
@@ -111,10 +111,10 @@ export default function PartnersPage() {
                 />
               </div>
               <Select value={selectedType} onValueChange={(value) => setSelectedType(value as PartnerType | 'all')}>
-                <SelectTrigger className="w-full md:w-[250px]">
+                <SelectTrigger className="w-full md:w-[250px] dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50">
                   <SelectValue placeholder="Тип партнёра" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                   <SelectItem value="all">Все типы</SelectItem>
                   {availableTypes.map((type) => (
                     <SelectItem key={type} value={type}>
@@ -124,102 +124,104 @@ export default function PartnersPage() {
                 </SelectContent>
               </Select>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {filteredPartners.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground">Партнёры не найдены</p>
-            </CardContent>
-          </Card>
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="py-12 text-center">
+              <p className="text-muted-foreground dark:text-gray-400">Партнёры не найдены</p>
+            </div>
+          </AnimatedCard>
         ) : (
           <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredPartners.map((partner) => {
               const Icon = typeIcons[partner.type]
 
               return (
-                <Card key={partner.id} className="card-hover flex flex-col">
-                  <CardHeader>
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <Icon className="w-6 h-6 text-primary" />
+                <AnimatedCard key={partner.id} className="card-hover flex flex-col bg-white dark:bg-dark/50">
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="mb-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                          <Icon className="w-6 h-6 text-primary" />
+                        </div>
+                        <AnimatedBadge variant="secondary">{typeLabels[partner.type]}</AnimatedBadge>
                       </div>
-                      <Badge variant="secondary">{typeLabels[partner.type]}</Badge>
+                      <h3 className="text-lg mb-2 font-semibold dark:text-white">{partner.name}</h3>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-3">{partner.description}</p>
                     </div>
-                    <CardTitle className="text-lg mb-2">{partner.name}</CardTitle>
-                    <CardDescription className="line-clamp-3">{partner.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <div className="space-y-5 mb-8">
-                      <div>
-                        <h4 className="text-sm font-semibold mb-2 flex items-center gap-4">
-                          <Gift className="w-4 h-4 text-primary" />
-                          Преимущества:
-                        </h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          {partner.benefits.slice(0, 3).map((benefit, idx) => (
-                            <li key={idx} className="flex items-start gap-4">
-                              <span className="text-primary mt-1">•</span>
-                              <span>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {partner.offers && partner.offers.length > 0 && (
+                    <div className="flex-1 flex flex-col">
+                      <div className="space-y-5 mb-8">
                         <div>
-                          <h4 className="text-sm font-semibold mb-2">Предложения:</h4>
-                          <ul className="text-sm text-muted-foreground space-y-1">
-                            {partner.offers.slice(0, 2).map((offer, idx) => (
+                          <h4 className="text-sm font-semibold mb-2 flex items-center gap-4 dark:text-white">
+                            <Gift className="w-4 h-4 text-primary" />
+                            Преимущества:
+                          </h4>
+                          <ul className="text-sm text-muted-foreground dark:text-gray-400 space-y-1">
+                            {partner.benefits.slice(0, 3).map((benefit, idx) => (
                               <li key={idx} className="flex items-start gap-4">
                                 <span className="text-primary mt-1">•</span>
-                                <span>{offer}</span>
+                                <span>{benefit}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                      )}
 
-                      {partner.conditions && (
-                        <div className="p-2 rounded-md bg-muted text-xs text-muted-foreground">
-                          {partner.conditions}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-auto space-y-4 pt-4 border-t">
-                      {partner.website && (
-                        <Button variant="outline" className="w-full" asChild>
-                          <a href={partner.website} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Перейти на сайт
-                          </a>
-                        </Button>
-                      )}
-                      <div className="flex gap-4 text-xs text-muted-foreground">
-                        {partner.contactEmail && (
-                          <a
-                            href={`mailto:${partner.contactEmail}`}
-                            className="flex items-center gap-1 hover:text-primary"
-                          >
-                            <Mail className="w-3 h-3" />
-                            Email
-                          </a>
+                        {partner.offers && partner.offers.length > 0 && (
+                          <div>
+                            <h4 className="text-sm font-semibold mb-2 dark:text-white">Предложения:</h4>
+                            <ul className="text-sm text-muted-foreground dark:text-gray-400 space-y-1">
+                              {partner.offers.slice(0, 2).map((offer, idx) => (
+                                <li key={idx} className="flex items-start gap-4">
+                                  <span className="text-primary mt-1">•</span>
+                                  <span>{offer}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         )}
-                        {partner.contactPhone && (
-                          <a
-                            href={`tel:${partner.contactPhone}`}
-                            className="flex items-center gap-1 hover:text-primary"
-                          >
-                            <Phone className="w-3 h-3" />
-                            {partner.contactPhone}
-                          </a>
+
+                        {partner.conditions && (
+                          <div className="p-2 rounded-md bg-muted dark:bg-gray-800 text-xs text-muted-foreground dark:text-gray-400">
+                            {partner.conditions}
+                          </div>
                         )}
                       </div>
+
+                      <div className="mt-auto space-y-4 pt-4 border-t dark:border-gray-700">
+                        {partner.website && (
+                          <ShinyButton variant="outline" className="w-full" asChild>
+                            <a href={partner.website} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Перейти на сайт
+                            </a>
+                          </ShinyButton>
+                        )}
+                        <div className="flex gap-4 text-xs text-muted-foreground dark:text-gray-400">
+                          {partner.contactEmail && (
+                            <a
+                              href={`mailto:${partner.contactEmail}`}
+                              className="flex items-center gap-1 hover:text-primary"
+                            >
+                              <Mail className="w-3 h-3" />
+                              Email
+                            </a>
+                          )}
+                          {partner.contactPhone && (
+                            <a
+                              href={`tel:${partner.contactPhone}`}
+                              className="flex items-center gap-1 hover:text-primary"
+                            >
+                              <Phone className="w-3 h-3" />
+                              {partner.contactPhone}
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </AnimatedCard>
               )
             })}
           </div>

@@ -29,11 +29,11 @@ export function SelectableCard({
       whileTap={{ scale: 0.95 }}
       animate={selected ? { scale: 1 } : { scale: 1 }}
       className={cn(
-        'p-3 md:p-4 rounded-lg border-2 transition-all duration-300 text-left',
+        'p-3 md:p-4 rounded-lg border-2 transition-all duration-300 text-left relative',
         'flex flex-col items-center gap-4 md:gap-5',
         selected
-          ? 'bg-[#F97316] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-4 ring-[#F97316]/30'
-          : 'bg-gray-100 text-gray-700 border-gray-200 hover:border-[#F97316]/30',
+          ? 'bg-gradient-to-br from-[#F97316] to-[#FB923C] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-4 ring-[#F97316]/30 dark:ring-[#F97316]/50'
+          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-[#F97316]/30 dark:hover:border-[#F97316]/50',
         className
       )}
     >

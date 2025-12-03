@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
+import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore, useEventsStore } from '@/stores/useOnboardingStore'
 import { mockEvents } from '@/lib/mockEvents'
@@ -77,76 +77,74 @@ export default function EventDetailPage() {
   const participationStatus = participation?.status
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-8">
+        <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Назад
-        </Button>
+        </ShinyButton>
 
-        <Card className="mb-8">
-          <CardHeader>
+        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+          <div className="p-6">
             <div className="flex items-start justify-between mb-8">
               <div className="flex items-center gap-5">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <Badge variant="secondary" className="mb-2">
+                  <AnimatedBadge variant="secondary" className="mb-2">
                     {typeLabels[event.type]}
-                  </Badge>
-                  <CardTitle className="text-2xl">{event.title}</CardTitle>
+                  </AnimatedBadge>
+                  <h2 className="text-2xl font-semibold dark:text-white">{event.title}</h2>
                 </div>
               </div>
             </div>
-            <CardDescription className="text-base">Организатор: {event.organizer}</CardDescription>
-          </CardHeader>
-          <CardContent>
+            <p className="text-base text-muted-foreground dark:text-gray-400 mb-4">Организатор: {event.organizer}</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="flex items-center gap-4">
-                <Calendar className="w-4 h-4 text-muted-foreground" />
+                <Calendar className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
                 <div className="text-sm">
-                  <div className="font-medium">
+                  <div className="font-medium dark:text-white">
                     {format(new Date(event.date), 'dd MMM yyyy', { locale: ru })}
                   </div>
-                  <div className="text-muted-foreground">{event.time}</div>
+                  <div className="text-muted-foreground dark:text-gray-400">{event.time}</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <MapPin className="w-4 h-4 text-muted-foreground" />
+                <MapPin className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
                 <div className="text-sm">
-                  <div className="font-medium">{event.location}</div>
-                  <div className="text-muted-foreground text-xs">{event.address}</div>
+                  <div className="font-medium dark:text-white">{event.location}</div>
+                  <div className="text-muted-foreground dark:text-gray-400 text-xs">{event.address}</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <Users className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm">До {event.maxParticipants} участников</span>
+                <Users className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
+                <span className="text-sm dark:text-white">До {event.maxParticipants} участников</span>
               </div>
               <div className="flex items-center gap-4">
                 <DollarSign className="w-4 h-4 text-primary" />
-                <span className="text-sm font-semibold">
+                <span className="text-sm font-semibold dark:text-white">
                   {event.price === 0 ? 'Бесплатно' : `${event.price.toLocaleString('ru-RU')} ₸`}
                 </span>
               </div>
             </div>
 
-            <Separator className="my-6" />
+            <Separator className="my-6 dark:bg-gray-700" />
 
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-2">Описание</h3>
-                <p className="text-muted-foreground">{event.description}</p>
+                <h3 className="font-semibold mb-2 dark:text-white">Описание</h3>
+                <p className="text-muted-foreground dark:text-gray-400">{event.description}</p>
               </div>
 
               {event.tags && event.tags.length > 0 && (
                 <div>
-                  <h3 className="font-semibold mb-2">Теги</h3>
+                  <h3 className="font-semibold mb-2 dark:text-white">Теги</h3>
                   <div className="flex flex-wrap gap-4">
                     {event.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline">
+                      <AnimatedBadge key={index} variant="outline">
                         {tag}
-                      </Badge>
+                      </AnimatedBadge>
                     ))}
                   </div>
                 </div>
@@ -154,43 +152,43 @@ export default function EventDetailPage() {
 
               {participation && participation.moderatorComment && (
                 <div>
-                  <h3 className="font-semibold mb-2">Комментарий модератора</h3>
-                  <p className="text-sm text-muted-foreground">{participation.moderatorComment}</p>
+                  <h3 className="font-semibold mb-2 dark:text-white">Комментарий модератора</h3>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">{participation.moderatorComment}</p>
                 </div>
               )}
             </div>
 
-            <Separator className="my-6" />
+            <Separator className="my-6 dark:bg-gray-700" />
 
             <div className="flex gap-4">
               {!participation ? (
-                <Button onClick={handleApply} className="flex-1">
+                <ShinyButton onClick={handleApply} className="flex-1">
                   Подать заявку на участие
-                </Button>
+                </ShinyButton>
               ) : participationStatus === 'pending' ? (
                 <>
-                  <Button variant="outline" className="flex-1" disabled>
+                  <ShinyButton variant="outline" className="flex-1" disabled>
                     <Clock className="w-4 h-4 mr-2" />
                     Заявка на модерации
-                  </Button>
-                  <Button variant="outline" onClick={handleCancel}>
+                  </ShinyButton>
+                  <ShinyButton variant="outline" onClick={handleCancel}>
                     Отменить заявку
-                  </Button>
+                  </ShinyButton>
                 </>
               ) : participationStatus === 'approved' ? (
-                <Button variant="outline" className="flex-1" disabled>
+                <ShinyButton variant="outline" className="flex-1" disabled>
                   <CheckCircle2 className="w-4 h-4 mr-2" />
                   Вы одобрены для участия
-                </Button>
+                </ShinyButton>
               ) : participationStatus === 'rejected' ? (
-                <Button variant="outline" className="flex-1" disabled>
+                <ShinyButton variant="outline" className="flex-1" disabled>
                   <XCircle className="w-4 h-4 mr-2" />
                   Заявка отклонена
-                </Button>
+                </ShinyButton>
               ) : null}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
       </div>
     </div>
   )

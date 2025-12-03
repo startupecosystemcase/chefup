@@ -3,12 +3,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
+import { HoverBorderGradient } from '@/components/magicui/hover-border-gradient'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { Input } from '@/components/ui/input'
+import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
@@ -136,71 +137,63 @@ export default function DashboardPage() {
     const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
 
     return (
-      <div className="p-4 md:p-6 lg:p-8">
+      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8">Личный кабинет работодателя</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8 dark:text-white">Личный кабинет работодателя</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Всего вакансий</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl md:text-3xl font-bold">{employerJobs.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">На модерации</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">Всего вакансий</h3>
+                <div className="text-2xl md:text-3xl font-bold dark:text-white">{employerJobs.length}</div>
+              </div>
+            </AnimatedCard>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">На модерации</h3>
                 <div className="text-2xl md:text-3xl font-bold text-primary">{pendingJobs.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Одобрено</CardTitle>
-              </CardHeader>
-              <CardContent>
+              </div>
+            </AnimatedCard>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">Одобрено</h3>
                 <div className="text-2xl md:text-3xl font-bold text-green-600">{approvedJobs.length}</div>
-              </CardContent>
-            </Card>
+              </div>
+            </AnimatedCard>
           </div>
 
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
                 <div>
-                  <CardTitle>Быстрые действия</CardTitle>
-                  <CardDescription>
+                  <h3 className="text-xl font-semibold dark:text-white">Быстрые действия</h3>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">
                     Управляйте вакансиями и просматривайте кандидатов
-                  </CardDescription>
+                  </p>
                 </div>
               </div>
-            </CardHeader>
-            <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Button onClick={() => router.push('/dashboard/jobs/create')} className="h-auto py-6">
+                <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} className="h-auto py-6 justify-start">
                   <div className="text-left">
                     <div className="font-semibold mb-1">Создать вакансию</div>
                     <div className="text-sm text-muted-foreground">Подать новую вакансию на модерацию</div>
                   </div>
-                </Button>
-                <Button variant="outline" onClick={() => router.push('/dashboard/jobs/history')} className="h-auto py-6">
+                </ShinyButton>
+                <ShinyButton variant="outline" onClick={() => router.push('/dashboard/jobs/history')} className="h-auto py-6 justify-start">
                   <div className="text-left">
                     <div className="font-semibold mb-1">История вакансий</div>
                     <div className="text-sm text-muted-foreground">Просмотр всех созданных вакансий</div>
                   </div>
-                </Button>
-                <Button variant="outline" onClick={() => router.push('/dashboard/candidates')} className="h-auto py-6">
+                </ShinyButton>
+                <ShinyButton variant="outline" onClick={() => router.push('/dashboard/candidates')} className="h-auto py-6 justify-start">
                   <div className="text-left">
                     <div className="font-semibold mb-1">Кандидаты</div>
                     <div className="text-sm text-muted-foreground">Просмотр доступных кандидатов</div>
                   </div>
-                </Button>
+                </ShinyButton>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         </div>
       </div>
     )
@@ -212,83 +205,77 @@ export default function DashboardPage() {
     const approvedJobs = jobs.filter((job) => job.status === 'approved')
 
     return (
-      <div className="p-4 md:p-6 lg:p-8">
+      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8">Панель модератора</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8 dark:text-white">Панель модератора</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Вакансии на модерации</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">Вакансии на модерации</h3>
                 <div className="text-2xl md:text-3xl font-bold text-primary">{pendingJobs.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Одобрено вакансий</CardTitle>
-              </CardHeader>
-              <CardContent>
+              </div>
+            </AnimatedCard>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">Одобрено вакансий</h3>
                 <div className="text-2xl md:text-3xl font-bold text-green-600">{approvedJobs.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Всего вакансий</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl md:text-3xl font-bold">{jobs.length}</div>
-              </CardContent>
-            </Card>
+              </div>
+            </AnimatedCard>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">Всего вакансий</h3>
+                <div className="text-2xl md:text-3xl font-bold dark:text-white">{jobs.length}</div>
+              </div>
+            </AnimatedCard>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Быстрые действия</CardTitle>
-                <CardDescription>Основные функции модерации</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
-                  onClick={() => router.push('/dashboard/moderate/jobs')}
-                >
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Проверка вакансий
-                  {pendingJobs.length > 0 && (
-                    <Badge variant="secondary" className="ml-auto">
-                      {pendingJobs.length}
-                    </Badge>
-                  )}
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
-                  onClick={() => router.push('/dashboard/moderate/profiles')}
-                >
-                  <User className="w-4 h-4 mr-2" />
-                  Модерация профилей
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
-                  onClick={() => router.push('/dashboard/moderate/education')}
-                >
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  Модерация образования
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
-                  onClick={() => router.push('/dashboard/moderate/users')}
-                >
-                  <Users className="w-4 h-4 mr-2" />
-                  Управление пользователями
-                </Button>
-              </CardContent>
-            </Card>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 dark:text-white">Быстрые действия</h3>
+                <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Основные функции модерации</p>
+                <div className="space-y-4">
+                  <ShinyButton
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push('/dashboard/moderate/jobs')}
+                  >
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    Проверка вакансий
+                    {pendingJobs.length > 0 && (
+                      <AnimatedBadge variant="secondary" className="ml-auto">
+                        {pendingJobs.length}
+                      </AnimatedBadge>
+                    )}
+                  </ShinyButton>
+                  <ShinyButton
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push('/dashboard/moderate/profiles')}
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    Модерация профилей
+                  </ShinyButton>
+                  <ShinyButton
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push('/dashboard/moderate/education')}
+                  >
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    Модерация образования
+                  </ShinyButton>
+                  <ShinyButton
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push('/dashboard/moderate/users')}
+                  >
+                    <Users className="w-4 h-4 mr-2" />
+                    Управление пользователями
+                  </ShinyButton>
+                </div>
+              </div>
+            </AnimatedCard>
           </div>
         </div>
       </div>
@@ -296,7 +283,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 w-full">
+    <div className="p-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
         {/* Header */}
         <div className="mb-8 md:mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -328,7 +315,7 @@ export default function DashboardPage() {
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4">
-                    <Input
+                    <AnimatedInput
                       type="file"
                       accept="image/*"
                       onChange={handleAvatarUpload}
@@ -348,16 +335,16 @@ export default function DashboardPage() {
               </Dialog>
             </div>
             <div>
-              <h1 className="text-lg md:text-2xl font-bold">
+              <h1 className="text-lg md:text-2xl font-bold dark:text-white">
                 {formData.firstName} {formData.lastName}
               </h1>
-              <p className="text-xs md:text-sm text-muted-foreground">ID: {userId.slice(0, 8)}</p>
+              <p className="text-xs md:text-sm text-muted-foreground dark:text-gray-400">ID: {userId.slice(0, 8)}</p>
             </div>
           </div>
           
           {/* Статус подписки */}
           <div className="flex items-center gap-4 md:gap-5">
-            <Badge variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} className="text-sm px-4 py-2">
+            <AnimatedBadge variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} className="text-sm px-4 py-2">
               {subscriptionStatus === 'PRO' ? (
                 <>
                   <Crown className="w-4 h-4 mr-2" />
@@ -368,22 +355,20 @@ export default function DashboardPage() {
                   Статус аккаунта: BASIC
                 </>
               )}
-            </Badge>
+            </AnimatedBadge>
           </div>
         </div>
 
         {/* Прогресс заполненности профиля */}
         {userRole === 'applicant' && (
           <>
-            <Card className="mb-8 md:mb-12 glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)]">
-              <CardHeader>
-                <CardTitle>Заполненность профиля</CardTitle>
-                <CardDescription>Чем больше информации, тем выше ваши шансы найти работу</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <AnimatedCard className="mb-8 md:mb-12 glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)] bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 dark:text-white">Заполненность профиля</h3>
+                <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Чем больше информации, тем выше ваши шансы найти работу</p>
                 <ProfileCompleteness formData={formData} />
-              </CardContent>
-            </Card>
+              </div>
+            </AnimatedCard>
 
           </>
         )}
@@ -394,11 +379,9 @@ export default function DashboardPage() {
             <ProfileAnalytics formData={formData} />
             
             {/* Персональные рекомендации на основе ChefUp AI */}
-            <Card className="glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)]">
-              <CardHeader>
-                <CardDescription className="text-base">Улучшите свой профиль и получите больше совпадений</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <AnimatedCard className="glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)] bg-white dark:bg-dark/50">
+              <div className="p-6">
+                <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Улучшите свой профиль и получите больше совпадений</p>
                 <ProfileTips
                   tips={(() => {
                     const currentPosition = formData.desiredPosition || formData.currentPosition
@@ -469,29 +452,27 @@ export default function DashboardPage() {
                     return tips.slice(0, 5) // Максимум 5 рекомендаций
                   })()}
                 />
-              </CardContent>
-            </Card>
+              </div>
+            </AnimatedCard>
           </div>
         )}
 
           {/* Вакансии */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Вакансии</CardTitle>
-              <CardDescription>Подходящие вакансии для вас</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-center text-muted-foreground">Скоро...</p>
-            </CardContent>
-          </Card>
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-2 dark:text-white">Вакансии</h3>
+              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Подходящие вакансии для вас</p>
+              <p className="text-center text-muted-foreground dark:text-gray-400">Скоро...</p>
+            </div>
+          </AnimatedCard>
 
         {/* Микроблог / Портфолио */}
-        <Card className="mb-8">
-          <CardHeader>
-            <div className="flex items-center justify-between">
+        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
               <div>
-                <CardTitle>Микроблог / Портфолио</CardTitle>
-                <CardDescription>Публикуйте свои работы, достижения и делитесь опытом</CardDescription>
+                <h3 className="text-xl font-semibold dark:text-white">Микроблог / Портфолио</h3>
+                <p className="text-sm text-muted-foreground dark:text-gray-400">Публикуйте свои работы, достижения и делитесь опытом</p>
               </div>
               {posts.length > 0 && (
                 <Dialog open={isPortfolioDialogOpen} onOpenChange={(open) => {
@@ -499,9 +480,9 @@ export default function DashboardPage() {
                   if (!open) setEditingPost(null)
                 }}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" size="icon" className="h-9 w-9">
+                    <ShinyButton variant="outline" size="icon" className="h-9 w-9">
                       <Plus className="w-4 h-4" />
-                    </Button>
+                    </ShinyButton>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
@@ -521,8 +502,8 @@ export default function DashboardPage() {
                 </Dialog>
               )}
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+          <div className="p-6 pt-0">
             {posts.length === 0 ? (
               <div className="text-center py-16">
                 <p className="text-lg text-muted-foreground mb-6">
@@ -533,10 +514,10 @@ export default function DashboardPage() {
                   if (!open) setEditingPost(null)
                 }}>
                   <DialogTrigger asChild>
-                    <Button size="lg">
+                    <ShinyButton size="lg">
                       <Plus className="w-5 h-5 mr-2" />
                       Создать первый пост
-                    </Button>
+                    </ShinyButton>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
@@ -568,23 +549,23 @@ export default function DashboardPage() {
                 ))}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {/* Ссылки на соцсети */}
-        <Card className="mb-10 md:mb-12 glass">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <AnimatedCard className="mb-10 md:mb-12 glass bg-white dark:bg-dark/50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)]">
+          <div className="p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
               <div>
-                <CardTitle>Ссылки на соцсети</CardTitle>
-                <CardDescription>Добавьте ссылки на ваши социальные сети</CardDescription>
+                <h3 className="text-xl font-semibold dark:text-white">Ссылки на соцсети</h3>
+                <p className="text-sm text-muted-foreground dark:text-gray-400">Добавьте ссылки на ваши социальные сети</p>
               </div>
               <Dialog open={isSocialLinksDialogOpen} onOpenChange={setIsSocialLinksDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline">
+                  <ShinyButton variant="outline">
                     <Plus className="w-5 h-5 mr-2" />
                     Редактировать
-                  </Button>
+                  </ShinyButton>
                 </DialogTrigger>
                 <DialogContent className="glass modal-shadow">
                   <DialogHeader>
@@ -599,7 +580,7 @@ export default function DashboardPage() {
                         <Instagram className="w-4 h-4" />
                         Instagram
                       </label>
-                      <Input
+                      <AnimatedInput
                         value={tempSocialLinks.instagram || ''}
                         onChange={(e) => setTempSocialLinks({ ...tempSocialLinks, instagram: e.target.value })}
                         placeholder="https://instagram.com/username"
@@ -607,11 +588,11 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4 dark:text-gray-300">
                         <Send className="w-4 h-4" />
                         Telegram
                       </label>
-                      <Input
+                      <AnimatedInput
                         value={tempSocialLinks.telegram || ''}
                         onChange={(e) => setTempSocialLinks({ ...tempSocialLinks, telegram: e.target.value })}
                         placeholder="https://t.me/username"
@@ -619,11 +600,11 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4 dark:text-gray-300">
                         <Facebook className="w-4 h-4" />
                         Facebook
                       </label>
-                      <Input
+                      <AnimatedInput
                         value={tempSocialLinks.facebook || ''}
                         onChange={(e) => setTempSocialLinks({ ...tempSocialLinks, facebook: e.target.value })}
                         placeholder="https://facebook.com/username"
@@ -631,11 +612,11 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4 dark:text-gray-300">
                         <Linkedin className="w-4 h-4" />
                         LinkedIn
                       </label>
-                      <Input
+                      <AnimatedInput
                         value={tempSocialLinks.linkedin || ''}
                         onChange={(e) => setTempSocialLinks({ ...tempSocialLinks, linkedin: e.target.value })}
                         placeholder="https://linkedin.com/in/username"
@@ -643,11 +624,11 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4 dark:text-gray-300">
                         <Youtube className="w-4 h-4" />
                         YouTube
                       </label>
-                      <Input
+                      <AnimatedInput
                         value={tempSocialLinks.youtube || ''}
                         onChange={(e) => setTempSocialLinks({ ...tempSocialLinks, youtube: e.target.value })}
                         placeholder="https://youtube.com/@username"
@@ -655,11 +636,11 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-4">
+                      <label className="text-sm font-medium mb-2 block flex items-center gap-4 dark:text-gray-300">
                         <Globe className="w-4 h-4" />
                         Веб-сайт
                       </label>
-                      <Input
+                      <AnimatedInput
                         value={tempSocialLinks.website || ''}
                         onChange={(e) => setTempSocialLinks({ ...tempSocialLinks, website: e.target.value })}
                         placeholder="https://example.com"
@@ -667,19 +648,19 @@ export default function DashboardPage() {
                       />
                     </div>
                     <div className="flex gap-4 pt-4">
-                      <Button variant="outline" onClick={() => setIsSocialLinksDialogOpen(false)} className="flex-1">
+                      <ShinyButton variant="outline" onClick={() => setIsSocialLinksDialogOpen(false)} className="flex-1">
                         Отмена
-                      </Button>
-                      <Button onClick={handleSaveSocialLinks} className="flex-1">
+                      </ShinyButton>
+                      <ShinyButton onClick={handleSaveSocialLinks} className="flex-1">
                         Сохранить
-                      </Button>
+                      </ShinyButton>
                     </div>
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+          <div className="p-6 pt-0">
             <div className="flex flex-wrap gap-6">
               {socialLinks.instagram && (
                 <a
@@ -748,28 +729,26 @@ export default function DashboardPage() {
                 </a>
               )}
               {Object.keys(socialLinks).length === 0 && (
-                <p className="text-muted-foreground">Ссылки на соцсети не добавлены</p>
+                <p className="text-muted-foreground dark:text-gray-400">Ссылки на соцсети не добавлены</p>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {/* Поделиться профилем */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+        <AnimatedCard className="bg-white dark:bg-dark/50">
+          <div className="p-6">
+            <h3 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-2">
               <Share2 className="w-5 h-5 text-primary" />
               Поделиться профилем
-            </CardTitle>
-            <CardDescription>Поделитесь ссылкой на ваш профиль</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button onClick={handleShareProfile} className="w-full sm:w-auto">
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Поделитесь ссылкой на ваш профиль</p>
+            <ShinyButton onClick={handleShareProfile} className="w-full sm:w-auto">
               <Share2 className="w-4 h-4 mr-2" />
               Копировать ссылку
-            </Button>
-          </CardContent>
-        </Card>
+            </ShinyButton>
+          </div>
+        </AnimatedCard>
       </div>
     </div>
   )

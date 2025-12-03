@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-hot-toast'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useAuthStore, useEventsStore } from '@/stores/useOnboardingStore'
 import { eventSchema, type Event } from '@/types/events.types'
@@ -67,21 +67,19 @@ export default function CreateEventPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-2xl">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-8">
+        <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Назад
-        </Button>
+        </ShinyButton>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Создать событие</CardTitle>
-            <CardDescription>
+        <AnimatedCard className="bg-white dark:bg-dark/50">
+          <div className="p-6">
+            <h2 className="text-2xl font-semibold mb-2 dark:text-white">Создать событие</h2>
+            <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6">
               Заполните информацию о событии. После создания оно будет отправлено на модерацию.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+            </p>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -89,9 +87,9 @@ export default function CreateEventPage() {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Название события *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Название события *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Например: Бизнес-завтрак шеф-поваров" {...field} />
+                        <AnimatedInput placeholder="Например: Бизнес-завтрак шеф-поваров" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -129,9 +127,9 @@ export default function CreateEventPage() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Описание *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Описание *</FormLabel>
                       <FormControl>
-                        <Textarea
+                        <AnimatedTextarea
                           placeholder="Подробное описание события..."
                           className="min-h-[120px]"
                           {...field}
@@ -147,9 +145,9 @@ export default function CreateEventPage() {
                   name="organizer"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Организатор *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Организатор *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Название организатора" {...field} />
+                        <AnimatedInput placeholder="Название организатора" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -162,9 +160,9 @@ export default function CreateEventPage() {
                     name="date"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Дата *</FormLabel>
+                        <FormLabel className="dark:text-gray-300">Дата *</FormLabel>
                         <FormControl>
-                          <Input type="date" {...field} />
+                          <AnimatedInput type="date" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -176,9 +174,9 @@ export default function CreateEventPage() {
                     name="time"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Время *</FormLabel>
+                        <FormLabel className="dark:text-gray-300">Время *</FormLabel>
                         <FormControl>
-                          <Input type="time" {...field} />
+                          <AnimatedInput type="time" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -191,9 +189,9 @@ export default function CreateEventPage() {
                   name="location"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Город *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Город *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Например: Алматы" {...field} />
+                        <AnimatedInput placeholder="Например: Алматы" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -205,9 +203,9 @@ export default function CreateEventPage() {
                   name="address"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Адрес *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Адрес *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Полный адрес места проведения" {...field} />
+                        <AnimatedInput placeholder="Полный адрес места проведения" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -220,9 +218,9 @@ export default function CreateEventPage() {
                     name="maxParticipants"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Максимум участников *</FormLabel>
+                        <FormLabel className="dark:text-gray-300">Максимум участников *</FormLabel>
                         <FormControl>
-                          <Input
+                          <AnimatedInput
                             type="number"
                             min="1"
                             {...field}
@@ -239,9 +237,9 @@ export default function CreateEventPage() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Цена (₸) *</FormLabel>
+                        <FormLabel className="dark:text-gray-300">Цена (₸) *</FormLabel>
                         <FormControl>
-                          <Input
+                          <AnimatedInput
                             type="number"
                             min="0"
                             {...field}
@@ -259,9 +257,9 @@ export default function CreateEventPage() {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>URL изображения (необязательно)</FormLabel>
+                      <FormLabel className="dark:text-gray-300">URL изображения (необязательно)</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://example.com/image.jpg" {...field} />
+                        <AnimatedInput placeholder="https://example.com/image.jpg" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -269,17 +267,17 @@ export default function CreateEventPage() {
                 />
 
                 <div className="flex gap-4">
-                  <Button type="button" variant="outline" onClick={() => router.back()}>
+                  <ShinyButton type="button" variant="outline" onClick={() => router.back()}>
                     Отмена
-                  </Button>
-                  <Button type="submit" className="flex-1">
+                  </ShinyButton>
+                  <ShinyButton type="submit" className="flex-1">
                     Создать событие
-                  </Button>
+                  </ShinyButton>
                 </div>
               </form>
             </Form>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
       </div>
     </div>
   )

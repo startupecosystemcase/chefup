@@ -1,8 +1,8 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { ExternalLink, Video as VideoIcon, Image as ImageIcon } from 'lucide-react'
 import type { PortfolioPost } from '@/types/portfolio.types'
 import { formatDistanceToNow } from 'date-fns'
@@ -38,36 +38,35 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
   }
 
   return (
-    <Card className="mb-8">
-      <CardHeader>
-        <div className="flex items-start justify-between">
+    <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+      <div className="p-6">
+        <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
-            <CardTitle className="text-xl mb-2">{post.title}</CardTitle>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <h3 className="text-xl mb-2 font-semibold dark:text-white">{post.title}</h3>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground dark:text-gray-400">
               <span>{formatDate(post.createdAt)}</span>
               {post.updatedAt && post.updatedAt !== post.createdAt && (
-                <Badge variant="outline" className="text-xs">Обновлено</Badge>
+                <AnimatedBadge variant="outline" className="text-xs">Обновлено</AnimatedBadge>
               )}
             </div>
           </div>
           {showActions && (
             <div className="flex gap-4">
               {onEdit && (
-                <Button variant="ghost" size="sm" onClick={() => onEdit(post)}>
+                <ShinyButton variant="ghost" size="sm" onClick={() => onEdit(post)}>
                   Редактировать
-                </Button>
+                </ShinyButton>
               )}
               {onDelete && (
-                <Button variant="ghost" size="sm" onClick={() => onDelete(post.id)}>
+                <ShinyButton variant="ghost" size="sm" onClick={() => onDelete(post.id)}>
                   Удалить
-                </Button>
+                </ShinyButton>
               )}
             </div>
           )}
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-muted-foreground whitespace-pre-wrap">{post.text}</p>
+        <div className="space-y-4">
+          <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-wrap">{post.text}</p>
 
         {/* Изображения */}
         {post.images && post.images.length > 0 && (
@@ -100,9 +99,9 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
                       allowFullScreen
                     />
                   ) : (
-                    <div className="absolute top-0 left-0 w-full h-full border rounded-md flex items-center justify-center bg-muted">
+                    <div className="absolute top-0 left-0 w-full h-full border rounded-md flex items-center justify-center bg-muted dark:bg-dark/70">
                       <div className="text-center">
-                        <VideoIcon className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                        <VideoIcon className="w-8 h-8 mx-auto mb-2 text-muted-foreground dark:text-gray-400" />
                         <a
                           href={videoUrl}
                           target="_blank"
@@ -124,7 +123,7 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
         {post.links && post.links.length > 0 && (
           <div className="space-y-4">
             {post.links.map((link, index) => (
-              <div key={index} className="p-3 border rounded-md hover:bg-muted/50 transition-colors">
+              <div key={index} className="p-3 border rounded-md hover:bg-muted/50 dark:hover:bg-dark/70 dark:border-gray-700/50 transition-colors">
                 <div className="flex items-start gap-5">
                   <ExternalLink className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
@@ -132,13 +131,13 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium hover:text-primary transition-colors block truncate"
+                      className="font-medium hover:text-primary transition-colors block truncate dark:text-white"
                     >
                       {link.title}
                     </a>
-                    <p className="text-sm text-muted-foreground truncate">{link.url}</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 truncate">{link.url}</p>
                     {link.description && (
-                      <p className="text-sm text-muted-foreground mt-1">{link.description}</p>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">{link.description}</p>
                     )}
                   </div>
                 </div>
@@ -146,8 +145,9 @@ export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false 
             ))}
           </div>
         )}
-      </CardContent>
-    </Card>
+        </div>
+      </div>
+    </AnimatedCard>
   )
 }
 

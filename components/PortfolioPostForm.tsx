@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Label } from '@/components/ui/label'
 import { Image as ImageIcon, Video, Link as LinkIcon, X, Plus } from 'lucide-react'
 import type { PortfolioPost } from '@/types/portfolio.types'
@@ -89,7 +89,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
         <Label htmlFor="title" className="text-base mb-3 block">Заголовок *</Label>
-        <Input
+        <AnimatedInput
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -101,7 +101,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
 
       <div>
         <Label htmlFor="text" className="text-base mb-3 block">Текст *</Label>
-        <Textarea
+        <AnimatedTextarea
           id="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -113,7 +113,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
 
       {/* Фотографии */}
       <div>
-        <Label className="text-base mb-4 block">Фотографии ({images.length}/20)</Label>
+        <Label>Фотографии ({images.length}/20)</Label>
         <input
           type="file"
           accept="image/*"
@@ -124,15 +124,13 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
           disabled={images.length >= 20}
         />
         <label htmlFor="image-upload">
-          <Button type="button" variant="outline" asChild disabled={images.length >= 20}>
-            <span>
-              <ImageIcon className="w-5 h-5 mr-2" />
-              Добавить фото
-            </span>
-          </Button>
+          <ShinyButton type="button" variant="outline" disabled={images.length >= 20} className="cursor-pointer">
+            <ImageIcon className="w-4 h-4 mr-2" />
+            Добавить фото
+          </ShinyButton>
         </label>
         {images.length > 0 && (
-          <div className="grid grid-cols-4 gap-4 mt-6">
+          <div className="grid grid-cols-4 gap-4 mt-8">
             {images.map((img, index) => (
               <div key={index} className="relative group">
                 <img
@@ -157,30 +155,30 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       <div>
         <Label>Видео (YouTube, Vimeo и т.д.)</Label>
         <div className="flex gap-4">
-          <Input
+          <AnimatedInput
             value={newVideoUrl}
             onChange={(e) => setNewVideoUrl(e.target.value)}
             placeholder="https://youtube.com/watch?v=..."
             type="url"
           />
-          <Button type="button" variant="outline" onClick={addVideo}>
+          <ShinyButton type="button" variant="outline" onClick={addVideo}>
             <Plus className="w-4 h-4 mr-2" />
             Добавить
-          </Button>
+          </ShinyButton>
         </div>
         {videos.length > 0 && (
           <div className="space-y-4 mt-8">
             {videos.map((video, index) => (
               <div key={index} className="flex items-center justify-between p-2 border rounded-md">
                 <span className="text-sm truncate flex-1">{video}</span>
-                <Button
+                <ShinyButton
                   type="button"
                   variant="ghost"
                   size="sm"
                   onClick={() => removeVideo(index)}
                 >
                   <X className="w-4 h-4" />
-                </Button>
+                </ShinyButton>
               </div>
             ))}
           </div>
@@ -191,27 +189,27 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       <div>
         <Label>Ссылки</Label>
         <div className="space-y-4">
-          <Input
+          <AnimatedInput
             value={newLink.url}
             onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
             placeholder="URL"
             type="url"
           />
-          <Input
+          <AnimatedInput
             value={newLink.title}
             onChange={(e) => setNewLink({ ...newLink, title: e.target.value })}
             placeholder="Название ссылки"
           />
-          <Textarea
+          <AnimatedTextarea
             value={newLink.description}
             onChange={(e) => setNewLink({ ...newLink, description: e.target.value })}
             placeholder="Описание (необязательно)"
             className="min-h-[60px]"
           />
-          <Button type="button" variant="outline" onClick={addLink}>
+          <ShinyButton type="button" variant="outline" onClick={addLink}>
             <LinkIcon className="w-4 h-4 mr-2" />
             Добавить ссылку
-          </Button>
+          </ShinyButton>
         </div>
         {links.length > 0 && (
           <div className="space-y-4 mt-8">
@@ -232,14 +230,14 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
                       <p className="text-sm text-muted-foreground mt-1">{link.description}</p>
                     )}
                   </div>
-                  <Button
+                  <ShinyButton
                     type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => removeLink(index)}
                   >
                     <X className="w-4 h-4" />
-                  </Button>
+                  </ShinyButton>
                 </div>
               </div>
             ))}
@@ -249,13 +247,13 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
 
       <div className="flex gap-4">
         {onCancel && (
-          <Button type="button" variant="outline" onClick={onCancel} className="flex-1">
+          <ShinyButton type="button" variant="outline" onClick={onCancel} className="flex-1">
             Отмена
-          </Button>
+          </ShinyButton>
         )}
-        <Button type="submit" className="flex-1">
+        <ShinyButton type="submit" className="flex-1">
           Опубликовать
-        </Button>
+        </ShinyButton>
       </div>
     </form>
   )

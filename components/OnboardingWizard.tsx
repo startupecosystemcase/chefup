@@ -7,9 +7,9 @@ import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-hot-toast'
 import Confetti from 'react-confetti'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { ProgressMotivator } from '@/components/onboarding/ProgressMotivator'
@@ -243,7 +243,7 @@ export function OnboardingWizard() {
 
   if (showSuccess) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#F97316]/10 to-white p-5">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#F97316]/10 to-white dark:from-[#F97316]/20 dark:to-dark p-5 transition-colors">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -258,16 +258,16 @@ export function OnboardingWizard() {
             <CheckCircle2 className="w-12 h-12 text-white" />
           </motion.div>
           
-          <h1 className="text-4xl md:text-5xl font-black text-[#0F172A]">
+          <h1 className="text-4xl md:text-5xl font-black text-[#0F172A] dark:text-white">
             Поздравляем! Ты в ChefUp!
           </h1>
           
-          <p className="text-xl text-[#64748B]">
+          <p className="text-xl text-[#64748B] dark:text-gray-400">
             Твой профессиональный профиль готов. Скоро начнут приходить офферы.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
+            <ShinyButton
               variant="outline"
               size="lg"
               onClick={handleCopyProfileLink}
@@ -275,15 +275,15 @@ export function OnboardingWizard() {
             >
               <Copy className="w-5 h-5 mr-2" />
               Скопировать ссылку на профиль
-            </Button>
-            <Button
+            </ShinyButton>
+            <ShinyButton
               size="lg"
-              className="bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[56px]"
+              className="min-h-[56px]"
               onClick={() => router.push('/dashboard')}
             >
               Перейти в личный кабинет
               <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            </ShinyButton>
           </div>
         </motion.div>
       </div>
@@ -293,7 +293,7 @@ export function OnboardingWizard() {
   const StepIconComponent = stepIcons[currentStep - 1]
 
   return (
-    <div className="min-h-screen bg-white py-4 md:py-8 px-4 md:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-dark py-4 md:py-8 px-4 md:px-6 lg:px-8 transition-colors">
       {showConfetti && (
         <Confetti
           width={window.innerWidth}
@@ -330,7 +330,7 @@ export function OnboardingWizard() {
                         <FormItem>
                           <FormLabel>Имя *</FormLabel>
                           <FormControl>
-                            <Input {...field} placeholder="Введите имя" />
+                            <AnimatedInput {...field} placeholder="Введите имя" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -344,7 +344,7 @@ export function OnboardingWizard() {
                         <FormItem>
                           <FormLabel>Фамилия *</FormLabel>
                           <FormControl>
-                            <Input {...field} placeholder="Введите фамилию" />
+                            <AnimatedInput {...field} placeholder="Введите фамилию" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -358,7 +358,7 @@ export function OnboardingWizard() {
                         <FormItem>
                           <FormLabel>Номер телефона *</FormLabel>
                           <FormControl>
-                            <Input 
+                            <AnimatedInput 
                               {...field} 
                               value={field.value || authPhone || ''}
                               readOnly 
@@ -429,7 +429,7 @@ export function OnboardingWizard() {
                           <FormControl>
                             <div className="relative">
                               <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
-                              <Input 
+                              <AnimatedInput 
                                 {...field} 
                                 value={field.value || authPhone || ''}
                                 placeholder="+7 (___) ___-__-__" 
@@ -451,7 +451,7 @@ export function OnboardingWizard() {
                           <FormControl>
                             <div className="relative">
                               <Send className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
-                              <Input 
+                              <AnimatedInput 
                                 {...field} 
                                 value={field.value || authPhone || ''}
                                 placeholder="@username или номер телефона" 
@@ -911,7 +911,7 @@ export function OnboardingWizard() {
                           <FormControl>
                             <div className="relative">
                               <Instagram className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
-                              <Input {...field} placeholder="@username" className="pl-10" />
+                              <AnimatedInput {...field} placeholder="@username" className="pl-10" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -928,7 +928,7 @@ export function OnboardingWizard() {
                           <FormControl>
                             <div className="relative">
                               <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748B]" />
-                              <Input {...field} placeholder="https://..." className="pl-10" />
+                              <AnimatedInput {...field} placeholder="https://..." className="pl-10" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -943,7 +943,7 @@ export function OnboardingWizard() {
                         <FormItem>
                           <FormLabel>Расскажите о себе *</FormLabel>
                           <FormControl>
-                            <Textarea
+                            <AnimatedTextarea
                               {...field}
                               placeholder="Минимум 50 символов..."
                               className="min-h-[120px]"
@@ -992,7 +992,7 @@ export function OnboardingWizard() {
                         <FormItem>
                           <FormLabel>Ваши идеи и предложения</FormLabel>
                           <FormControl>
-                            <Textarea
+                            <AnimatedTextarea
                               {...field}
                               placeholder="Что можно улучшить?"
                               className="min-h-[100px]"
@@ -1009,7 +1009,7 @@ export function OnboardingWizard() {
               {/* Навигация */}
               <div className="flex gap-4 pt-8 border-t">
                 {currentStep > 1 && (
-                  <Button
+                  <ShinyButton
                     type="button"
                     variant="outline"
                     onClick={handleBack}
@@ -1017,25 +1017,25 @@ export function OnboardingWizard() {
                   >
                     <ArrowLeft className="w-5 h-5 mr-2" />
                     Назад
-                  </Button>
+                  </ShinyButton>
                 )}
                 {currentStep < TOTAL_STEPS ? (
-                  <Button
+                  <ShinyButton
                     type="button"
                     onClick={handleNext}
-                    className="flex-1 bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[56px]"
+                    className="flex-1 min-h-[56px]"
                   >
                     Далее
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
+                  </ShinyButton>
                 ) : (
-                  <Button
+                  <ShinyButton
                     type="submit"
-                    className="flex-1 bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[56px]"
+                    className="flex-1 min-h-[56px]"
                   >
                     Создать профиль
                     <CheckCircle2 className="w-5 h-5 ml-2" />
-                  </Button>
+                  </ShinyButton>
                 )}
               </div>
             </form>

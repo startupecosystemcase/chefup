@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss"
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -25,14 +25,17 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "#FFFFFF",
-        foreground: "hsl(var(--foreground))",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         dark: {
-          DEFAULT: "#0F172A",
+          DEFAULT: "#0F0F1A",
+          light: "#111118",
         },
         primary: {
           DEFAULT: "#F97316",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "#FFFFFF",
+          dark: "#EA580C",
+          light: "#FB923C",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

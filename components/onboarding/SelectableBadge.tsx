@@ -32,8 +32,8 @@ export function SelectableBadge({
         'px-4 py-2 rounded-full border-2 transition-all duration-300',
         'flex items-center gap-4 text-sm font-medium',
         selected
-          ? 'bg-[#F97316] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-2 ring-[#F97316]/30'
-          : 'bg-gray-100 text-gray-700 border-gray-200 hover:border-[#F97316]/30',
+          ? 'bg-gradient-to-r from-[#F97316] to-[#FB923C] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-2 ring-[#F97316]/30 dark:ring-[#F97316]/50'
+          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-[#F97316]/30 dark:hover:border-[#F97316]/50',
         className
       )}
     >

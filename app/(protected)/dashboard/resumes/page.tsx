@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search, MapPin, Briefcase, Clock } from 'lucide-react'
@@ -40,23 +40,23 @@ export default function ResumesPage() {
   })
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Резюме</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Резюме</h1>
+          <p className="text-muted-foreground dark:text-gray-400">
             Список зарегистрированных участников платформы
           </p>
         </div>
 
         {/* Поиск и фильтры */}
-        <Card className="mb-8">
-          <CardContent className="p-6">
+        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+          <div className="p-6">
             <div className="space-y-4">
               {/* Поиск */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-gray-400 w-4 h-4" />
+                <AnimatedInput
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Поиск по резюме..."
@@ -123,59 +123,57 @@ export default function ResumesPage() {
                 </Select>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {/* Список резюме */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredResumes.length === 0 ? (
-            <Card className="col-span-full">
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground">Резюме не найдены</p>
-              </CardContent>
-            </Card>
+            <AnimatedCard className="col-span-full bg-white dark:bg-dark/50">
+              <div className="py-12 text-center">
+                <p className="text-muted-foreground dark:text-gray-400">Резюме не найдены</p>
+              </div>
+            </AnimatedCard>
           ) : (
             filteredResumes.map((resume) => (
-              <Card key={resume.id} className="card-hover">
-                <CardHeader>
-                  <div className="flex items-center gap-4">
+              <AnimatedCard key={resume.id} className="card-hover bg-white dark:bg-dark/50">
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
                     <Avatar className="h-12 w-12">
-                      <AvatarFallback>
+                      <AvatarFallback className="dark:bg-gray-800 dark:text-white">
                         {resume.firstName[0]}{resume.lastName[0]}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <CardTitle className="text-lg">
+                      <h3 className="text-lg font-semibold dark:text-white">
                         {resume.firstName} {resume.lastName}
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground">{resume.position}</p>
+                      </h3>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400">{resume.position}</p>
                     </div>
                   </div>
-                </CardHeader>
-                <CardContent>
                   <div className="space-y-5">
                     <div className="flex flex-wrap gap-4">
-                      <Badge variant="outline" className="text-xs">
+                      <AnimatedBadge variant="outline" className="text-xs">
                         <MapPin className="w-3 h-3 mr-1" />
                         {resume.city}
-                      </Badge>
-                      <Badge variant="outline" className="text-xs">
+                      </AnimatedBadge>
+                      <AnimatedBadge variant="outline" className="text-xs">
                         <Clock className="w-3 h-3 mr-1" />
                         {resume.experience}
-                      </Badge>
-                      <Badge variant="secondary" className="text-xs">
+                      </AnimatedBadge>
+                      <AnimatedBadge variant="secondary" className="text-xs">
                         {resume.cuisine}
-                      </Badge>
+                      </AnimatedBadge>
                     </div>
-                    <p className="text-sm text-muted-foreground line-clamp-3">
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-3">
                       {resume.about}
                     </p>
-                    <Button variant="outline" className="w-full" asChild>
+                    <ShinyButton variant="outline" className="w-full" asChild>
                       <Link href={`/profile/${resume.id}`}>Посмотреть профиль</Link>
-                    </Button>
+                    </ShinyButton>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </AnimatedCard>
             ))
           )}
         </div>

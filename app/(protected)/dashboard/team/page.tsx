@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Plus, Search, X } from 'lucide-react'
 import { toast } from 'react-hot-toast'
@@ -48,57 +48,57 @@ export default function TeamPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 w-full">
+    <div className="p-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
         <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">Команда</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Команда</h1>
+            <p className="text-muted-foreground dark:text-gray-400">
               Добавьте участников ChefUp, с которыми вы работали или хотите работать
             </p>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <ShinyButton>
                 <Plus className="w-4 h-4 mr-2" />
                 Добавить участника
-              </Button>
+              </ShinyButton>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="bg-white dark:bg-dark/90">
               <DialogHeader>
-                <DialogTitle>Добавить участника в команду</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="dark:text-white">Добавить участника в команду</DialogTitle>
+                <DialogDescription className="dark:text-gray-400">
                   Добавьте пользователя ChefUp или создайте запись вручную
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium mb-2 block">ID пользователя ChefUp (опционально)</label>
-                  <Input
+                  <label className="text-sm font-medium mb-2 block dark:text-gray-300">ID пользователя ChefUp (опционально)</label>
+                  <AnimatedInput
                     value={newMemberUserId}
                     onChange={(e) => setNewMemberUserId(e.target.value)}
                     placeholder="Введите ID пользователя"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Имя *</label>
-                  <Input
+                  <label className="text-sm font-medium mb-2 block dark:text-gray-300">Имя *</label>
+                  <AnimatedInput
                     value={newMemberName}
                     onChange={(e) => setNewMemberName(e.target.value)}
                     placeholder="Введите имя"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Должность *</label>
-                  <Input
+                  <label className="text-sm font-medium mb-2 block dark:text-gray-300">Должность *</label>
+                  <AnimatedInput
                     value={newMemberPosition}
                     onChange={(e) => setNewMemberPosition(e.target.value)}
                     placeholder="Введите должность"
                   />
                 </div>
-                <Button onClick={handleAddMember} className="w-full">
+                <ShinyButton onClick={handleAddMember} className="w-full">
                   Добавить
-                </Button>
+                </ShinyButton>
               </div>
             </DialogContent>
           </Dialog>
@@ -107,8 +107,8 @@ export default function TeamPage() {
         {/* Поиск */}
         <div className="mb-8">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-gray-400 w-4 h-4" />
+            <AnimatedInput
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Поиск по команде..."
@@ -119,16 +119,16 @@ export default function TeamPage() {
 
         {/* Список команды */}
         {teamMembers.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4 text-lg">
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="py-12 text-center">
+              <p className="text-muted-foreground dark:text-gray-400 mb-4 text-lg">
                 У вас пока нет участников в команде 😢
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground dark:text-gray-400">
                 Для руководящих должностей наличие команды является преимуществом
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {teamMembers
@@ -137,35 +137,35 @@ export default function TeamPage() {
                 member.position.toLowerCase().includes(searchQuery.toLowerCase())
               )
               .map((member) => (
-                <Card key={member.id}>
-                  <CardContent className="p-6">
+                <AnimatedCard key={member.id} className="bg-white dark:bg-dark/50">
+                  <div className="p-6">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-4 flex-1">
                         <Avatar>
-                          <AvatarFallback>
+                          <AvatarFallback className="dark:bg-dark/70 dark:text-white">
                             {member.name.split(' ').map((n) => n[0]).join('')}
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <h3 className="font-semibold">{member.name}</h3>
-                          <p className="text-sm text-muted-foreground">{member.position}</p>
+                          <h3 className="font-semibold dark:text-white">{member.name}</h3>
+                          <p className="text-sm text-muted-foreground dark:text-gray-400">{member.position}</p>
                           {member.userId && (
-                            <Badge variant="outline" className="mt-2 text-xs">
+                            <AnimatedBadge variant="outline" className="mt-2 text-xs">
                               ID: {member.userId.slice(0, 8)}
-                            </Badge>
+                            </AnimatedBadge>
                           )}
                         </div>
                       </div>
-                      <Button
+                      <ShinyButton
                         variant="ghost"
                         size="icon"
                         onClick={() => handleRemoveMember(member.id)}
                       >
                         <X className="w-4 h-4" />
-                      </Button>
+                      </ShinyButton>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </AnimatedCard>
               ))}
           </div>
         )}

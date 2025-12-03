@@ -1,0 +1,41 @@
+'use client'
+
+import React from 'react'
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
+
+interface AnimatedCardProps {
+  children: React.ReactNode
+  className?: string
+  hover?: boolean
+  style?: React.CSSProperties
+  onClick?: () => void
+}
+
+export function AnimatedCard({
+  children,
+  className,
+  hover = true,
+  style,
+  onClick,
+}: AnimatedCardProps) {
+  return (
+    <motion.div
+      className={cn(
+        'rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-6 shadow-sm transition-all duration-300',
+        hover && 'hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1',
+        onClick && 'cursor-pointer',
+        className
+      )}
+      style={style}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={hover ? { scale: 1.02 } : undefined}
+      onClick={onClick}
+    >
+      {children}
+    </motion.div>
+  )
+}
+

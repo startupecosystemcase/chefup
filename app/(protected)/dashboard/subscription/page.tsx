@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Crown, CheckCircle, Sparkles, TrendingUp, Shield, Zap, Star, ArrowRight } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { cn } from '@/lib/utils'
@@ -71,30 +71,30 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2">Управление подпиской</h1>
-          <p className="text-muted-foreground text-lg">
+          <h1 className="text-4xl font-bold mb-2 dark:text-white">Управление подпиской</h1>
+          <p className="text-muted-foreground dark:text-gray-400 text-lg">
             Выберите план, который подходит именно вам
           </p>
         </div>
 
         {/* Текущий статус */}
         <div className="mb-8 md:mb-8">
-          <Card className={cn(
-            'border-2 transition-all duration-300',
+          <AnimatedCard className={cn(
+            'border-2 transition-all duration-300 bg-white dark:bg-dark/50',
             subscriptionStatus === 'PRO' 
-              ? 'border-primary bg-gradient-to-br from-primary/5 to-primary/10' 
-              : 'border-border'
+              ? 'border-primary bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20' 
+              : 'border-border dark:border-gray-700'
           )}>
-            <CardHeader>
-              <div className="flex items-center justify-between">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
                 <div>
-                  <CardTitle className="text-2xl mb-2">Текущий план</CardTitle>
-                  <CardDescription>Ваш активный план подписки</CardDescription>
+                  <h2 className="text-2xl mb-2 font-semibold dark:text-white">Текущий план</h2>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">Ваш активный план подписки</p>
                 </div>
-                <Badge 
+                <AnimatedBadge 
                   variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} 
                   className={cn(
                     'text-lg px-6 py-3 transition-all duration-300',
@@ -109,51 +109,47 @@ export default function SubscriptionPage() {
                   ) : (
                     'BASIC'
                   )}
-                </Badge>
+                </AnimatedBadge>
               </div>
-            </CardHeader>
-            <CardContent>
               {subscriptionStatus === 'PRO' ? (
                 <div className="flex items-center gap-4 text-primary">
                   <CheckCircle className="w-5 h-5" />
-                  <span className="font-medium">PRO подписка активна. Наслаждайтесь всеми преимуществами!</span>
+                  <span className="font-medium dark:text-primary">PRO подписка активна. Наслаждайтесь всеми преимуществами!</span>
                 </div>
               ) : (
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground dark:text-gray-400">
                   Обновите до PRO для доступа к расширенным функциям и преимуществам
                 </p>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         </div>
 
         {/* Преимущества PRO */}
         <div className="mb-8 md:mb-8">
-          <h2 className="text-2xl font-bold mb-8 text-center">Преимущества PRO подписки</h2>
+          <h2 className="text-2xl font-bold mb-8 text-center dark:text-white">Преимущества PRO подписки</h2>
           <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {proBenefits.map((benefit, index) => {
               const Icon = benefit.icon
               return (
-                <Card
+                <AnimatedCard
                   key={index}
                   className={cn(
-                    'card-hover transition-all duration-300',
+                    'card-hover transition-all duration-300 bg-white dark:bg-dark/50',
                     subscriptionStatus === 'PRO' && 'border-primary/50'
                   )}
                 >
-                  <CardHeader>
+                  <div className="p-6">
                     <div className={cn(
                       'w-12 h-12 rounded-lg flex items-center justify-center mb-8 transition-all duration-300',
                       benefit.bgColor
                     )}>
                       <Icon className={cn('w-6 h-6', benefit.color)} />
                     </div>
-                    <CardTitle className="text-lg">{benefit.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                  </CardContent>
-                </Card>
+                    <h3 className="text-lg font-semibold mb-2 dark:text-white">{benefit.title}</h3>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">{benefit.description}</p>
+                  </div>
+                </AnimatedCard>
               )
             })}
           </div>
@@ -161,20 +157,18 @@ export default function SubscriptionPage() {
 
         {/* Активация промокода */}
         {subscriptionStatus === 'BASIC' && (
-          <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-4">
+          <AnimatedCard className="bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/20">
+            <div className="p-6">
+              <h2 className="text-2xl font-semibold mb-2 dark:text-white flex items-center gap-4">
                 <Crown className="w-6 h-6 text-primary" />
                 Активировать PRO подписку
-              </CardTitle>
-              <CardDescription>
+              </h2>
+              <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6">
                 Введите промокод для активации PRO подписки и получите доступ ко всем преимуществам
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
               <div className="space-y-4">
                 <div className="flex gap-4">
-                  <Input
+                  <AnimatedInput
                     value={promoCode}
                     onChange={(e) => setPromoCode(e.target.value)}
                     placeholder="Введите промокод"
@@ -185,21 +179,21 @@ export default function SubscriptionPage() {
                       }
                     }}
                   />
-                  <Button 
+                  <ShinyButton 
                     onClick={handleActivatePromo} 
                     size="lg"
                     className="px-8"
                   >
                     Активировать
                     <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                  </ShinyButton>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground dark:text-gray-400">
                   Промокод можно получить на мероприятиях ChefUp или у партнёров платформы
                 </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         )}
       </div>
     </div>

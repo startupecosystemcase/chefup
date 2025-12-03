@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Logo } from '@/components/Logo'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { useRouter } from 'next/navigation'
 import { User } from 'lucide-react'
+import { ThemeToggle } from '@/components/magicui/theme-toggle'
 
 export function StickyHeader() {
   const [scrolled, setScrolled] = useState(false)
@@ -36,33 +37,34 @@ export function StickyHeader() {
           </div>
           
           <div className="flex items-center gap-3 md:gap-4">
+            <ThemeToggle />
             {userId ? (
-              <Button 
-                variant="ghost" 
+              <ShinyButton 
+                variant="ghost"
                 size="icon"
                 className="h-11 w-11 md:h-12 md:w-12 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
                 onClick={() => router.push('/dashboard')}
                 aria-label="Профиль"
               >
                 <User className="w-6 h-6" />
-              </Button>
+              </ShinyButton>
             ) : (
               <>
-                <Button 
-                  variant="ghost" 
+                <ShinyButton 
+                  variant="ghost"
                   size="icon"
                   className="h-11 w-11 md:h-12 md:w-12"
                   onClick={() => router.push('/auth')}
                   aria-label="Войти"
                 >
                   <User className="w-6 h-6" />
-                </Button>
-                <Button
-                  className="bg-[#F97316] hover:bg-[#F97316]/90 text-white text-sm md:text-base px-6 md:px-8 py-3 md:py-4 h-11 md:h-12"
+                </ShinyButton>
+                <ShinyButton
+                  size="default"
                   onClick={() => router.push('/auth')}
                 >
                   Создать профиль
-                </Button>
+                </ShinyButton>
               </>
             )}
           </div>

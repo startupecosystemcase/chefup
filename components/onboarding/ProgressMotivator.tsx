@@ -1,7 +1,8 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Progress } from '@/components/ui/progress'
+import { AnimatedProgress } from '@/components/magicui/animated-progress'
+import { AnimatedGradientText } from '@/components/magicui/animated-gradient-text'
 
 interface ProgressMotivatorProps {
   currentStep: number
@@ -29,18 +30,18 @@ export function ProgressMotivator({ currentStep, totalSteps }: ProgressMotivator
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="text-lg font-semibold text-[#F97316]"
+            className="text-lg font-semibold"
           >
-            {motivator}
+            <AnimatedGradientText>{motivator}</AnimatedGradientText>
           </motion.p>
         </AnimatePresence>
-        <span className="text-sm text-[#64748B]">
+        <span className="text-sm text-[#64748B] dark:text-gray-400">
           Шаг {currentStep} из {totalSteps}
         </span>
       </div>
-      <Progress 
+      <AnimatedProgress 
         value={progress} 
-        className="h-3 bg-gray-200"
+        className="h-3"
       />
     </div>
   )

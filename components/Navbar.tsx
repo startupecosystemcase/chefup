@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
+import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ import {
 import { useAuthStore, useOnboardingStore } from '@/stores/useOnboardingStore'
 import { Logo } from '@/components/Logo'
 import { LogOut, User, Settings } from 'lucide-react'
+import { ThemeToggle } from '@/components/magicui/theme-toggle'
 
 export function Navbar() {
   const router = useRouter()
@@ -55,14 +56,15 @@ export function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-dark/95 dark:border-border/50 transition-colors">
       <div className="container flex h-14 md:h-16 items-center justify-between px-4 md:px-6 lg:px-8">
         <Logo />
-        <div className="flex items-center gap-4 md:gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
+          <ThemeToggle />
           {mounted && userId ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-1.5 md:gap-4 h-auto py-1.5 md:py-2">
+                <ShinyButton variant="ghost" className="flex items-center gap-1.5 md:gap-4 h-auto py-1.5 md:py-2">
                   <Avatar className="h-7 w-7 md:h-8 md:w-8 ring-2 ring-[#F97316]">
                     <AvatarImage src={formData.avatarUrl} />
                     <AvatarFallback className="text-xs md:text-sm bg-[#F97316] text-white">
@@ -72,14 +74,14 @@ export function Navbar() {
                   <div className="hidden sm:flex flex-col items-start">
                     <span className="text-xs md:text-sm font-medium">{getUserName()}</span>
                     {userRole && (
-                      <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                      <AnimatedBadge variant="secondary" className="text-xs px-1.5 py-0 mt-0.5">
                         {getRoleLabel()}
-                      </Badge>
+                      </AnimatedBadge>
                     )}
                   </div>
-                </Button>
+                </ShinyButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuContent align="end" className="w-56 bg-background dark:bg-dark border-border/50">
                 <DropdownMenuLabel>Мой аккаунт</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push('/dashboard')}>
@@ -99,12 +101,12 @@ export function Navbar() {
             </DropdownMenu>
           ) : (
             <>
-              <Button variant="ghost" size="sm" className="hidden sm:flex" onClick={() => router.push('/auth')}>
+              <ShinyButton variant="ghost" size="sm" className="hidden sm:flex" onClick={() => router.push('/auth')}>
                 Войти
-              </Button>
-              <Button size="sm" className="text-xs md:text-sm px-3 md:px-4" onClick={() => router.push('/auth')}>
+              </ShinyButton>
+              <ShinyButton size="sm" onClick={() => router.push('/auth')}>
                 Создать профиль
-              </Button>
+              </ShinyButton>
             </>
           )}
         </div>

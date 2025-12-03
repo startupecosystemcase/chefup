@@ -1,6 +1,6 @@
 'use client'
 
-import { Progress } from '@/components/ui/progress'
+import { AnimatedProgress } from '@/components/magicui/animated-progress'
 import { cn } from '@/lib/utils'
 
 interface Skill {
@@ -19,9 +19,9 @@ export function SkillsProgress({ skills, className }: SkillsProgressProps) {
       {skills.map((skill, idx) => (
         <div key={idx} className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">{skill.name}</span>
+            <span className="text-sm font-medium dark:text-gray-300">{skill.name}</span>
           </div>
-          <Progress value={skill.level} className="h-2" />
+          <AnimatedProgress value={skill.level} className="h-2" />
         </div>
       ))}
     </div>

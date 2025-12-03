@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { useOnboardingStore, useAuthStore } from '@/stores/useOnboardingStore'
@@ -56,47 +56,47 @@ export default function ResumePage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 w-full">
+    <div className="p-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-5xl w-full">
         <div className="mb-8 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">Моё резюме</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Моё резюме</h1>
+            <p className="text-muted-foreground dark:text-gray-400">
               Автоматически сформировано на основе вашей анкеты
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <Button variant="outline" onClick={handleShareResume} className="w-full sm:w-auto">
+            <ShinyButton variant="outline" onClick={handleShareResume} className="w-full sm:w-auto">
               <Share2 className="w-4 h-4 mr-2" />
               Поделиться
-            </Button>
-            <Button onClick={handleDownloadPDF} className="w-full sm:w-auto">
+            </ShinyButton>
+            <ShinyButton onClick={handleDownloadPDF} className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Скачать PDF
-            </Button>
+            </ShinyButton>
           </div>
         </div>
 
-        <Card className="mb-8">
-          <CardHeader>
+        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+          <div className="p-6">
             <div className="flex items-center gap-4">
               <Avatar className="h-20 w-20">
-                <AvatarFallback className="text-2xl">
+                <AvatarFallback className="text-2xl dark:bg-dark/70 dark:text-white">
                   {formData.firstName?.[0] || 'U'}
                   {formData.lastName?.[0] || ''}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <CardTitle className="text-2xl mb-1">
+                <h2 className="text-2xl mb-1 font-semibold dark:text-white">
                   {formData.firstName || 'Имя'} {formData.lastName || 'Фамилия'}
-                </CardTitle>
+                </h2>
                 {(formData.desiredPosition || formData.currentPosition) && (
-                  <p className="text-lg text-muted-foreground">
+                  <p className="text-lg text-muted-foreground dark:text-gray-400">
                     {formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
                     {!formData.desiredPosition && formData.currentPosition && getLabel(formData.currentPosition, positions)}
                   </p>
                 )}
-                <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground dark:text-gray-400">
                   {formData.city && (
                     <div className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
@@ -111,69 +111,66 @@ export default function ResumePage() {
                 </div>
               </div>
             </div>
-          </CardHeader>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {/* Контакты */}
         {(formData.phone || formData.email) && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <FileText className="w-5 h-5" />
                   Контактная информация
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <ShinyButton variant="ghost" size="icon" className="h-8 w-8">
                   <Pencil className="w-4 h-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+                </ShinyButton>
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {formData.phone && (
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Телефон</p>
-                    <p className="font-medium">{formData.phone}</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1">Телефон</p>
+                    <p className="font-medium dark:text-white">{formData.phone}</p>
                   </div>
                 )}
                 {formData.email && (
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Email</p>
-                    <p className="font-medium">{formData.email}</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1">Email</p>
+                    <p className="font-medium dark:text-white">{formData.email}</p>
                   </div>
                 )}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Опыт работы */}
         {(formData.experience || formData.desiredPosition || formData.currentPosition || formData.rank) && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <Briefcase className="w-5 h-5" />
                   Опыт работы
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <ShinyButton variant="ghost" size="icon" className="h-8 w-8">
                   <Pencil className="w-4 h-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+                </ShinyButton>
+              </h3>
+              <div className="space-y-4">
               {formData.experience && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Опыт работы</p>
-                  <p className="font-medium">{getLabel(formData.experience, experienceRanges)}</p>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1">Опыт работы</p>
+                  <p className="font-medium dark:text-white">{getLabel(formData.experience, experienceRanges)}</p>
                 </div>
               )}
               {(formData.currentPosition || formData.desiredPosition) && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1">
                     {formData.currentPosition ? 'Текущая позиция' : 'Желаемая позиция'}
                   </p>
-                  <p className="font-medium">
+                  <p className="font-medium dark:text-white">
                     {formData.currentPosition && getLabel(formData.currentPosition, positions)}
                     {!formData.currentPosition && formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
                   </p>
@@ -181,136 +178,129 @@ export default function ResumePage() {
               )}
               {formData.rank && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Разряд</p>
-                  <p className="font-medium">{getLabel(formData.rank, ranks)}</p>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1">Разряд</p>
+                  <p className="font-medium dark:text-white">{getLabel(formData.rank, ranks)}</p>
                 </div>
               )}
-            </CardContent>
-          </Card>
+              </div>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Образование */}
         {formData.education && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <GraduationCap className="w-5 h-5" />
                   Образование
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <ShinyButton variant="ghost" size="icon" className="h-8 w-8">
                   <Pencil className="w-4 h-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="font-medium">{getLabel(formData.education, educationLevels)}</p>
-            </CardContent>
-          </Card>
+                </ShinyButton>
+              </h3>
+              <p className="font-medium dark:text-white">{getLabel(formData.education, educationLevels)}</p>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Специализация */}
         {formData.cuisines && formData.cuisines.length > 0 && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <Award className="w-5 h-5" />
                   Специализация
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <ShinyButton variant="ghost" size="icon" className="h-8 w-8">
                   <Pencil className="w-4 h-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+                </ShinyButton>
+              </h3>
               <div className="flex flex-wrap gap-4">
                 {formData.cuisines.map((cuisine) => (
-                  <Badge key={cuisine} variant="secondary" className="text-sm py-1 px-3">
+                  <AnimatedBadge key={cuisine} variant="secondary" className="text-sm py-1 px-3">
                     {getLabel(cuisine, cuisines)}
-                  </Badge>
+                  </AnimatedBadge>
                 ))}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Предпочтения */}
         {(formData.preferredVenueFormat || formData.salaryExpectation) && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-4">
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
                 <Target className="w-5 h-5" />
                 Предпочтения
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {formData.preferredVenueFormat && (
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">Формат заведения</p>
-                  <p className="font-medium">
-                    {getLabel(formData.preferredVenueFormat, venueFormats)}
-                  </p>
-                </div>
-              )}
-              {formData.salaryExpectation && (
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
-                    <DollarSign className="w-4 h-4" />
-                    Ожидаемая зарплата
-                  </p>
-                  <p className="font-medium">
-                    {getLabel(formData.salaryExpectation, salaryRanges)}
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+              </h3>
+              <div className="space-y-4">
+                {formData.preferredVenueFormat && (
+                  <div>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1">Формат заведения</p>
+                    <p className="font-medium dark:text-white">
+                      {getLabel(formData.preferredVenueFormat, venueFormats)}
+                    </p>
+                  </div>
+                )}
+                {formData.salaryExpectation && (
+                  <div>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1 flex items-center gap-1">
+                      <DollarSign className="w-4 h-4" />
+                      Ожидаемая зарплата
+                    </p>
+                    <p className="font-medium dark:text-white">
+                      {getLabel(formData.salaryExpectation, salaryRanges)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Цели */}
         {formData.goals && formData.goals.length > 0 && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-4">
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
                 <Target className="w-5 h-5" />
                 Цели и интересы
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </h3>
               <div className="flex flex-wrap gap-4">
                 {formData.goals.map((goal) => (
-                  <Badge key={goal} variant="outline" className="text-sm py-1 px-3">
+                  <AnimatedBadge key={goal} variant="outline" className="text-sm py-1 px-3">
                     {getLabel(goal, goals)}
-                  </Badge>
+                  </AnimatedBadge>
                 ))}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* О себе */}
         {formData.about && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>О себе</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground whitespace-pre-wrap break-words">{formData.about}</p>
-            </CardContent>
-          </Card>
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white">О себе</h3>
+              <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-wrap break-words">{formData.about}</p>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Действия */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button onClick={() => router.push('/onboarding')} variant="outline" className="flex-1 text-sm">
+          <ShinyButton onClick={() => router.push('/onboarding')} variant="outline" className="flex-1 text-sm">
             <Pencil className="w-4 h-4 mr-2" />
             Редактировать анкету
-          </Button>
-          <Button onClick={handleShareResume} className="flex-1 text-sm">
+          </ShinyButton>
+          <ShinyButton onClick={handleShareResume} className="flex-1 text-sm">
             <Share2 className="w-4 h-4 mr-2" />
             Поделиться резюме
-          </Button>
+          </ShinyButton>
         </div>
       </div>
     </div>

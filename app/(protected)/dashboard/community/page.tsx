@@ -3,10 +3,10 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useAuthStore, useEventsStore } from '@/stores/useOnboardingStore'
 import { mockEvents } from '@/lib/mockEvents'
@@ -115,77 +115,77 @@ export default function CommunityPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-2">Коммьюнити</h1>
-              <p className="text-muted-foreground">
+              <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Коммьюнити</h1>
+              <p className="text-muted-foreground dark:text-gray-400">
                 Мероприятия коммьюнити ChefUp: бизнес-завтраки, открытия ресторанов и многое другое
               </p>
             </div>
             {userRole === 'moderator' && (
-              <Button onClick={() => router.push('/dashboard/community/create')}>
+              <ShinyButton onClick={() => router.push('/dashboard/community/create')}>
                 Создать событие
-              </Button>
+              </ShinyButton>
             )}
           </div>
           {/* Быстрая навигация по категориям */}
           <div className="flex flex-wrap gap-4">
-            <Button
+            <ShinyButton
               variant={selectedType === 'all' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedType('all')}
             >
               Все
-            </Button>
-            <Button
+            </ShinyButton>
+            <ShinyButton
               variant={selectedType === 'business-breakfast' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedType('business-breakfast')}
             >
               Бизнес-завтраки
-            </Button>
-            <Button
+            </ShinyButton>
+            <ShinyButton
               variant={selectedType === 'restaurant-opening' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedType('restaurant-opening')}
             >
               Открытия
-            </Button>
-            <Button
+            </ShinyButton>
+            <ShinyButton
               variant={selectedType === 'networking' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedType('networking')}
             >
               Нетворкинг
-            </Button>
-            <Button
+            </ShinyButton>
+            <ShinyButton
               variant={selectedType === 'conference' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedType('conference')}
             >
               Конференции
-            </Button>
-            <Button
+            </ShinyButton>
+            <ShinyButton
               variant={selectedType === 'workshop' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedType('workshop')}
             >
               Мастер-классы
-            </Button>
+            </ShinyButton>
           </div>
         </div>
 
         {/* Фильтры */}
-        <Card className="mb-8">
-          <CardContent className="pt-6">
+        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+          <div className="p-6">
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-gray-400" />
+                  <AnimatedInput
                     placeholder="Поиск по названию, описанию или организатору"
                     className="pl-9"
                     value={searchTerm}
@@ -193,10 +193,10 @@ export default function CommunityPage() {
                   />
                 </div>
                 <Select value={selectedType} onValueChange={(value) => setSelectedType(value as EventType | 'all')}>
-                  <SelectTrigger className="w-full md:w-[200px]">
+                  <SelectTrigger className="w-full md:w-[200px] dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50">
                     <SelectValue placeholder="Тип события" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                     <SelectItem value="all">Все типы</SelectItem>
                     <SelectItem value="business-breakfast">Бизнес-завтраки</SelectItem>
                     <SelectItem value="restaurant-opening">Открытия ресторанов</SelectItem>
@@ -209,43 +209,43 @@ export default function CommunityPage() {
               </div>
               <div className="flex items-center gap-4 flex-wrap">
                 <div className="flex items-center gap-4">
-                  <Filter className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Цена:</span>
+                  <Filter className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
+                  <span className="text-sm font-medium dark:text-white">Цена:</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Button
+                  <ShinyButton
                     variant={priceFilter === 'all' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setPriceFilter('all')}
                   >
                     Все
-                  </Button>
-                  <Button
+                  </ShinyButton>
+                  <ShinyButton
                     variant={priceFilter === 'free' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setPriceFilter('free')}
                   >
                     Бесплатные
-                  </Button>
-                  <Button
+                  </ShinyButton>
+                  <ShinyButton
                     variant={priceFilter === 'paid' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setPriceFilter('paid')}
                   >
                     Платные
-                  </Button>
+                  </ShinyButton>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {filteredEvents.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground">События не найдены</p>
-            </CardContent>
-          </Card>
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="py-12 text-center">
+              <p className="text-muted-foreground dark:text-gray-400">События не найдены</p>
+            </div>
+          </AnimatedCard>
         ) : (
           <div className="grid gap-4 md:gap-6 md:grid-cols-2">
             {filteredEvents.map((event) => {
@@ -253,92 +253,94 @@ export default function CommunityPage() {
               const participationStatus = getParticipationStatus(event.id!)
 
               return (
-                <Card key={event.id} className="card-hover flex flex-col">
-                  <CardHeader>
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-primary" />
+                <AnimatedCard key={event.id} className="card-hover flex flex-col bg-white dark:bg-dark/50">
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="mb-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                          <Icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <AnimatedBadge variant="secondary">{typeLabels[event.type]}</AnimatedBadge>
                       </div>
-                      <Badge variant="secondary">{typeLabels[event.type]}</Badge>
+                      <h3 className="text-lg mb-2 font-semibold dark:text-white">{event.title}</h3>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400">Организатор: {event.organizer}</p>
                     </div>
-                    <CardTitle className="text-lg mb-2">{event.title}</CardTitle>
-                    <CardDescription className="text-sm">Организатор: {event.organizer}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <p className="text-sm text-muted-foreground mb-8 line-clamp-3">{event.description}</p>
-                    <div className="space-y-4 text-sm mb-8">
-                      <div className="flex items-center gap-4 text-muted-foreground">
-                        <Calendar className="w-4 h-4" />
-                        <span>
-                          {format(new Date(event.date), 'dd MMMM yyyy', { locale: ru })} в {event.time}
-                        </span>
+                    <div className="flex-1 flex flex-col">
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 mb-8 line-clamp-3">{event.description}</p>
+                      <div className="space-y-4 text-sm mb-8">
+                        <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
+                          <Calendar className="w-4 h-4" />
+                          <span>
+                            {format(new Date(event.date), 'dd MMMM yyyy', { locale: ru })} в {event.time}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-xs">{event.address}</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
+                          <Users className="w-4 h-4" />
+                          <span>До {event.maxParticipants} участников</span>
+                        </div>
+                        <div className="flex items-center gap-4 font-semibold dark:text-white">
+                          <DollarSign className="w-4 h-4 text-primary" />
+                          <span>{event.price === 0 ? 'Бесплатно' : `${event.price.toLocaleString('ru-RU')} ₸`}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-4 text-muted-foreground">
-                        <MapPin className="w-4 h-4" />
-                        <span className="text-xs">{event.address}</span>
-                      </div>
-                      <div className="flex items-center gap-4 text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        <span>До {event.maxParticipants} участников</span>
-                      </div>
-                      <div className="flex items-center gap-4 font-semibold">
-                        <DollarSign className="w-4 h-4 text-primary" />
-                        <span>{event.price === 0 ? 'Бесплатно' : `${event.price.toLocaleString('ru-RU')} ₸`}</span>
+                      <div className="mt-auto space-y-4">
+                        {participationStatus === 'pending' && (
+                          <ShinyButton variant="outline" className="w-full" disabled>
+                            <Clock className="w-4 h-4 mr-2" />
+                            Заявка на модерации
+                          </ShinyButton>
+                        )}
+                        {participationStatus === 'approved' && (
+                          <ShinyButton variant="outline" className="w-full" disabled>
+                            <CheckCircle2 className="w-4 h-4 mr-2" />
+                            Вы одобрены
+                          </ShinyButton>
+                        )}
+                        {participationStatus === 'rejected' && (
+                          <ShinyButton variant="outline" className="w-full" disabled>
+                            Заявка отклонена
+                          </ShinyButton>
+                        )}
+                        {!participationStatus && (
+                          <>
+                            <ShinyButton className="w-full" onClick={() => handleApply(event.id!)}>
+                              Подать заявку
+                            </ShinyButton>
+                            <Dialog open={isRegistrationOpen && selectedEventId === event.id} onOpenChange={(open) => {
+                              setIsRegistrationOpen(open)
+                              if (!open) setSelectedEventId(null)
+                            }}>
+                              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark/90">
+                                <DialogHeader>
+                                  <DialogTitle className="dark:text-white">Регистрация на {event.title}</DialogTitle>
+                                  <DialogDescription className="dark:text-gray-400">
+                                    Заполните форму для регистрации на событие
+                                  </DialogDescription>
+                                </DialogHeader>
+                                <EventRegistrationForm
+                                  eventId={event.id!}
+                                  eventTitle={event.title}
+                                  onSuccess={() => handleRegistrationSuccess(event.id!)}
+                                  onCancel={() => {
+                                    setIsRegistrationOpen(false)
+                                    setSelectedEventId(null)
+                                  }}
+                                />
+                              </DialogContent>
+                            </Dialog>
+                          </>
+                        )}
+                        <ShinyButton variant="ghost" className="w-full" asChild>
+                          <Link href={`/dashboard/community/${event.id}`}>Подробнее</Link>
+                        </ShinyButton>
                       </div>
                     </div>
-                    <div className="mt-auto space-y-4">
-                      {participationStatus === 'pending' && (
-                        <Button variant="outline" className="w-full" disabled>
-                          <Clock className="w-4 h-4 mr-2" />
-                          Заявка на модерации
-                        </Button>
-                      )}
-                      {participationStatus === 'approved' && (
-                        <Button variant="outline" className="w-full" disabled>
-                          <CheckCircle2 className="w-4 h-4 mr-2" />
-                          Вы одобрены
-                        </Button>
-                      )}
-                      {participationStatus === 'rejected' && (
-                        <Button variant="outline" className="w-full" disabled>
-                          Заявка отклонена
-                        </Button>
-                      )}
-                      {!participationStatus && (
-                        <>
-                          <Button className="w-full" onClick={() => handleApply(event.id!)}>
-                            Подать заявку
-                          </Button>
-                          <Dialog open={isRegistrationOpen && selectedEventId === event.id} onOpenChange={(open) => {
-                            setIsRegistrationOpen(open)
-                            if (!open) setSelectedEventId(null)
-                          }}>
-                            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                              <DialogHeader>
-                                <DialogTitle>Регистрация на {event.title}</DialogTitle>
-                                <DialogDescription>
-                                  Заполните форму для регистрации на событие
-                                </DialogDescription>
-                              </DialogHeader>
-                              <EventRegistrationForm
-                                eventId={event.id!}
-                                eventTitle={event.title}
-                                onSuccess={() => handleRegistrationSuccess(event.id!)}
-                                onCancel={() => {
-                                  setIsRegistrationOpen(false)
-                                  setSelectedEventId(null)
-                                }}
-                              />
-                            </DialogContent>
-                          </Dialog>
-                        </>
-                      )}
-                      <Button variant="ghost" className="w-full" asChild>
-                        <Link href={`/dashboard/community/${event.id}`}>Подробнее</Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </AnimatedCard>
               )
             })}
           </div>

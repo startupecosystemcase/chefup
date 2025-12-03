@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import { ThemeProvider } from '@/components/magicui/theme-provider'
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
@@ -20,16 +21,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ru" className={inter.variable}>
+    <html lang="ru" className={inter.variable} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={`min-h-screen bg-white antialiased ${inter.className}`}>
-        {children}
-        <Toaster position="top-right" />
+      <body className={`min-h-screen bg-background text-foreground antialiased transition-colors duration-300 ${inter.className}`}>
+        <ThemeProvider defaultTheme="light" storageKey="chefup-theme">
+          {children}
+          <Toaster position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-hot-toast'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { jobPostingSchema } from '@/types/job.types'
 import { useEmployerJobsStore, useAuthStore } from '@/stores/useOnboardingStore'
@@ -75,30 +75,28 @@ export default function CreateJobPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8">
-          <Button variant="ghost" onClick={() => router.back()} className="mb-8">
+          <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-8">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
-          </Button>
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Создать вакансию</h1>
-          <p className="text-muted-foreground">
+          </ShinyButton>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Создать вакансию</h1>
+          <p className="text-muted-foreground dark:text-gray-400">
             Заполните информацию о вакансии. После создания она будет отправлена на модерацию.
           </p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-4">
+        <AnimatedCard className="bg-white dark:bg-dark/50">
+          <div className="p-6">
+            <div className="flex items-center gap-4 mb-4">
               <FileText className="w-5 h-5 text-primary" />
-              <CardTitle>Информация о вакансии</CardTitle>
+              <h2 className="text-xl font-semibold dark:text-white">Информация о вакансии</h2>
             </div>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground mb-6 dark:text-gray-400">
               Все поля обязательны для заполнения
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+            </p>
             <FormProvider {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -106,9 +104,9 @@ export default function CreateJobPage() {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Название вакансии *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Название вакансии *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Например: Шеф-повар в ресторане европейской кухни" {...field} />
+                        <AnimatedInput placeholder="Например: Шеф-повар в ресторане европейской кухни" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -250,9 +248,9 @@ export default function CreateJobPage() {
                     name="salary"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Зарплата *</FormLabel>
+                        <FormLabel className="dark:text-gray-300">Зарплата *</FormLabel>
                         <FormControl>
-                          <Input placeholder="Например: 300 000 - 500 000 KZT" {...field} />
+                          <AnimatedInput placeholder="Например: 300 000 - 500 000 KZT" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -265,16 +263,16 @@ export default function CreateJobPage() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Описание вакансии *</FormLabel>
+                      <FormLabel className="dark:text-gray-300">Описание вакансии *</FormLabel>
                       <FormControl>
-                        <Textarea
+                        <AnimatedTextarea
                           placeholder="Подробно опишите вакансию, условия работы, требования..."
                           className="min-h-[120px]"
                           {...field}
                         />
                       </FormControl>
                       <FormMessage />
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-muted-foreground dark:text-gray-400">
                         Минимум 50 символов. {field.value?.length || 0}/1000
                       </p>
                     </FormItem>
@@ -282,11 +280,11 @@ export default function CreateJobPage() {
                 />
 
                 <div>
-                  <FormLabel>Требования *</FormLabel>
+                  <FormLabel className="dark:text-gray-300">Требования *</FormLabel>
                   <div className="space-y-4 mt-2">
                     {requirements.map((req, index) => (
                       <div key={index} className="flex gap-4">
-                        <Input
+                        <AnimatedInput
                           value={req}
                           onChange={(e) => {
                             const newReqs = [...requirements]
@@ -296,19 +294,19 @@ export default function CreateJobPage() {
                           placeholder="Введите требование"
                         />
                         {requirements.length > 1 && (
-                          <Button
+                          <ShinyButton
                             type="button"
                             variant="ghost"
                             size="icon"
                             onClick={() => handleRemoveRequirement(index)}
                           >
                             <X className="w-4 h-4" />
-                          </Button>
+                          </ShinyButton>
                         )}
                       </div>
                     ))}
                     <div className="flex gap-4">
-                      <Input
+                      <AnimatedInput
                         value={newRequirement}
                         onChange={(e) => setNewRequirement(e.target.value)}
                         placeholder="Добавить требование"
@@ -319,26 +317,26 @@ export default function CreateJobPage() {
                           }
                         }}
                       />
-                      <Button type="button" variant="outline" onClick={handleAddRequirement}>
+                      <ShinyButton type="button" variant="outline" onClick={handleAddRequirement}>
                         <Plus className="w-4 h-4 mr-2" />
                         Добавить
-                      </Button>
+                      </ShinyButton>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex gap-4 pt-4">
-                  <Button type="button" variant="outline" onClick={() => router.back()} className="flex-1">
+                  <ShinyButton type="button" variant="outline" onClick={() => router.back()} className="flex-1">
                     Отмена
-                  </Button>
-                  <Button type="submit" className="flex-1">
+                  </ShinyButton>
+                  <ShinyButton type="submit" className="flex-1">
                     Создать вакансию
-                  </Button>
+                  </ShinyButton>
                 </div>
               </form>
             </FormProvider>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
       </div>
     </div>
   )

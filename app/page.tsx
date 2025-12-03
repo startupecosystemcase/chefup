@@ -4,9 +4,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { HoverBorderGradient } from '@/components/magicui/hover-border-gradient'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedNumber } from '@/components/magicui/animated-number'
+import { AnimatedGradientText } from '@/components/magicui/animated-gradient-text'
 import { toast } from 'react-hot-toast'
 import { StickyHeader } from '@/components/landing/StickyHeader'
 import { AnimatedCounter } from '@/components/landing/AnimatedCounter'
@@ -116,7 +119,7 @@ export default function Home() {
   const hqImage = imagePaths.hq
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-dark transition-colors">
       <StickyHeader />
       <StickyBottomBar />
 
@@ -205,24 +208,24 @@ export default function Home() {
                     ease: 'easeInOut',
                   }}
                 >
-                  <Button
+                  <ShinyButton
                     size="lg"
-                    className="bg-[#F97316] hover:bg-[#F97316]/90 text-white text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full sm:w-auto shadow-lg shadow-[#F97316]/30"
+                    className="text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full sm:w-auto"
                     onClick={() => router.push('/auth')}
                   >
                     Создать профиль бесплатно
                     <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
-                  </Button>
+                  </ShinyButton>
                 </motion.div>
-                <Button
+                <ShinyButton
                   variant="outline"
                   size="lg"
-                  className="text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full sm:w-auto border-2"
+                  className="text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full sm:w-auto"
                   onClick={() => router.push('/auth')}
                 >
                   <Phone className="mr-2 w-4 h-4 md:w-5 md:h-5" />
                   Заказать консультацию
-                </Button>
+                </ShinyButton>
               </motion.div>
             </div>
           </div>
@@ -309,21 +312,21 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Card className="h-full border-2 border-gray-200 hover:border-[#F97316]/50 transition-all bg-white shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl">
-                  <CardHeader className="pb-4">
+                <HoverBorderGradient className="h-full">
+                  <div className="pb-4">
                     <motion.div
                       whileHover={{ rotateY: 15, rotateX: 5 }}
                       transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-4"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center mb-4"
                     >
                       <ChefHat className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
                     </motion.div>
-                    <CardTitle className="text-xl md:text-2xl font-semibold text-[#0F172A]">Специалистам</CardTitle>
-                    <CardDescription className="text-sm md:text-base text-[#64748B]">
+                    <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A] dark:text-white mb-2">Специалистам</h3>
+                    <p className="text-sm md:text-base text-[#64748B] dark:text-gray-400">
                       Для специалистов сферы HoReCa
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                    </p>
+                  </div>
+                  <div>
                     <ul className="space-y-3 md:space-y-4">
                       {[
                         { icon: Target, text: 'Персональные рекомендации вакансий на основе AI' },
@@ -338,9 +341,9 @@ export default function Home() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] font-normal"
+                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] dark:text-gray-400 font-normal"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
@@ -348,15 +351,15 @@ export default function Home() {
                         )
                       })}
                     </ul>
-                    <Button
-                      className="w-full mt-6 bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[52px] md:min-h-[56px]"
+                    <ShinyButton
+                      className="w-full mt-6 min-h-[52px] md:min-h-[56px]"
                       onClick={() => router.push('/auth')}
                     >
                       Зарегистрироваться
                       <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                    </ShinyButton>
+                  </div>
+                </HoverBorderGradient>
               </motion.div>
 
               {/* Компаниям */}
@@ -364,21 +367,21 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Card className="h-full border-2 border-gray-200 hover:border-[#F97316]/50 transition-all bg-white shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl">
-                  <CardHeader className="pb-4">
+                <HoverBorderGradient className="h-full">
+                  <div className="pb-4">
                     <motion.div
                       whileHover={{ rotateY: 15, rotateX: 5 }}
                       transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-4"
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center mb-4"
                     >
                       <Building2 className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
                     </motion.div>
-                    <CardTitle className="text-xl md:text-2xl font-semibold text-[#0F172A]">Компаниям</CardTitle>
-                    <CardDescription className="text-sm md:text-base text-[#64748B]">
+                    <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A] dark:text-white mb-2">Компаниям</h3>
+                    <p className="text-sm md:text-base text-[#64748B] dark:text-gray-400">
                       Для ресторанов, кафе, отелей, производств и других компаний
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                    </p>
+                  </div>
+                  <div>
                     <ul className="space-y-3 md:space-y-4">
                       {[
                         { icon: UserCheck, text: 'Автоматизированный подбор персонала' },
@@ -393,9 +396,9 @@ export default function Home() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] font-normal"
+                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] dark:text-gray-400 font-normal"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                               <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
@@ -403,15 +406,15 @@ export default function Home() {
                         )
                       })}
                     </ul>
-                    <Button
-                      className="w-full mt-6 bg-[#F97316] hover:bg-[#F97316]/90 text-white min-h-[52px] md:min-h-[56px]"
+                    <ShinyButton
+                      className="w-full mt-6 min-h-[52px] md:min-h-[56px]"
                       onClick={() => router.push('/auth')}
                     >
                       Подключить компанию
                       <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                    </ShinyButton>
+                  </div>
+                </HoverBorderGradient>
               </motion.div>
             </div>
           </div>
@@ -522,9 +525,9 @@ export default function Home() {
                     whileHover={{ y: -8, scale: 1.02 }}
                     className="group"
                   >
-                    <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all cursor-pointer relative overflow-hidden bg-white/5 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl group">
+                    <AnimatedCard className="h-full border-2 border-white/10 hover:border-[#F97316]/50 cursor-pointer relative overflow-hidden bg-white/5 dark:bg-dark/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl group">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <CardContent className="p-6 md:p-8 relative z-10">
+                      <div className="p-6 md:p-8 relative z-10">
                         <motion.div
                           animate={{
                             rotate: [0, 5, -5, 0],
@@ -541,8 +544,8 @@ export default function Home() {
                         </motion.div>
                         <h3 className="text-base md:text-lg font-semibold text-white mb-3">{feature.title}</h3>
                         <p className="text-sm text-white/70 leading-relaxed font-normal">{feature.description}</p>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </AnimatedCard>
                   </motion.div>
                 )
               })}
@@ -613,8 +616,8 @@ export default function Home() {
                     whileHover={{ y: -8, scale: 1.02 }}
                     style={{ y: 0 }}
                   >
-                    <Card className="h-full border-2 border-gray-200 hover:border-gray-300 transition-all bg-white shadow-md hover:shadow-xl rounded-2xl">
-                      <CardContent className="p-6 md:p-8">
+                    <AnimatedCard className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all bg-white dark:bg-dark/50 shadow-md hover:shadow-xl rounded-2xl">
+                      <div className="p-6 md:p-8">
                         <motion.div
                           initial={{ scale: 0, rotate: -180 }}
                           whileInView={{ scale: 1, rotate: 0 }}
@@ -625,8 +628,8 @@ export default function Home() {
                         </motion.div>
                         <h3 className="text-base md:text-lg font-semibold text-[#0F172A] mb-3">{item.title}</h3>
                         <p className="text-sm text-[#64748B] leading-relaxed font-normal">{item.description}</p>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </AnimatedCard>
                   </motion.div>
                 )
               })}
@@ -717,8 +720,8 @@ export default function Home() {
                     className="group"
                     style={{ perspective: '1000px' }}
                   >
-                    <Card className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
-                      <CardContent className="p-5 md:p-6">
+                    <AnimatedCard className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 dark:bg-dark/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
+                      <div className="p-5 md:p-6">
                         <motion.div
                           animate={{
                             scale: [1, 1.1, 1],
@@ -734,8 +737,8 @@ export default function Home() {
                         </motion.div>
                         <h3 className="text-base md:text-lg font-semibold text-white mb-3">{feature.title}</h3>
                         <p className="text-sm text-white/70 leading-relaxed font-normal">{feature.description}</p>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </AnimatedCard>
                   </motion.div>
                 )
               })}
@@ -816,7 +819,7 @@ export default function Home() {
                   Представительство в Астане
                 </h2>
               </motion.div>
-              <Card className="border-2 border-gray-200 shadow-xl hover:shadow-2xl rounded-2xl overflow-hidden transition-all">
+              <AnimatedCard className="border-2 border-gray-200 dark:border-gray-700 shadow-xl hover:shadow-2xl rounded-2xl overflow-hidden transition-all bg-white dark:bg-dark/50">
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="relative h-64 md:h-auto bg-[#0a0a0a]">
                     <ImageWithSkeleton
@@ -827,7 +830,7 @@ export default function Home() {
                       objectFit="cover"
                     />
                   </div>
-                  <CardContent className="p-8 md:p-10 flex flex-col justify-center bg-white">
+                  <div className="p-8 md:p-10 flex flex-col justify-center bg-white dark:bg-dark/50">
                     <div className="flex items-center gap-3 mb-4">
                       <Building className="w-8 h-8 text-[#F97316]" />
                       <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A]">Штаб-квартира</h3>
@@ -836,9 +839,9 @@ export default function Home() {
                       Астана, Индустриальный парк,<br />
                       улица Кендірлі, 4
                     </p>
-                  </CardContent>
+                  </div>
                 </div>
-              </Card>
+              </AnimatedCard>
             </div>
           </div>
         </FadeUpSection>
@@ -862,9 +865,9 @@ export default function Home() {
         {/* Final CTA */}
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#F97316]/10 via-white to-[#F97316]/5">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
-            <Card className="bg-gradient-to-br from-[#F97316] via-[#F97316]/95 to-[#EA580C] border-0 shadow-2xl max-w-4xl mx-auto overflow-hidden relative rounded-2xl">
+            <AnimatedCard className="bg-gradient-to-br from-[#F97316] via-[#F97316]/95 to-[#EA580C] border-0 shadow-2xl max-w-4xl mx-auto overflow-hidden relative rounded-2xl">
               <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-              <CardContent className="p-8 md:p-12 text-center relative z-10">
+              <div className="p-8 md:p-12 text-center relative z-10">
                 <motion.div
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
@@ -891,33 +894,33 @@ export default function Home() {
                   }}
                   className="mb-8 md:mb-10"
                 >
-                  <Button
+                  <ShinyButton
                     size="lg"
-                    className="bg-white hover:bg-white/90 text-white text-sm md:text-base px-8 md:px-10 py-4 md:py-5 h-auto min-h-[56px] md:min-h-[60px] w-full md:w-auto shadow-lg shadow-black/20 font-semibold"
+                    className="bg-white hover:bg-white/90 text-[#F97316] text-sm md:text-base px-8 md:px-10 py-4 md:py-5 h-auto min-h-[56px] md:min-h-[60px] w-full md:w-auto shadow-lg shadow-black/20 font-semibold"
                     onClick={() => router.push('/auth')}
                   >
                     Создать профиль бесплатно
                     <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
-                  </Button>
+                  </ShinyButton>
                 </motion.div>
 
                 <div className="max-w-md mx-auto pt-8 md:pt-10 border-t border-white/20">
                   <p className="text-sm md:text-base text-white/80 mb-4 md:mb-6">Или оставь номер телефона</p>
                   <form onSubmit={handlePhoneSubmit} className="flex flex-col sm:flex-row gap-3">
-                    <Input
+                    <AnimatedInput
                       type="tel"
                       placeholder="+7 (___) ___-__-__"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="flex-1 bg-white/90 border-white/20 h-12 md:h-14 text-base"
                     />
-                    <Button type="submit" className="bg-white/20 hover:bg-white/30 text-white border border-white/30 h-12 md:h-14 min-h-[52px] md:min-h-[56px]">
+                    <ShinyButton type="submit" variant="outline" className="bg-white/20 hover:bg-white/30 text-white border border-white/30 h-12 md:h-14 min-h-[52px] md:min-h-[56px]">
                       Отправить
-                    </Button>
+                    </ShinyButton>
                   </form>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </AnimatedCard>
           </div>
         </FadeUpSection>
 
@@ -940,8 +943,8 @@ export default function Home() {
                   transition={{ delay: idx * 0.15, duration: 0.6 }}
                   whileHover={{ y: -8, scale: 1.01 }}
                 >
-                  <Card className="h-full border-2 border-gray-200 hover:border-[#F97316]/30 transition-all bg-white shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl overflow-hidden">
-                    <CardContent className="p-8 md:p-10">
+                  <AnimatedCard className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-[#F97316]/30 transition-all bg-white dark:bg-dark/50 shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl overflow-hidden">
+                    <div className="p-8 md:p-10">
                       <div className="flex flex-col items-center text-center">
                         <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-gray-100 shadow-xl mb-6 ring-4 ring-gray-100">
                           <ImageWithSkeleton
@@ -958,12 +961,12 @@ export default function Home() {
                         <p className="text-sm md:text-base text-[#F97316] font-semibold mb-4">
                           {member.role}
                         </p>
-                        <p className="text-sm md:text-base text-[#64748B] leading-relaxed font-normal max-w-md">
+                        <p className="text-sm md:text-base text-[#64748B] dark:text-gray-400 leading-relaxed font-normal max-w-md">
                           {member.description}
                         </p>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </AnimatedCard>
                 </motion.div>
               ))}
             </div>

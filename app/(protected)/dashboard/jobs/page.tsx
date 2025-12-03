@@ -3,10 +3,10 @@
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
@@ -108,11 +108,11 @@ export default function JobsPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Вакансии</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Вакансии</h1>
+          <p className="text-muted-foreground dark:text-gray-400">
             {userRole === 'applicant' 
               ? 'Персональная лента вакансий, подобранных специально для вас'
               : 'Найдите подходящую вакансию для вашей карьеры'}
@@ -122,22 +122,22 @@ export default function JobsPage() {
         {/* Вкладки для соискателей */}
         {userRole === 'applicant' && (
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'recommended' | 'all')} className="mb-8">
-            <TabsList>
-              <TabsTrigger value="recommended" className="flex items-center gap-4">
+            <TabsList className="dark:bg-dark/50">
+              <TabsTrigger value="recommended" className="flex items-center gap-4 dark:text-gray-300 dark:data-[state=active]:text-white">
                 <Sparkles className="w-4 h-4" />
                 Рекомендации
                 {recommendedJobs.length > 0 && (
-                  <Badge variant="secondary" className="ml-1">
+                  <AnimatedBadge variant="secondary" className="ml-1">
                     {recommendedJobs.length}
-                  </Badge>
+                  </AnimatedBadge>
                 )}
               </TabsTrigger>
-              <TabsTrigger value="all">
+              <TabsTrigger value="all" className="dark:text-gray-300 dark:data-[state=active]:text-white">
                 Все вакансии
                 {filteredJobs.length > 0 && (
-                  <Badge variant="secondary" className="ml-1">
+                  <AnimatedBadge variant="secondary" className="ml-1">
                     {filteredJobs.length}
-                  </Badge>
+                  </AnimatedBadge>
                 )}
               </TabsTrigger>
             </TabsList>
@@ -145,19 +145,17 @@ export default function JobsPage() {
         )}
 
         {/* Поиск и фильтры */}
-        <Card className="mb-8 md:mb-8">
-          <CardHeader className="p-4 md:p-6">
-            <div className="flex items-center gap-4">
-              <Filter className="w-4 h-4" />
-              <CardTitle className="text-base md:text-lg">Поиск и фильтры</CardTitle>
+        <AnimatedCard className="mb-8 md:mb-8 bg-white dark:bg-dark/50">
+          <div className="p-4 md:p-6">
+            <div className="flex items-center gap-4 mb-4">
+              <Filter className="w-4 h-4 dark:text-gray-400" />
+              <h3 className="text-base md:text-lg font-semibold dark:text-white">Поиск и фильтры</h3>
             </div>
-          </CardHeader>
-          <CardContent className="p-4 md:p-6 pt-0">
             <div className="space-y-5 md:space-y-4">
               {/* Поиск */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-gray-400 w-4 h-4" />
+                <AnimatedInput
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Поиск вакансий..."
@@ -168,10 +166,10 @@ export default function JobsPage() {
               {/* Фильтры */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger>
+                  <SelectTrigger className="dark:bg-dark/70 dark:text-white">
                     <SelectValue placeholder="Город" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-dark/90">
                     <SelectItem value="all">Все города</SelectItem>
                     {cities.map((city) => (
                       <SelectItem key={city.value} value={city.label}>
@@ -182,10 +180,10 @@ export default function JobsPage() {
                 </Select>
 
                 <Select value={selectedPosition} onValueChange={setSelectedPosition}>
-                  <SelectTrigger>
+                  <SelectTrigger className="dark:bg-dark/70 dark:text-white">
                     <SelectValue placeholder="Должность" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-dark/90">
                     <SelectItem value="all">Все должности</SelectItem>
                     {positions.map((pos) => (
                       <SelectItem key={pos.value} value={pos.label}>
@@ -196,10 +194,10 @@ export default function JobsPage() {
                 </Select>
 
                 <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                  <SelectTrigger>
+                  <SelectTrigger className="dark:bg-dark/70 dark:text-white">
                     <SelectValue placeholder="Кухня" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-dark/90">
                     <SelectItem value="all">Все кухни</SelectItem>
                     {cuisines.map((cuisine) => (
                       <SelectItem key={cuisine.value} value={cuisine.label}>
@@ -210,10 +208,10 @@ export default function JobsPage() {
                 </Select>
 
                 <Select value={selectedExperience} onValueChange={setSelectedExperience}>
-                  <SelectTrigger>
+                  <SelectTrigger className="dark:bg-dark/70 dark:text-white">
                     <SelectValue placeholder="Опыт" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-dark/90">
                     <SelectItem value="all">Любой опыт</SelectItem>
                     {experienceRanges.map((exp) => (
                       <SelectItem key={exp.value} value={exp.label}>
@@ -227,7 +225,7 @@ export default function JobsPage() {
               {/* Сброс фильтров */}
               {(searchQuery || selectedCity !== 'all' || selectedPosition !== 'all' || 
                 selectedCuisine !== 'all' || selectedExperience !== 'all') && (
-                <Button
+                <ShinyButton
                   variant="outline"
                   size="sm"
                   onClick={() => {
@@ -239,37 +237,37 @@ export default function JobsPage() {
                   }}
                 >
                   Сбросить фильтры
-                </Button>
+                </ShinyButton>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </AnimatedCard>
 
         {/* Список вакансий */}
         <div className="space-y-6">
           {activeTab === 'recommended' && userRole === 'applicant' && recommendedJobs.length === 0 && (
             <ScrollReveal>
-              <Card className="glass">
-                <CardContent className="py-16 text-center">
-                  <Sparkles className="w-12 h-12 mx-auto mb-6 text-muted-foreground" />
-                  <p className="text-lg text-muted-foreground mb-4">
+              <AnimatedCard className="glass bg-white dark:bg-dark/50">
+                <div className="py-16 text-center">
+                  <Sparkles className="w-12 h-12 mx-auto mb-6 text-muted-foreground dark:text-gray-400" />
+                  <p className="text-lg text-muted-foreground dark:text-gray-400 mb-4">
                     Рекомендации появятся после заполнения анкеты
                   </p>
-                  <Button variant="outline" onClick={() => router.push('/onboarding')}>
+                  <ShinyButton variant="outline" onClick={() => router.push('/onboarding')}>
                     Заполнить анкету
-                  </Button>
-                </CardContent>
-              </Card>
+                  </ShinyButton>
+                </div>
+              </AnimatedCard>
             </ScrollReveal>
           )}
 
           {jobsToDisplay.length === 0 ? (
             <ScrollReveal>
-              <Card className="glass">
-                <CardContent className="py-16 text-center">
-                  <p className="text-lg text-muted-foreground">Вакансии не найдены</p>
-                </CardContent>
-              </Card>
+              <AnimatedCard className="glass bg-white dark:bg-dark/50">
+                <div className="py-16 text-center">
+                  <p className="text-lg text-muted-foreground dark:text-gray-400">Вакансии не найдены</p>
+                </div>
+              </AnimatedCard>
             </ScrollReveal>
           ) : (
             jobsToDisplay.map((job, index) => {

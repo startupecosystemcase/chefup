@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
-import { Button } from '@/components/ui/button'
+import { AnimatedCard } from '@/components/magicui/animated-card'
+import { AnimatedBadge } from '@/components/magicui/animated-badge'
+import { AnimatedProgress } from '@/components/magicui/animated-progress'
+import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { MapPin, Briefcase, Clock, DollarSign, TrendingUp, CheckCircle2, XCircle, AlertCircle, Sparkles, BarChart3, Send, CheckCircle, Building2, Phone, Mail, AlertTriangle, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -104,11 +104,11 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
   const isTopMatch = relevance && relevance.score >= 85
 
   return (
-    <Card
+    <AnimatedCard
       className={cn(
-        'cursor-pointer card-hover relative overflow-hidden transition-all duration-300 bg-white/90 backdrop-blur-sm animate-fade-in glass',
+        'cursor-pointer card-hover relative overflow-hidden transition-all duration-300 bg-white/90 dark:bg-dark/50 backdrop-blur-sm animate-fade-in glass',
         isTopMatch ? 'top-match-glow animate-bounce-in' : 'card-soft-shadow',
-        !isTopMatch && relevance && 'border-2 border-primary/20'
+        !isTopMatch && relevance && 'border-2 border-primary/20 dark:border-primary/30'
       )}
       onClick={onClick}
     >
@@ -144,169 +144,169 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
         </div>
       )}
 
-      <CardHeader className={cn('pb-3', relevance && 'pr-20 md:pr-28')}>
+      <div className={cn('p-6 pb-3', relevance && 'pr-20 md:pr-28')}>
         <div className="flex items-start justify-between mb-2">
-          <CardTitle className="text-lg md:text-xl pr-2 md:pr-4">{job.title}</CardTitle>
+          <h3 className="text-lg md:text-xl pr-2 md:pr-4 font-semibold dark:text-white">{job.title}</h3>
         </div>
         <div className="flex flex-wrap gap-4">
-          <Badge variant="outline" className="flex items-center gap-1">
+          <AnimatedBadge variant="outline" className="flex items-center gap-1">
             <MapPin className="w-3 h-3" />
             {job.city}
-          </Badge>
-          <Badge variant="outline" className="flex items-center gap-1">
+          </AnimatedBadge>
+          <AnimatedBadge variant="outline" className="flex items-center gap-1">
             <Briefcase className="w-3 h-3" />
             {job.position}
-          </Badge>
-          <Badge variant="outline" className="flex items-center gap-1">
+          </AnimatedBadge>
+          <AnimatedBadge variant="outline" className="flex items-center gap-1">
             <Clock className="w-3 h-3" />
             {job.experience}
-          </Badge>
-          <Badge variant="secondary">{job.cuisine}</Badge>
+          </AnimatedBadge>
+          <AnimatedBadge variant="secondary">{job.cuisine}</AnimatedBadge>
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent className="space-y-4">
-        <CardDescription className="line-clamp-2">{job.description}</CardDescription>
+      <div className="px-6 pb-6 space-y-4">
+        <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2">{job.description}</p>
 
         <div className="space-y-4">
           <div className="flex items-center gap-4">
             <DollarSign className="w-4 h-4 text-primary" />
-            <span className="font-semibold">{job.salary}</span>
+            <span className="font-semibold dark:text-white">{job.salary}</span>
           </div>
           
           {/* Новые индикаторы */}
           <div className="flex flex-wrap gap-4 text-xs">
             {(job as any).hoursPerWeek && (
-              <Badge variant="outline" className="flex items-center gap-1">
+              <AnimatedBadge variant="outline" className="flex items-center gap-1">
                 <Clock className="w-3 h-3" />
                 {(job as any).hoursPerWeek} ч/нед
-              </Badge>
+              </AnimatedBadge>
             )}
             {(job as any).workload && (
-              <Badge 
+              <AnimatedBadge 
                 variant="outline" 
                 className={cn(
-                  (job as any).workload === 'high' && 'border-orange-500 text-orange-700',
+                  (job as any).workload === 'high' && 'border-orange-500 text-orange-700 dark:text-orange-400',
                   (job as any).workload === 'medium' && 'border-primary text-primary',
-                  (job as any).workload === 'low' && 'border-green-500 text-green-700'
+                  (job as any).workload === 'low' && 'border-green-500 text-green-700 dark:text-green-400'
                 )}
               >
                 {(job as any).workload === 'high' && 'Высокая загруженность'}
                 {(job as any).workload === 'medium' && 'Средняя загруженность'}
                 {(job as any).workload === 'low' && 'Низкая загруженность'}
-              </Badge>
+              </AnimatedBadge>
             )}
             {(job as any).urgency && (job as any).urgency !== 'normal' && (
-              <Badge 
+              <AnimatedBadge 
                 variant="destructive" 
                 className="flex items-center gap-1"
               >
                 <AlertTriangle className="w-3 h-3" />
                 {(job as any).urgency === 'urgent' && 'Срочно'}
                 {(job as any).urgency === 'very-urgent' && 'Очень срочно'}
-              </Badge>
+              </AnimatedBadge>
             )}
           </div>
         </div>
 
         {/* Расширенная аналитика (только для рекомендованных) */}
         {relevance && analysis && (
-          <div className="space-y-5 pt-3 border-t border-border/50">
+          <div className="space-y-5 pt-3 border-t border-border/50 dark:border-gray-700/50">
             {/* Сводная шкала */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">Общее совпадение</span>
-                <Badge
+                <span className="text-sm font-medium dark:text-gray-300">Общее совпадение</span>
+                <AnimatedBadge
                   variant={analysis.overall.status === 'perfect' ? 'default' : 'secondary'}
                   className="text-xs"
                 >
                   {getStatusLabel(analysis.overall.status)}
-                </Badge>
+                </AnimatedBadge>
               </div>
-              <Progress value={analysis.overall.score} className="h-2" />
+              <AnimatedProgress value={analysis.overall.score} className="h-2" />
             </div>
 
             {/* Быстрые индикаторы - белый фон */}
             <div className="grid grid-cols-3 gap-4 text-xs">
-              <div className="flex flex-col items-center p-2 rounded-md bg-white border border-border/50">
+              <div className="flex flex-col items-center p-2 rounded-md bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50">
                 <BarChart3 className="w-4 h-4 mb-1 text-primary" />
-                <span className="font-semibold">{analysis.skills.match}%</span>
-                <span className="text-muted-foreground">Навыки</span>
+                <span className="font-semibold dark:text-white">{analysis.skills.match}%</span>
+                <span className="text-muted-foreground dark:text-gray-400">Навыки</span>
               </div>
-              <div className="flex flex-col items-center p-2 rounded-md bg-white border border-border/50">
+              <div className="flex flex-col items-center p-2 rounded-md bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50">
                 <TrendingUp className="w-4 h-4 mb-1 text-primary" />
-                <span className="font-semibold">{analysis.experience.match}%</span>
-                <span className="text-muted-foreground">Опыт</span>
+                <span className="font-semibold dark:text-white">{analysis.experience.match}%</span>
+                <span className="text-muted-foreground dark:text-gray-400">Опыт</span>
               </div>
-              <div className="flex flex-col items-center p-2 rounded-md bg-white border border-border/50">
+              <div className="flex flex-col items-center p-2 rounded-md bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50">
                 <DollarSign className="w-4 h-4 mb-1 text-primary" />
-                <span className="font-semibold">{analysis.salary.match}%</span>
-                <span className="text-muted-foreground">Зарплата</span>
+                <span className="font-semibold dark:text-white">{analysis.salary.match}%</span>
+                <span className="text-muted-foreground dark:text-gray-400">Зарплата</span>
               </div>
             </div>
 
             {/* Кнопки действий */}
             <div className="flex gap-4">
               {existingResponse ? (
-                <Button variant="outline" size="sm" className="flex-1" disabled>
+                <ShinyButton variant="outline" size="sm" className="flex-1" disabled>
                   <CheckCircle className="w-4 h-4 mr-2" />
                   {existingResponse.status === 'sent' && 'Отправлен'}
                   {existingResponse.status === 'viewed' && 'Просмотрен'}
                   {existingResponse.status === 'interested' && 'Интерес'}
                   {existingResponse.status === 'rejected' && 'Отклонён'}
-                </Button>
+                </ShinyButton>
               ) : (
-                <Button size="sm" className="flex-1" onClick={handleApply}>
+                <ShinyButton size="sm" className="flex-1" onClick={handleApply}>
                   <Send className="w-4 h-4 mr-2" />
                   Откликнуться
-                </Button>
+                </ShinyButton>
               )}
               <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" size="sm" onClick={(e) => {
+                  <ShinyButton variant="outline" size="sm" onClick={(e) => {
                     e.stopPropagation()
                     setIsDetailsOpen(true)
                   }}>
                     <Sparkles className="w-4 h-4" />
-                  </Button>
+                  </ShinyButton>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark/90">
                 <DialogHeader>
-                  <DialogTitle>Детальный анализ совпадения</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle className="dark:text-white">Детальный анализ совпадения</DialogTitle>
+                  <DialogDescription className="dark:text-gray-400">
                     Подробная информация о соответствии вашего профиля требованиям вакансии
                   </DialogDescription>
                 </DialogHeader>
 
                 <div className="space-y-6 mt-8">
                   {/* Общий показатель */}
-                  <div className="p-4 rounded-lg border-2 bg-gradient-to-r from-primary/10 to-primary/5">
+                  <div className="p-4 rounded-lg border-2 bg-gradient-to-r from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-lg font-semibold">Общая релевантность</span>
+                      <span className="text-lg font-semibold dark:text-white">Общая релевантность</span>
                       <span className={cn('text-3xl font-bold', getScoreColor(analysis.overall.score))}>
                         {analysis.overall.score}%
                       </span>
                     </div>
-                    <Progress value={analysis.overall.score} className="h-3 mt-2" />
-                    <Badge className="mt-2" variant={analysis.overall.status === 'perfect' ? 'default' : 'secondary'}>
+                    <AnimatedProgress value={analysis.overall.score} className="h-3 mt-2" />
+                    <AnimatedBadge className="mt-2" variant={analysis.overall.status === 'perfect' ? 'default' : 'secondary'}>
                       {getStatusLabel(analysis.overall.status)}
-                    </Badge>
+                    </AnimatedBadge>
                   </div>
 
                   {/* Соответствие навыков */}
                   <div className="space-y-5">
-                    <h3 className="font-semibold flex items-center gap-4">
+                    <h3 className="font-semibold flex items-center gap-4 dark:text-white">
                       <BarChart3 className="w-5 h-5 text-primary" />
                       Соответствие навыков: {analysis.skills.match}%
                     </h3>
-                    <Progress value={analysis.skills.match} className="h-2" />
+                    <AnimatedProgress value={analysis.skills.match} className="h-2" />
                     {analysis.skills.missing.length > 0 && (
-                      <div className="p-3 rounded-md bg-orange-50 border border-orange-200">
-                        <p className="text-sm font-medium mb-2 flex items-center gap-4 text-orange-800">
+                      <div className="p-3 rounded-md bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700/50">
+                        <p className="text-sm font-medium mb-2 flex items-center gap-4 text-orange-800 dark:text-orange-300">
                           <AlertCircle className="w-4 h-4" />
                           Отсутствующие навыки:
                         </p>
-                        <ul className="text-sm text-orange-700 space-y-1">
+                        <ul className="text-sm text-orange-700 dark:text-orange-400 space-y-1">
                           {analysis.skills.missing.map((skill, idx) => (
                             <li key={idx} className="flex items-center gap-4">
                               <XCircle className="w-3 h-3" />
@@ -317,12 +317,12 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                       </div>
                     )}
                     {analysis.skills.extra.length > 0 && (
-                      <div className="p-3 rounded-md bg-green-50 border border-green-200">
-                        <p className="text-sm font-medium mb-2 flex items-center gap-4 text-green-800">
+                      <div className="p-3 rounded-md bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/50">
+                        <p className="text-sm font-medium mb-2 flex items-center gap-4 text-green-800 dark:text-green-300">
                           <CheckCircle2 className="w-4 h-4" />
                           Дополнительные навыки:
                         </p>
-                        <ul className="text-sm text-green-700 space-y-1">
+                        <ul className="text-sm text-green-700 dark:text-green-400 space-y-1">
                           {analysis.skills.extra.map((skill, idx) => (
                             <li key={idx} className="flex items-center gap-4">
                               <CheckCircle2 className="w-3 h-3" />
@@ -336,43 +336,43 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
 
                   {/* Соответствие опыта */}
                   <div className="space-y-5">
-                    <h3 className="font-semibold flex items-center gap-4">
+                    <h3 className="font-semibold flex items-center gap-4 dark:text-white">
                       <TrendingUp className="w-5 h-5 text-primary" />
                       Соответствие опыта: {analysis.experience.match}%
                     </h3>
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="p-3 rounded-md bg-muted">
-                        <p className="text-xs text-muted-foreground mb-1">Ваш опыт</p>
-                        <p className="font-medium">{analysis.experience.applicant}</p>
+                      <div className="p-3 rounded-md bg-muted dark:bg-dark/70">
+                        <p className="text-xs text-muted-foreground dark:text-gray-400 mb-1">Ваш опыт</p>
+                        <p className="font-medium dark:text-white">{analysis.experience.applicant}</p>
                       </div>
-                      <div className="p-3 rounded-md bg-muted">
-                        <p className="text-xs text-muted-foreground mb-1">Требуется</p>
-                        <p className="font-medium">{analysis.experience.job}</p>
+                      <div className="p-3 rounded-md bg-muted dark:bg-dark/70">
+                        <p className="text-xs text-muted-foreground dark:text-gray-400 mb-1">Требуется</p>
+                        <p className="font-medium dark:text-white">{analysis.experience.job}</p>
                       </div>
                     </div>
-                    <Progress value={analysis.experience.match} className="h-2" />
+                    <AnimatedProgress value={analysis.experience.match} className="h-2" />
                   </div>
 
                   {/* Соответствие зарплаты */}
                   <div className="space-y-5">
-                    <h3 className="font-semibold flex items-center gap-4">
+                    <h3 className="font-semibold flex items-center gap-4 dark:text-white">
                       <DollarSign className="w-5 h-5 text-primary" />
                       Соответствие зарплатных ожиданий: {analysis.salary.match}%
                     </h3>
-                    <div className="p-3 rounded-md bg-muted">
+                    <div className="p-3 rounded-md bg-muted dark:bg-dark/70">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm">Предлагаемая зарплата:</span>
-                        <span className="font-semibold">{analysis.salary.jobRange}</span>
+                        <span className="text-sm dark:text-gray-400">Предлагаемая зарплата:</span>
+                        <span className="font-semibold dark:text-white">{analysis.salary.jobRange}</span>
                       </div>
                       {analysis.salary.applicantRange && (
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">Ваши ожидания:</span>
-                          <span className="font-semibold">{analysis.salary.applicantRange}</span>
+                          <span className="text-sm dark:text-gray-400">Ваши ожидания:</span>
+                          <span className="font-semibold dark:text-white">{analysis.salary.applicantRange}</span>
                         </div>
                       )}
                     </div>
-                    <Progress value={analysis.salary.match} className="h-2" />
-                    <Badge
+                    <AnimatedProgress value={analysis.salary.match} className="h-2" />
+                    <AnimatedBadge
                       variant={
                         analysis.salary.status === 'above'
                           ? 'default'
@@ -386,16 +386,16 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
                         : analysis.salary.status === 'within'
                         ? 'В пределах ожиданий'
                         : 'Ниже ваших ожиданий'}
-                    </Badge>
+                    </AnimatedBadge>
                   </div>
 
                   {/* Ключевые совпадения */}
                   <div className="space-y-4">
-                    <h3 className="font-semibold">Ключевые совпадения:</h3>
+                    <h3 className="font-semibold dark:text-white">Ключевые совпадения:</h3>
                     <ul className="space-y-1">
                       {relevance.reasons.map((reason, idx) => (
-                        <li key={idx} className="flex items-center gap-4 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <li key={idx} className="flex items-center gap-4 text-sm dark:text-gray-300">
+                          <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0" />
                           {reason}
                         </li>
                       ))}
@@ -407,8 +407,8 @@ export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobC
             </div>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </AnimatedCard>
   )
 }
 
