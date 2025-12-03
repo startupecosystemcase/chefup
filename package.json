@@ -53,6 +53,7 @@
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.2.0",
+    "magicui-cli": "^0.1.6",
     "tailwindcss-animate": "^1.0.7"
   }
 }
