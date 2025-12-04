@@ -14,6 +14,7 @@ import { astanaEducationItems } from '@/lib/mockEducationAstana'
 import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, Search, DollarSign, CheckCircle2, Filter } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { EventRegistrationForm } from '@/components/EventRegistrationForm'
 import type { EducationType } from '@/types/education.types'
 
@@ -173,19 +174,22 @@ export default function PracticePage() {
         </AnimatedCard>
 
         {filteredItems.length === 0 ? (
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="py-12 text-center">
-              <p className="text-muted-foreground dark:text-gray-400">Образовательные программы не найдены</p>
-            </div>
-          </AnimatedCard>
+          <StaggerItem>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="py-12 text-center">
+                <p className="text-muted-foreground dark:text-gray-400">Образовательные программы не найдены</p>
+              </div>
+            </AnimatedCard>
+          </StaggerItem>
         ) : (
-          <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerAnimation className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.06}>
             {filteredItems.map((item) => {
               const Icon = typeIcons[item.type]
               const enrolled = isEnrolled(item.id!)
 
               return (
-                <AnimatedCard key={item.id} className="card-hover flex flex-col bg-white dark:bg-dark/50">
+                <StaggerItem key={item.id}>
+                  <AnimatedCard className="card-hover flex flex-col bg-white dark:bg-dark/50">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
@@ -287,9 +291,10 @@ export default function PracticePage() {
                     </div>
                   </div>
                 </AnimatedCard>
+                </StaggerItem>
               )
             })}
-          </div>
+          </StaggerAnimation>
         )}
       </div>
     </div>

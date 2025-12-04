@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
@@ -537,17 +538,18 @@ export default function DashboardPage() {
                 </Dialog>
               </div>
             ) : (
-              <div className="space-y-8">
+              <StaggerAnimation className="space-y-8" staggerDelay={0.1}>
                 {posts.map((post) => (
-                  <PortfolioPostCard
-                    key={post.id}
-                    post={post}
-                    onEdit={handleEditPortfolioPost}
-                    onDelete={handleDeletePortfolioPost}
-                    showActions={true}
-                  />
+                  <StaggerItem key={post.id}>
+                    <PortfolioPostCard
+                      post={post}
+                      onEdit={handleEditPortfolioPost}
+                      onDelete={handleDeletePortfolioPost}
+                      showActions={true}
+                    />
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerAnimation>
             )}
           </div>
         </AnimatedCard>

@@ -8,6 +8,7 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/magicui/animated-select'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { Search, MapPin, Briefcase, Clock } from 'lucide-react'
 import { mockResumes } from '@/lib/mockData'
 import { cities, positions, cuisines, experienceRanges } from '@/lib/data'
@@ -127,16 +128,19 @@ export default function ResumesPage() {
         </AnimatedCard>
 
         {/* Список резюме */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <StaggerAnimation className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.05}>
           {filteredResumes.length === 0 ? (
-            <AnimatedCard className="col-span-full bg-white dark:bg-dark/50">
-              <div className="py-12 text-center">
-                <p className="text-muted-foreground dark:text-gray-400">Резюме не найдены</p>
-              </div>
-            </AnimatedCard>
+            <StaggerItem className="col-span-full">
+              <AnimatedCard className="bg-white dark:bg-dark/50">
+                <div className="py-12 text-center">
+                  <p className="text-muted-foreground dark:text-gray-400">Резюме не найдены</p>
+                </div>
+              </AnimatedCard>
+            </StaggerItem>
           ) : (
             filteredResumes.map((resume) => (
-              <AnimatedCard key={resume.id} className="card-hover bg-white dark:bg-dark/50">
+              <StaggerItem key={resume.id}>
+                <AnimatedCard className="card-hover bg-white dark:bg-dark/50">
                 <div className="p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <Avatar className="h-12 w-12">
@@ -174,9 +178,10 @@ export default function ResumesPage() {
                   </div>
                 </div>
               </AnimatedCard>
+              </StaggerItem>
             ))
           )}
-        </div>
+        </StaggerAnimation>
       </div>
     </div>
   )

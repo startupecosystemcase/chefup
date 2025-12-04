@@ -16,6 +16,7 @@ import { toast } from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { EventRegistrationForm } from '@/components/EventRegistrationForm'
 import type { EventType } from '@/types/events.types'
 
@@ -241,19 +242,22 @@ export default function CommunityPage() {
         </AnimatedCard>
 
         {filteredEvents.length === 0 ? (
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="py-12 text-center">
-              <p className="text-muted-foreground dark:text-gray-400">События не найдены</p>
-            </div>
-          </AnimatedCard>
+          <StaggerItem>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="py-12 text-center">
+                <p className="text-muted-foreground dark:text-gray-400">События не найдены</p>
+              </div>
+            </AnimatedCard>
+          </StaggerItem>
         ) : (
-          <div className="grid gap-4 md:gap-6 md:grid-cols-2">
+          <StaggerAnimation className="grid gap-4 md:gap-6 md:grid-cols-2" staggerDelay={0.08}>
             {filteredEvents.map((event) => {
               const Icon = typeIcons[event.type]
               const participationStatus = getParticipationStatus(event.id!)
 
               return (
-                <AnimatedCard key={event.id} className="card-hover flex flex-col bg-white dark:bg-dark/50">
+                <StaggerItem key={event.id}>
+                  <AnimatedCard className="card-hover flex flex-col bg-white dark:bg-dark/50">
                   <div className="p-6 flex flex-col flex-1">
                     <div className="mb-4">
                       <div className="flex items-start justify-between mb-2">
@@ -341,9 +345,10 @@ export default function CommunityPage() {
                     </div>
                   </div>
                 </AnimatedCard>
+                </StaggerItem>
               )
             })}
-          </div>
+          </StaggerAnimation>
         )}
       </div>
     </div>

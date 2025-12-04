@@ -9,6 +9,7 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/magicui/animated-select'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { useEmployerJobsStore, useAuthStore } from '@/stores/useOnboardingStore'
 import { mockResumes } from '@/lib/mockData'
 import { cities, positions, experienceRanges, cuisines } from '@/lib/data'
@@ -169,16 +170,19 @@ export default function CandidatesPage() {
         </AnimatedCard>
 
         {/* Список кандидатов */}
-        <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <StaggerAnimation className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.05}>
           {filteredCandidates.length === 0 ? (
-            <AnimatedCard className="col-span-full bg-white dark:bg-dark/50">
-              <div className="py-12 text-center">
-                <p className="text-muted-foreground dark:text-gray-400">Кандидаты не найдены</p>
-              </div>
-            </AnimatedCard>
+            <StaggerItem className="col-span-full">
+              <AnimatedCard className="bg-white dark:bg-dark/50">
+                <div className="py-12 text-center">
+                  <p className="text-muted-foreground dark:text-gray-400">Кандидаты не найдены</p>
+                </div>
+              </AnimatedCard>
+            </StaggerItem>
           ) : (
             filteredCandidates.map((candidate) => (
-              <AnimatedCard key={candidate.id} className="h-full flex flex-col bg-white dark:bg-dark/50">
+              <StaggerItem key={candidate.id}>
+                <AnimatedCard className="h-full flex flex-col bg-white dark:bg-dark/50">
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-4 mb-4">
                     <Avatar className="h-12 w-12">
@@ -230,9 +234,10 @@ export default function CandidatesPage() {
                   </div>
                 </div>
               </AnimatedCard>
+              </StaggerItem>
             ))
           )}
-        </div>
+        </StaggerAnimation>
       </div>
     </div>
   )

@@ -20,6 +20,7 @@ import { useAuthStore } from '@/stores/useOnboardingStore'
 import { getRecommendedJobs, filterByRelevanceThreshold, type JobRelevance } from '@/lib/jobRecommendations'
 import { JobCardEnhanced } from '@/components/JobCardEnhanced'
 import { ScrollReveal } from '@/components/ScrollReveal'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 
 export default function JobsPage() {
   const router = useRouter()
@@ -244,9 +245,9 @@ export default function JobsPage() {
         </AnimatedCard>
 
         {/* Список вакансий */}
-        <div className="space-y-6">
+        <StaggerAnimation className="space-y-6" staggerDelay={0.05}>
           {activeTab === 'recommended' && userRole === 'applicant' && recommendedJobs.length === 0 && (
-            <ScrollReveal>
+            <StaggerItem>
               <AnimatedCard className="glass bg-white dark:bg-dark/50">
                 <div className="py-16 text-center">
                   <Sparkles className="w-12 h-12 mx-auto mb-6 text-muted-foreground dark:text-gray-400" />
@@ -258,33 +259,33 @@ export default function JobsPage() {
                   </ShinyButton>
                 </div>
               </AnimatedCard>
-            </ScrollReveal>
+            </StaggerItem>
           )}
 
           {jobsToDisplay.length === 0 ? (
-            <ScrollReveal>
+            <StaggerItem>
               <AnimatedCard className="glass bg-white dark:bg-dark/50">
                 <div className="py-16 text-center">
                   <p className="text-lg text-muted-foreground dark:text-gray-400">Вакансии не найдены</p>
                 </div>
               </AnimatedCard>
-            </ScrollReveal>
+            </StaggerItem>
           ) : (
-            jobsToDisplay.map((job, index) => {
+            jobsToDisplay.map((job) => {
               const relevance = getJobRelevance(job.id)
               return (
-                <ScrollReveal key={job.id} delay={index * 0.1} direction="up">
+                <StaggerItem key={job.id}>
                   <JobCardEnhanced
                     job={job}
                     relevance={relevance || null}
                     applicantData={formData}
                     onClick={() => router.push(`/dashboard/jobs/${job.id}`)}
                   />
-                </ScrollReveal>
+                </StaggerItem>
               )
             })
           )}
-        </div>
+        </StaggerAnimation>
       </div>
     </div>
   )

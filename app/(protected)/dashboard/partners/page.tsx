@@ -7,6 +7,7 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/magicui/animated-select'
+import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { mockPartnersApplicants, mockPartnersEmployers } from '@/lib/mockPartners'
 import { Search, ExternalLink, Gift, Phone, Mail, Package, GraduationCap, Shirt, ShoppingCart, Building, TrendingUp, Calculator, Settings, Users } from 'lucide-react'
@@ -128,18 +129,21 @@ export default function PartnersPage() {
         </AnimatedCard>
 
         {filteredPartners.length === 0 ? (
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="py-12 text-center">
-              <p className="text-muted-foreground dark:text-gray-400">Партнёры не найдены</p>
-            </div>
-          </AnimatedCard>
+          <StaggerItem>
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="py-12 text-center">
+                <p className="text-muted-foreground dark:text-gray-400">Партнёры не найдены</p>
+              </div>
+            </AnimatedCard>
+          </StaggerItem>
         ) : (
-          <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerAnimation className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.06}>
             {filteredPartners.map((partner) => {
               const Icon = typeIcons[partner.type]
 
               return (
-                <AnimatedCard key={partner.id} className="card-hover flex flex-col bg-white dark:bg-dark/50">
+                <StaggerItem key={partner.id}>
+                  <AnimatedCard className="card-hover flex flex-col bg-white dark:bg-dark/50">
                   <div className="p-6 flex flex-col flex-1">
                     <div className="mb-4">
                       <div className="flex items-start justify-between mb-2">
@@ -222,9 +226,10 @@ export default function PartnersPage() {
                     </div>
                   </div>
                 </AnimatedCard>
+                </StaggerItem>
               )
             })}
-          </div>
+          </StaggerAnimation>
         )}
       </div>
     </div>
