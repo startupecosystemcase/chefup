@@ -1,9 +1,10 @@
 'use client'
 
+import { memo } from 'react'
 import { AnimatedCard } from '@/components/magicui/animated-card'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
-import { ExternalLink, Video as VideoIcon, Image as ImageIcon } from 'lucide-react'
+import { ExternalLink, Video as VideoIcon, Image as ImageIcon, Pencil, Trash2 } from 'lucide-react'
 import type { PortfolioPost } from '@/types/portfolio.types'
 import { formatDistanceToNow } from 'date-fns'
 
@@ -14,7 +15,7 @@ interface PortfolioPostCardProps {
   showActions?: boolean
 }
 
-export function PortfolioPostCard({ post, onEdit, onDelete, showActions = false }: PortfolioPostCardProps) {
+export const PortfolioPostCard = memo(function PortfolioPostCard({ post, onEdit, onDelete, showActions = false }: PortfolioPostCardProps) {
   const formatDate = (dateString: string) => {
     try {
       return formatDistanceToNow(new Date(dateString), { addSuffix: true })

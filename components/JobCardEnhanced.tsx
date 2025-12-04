@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { AnimatedCard } from '@/components/magicui/animated-card'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { AnimatedProgress } from '@/components/magicui/animated-progress'
@@ -28,7 +28,7 @@ interface MatchAnalysis {
   overall: { score: number; status: 'perfect' | 'good' | 'needs-improvement' }
 }
 
-export function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobCardEnhancedProps) {
+export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, applicantData, onClick }: JobCardEnhancedProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
   const userId = useAuthStore((state) => state.userId)
   const { addResponse, getResponseByJobId } = useResponseStore()

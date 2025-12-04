@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
-import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from '@/components/magicui/theme-provider'
+
+const Toaster = dynamic(() => import('react-hot-toast').then(mod => ({ default: mod.Toaster })), {
+  ssr: false,
+})
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
