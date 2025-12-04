@@ -285,26 +285,38 @@ export default function Home() {
                 
                 <div className="relative z-10">
                   {/* Первая строка - одна цифра по центру */}
-                  <div className="flex justify-center mb-16 md:mb-20">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                      className="text-center"
-                    >
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        className="text-7xl md:text-8xl lg:text-9xl font-semibold text-white mb-6 leading-none font-sf-pro"
-                      >
-                        <AnimatedCounter end={2000} suffix="+" />
-                      </motion.div>
-                      <p className="text-base md:text-lg text-white/60 font-light font-sf-pro">Специалистов</p>
-                    </motion.div>
-                  </div>
+                  <TooltipProvider>
+                    <div className="flex justify-center mb-16 md:mb-20">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="text-center cursor-help"
+                          >
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                              className="text-7xl md:text-8xl lg:text-9xl font-semibold text-white mb-6 leading-none font-sf-pro"
+                            >
+                              <AnimatedCounter end={2000} suffix="+" />
+                            </motion.div>
+                            <p className="text-base md:text-lg text-white/60 font-light font-sf-pro">Специалистов</p>
+                          </motion.div>
+                        </TooltipTrigger>
+                        <TooltipContent 
+                          side="top" 
+                          className="max-w-xs bg-black/95 border border-white/20 text-white p-4 backdrop-blur-xl"
+                        >
+                          <p className="text-sm font-light leading-relaxed">Более 2000 зарегистрированных специалистов HoReCa: повара, шеф-повара, кондитеры, бариста, официанты, менеджеры и другие профессионалы индустрии</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TooltipProvider>
 
                   {/* Вторая строка - 4 цифры в ряд с разделителями */}
                   <TooltipProvider>
@@ -314,7 +326,7 @@ export default function Home() {
                           value: 100, 
                           suffix: '+', 
                           label: 'Ресторанов',
-                          tooltip: null,
+                          tooltip: 'Более 100 ресторанов-партнеров: от премиум-заведений до сетевых ресторанов, кафе, баров и отелей в Центральной Евразии',
                         },
                         { 
                           value: 8, 
@@ -326,7 +338,7 @@ export default function Home() {
                           value: 42, 
                           suffix: '', 
                           label: 'Городов',
-                          tooltip: null,
+                          tooltip: 'Активное присутствие в 42 городах Центральной Евразии, включая Астану, Алматы, Ташкент, Бишкек, Баку, Тбилиси и другие крупные центры HoReCa',
                         },
                         { 
                           value: 10, 
@@ -347,62 +359,33 @@ export default function Home() {
                           }}
                           className={`text-center ${idx < 3 ? 'md:border-r md:border-white/10' : ''}`}
                         >
-                          {stat.tooltip ? (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <div className="cursor-help">
-                                  <motion.div
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 + 0.5, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                    className="text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-4 leading-none font-sf-pro"
-                                  >
-                                    <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                                  </motion.div>
-                                  <p className="text-sm md:text-base text-white/60 font-light font-sf-pro">{stat.label}</p>
-                                </div>
-                              </TooltipTrigger>
-                              <TooltipContent 
-                                side="top" 
-                                className="max-w-xs bg-black/95 border border-white/20 text-white p-4 backdrop-blur-xl"
-                              >
-                                <p className="text-sm font-light leading-relaxed">{stat.tooltip}</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          ) : (
-                            <>
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 + 0.5, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                className="text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-4 leading-none font-sf-pro"
-                              >
-                                <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                              </motion.div>
-                              <p className="text-sm md:text-base text-white/60 font-light font-sf-pro">{stat.label}</p>
-                            </>
-                          )}
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="cursor-help">
+                                <motion.div
+                                  initial={{ opacity: 0, scale: 0.95 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: idx * 0.1 + 0.5, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                  className="text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-4 leading-none font-sf-pro"
+                                >
+                                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                                </motion.div>
+                                <p className="text-sm md:text-base text-white/60 font-light font-sf-pro">{stat.label}</p>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent 
+                              side="top" 
+                              className="max-w-xs bg-black/95 border border-white/20 text-white p-4 backdrop-blur-xl"
+                            >
+                              <p className="text-sm font-light leading-relaxed">{stat.tooltip}</p>
+                            </TooltipContent>
+                          </Tooltip>
                         </motion.div>
                       ))}
                     </div>
                   </TooltipProvider>
 
-                  {/* Плашка экспертности */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                    className="mt-16 md:mt-20 text-center"
-                  >
-                    <div className="inline-block px-6 md:px-8 py-4 md:py-5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl">
-                      <p className="text-sm md:text-base text-white/80 font-light font-sf-pro max-w-3xl mx-auto">
-                        Основатели ChefUp — практики с 10-летним опытом управления ресторанами и запуска международных стартапов в сфере HoReCa.
-                      </p>
-                    </div>
-                  </motion.div>
                 </div>
               </div>
             </div>
