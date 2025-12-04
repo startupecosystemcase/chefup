@@ -234,6 +234,165 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Экосистема для каждого - Контрастный Split View */}
+        <FadeUpSection className="py-0 relative overflow-hidden noise-overlay">
+          <div className="grid grid-cols-1 md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
+            {/* Левая половина - Специалистам (Светлый фон) */}
+            <div className="relative bg-white overflow-hidden">
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#F97316]/3 rounded-full blur-[100px]" />
+              </div>
+              <div className="container mx-auto px-5 md:px-6 lg:px-[120px] h-full relative z-10">
+                <div className="max-w-2xl mx-auto py-12 md:py-16">
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                    className="group h-full transition-all duration-300"
+                    onMouseEnter={() => setHoveredCard('specialists')}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{
+                      opacity: hoveredCard === 'companies' ? 0.5 : 1,
+                      filter: hoveredCard === 'companies' ? 'grayscale(20%)' : 'none',
+                    }}
+                  >
+                    <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-gray-200/50 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.3)] hover:border-[#F97316]/30">
+                      <div className="pb-6">
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: 'spring', stiffness: 300 }}
+                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
+                        >
+                          <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
+                        </motion.div>
+                        <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro text-left">Специалистам</h3>
+                        <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left">
+                          Для специалистов сферы HoReCa
+                        </p>
+                      </div>
+                      <div>
+                        <ul className="space-y-5 md:space-y-6">
+                          {[
+                            { icon: Target, text: 'Персональные рекомендации на основе AI' },
+                            { icon: FileText, text: 'Автоматическое формирование резюме в 1 клик' },
+                            { icon: Shield, text: 'Доступ к закрытым вакансиям от топ-ресторанов' },
+                            { icon: GraduationCap, text: 'Образовательные программы и сертификации' },
+                          ].map((item, idx) => {
+                            const Icon = item.icon
+                            return (
+                              <motion.li
+                                key={idx}
+                                initial={{ opacity: 0, x: -10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left"
+                              >
+                                <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                  <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
+                                </div>
+                                <span>{item.text}</span>
+                              </motion.li>
+                            )
+                          })}
+                        </ul>
+                        <ShinyButton
+                          className="w-full mt-8 min-h-[64px] font-medium"
+                          onClick={() => router.push('/auth')}
+                        >
+                          <span className="text-white">Зарегистрироваться</span>
+                          <ArrowRight className="ml-2 w-5 h-5 text-white" />
+                        </ShinyButton>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+
+            {/* Правая половина - Компаниям (Темный фон) */}
+            <div className="relative bg-black overflow-hidden">
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <motion.div
+                  className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/6 rounded-full blur-[120px]"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              </div>
+              <div className="container mx-auto px-5 md:px-6 lg:px-[120px] h-full relative z-10">
+                <div className="max-w-2xl mx-auto py-12 md:py-16">
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                    className="group h-full transition-all duration-300"
+                    onMouseEnter={() => setHoveredCard('companies')}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{
+                      opacity: hoveredCard === 'specialists' ? 0.5 : 1,
+                      filter: hoveredCard === 'specialists' ? 'grayscale(20%)' : 'none',
+                    }}
+                  >
+                    <div className="glass-apple-dark float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/10 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.4)] hover:border-[#F97316]/50">
+                      <div className="pb-6 text-center">
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: 'spring', stiffness: 300 }}
+                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-6 mx-auto"
+                        >
+                          <Building2 className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" style={{ filter: 'drop-shadow(0 0 8px rgba(249, 115, 22, 0.6))' }} />
+                        </motion.div>
+                        <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3 tracking-[-0.02em] font-sf-pro text-center">Компаниям</h3>
+                        <p className="text-base md:text-lg text-white/70 font-light font-sf-pro text-center">
+                          Для ресторанов, кафе, отелей, производств и других компаний
+                        </p>
+                      </div>
+                      <div>
+                        <ul className="space-y-5 md:space-y-6">
+                          {[
+                            { icon: UserCheck, text: 'Автоматизированный подбор персонала' },
+                            { icon: BarChart3, text: 'Продвинутая аналитика кандидатов' },
+                            { icon: Settings, text: 'Собственная IT-система и ERP ChefUp' },
+                            { icon: Users, text: 'Консалтинг и экспертиза HoReCa' },
+                          ].map((item, idx) => {
+                            const Icon = item.icon
+                            return (
+                              <motion.li
+                                key={idx}
+                                initial={{ opacity: 0, x: 10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                className="flex items-center gap-4 text-base md:text-lg text-white/80 font-light font-sf-pro justify-center text-center"
+                              >
+                                <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0">
+                                  <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" style={{ filter: 'drop-shadow(0 0 4px rgba(249, 115, 22, 0.5))' }} />
+                                </div>
+                                <span className="text-center">{item.text}</span>
+                              </motion.li>
+                            )
+                          })}
+                        </ul>
+                        <ShinyButton
+                          variant="outline"
+                          className="w-full mt-8 min-h-[64px] font-medium border-[#F97316]/50 bg-transparent hover:bg-[#F97316]/10"
+                          onClick={() => router.push('/auth')}
+                        >
+                          <span className="text-white">Подключить компанию</span>
+                          <ArrowRight className="ml-2 w-5 h-5 text-white" />
+                        </ShinyButton>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </FadeUpSection>
+
         {/* Ключевые цифры - Новая сетка */}
         <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
           {/* Фон как в блоке "Возможности для вас" */}
@@ -409,445 +568,6 @@ export default function Home() {
                   </motion.div>
                 </div>
               </div>
-            </div>
-          </div>
-        </FadeUpSection>
-
-        {/* Экосистема для каждого - Контрастный Split View */}
-        <FadeUpSection className="py-0 relative overflow-hidden noise-overlay">
-          <div className="grid grid-cols-1 md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
-            {/* Левая половина - Специалистам (Светлый фон) */}
-            <div className="relative bg-white overflow-hidden">
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#F97316]/3 rounded-full blur-[100px]" />
-              </div>
-              <div className="container mx-auto px-5 md:px-6 lg:px-[120px] h-full relative z-10">
-                <div className="max-w-2xl mx-auto py-12 md:py-16">
-                  <div className="text-left mb-12 md:mb-16">
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#0F172A] mb-6 tracking-[-0.03em] font-sf-pro">
-                      Экосистема для каждого
-                    </h2>
-                  </div>
-
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                    className="group h-full transition-all duration-300"
-                    onMouseEnter={() => setHoveredCard('specialists')}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      opacity: hoveredCard === 'companies' ? 0.5 : 1,
-                      filter: hoveredCard === 'companies' ? 'grayscale(20%)' : 'none',
-                    }}
-                  >
-                    <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-gray-200/50 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.3)] hover:border-[#F97316]/30">
-                      <div className="pb-6">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
-                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
-                        >
-                          <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
-                        </motion.div>
-                        <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro text-left">Специалистам</h3>
-                        <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left">
-                          Для специалистов сферы HoReCa
-                        </p>
-                      </div>
-                      <div>
-                        <ul className="space-y-5 md:space-y-6">
-                          {[
-                            { icon: Target, text: 'Персональные рекомендации на основе AI' },
-                            { icon: FileText, text: 'Автоматическое формирование резюме в 1 клик' },
-                            { icon: Shield, text: 'Доступ к закрытым вакансиям от топ-ресторанов' },
-                            { icon: GraduationCap, text: 'Образовательные программы и сертификации' },
-                          ].map((item, idx) => {
-                            const Icon = item.icon
-                            return (
-                              <motion.li
-                                key={idx}
-                                initial={{ opacity: 0, x: -10 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left"
-                              >
-                                <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                  <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
-                                </div>
-                                <span>{item.text}</span>
-                              </motion.li>
-                            )
-                          })}
-                        </ul>
-                        <ShinyButton
-                          className="w-full mt-8 min-h-[64px] font-medium"
-                          onClick={() => router.push('/auth')}
-                        >
-                          <span className="text-white">Зарегистрироваться</span>
-                          <ArrowRight className="ml-2 w-5 h-5 text-white" />
-                        </ShinyButton>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-
-            {/* Правая половина - Компаниям (Темный фон) */}
-            <div className="relative bg-black overflow-hidden">
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                  className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/6 rounded-full blur-[120px]"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-              </div>
-              <div className="container mx-auto px-5 md:px-6 lg:px-[120px] h-full relative z-10">
-                <div className="max-w-2xl mx-auto py-12 md:py-16">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                    className="group h-full transition-all duration-300"
-                    onMouseEnter={() => setHoveredCard('companies')}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      opacity: hoveredCard === 'specialists' ? 0.5 : 1,
-                      filter: hoveredCard === 'specialists' ? 'grayscale(20%)' : 'none',
-                    }}
-                  >
-                    <div className="glass-apple-dark float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/10 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.4)] hover:border-[#F97316]/50">
-                      <div className="pb-6 text-center">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
-                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-6 mx-auto"
-                        >
-                          <Building2 className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" style={{ filter: 'drop-shadow(0 0 8px rgba(249, 115, 22, 0.6))' }} />
-                        </motion.div>
-                        <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3 tracking-[-0.02em] font-sf-pro text-center">Компаниям</h3>
-                        <p className="text-base md:text-lg text-white/70 font-light font-sf-pro text-center">
-                          Для ресторанов, кафе, отелей, производств и других компаний
-                        </p>
-                      </div>
-                      <div>
-                        <ul className="space-y-5 md:space-y-6">
-                          {[
-                            { icon: UserCheck, text: 'Автоматизированный подбор персонала' },
-                            { icon: BarChart3, text: 'Продвинутая аналитика кандидатов' },
-                            { icon: Settings, text: 'Собственная IT-система и ERP ChefUp' },
-                            { icon: Users, text: 'Консалтинг и экспертиза HoReCa' },
-                          ].map((item, idx) => {
-                            const Icon = item.icon
-                            return (
-                              <motion.li
-                                key={idx}
-                                initial={{ opacity: 0, x: 10 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                className="flex items-center gap-4 text-base md:text-lg text-white/80 font-light font-sf-pro justify-center text-center"
-                              >
-                                <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0">
-                                  <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" style={{ filter: 'drop-shadow(0 0 4px rgba(249, 115, 22, 0.5))' }} />
-                                </div>
-                                <span className="text-center">{item.text}</span>
-                              </motion.li>
-                            )
-                          })}
-                        </ul>
-                        <ShinyButton
-                          variant="outline"
-                          className="w-full mt-8 min-h-[64px] font-medium border-[#F97316]/50 bg-transparent hover:bg-[#F97316]/10"
-                          onClick={() => router.push('/auth')}
-                        >
-                          <span className="text-white">Подключить компанию</span>
-                          <ArrowRight className="ml-2 w-5 h-5 text-white" />
-                        </ShinyButton>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </FadeUpSection>
-
-        {/* Возможности для вас - Apple 2025 Style */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <motion.div
-              className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            <motion.div
-              className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-[#F97316]/5 rounded-full blur-[140px]"
-              animate={{
-                scale: [1.1, 1, 1.1],
-                opacity: [0.4, 0.3, 0.4],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 4,
-              }}
-            />
-          </div>
-          
-          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
-            <div className="text-center mb-20 md:mb-24 max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 glass-apple-dark rounded-full mb-8 border-[0.5px] border-[#F97316]/20"
-              >
-                <Sparkles className="w-4 h-4 text-[#F97316]" />
-                <span className="text-xs md:text-sm font-medium text-[#F97316] tracking-wider uppercase font-sf-pro">AI POWERED</span>
-              </motion.div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-[-0.04em] font-sf-pro">
-                Возможности для вас
-              </h2>
-              <p className="text-lg md:text-2xl text-white/60 max-w-4xl mx-auto font-light leading-[1.5] font-sf-pro">
-                Одна платформа — вся карьера HoReCa в Центральной Евразии под контролем
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto">
-              {[
-                {
-                  icon: Lock,
-                  title: 'Закрытые вакансии и офферы',
-                  description: 'Доступ только для участников ChefUp — офферы, которых нет на HH, LinkedIn и Telegram-каналах. Приходят пушем и в Telegram-бот.',
-                },
-                {
-                  icon: Zap,
-                  title: 'Умный поиск работы (Tinder-формат)',
-                  description: 'Персональная лента вакансий, которая подстраивается под ваш профиль. Свайп влево/вправо как в Tinder — понравилось → отклик в 1 клик.',
-                },
-                {
-                  icon: FileText,
-                  title: 'Автоматическое резюме и Профиль-витрина',
-                  description: 'Заполнил анкету один раз — получил красивую публичную страницу (@ваше-имя) и PDF-резюме в 1 клик. Можно отправлять ресторанам напрямую.',
-                },
-                {
-                  icon: TrendingUp,
-                  title: 'Аналитика карьеры и Рост дохода',
-                  description: 'Раздел «Мой рост»: показывает, как менялась ваша зарплата. Участники в среднем повышают доход на 30–40 % в первые 3 месяца. Прозрачная зарплатная вилка.',
-                },
-                {
-                  icon: Globe,
-                  title: 'Международные стажировки и События',
-                  description: 'Календарь мастер-классов, гастролей, ужинов и оплачиваемых стажировок за рубежом (Турция, ОАЭ, Грузия и др.).',
-                },
-                {
-                  icon: Users,
-                  title: 'Живое профессиональное сообщество',
-                  description: 'Закрытые чаты по городам и специализациям + общий чат «ChefUp Live». Здесь ищут замену на смену, делятся ТТК, находят партнёров.',
-                },
-                {
-                  icon: GraduationCap,
-                  title: 'Профессиональные курсы и Сертификаты',
-                  description: 'Бесплатные и платные мини-курсы: HACCP, сервис, калькуляция, фуд-фотография. После прохождения — сертификат в профиль.',
-                },
-                {
-                  icon: UserCheck,
-                  title: 'Быстрый подбор команды (Для HoReCa)',
-                  description: 'Раздел «Нанимаю»: работодатели размещают вакансию и получают только подходящих и проверенных кандидатов за 3–7 дней.',
-                },
-                {
-                  icon: Rocket,
-                  title: 'Личный бренд и Медийность',
-                  description: 'Лучшие профили продвигаем в Instagram и TikTok ChefUp (50k+ подписчиков), приглашаем на коллаборации и ТВ-съёмки.',
-                },
-                {
-                  icon: Star,
-                  title: 'Рейтинг, отзывы и Прозрачность',
-                  description: 'После работы ресторан оставляет вам отзыв и рейтинг (как в Uber). Чем выше рейтинг — тем выше вы в выдаче и больше офферов.',
-                },
-                {
-                  icon: ShoppingBag,
-                  title: 'Marketplace для HoReCa',
-                  description: 'Покупка-продажа оборудования, инвентаря, формы б/у + поиск партнёров и инвесторов для своего кафе/фудтрака.',
-                },
-                {
-                  icon: Settings,
-                  title: 'IT-система и Консалтинг для бизнеса',
-                  description: 'Собственная IT-система и ERP ChefUp, продвинутая аналитика кандидатов, а также консалтинг и экспертиза HoReCa.',
-                },
-              ].map((feature, idx) => {
-                const Icon = feature.icon
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    whileHover={{ y: -2 }}
-                    className="group"
-                  >
-                    <div className="glass-apple-dark float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/5 relative overflow-hidden shadow-apple hover:shadow-apple-hover inner-glow-dark">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="relative z-10">
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.05, 1],
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            repeatDelay: 3,
-                            ease: 'easeInOut',
-                          }}
-                          className="w-16 h-16 md:w-18 md:h-18 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
-                        >
-                          <Icon className="w-8 h-8 md:w-9 md:h-9 text-[#F97316]" />
-                        </motion.div>
-                        <h3 className="text-lg md:text-xl font-semibold text-white mb-4 tracking-[-0.02em] font-sf-pro">{feature.title}</h3>
-                        <p className="text-base text-white/60 leading-relaxed font-light font-sf-pro">{feature.description}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
-          </div>
-        </FadeUpSection>
-
-        {/* Наша миссия - Bento Grid */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white noise-overlay">
-          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
-            <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-[-0.03em]">
-                Наша миссия
-              </h2>
-              <p className="text-base md:text-xl text-[#64748B] max-w-3xl mx-auto mb-4 font-normal">
-                ChefUp — это место, где повара находят работу мечты, а рестораны — надёжных людей.
-              </p>
-              <p className="text-sm md:text-lg text-[#64748B] max-w-2xl mx-auto font-normal">
-                Вместе мы делаем HoReCa в нашем регионе лучше.
-              </p>
-            </div>
-
-            {/* Bento Grid - верхний ряд: 3 элемента */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-6">
-              {[
-                {
-                  title: 'Больше не искать работу через знакомых и чаты',
-                  description: 'Всё честно, быстро и в одном месте.',
-                  icon: CheckCircle2,
-                  iconColor: 'text-green-600',
-                  iconBg: 'bg-green-100',
-                  colSpan: 'md:col-span-1',
-                },
-                {
-                  title: 'Повар, бариста или официант мог легко перейти из маленького кафе в топовый ресторан или открыть своё дело',
-                  description: 'Чтобы каждый имел шанс расти и строить настоящую карьеру.',
-                  icon: TrendingUp,
-                  iconColor: 'text-[#F97316]',
-                  iconBg: 'bg-orange-100',
-                  colSpan: 'md:col-span-2',
-                },
-              ].map((item, idx) => {
-                const Icon = item.icon
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.15 }}
-                    whileHover={{ y: -4, scale: 1.01 }}
-                    className={item.colSpan}
-                  >
-                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-white shadow-sm hover:shadow-lg rounded-2xl">
-                      <div className="p-6 md:p-8 h-full flex flex-col">
-                        <motion.div
-                          initial={{ scale: 0, rotate: -180 }}
-                          whileInView={{ scale: 1, rotate: 0 }}
-                          transition={{ delay: idx * 0.15 + 0.2, type: 'spring', stiffness: 200 }}
-                          className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 flex-shrink-0`}
-                        >
-                          <Icon className={`w-6 h-6 ${item.iconColor}`} />
-                        </motion.div>
-                        <h3 className="text-sm md:text-base font-semibold text-[#0F172A] mb-2 tracking-[-0.02em]">{item.title}</h3>
-                        <p className="text-sm md:text-base text-[#64748B] leading-relaxed font-normal mt-auto">{item.description}</p>
-                      </div>
-                    </AnimatedCard>
-                  </motion.div>
-                )
-              })}
-            </div>
-
-            {/* Bento Grid - нижний ряд: 2 элемента (отцентрованы) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {[
-                {
-                  title: 'Рестораны не мучились месяцами в поисках надежной команды',
-                  description: 'Нашли хорошего повара или бариста — и сразу на работу.',
-                  icon: Clock,
-                  iconColor: 'text-blue-600',
-                  iconBg: 'bg-blue-100',
-                  colSpan: 'md:col-span-1',
-                },
-                {
-                  title: 'Люди перестали уезжать из профессии и из страны просто потому что «не видят перспективы»',
-                  description: 'Чтобы талант оставался и развивался здесь, у нас дома.',
-                  icon: Heart,
-                  iconColor: 'text-pink-600',
-                  iconBg: 'bg-pink-100',
-                  colSpan: 'md:col-span-1',
-                },
-                {
-                  title: 'У поваров, барменов и шефов появилось своё живое профессиональное сообщество',
-                  description: 'Где делятся опытом, помогают друг другу и вместе растут.',
-                  icon: Users,
-                  iconColor: 'text-purple-600',
-                  iconBg: 'bg-purple-100',
-                  colSpan: 'md:col-span-1',
-                },
-              ].map((item, idx) => {
-                const Icon = item.icon
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.15 + 0.3 }}
-                    whileHover={{ y: -4, scale: 1.01 }}
-                    className={item.colSpan}
-                  >
-                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-white shadow-sm hover:shadow-lg rounded-2xl">
-                      <div className="p-6 md:p-8 h-full flex flex-col">
-                        <motion.div
-                          initial={{ scale: 0, rotate: -180 }}
-                          whileInView={{ scale: 1, rotate: 0 }}
-                          transition={{ delay: idx * 0.15 + 0.5, type: 'spring', stiffness: 200 }}
-                          className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 flex-shrink-0`}
-                        >
-                          <Icon className={`w-6 h-6 ${item.iconColor}`} />
-                        </motion.div>
-                        <h3 className="text-sm md:text-base font-semibold text-[#0F172A] mb-2 tracking-[-0.02em]">{item.title}</h3>
-                        <p className="text-sm md:text-base text-[#64748B] leading-relaxed font-normal mt-auto">{item.description}</p>
-                      </div>
-                    </AnimatedCard>
-                  </motion.div>
-                )
-              })}
             </div>
           </div>
         </FadeUpSection>
