@@ -15,7 +15,7 @@ import { Calendar, MapPin, Users, Coffee, Search, CheckCircle2, Clock, DollarSig
 import { toast } from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 import { EventRegistrationForm } from '@/components/EventRegistrationForm'
 import type { EventType } from '@/types/events.types'
 
