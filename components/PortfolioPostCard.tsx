@@ -150,5 +150,5 @@ export const PortfolioPostCard = memo(function PortfolioPostCard({ post, onEdit,
       </div>
     </AnimatedCard>
   )
-}
+})
 

@@ -410,5 +410,5 @@ export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, a
       </div>
     </AnimatedCard>
   )
-}
+})
 
