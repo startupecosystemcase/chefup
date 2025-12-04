@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
-import { DialogFooter } from '@/components/ui/dialog'
+import { DialogFooter } from '@/components/magicui/animated-dialog'
 import { useAuthStore, useOnboardingStore } from '@/stores/useOnboardingStore'
 import { User, Building2 } from 'lucide-react'
 

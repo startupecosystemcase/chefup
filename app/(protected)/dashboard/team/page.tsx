@@ -6,7 +6,7 @@ import { AnimatedCard } from '@/components/magicui/animated-card'
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/magicui/animated-dialog'
 import { Plus, Search, X } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
