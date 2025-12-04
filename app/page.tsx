@@ -320,7 +320,7 @@ export default function Home() {
 
                   {/* Вторая строка - 4 цифры в ряд с разделителями */}
                   <TooltipProvider>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 lg:gap-20 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 lg:gap-20 max-w-5xl mx-auto relative">
                       {[
                         { 
                           value: 100, 
@@ -357,7 +357,7 @@ export default function Home() {
                             duration: 0.8,
                             ease: [0.25, 0.46, 0.45, 0.94]
                           }}
-                          className={`text-center ${idx < 3 ? 'md:border-r md:border-white/10' : ''}`}
+                          className="text-center relative"
                         >
                           <Tooltip>
                             <TooltipTrigger asChild>
@@ -383,9 +383,29 @@ export default function Home() {
                           </Tooltip>
                         </motion.div>
                       ))}
+                      {/* Разделители по центру между элементами */}
+                      <div className="hidden md:block absolute inset-0 pointer-events-none">
+                        <div className="absolute top-1/2 -translate-y-1/2 left-[25%] w-px h-20 bg-white/10" />
+                        <div className="absolute top-1/2 -translate-y-1/2 left-[50%] w-px h-20 bg-white/10" />
+                        <div className="absolute top-1/2 -translate-y-1/2 left-[75%] w-px h-20 bg-white/10" />
+                      </div>
                     </div>
                   </TooltipProvider>
 
+                  {/* Плашка экспертности */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8, duration: 0.8 }}
+                    className="mt-16 md:mt-20 text-center"
+                  >
+                    <div className="inline-block px-6 md:px-8 py-4 md:py-5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl">
+                      <p className="text-sm md:text-base text-white/80 font-light font-sf-pro max-w-3xl mx-auto">
+                        Основатели ChefUp — практики с 10-летним опытом управления в сфере HoReCa и запуска IT платформ
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
