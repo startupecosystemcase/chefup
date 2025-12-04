@@ -6,7 +6,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 import { useState } from 'react'
 import { TrendingUp } from 'lucide-react'
 
