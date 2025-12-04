@@ -16,15 +16,15 @@
 export const imagePaths = {
   cities: {
     // Локальные изображения из public/cities/ с префиксом gorod_
-    astana: '/cities/gorod_astana.jpg',
+    astana: '/cities/gorod_astana.jpeg',
     almaty: '/cities/gorod_almaty.jpg',
-    tashkent: '/cities/gorod_tashkent.jpg',
-    bishkek: '/cities/gorod_bishkek.jpg',
+    tashkent: '/cities/gorod_taskent.jpg',
+    bishkek: '/cities/gorod_biskek.jpg',
     baku: '/cities/gorod_baku.jpg',
-    tbilisi: '/cities/gorod_tbilisi.jpg',
+    tbilisi: '/cities/gorod_tbilisi.jpeg',
     shymkent: '/cities/gorod_shymkent.jpg',
     aktobe: '/cities/gorod_aktobe.jpg',
-    batumi: '/cities/gorod_batumi.jpg',
+    batumi: '/cities/gorod_batumi.webp',
   },
   team: {
     muhammad: 'https://drive.google.com/uc?export=view&id=1BEl4GLzVTTFA6tsBmTdZ0VYw3_2gX024',
