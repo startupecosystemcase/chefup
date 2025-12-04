@@ -38,5 +38,5 @@ export const imagePaths = {
     airba: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_AIRBA',
     urbo: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_URBO',
   },
-  hq: 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_HQ',
+  hq: '/cities/astana shtab-kvartira.jpg',
 }

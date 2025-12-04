@@ -824,7 +824,7 @@ export default function Home() {
                   <div className="relative h-64 md:h-auto bg-[#0a0a0a]">
                     <ImageWithSkeleton
                       src={hqImage}
-                      alt="Штаб-квартира ChefUp - Аэросъемка Астаны"
+                      alt="Офис ChefUp - Аэросъемка Астаны"
                       className="w-full h-full"
                       aspectRatio="16/9"
                       objectFit="cover"
@@ -833,7 +833,7 @@ export default function Home() {
                   <div className="p-8 md:p-10 flex flex-col justify-center bg-white dark:bg-dark/50">
                     <div className="flex items-center gap-3 mb-4">
                       <Building className="w-8 h-8 text-[#F97316]" />
-                      <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A]">Штаб-квартира</h3>
+                      <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A]">Офис</h3>
                     </div>
                     <p className="text-base md:text-lg text-[#64748B] leading-relaxed font-normal">
                       Астана, Индустриальный парк,<br />
