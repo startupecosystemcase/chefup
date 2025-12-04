@@ -11,9 +11,3 @@
 
 [functions]
   node_bundler = "esbuild"
-
-# Redirects для Next.js
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
