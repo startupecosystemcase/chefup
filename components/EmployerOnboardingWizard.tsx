@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
+import { AnimatedProgress } from '@/components/magicui/animated-progress'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -121,7 +121,7 @@ export function EmployerOnboardingWizard() {
               </p>
             </div>
           </div>
-          <Progress value={progress} className="h-2" />
+          <AnimatedProgress value={progress} className="h-2" />
         </CardHeader>
         <CardContent>
           <FormProvider {...form}>
