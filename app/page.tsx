@@ -223,11 +223,11 @@ export default function Home() {
                 <ShinyButton
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto font-medium whitespace-nowrap"
+                  className="w-full sm:w-auto font-medium"
                   onClick={() => router.push('/auth')}
                 >
                   <Phone className="mr-2 w-5 h-5 flex-shrink-0" />
-                  <span>Заказать консультацию</span>
+                  Заказать консультацию
                 </ShinyButton>
               </motion.div>
             </div>
@@ -971,65 +971,116 @@ export default function Home() {
         </FadeUpSection>
 
 
-        {/* Final CTA */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#F97316]/10 via-white to-[#F97316]/5 noise-overlay">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
-            <AnimatedCard className="bg-gradient-to-br from-[#F97316] via-[#F97316]/95 to-[#EA580C] border-0 shadow-2xl max-w-4xl mx-auto overflow-hidden relative rounded-2xl">
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-              <div className="p-8 md:p-12 text-center relative z-10">
+        {/* Final CTA - Получи оффер уже завтра */}
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            <motion.div
+              className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-[#F97316]/5 rounded-full blur-[140px]"
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.4, 0.3, 0.4],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 4,
+              }}
+            />
+          </div>
+          
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="mb-12 md:mb-16"
+              >
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 0.6 }}
                   whileHover={{ scale: 1.05 }}
-                  className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 cursor-pointer"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#F97316]/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6"
                 >
-                  <Trophy className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                  <Trophy className="w-10 h-10 md:w-12 md:h-12 text-[#F97316]" />
                 </motion.div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-[-0.03em] font-sf-pro">
                   Получи оффер уже завтра
                 </h2>
-                <p className="text-base md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-normal">
+                <p className="text-base md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed font-light font-sf-pro">
                   Присоединяйся к тысячам специалистов, которые уже нашли работу мечты
                 </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="mb-8 md:mb-10"
+              >
                 <motion.div
                   animate={{
-                    scale: [1, 1.05, 1],
+                    scale: [1, 1.02, 1],
                   }}
                   transition={{
                     duration: 4,
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
-                  className="mb-8 md:mb-10"
                 >
                   <ShinyButton
                     size="lg"
-                    className="bg-white hover:bg-white/90 text-[#F97316] text-sm md:text-base px-8 md:px-10 py-4 md:py-5 h-auto min-h-[56px] md:min-h-[60px] w-full md:w-auto shadow-lg shadow-black/20 font-semibold"
+                    className="w-full md:w-auto font-semibold"
                     onClick={() => router.push('/auth')}
                   >
                     Создать профиль бесплатно
-                    <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+                    <ArrowRight className="ml-2 w-5 h-5" />
                   </ShinyButton>
                 </motion.div>
+              </motion.div>
 
-                <div className="max-w-md mx-auto pt-8 md:pt-10 border-t border-white/20">
-                  <p className="text-sm md:text-base text-white/80 mb-4 md:mb-6 text-center">Или оставь номер телефона</p>
-                  <form onSubmit={handlePhoneSubmit} className="flex flex-col sm:flex-row gap-3 items-center justify-center">
-                    <AnimatedInput
-                      type="tel"
-                      placeholder="+7 (___) ___-__-__"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="flex-1 bg-white/90 border-white/20 h-12 md:h-14 text-base max-w-xs"
-                    />
-                    <ShinyButton type="submit" variant="outline" className="bg-white/20 hover:bg-white/30 text-white border border-white/30 h-12 md:h-14 min-h-[56px] w-full sm:w-auto">
-                      <span className="text-white">Отправить</span>
-                    </ShinyButton>
-                  </form>
-                </div>
-              </div>
-            </AnimatedCard>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="max-w-md mx-auto pt-8 md:pt-10 border-t border-white/10"
+              >
+                <p className="text-sm md:text-base text-white/60 mb-4 md:mb-6 text-center font-light font-sf-pro">Или оставь номер телефона</p>
+                <form onSubmit={handlePhoneSubmit} className="flex flex-col sm:flex-row gap-3 items-center justify-center">
+                  <AnimatedInput
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/40 h-12 md:h-14 text-base max-w-xs backdrop-blur-sm"
+                  />
+                  <ShinyButton 
+                    type="submit" 
+                    variant="outline" 
+                    className="bg-transparent hover:bg-white/10 text-white border border-white/20 h-12 md:h-14 min-h-[56px] w-full sm:w-auto"
+                  >
+                    <span className="text-white">Отправить</span>
+                  </ShinyButton>
+                </form>
+              </motion.div>
+            </div>
           </div>
         </FadeUpSection>
 

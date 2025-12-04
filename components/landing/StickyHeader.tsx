@@ -7,7 +7,6 @@ import { Logo } from '@/components/Logo'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { useRouter } from 'next/navigation'
 import { User } from 'lucide-react'
-import { ThemeToggle } from '@/components/magicui/theme-toggle'
 
 export function StickyHeader() {
   const [scrolled, setScrolled] = useState(false)
@@ -37,7 +36,6 @@ export function StickyHeader() {
           </div>
           
           <div className="flex items-center gap-3 md:gap-4">
-            <ThemeToggle />
             {userId ? (
               <ShinyButton 
                 variant="ghost"
