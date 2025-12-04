@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -7,7 +8,6 @@ import 'swiper/css/pagination'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
-import { useState } from 'react'
 import { TrendingUp } from 'lucide-react'
 
 interface Testimonial {
@@ -28,7 +28,7 @@ const testimonials: Testimonial[] = [
     name: 'Алексей Петров',
     role: 'Шеф-повар',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-    quote: 'Нашёл работу мечты за неделю!',
+    quote: 'Я искал работу через знакомых месяцами, но здесь заполнил профиль и уже через неделю вышел су-шефом в премиум-ресторан. Удобно, что не нужно составлять резюме вручную.',
     achievement: 'Перешёл из кафе в премиум-ресторан',
     before: 'Работал в небольшом кафе, зарплата 150 000 ₸',
     after: 'Шеф-повар в топ-ресторане, зарплата 450 000 ₸',
@@ -107,36 +107,38 @@ export function TestimonialsSwiper() {
         autoplay={{
           delay: 3000,
           pauseOnMouseEnter: true,
+          disableOnInteraction: false,
         }}
+        initialSlide={0}
         pagination={{ clickable: true }}
         className="!pb-12"
       >
         {testimonials.map((testimonial) => (
           <SwiperSlide key={testimonial.id}>
             <Card
-              className="cursor-pointer h-full hover:shadow-lg transition-shadow border-2 border-transparent hover:border-[#F97316]/30"
+              className="cursor-pointer h-[500px] hover:shadow-lg transition-shadow border-2 border-transparent hover:border-[#F97316]/30 flex flex-col"
               onClick={() => setSelectedTestimonial(testimonial)}
             >
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4 mb-8">
-                  <Avatar className="w-16 h-16">
+              <CardContent className="p-6 flex flex-col h-full">
+                <div className="flex items-start gap-4 mb-4">
+                  <Avatar className="w-16 h-16 flex-shrink-0">
                     <AvatarImage src={testimonial.avatar} />
                     <AvatarFallback className="bg-[#F97316]/10 text-[#F97316] text-lg">
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h4 className="font-bold text-[#0F172A] text-lg mb-1">{testimonial.name}</h4>
-                    <p className="text-sm text-[#64748B] mb-2">{testimonial.role}</p>
-                    <div className="inline-block px-3 py-1 rounded-full bg-[#F97316]/10 text-[#F97316] text-xs font-semibold">
+                    <p className="text-sm text-[#64748B] mb-3">{testimonial.role}</p>
+                    <div className="inline-block px-3 py-1.5 rounded-full bg-[#F97316]/10 text-[#F97316] text-xs font-semibold">
                       {testimonial.achievement}
                     </div>
                   </div>
                 </div>
-                <p className="text-[#64748B] mb-8 italic">"{testimonial.quote}"</p>
-                <div className="pt-4 border-t border-gray-100">
+                <p className="text-base md:text-lg text-[#64748B] mb-6 italic leading-relaxed flex-1">"{testimonial.quote}"</p>
+                <div className="pt-4 border-t border-gray-100 mt-auto">
                   <div className="flex items-center justify-between text-xs">
-                    <div>
+                    <div className="w-full">
                       <p className="text-[#64748B] line-through mb-1">{testimonial.before}</p>
                       <p className="text-[#F97316] font-semibold">{testimonial.after}</p>
                     </div>

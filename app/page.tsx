@@ -119,7 +119,7 @@ export default function Home() {
   const hqImage = imagePaths.hq
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark transition-colors">
+    <div className="min-h-screen bg-white transition-colors light" data-theme="light">
       <StickyHeader />
       <StickyBottomBar />
 
@@ -221,19 +221,19 @@ export default function Home() {
                 <ShinyButton
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto font-semibold"
+                  className="w-full sm:w-auto font-medium whitespace-nowrap"
                   onClick={() => router.push('/auth')}
                 >
-                  <Phone className="mr-2 w-5 h-5" />
-                  Заказать консультацию
+                  <Phone className="mr-2 w-5 h-5 flex-shrink-0" />
+                  <span>Заказать консультацию</span>
                 </ShinyButton>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Ключевые цифры - Apple 2025 Style */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black">
+        {/* Ключевые цифры - Новая сетка */}
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
               className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
@@ -270,14 +270,39 @@ export default function Home() {
                 transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="text-center mb-20 md:mb-24"
               >
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-[-0.04em] font-sf-pro">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-[-0.03em] font-sf-pro">
                   Ключевые цифры
                 </h2>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-16 md:gap-20 lg:gap-24">
+              {/* Первая строка - одна цифра по центру */}
+              <div className="flex justify-center mb-16 md:mb-20">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="text-center"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="text-7xl md:text-8xl lg:text-9xl font-semibold text-white mb-6 leading-none glow-orange font-sf-pro"
+                    style={{
+                      textShadow: '0 0 60px rgba(249, 115, 22, 0.3)',
+                    }}
+                  >
+                    <AnimatedCounter end={2000} suffix="+" />
+                  </motion.div>
+                  <p className="text-base md:text-lg text-white/60 font-light font-sf-pro">Специалистов</p>
+                </motion.div>
+              </div>
+
+              {/* Вторая строка - 4 цифры в ряд */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 lg:gap-20 max-w-5xl mx-auto">
                 {[
-                  { value: 2000, suffix: '+', label: 'Специалистов' },
                   { value: 100, suffix: '+', label: 'Ресторанов' },
                   { value: 8, suffix: '', label: 'Стран' },
                   { value: 42, suffix: '', label: 'Городов' },
@@ -289,7 +314,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ 
-                      delay: idx * 0.1,
+                      delay: idx * 0.1 + 0.3,
                       duration: 0.8,
                       ease: [0.25, 0.46, 0.45, 0.94]
                     }}
@@ -299,18 +324,33 @@ export default function Home() {
                       initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 + 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                      className="text-7xl md:text-8xl lg:text-9xl font-semibold text-white mb-6 leading-none glow-orange font-sf-pro"
+                      transition={{ delay: idx * 0.1 + 0.5, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      className="text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-4 leading-none glow-orange font-sf-pro"
                       style={{
                         textShadow: '0 0 60px rgba(249, 115, 22, 0.3)',
                       }}
                     >
                       <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                     </motion.div>
-                    <p className="text-base md:text-lg text-white/60 font-light font-sf-pro">{stat.label}</p>
+                    <p className="text-sm md:text-base text-white/60 font-light font-sf-pro">{stat.label}</p>
                   </motion.div>
                 ))}
               </div>
+
+              {/* Плашка экспертности */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="mt-16 md:mt-20 text-center"
+              >
+                <div className="inline-block px-6 md:px-8 py-4 md:py-5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl">
+                  <p className="text-sm md:text-base text-white/80 font-light font-sf-pro max-w-3xl mx-auto">
+                    Основатели ChefUp — практики с 10-летним опытом управления ресторанами и запуска международных стартапов в сфере HoReCa.
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </FadeUpSection>
@@ -323,8 +363,8 @@ export default function Home() {
           </div>
           <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-20 md:mb-24 max-w-6xl mx-auto">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#0F172A] mb-6 tracking-[-0.04em] font-sf-pro">
-                Для кого
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#0F172A] mb-6 tracking-[-0.03em] font-sf-pro">
+                Экосистема для каждого
               </h2>
             </div>
 
@@ -352,7 +392,7 @@ export default function Home() {
                   <div>
                     <ul className="space-y-5 md:space-y-6">
                       {[
-                        { icon: Target, text: 'Персональные рекомендации вакансий на основе AI' },
+                        { icon: Target, text: 'Персональные рекомендации на основе AI' },
                         { icon: FileText, text: 'Автоматическое формирование резюме в 1 клик' },
                         { icon: Shield, text: 'Доступ к закрытым вакансиям от топ-ресторанов' },
                         { icon: GraduationCap, text: 'Образовательные программы и сертификации' },
@@ -391,7 +431,7 @@ export default function Home() {
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                 className="group"
               >
-                <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/20 shadow-apple hover:shadow-apple-hover inner-glow">
+                <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/20 shadow-apple hover:shadow-apple-hover hover:shadow-[0_20px_60px_rgba(249,115,22,0.3)] inner-glow transition-all duration-300">
                   <div className="pb-6">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
@@ -431,11 +471,11 @@ export default function Home() {
                       })}
                     </ul>
                     <ShinyButton
-                      className="w-full mt-8 min-h-[64px] font-semibold"
+                      className="w-full mt-8 min-h-[64px] font-medium"
                       onClick={() => router.push('/auth')}
                     >
-                      Подключить компанию
-                      <ArrowRight className="ml-2 w-5 h-5" />
+                      <span className="text-white">Подключить компанию</span>
+                      <ArrowRight className="ml-2 w-5 h-5 text-white" />
                     </ShinyButton>
                   </div>
                 </div>
@@ -445,7 +485,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Возможности для вас - Apple 2025 Style */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black">
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
               className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
@@ -498,66 +538,63 @@ export default function Home() {
               {[
                 {
                   icon: Lock,
-                  title: 'Закрытые вакансии топ-ресторанов',
-                  description: 'Доступ только для участников ChefUp — офферы, которых нет на HH, LinkedIn и Telegram-каналах.',
-                  color: 'text-blue-600',
-                  bgColor: 'bg-blue-50',
+                  title: 'Закрытые вакансии и офферы',
+                  description: 'Доступ только для участников ChefUp — офферы, которых нет на HH, LinkedIn и Telegram-каналах. Приходят пушем и в Telegram-бот.',
                 },
                 {
                   icon: Zap,
-                  title: 'Персональные офферы за 24–48 часов',
-                  description: 'Алгоритм сразу после заполнения профиля присылает подходящие вакансии и стажировки.',
-                  color: 'text-yellow-600',
-                  bgColor: 'bg-yellow-50',
+                  title: 'Умный поиск работы (Tinder-формат)',
+                  description: 'Персональная лента вакансий, которая подстраивается под ваш профиль. Свайп влево/вправо как в Tinder — понравилось → отклик в 1 клик.',
                 },
                 {
                   icon: FileText,
-                  title: 'Автоматическое резюме и профиль-блог',
-                  description: 'Заполнил анкету один раз — получил красивую публичную страницу и PDF-резюме в 1 клик.',
-                  color: 'text-purple-600',
-                  bgColor: 'bg-purple-50',
+                  title: 'Автоматическое резюме и Профиль-витрина',
+                  description: 'Заполнил анкету один раз — получил красивую публичную страницу (@ваше-имя) и PDF-резюме в 1 клик. Можно отправлять ресторанам напрямую.',
                 },
                 {
                   icon: TrendingUp,
-                  title: 'Прозрачная зарплатная вилка и рост дохода',
-                  description: 'Участники в среднем повышают доход на 30–40 % в первые 3 месяца (видно в статистике профиля).',
-                  color: 'text-green-600',
-                  bgColor: 'bg-green-50',
+                  title: 'Аналитика карьеры и Рост дохода',
+                  description: 'Раздел «Мой рост»: показывает, как менялась ваша зарплата. Участники в среднем повышают доход на 30–40 % в первые 3 месяца. Прозрачная зарплатная вилка.',
                 },
                 {
                   icon: Globe,
-                  title: 'Стажировки и обмен опытом за рубежом',
-                  description: 'Прямые программы с ресторанами Турции, ОАЭ, Грузии, Армении и Европы (оплачиваемые).',
-                  color: 'text-indigo-600',
-                  bgColor: 'bg-indigo-50',
+                  title: 'Международные стажировки и События',
+                  description: 'Календарь мастер-классов, гастролей, ужинов и оплачиваемых стажировок за рубежом (Турция, ОАЭ, Грузия и др.).',
                 },
                 {
                   icon: Users,
-                  title: 'Нетворкинг с топ-шефами региона',
-                  description: 'Закрытый чат и встречи с бренд-шефами, где можно найти ментора или партнёра.',
-                  color: 'text-pink-600',
-                  bgColor: 'bg-pink-50',
+                  title: 'Живое профессиональное сообщество',
+                  description: 'Закрытые чаты по городам и специализациям + общий чат «ChefUp Live». Здесь ищут замену на смену, делятся ТТК, находят партнёров.',
                 },
                 {
                   icon: GraduationCap,
-                  title: 'Бесплатные профессиональные курсы и сертификаты',
-                  description: 'HACCP, сервис, калькуляция, фуд-фотография — всё внутри платформы.',
-                  color: 'text-orange-600',
-                  bgColor: 'bg-orange-50',
+                  title: 'Профессиональные курсы и Сертификаты',
+                  description: 'Бесплатные и платные мини-курсы: HACCP, сервис, калькуляция, фуд-фотография. После прохождения — сертификат в профиль.',
                 },
                 {
                   icon: UserCheck,
-                  title: 'Быстрый подбор команды для ресторанов',
-                  description: 'Работодатели закрывают позиции шеф-поваров и линейных поваров за пару дней вместо 1-2 недель.',
-                  color: 'text-cyan-600',
-                  bgColor: 'bg-cyan-50',
+                  title: 'Быстрый подбор команды (Для HoReCa)',
+                  description: 'Раздел «Нанимаю»: работодатели размещают вакансию и получают только подходящих и проверенных кандидатов за 3–7 дней.',
                 },
                 {
                   icon: Rocket,
-                  title: 'Личный бренд и медийность',
+                  title: 'Личный бренд и Медийность',
                   description: 'Лучшие профили продвигаем в Instagram и TikTok ChefUp (50k+ подписчиков), приглашаем на коллаборации и ТВ-съёмки.',
-                  color: 'text-red-600',
-                  bgColor: 'bg-red-50',
+                },
+                {
+                  icon: Star,
+                  title: 'Рейтинг, отзывы и Прозрачность',
+                  description: 'После работы ресторан оставляет вам отзыв и рейтинг (как в Uber). Чем выше рейтинг — тем выше вы в выдаче и больше офферов.',
+                },
+                {
+                  icon: ShoppingBag,
+                  title: 'Marketplace для HoReCa',
+                  description: 'Покупка-продажа оборудования, инвентаря, формы б/у + поиск партнёров и инвесторов для своего кафе/фудтрака.',
+                },
+                {
+                  icon: Settings,
+                  title: 'IT-система и Консалтинг для бизнеса',
+                  description: 'Собственная IT-система и ERP ChefUp, продвинутая аналитика кандидатов, а также консалтинг и экспертиза HoReCa.',
                 },
               ].map((feature, idx) => {
                 const Icon = feature.icon
@@ -598,11 +635,11 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Наша миссия - улучшенная версия с большими карточками */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+        {/* Наша миссия - Bento Grid */}
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white noise-overlay">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-[-0.03em]">
                 Наша миссия
               </h2>
               <p className="text-base md:text-xl text-[#64748B] max-w-3xl mx-auto mb-4 font-normal">
@@ -613,7 +650,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Bento Grid - верхний ряд: 3 элемента */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-6">
               {[
                 {
                   title: 'Больше не искать работу через знакомых и чаты',
@@ -621,6 +659,7 @@ export default function Home() {
                   icon: CheckCircle2,
                   iconColor: 'text-green-600',
                   iconBg: 'bg-green-100',
+                  colSpan: 'md:col-span-1',
                 },
                 {
                   title: 'Повар, бариста или официант мог легко перейти из маленького кафе в топовый ресторан или открыть своё дело',
@@ -628,27 +667,7 @@ export default function Home() {
                   icon: TrendingUp,
                   iconColor: 'text-[#F97316]',
                   iconBg: 'bg-orange-100',
-                },
-                {
-                  title: 'Рестораны не мучились месяцами в поисках надежной команды',
-                  description: 'Нашли хорошего повара или бариста — и сразу на работу.',
-                  icon: Clock,
-                  iconColor: 'text-blue-600',
-                  iconBg: 'bg-blue-100',
-                },
-                {
-                  title: 'Люди перестали уезжать из профессии и из страны просто потому что «не видят перспективы»',
-                  description: 'Чтобы талант оставался и развивался здесь, у нас дома.',
-                  icon: Heart,
-                  iconColor: 'text-pink-600',
-                  iconBg: 'bg-pink-100',
-                },
-                {
-                  title: 'У поваров, барменов и шефов появилось своё живое профессиональное сообщество',
-                  description: 'Где делятся опытом, помогают друг другу и вместе растут.',
-                  icon: Users,
-                  iconColor: 'text-purple-600',
-                  iconBg: 'bg-purple-100',
+                  colSpan: 'md:col-span-2',
                 },
               ].map((item, idx) => {
                 const Icon = item.icon
@@ -658,130 +677,78 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.15 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    style={{ y: 0 }}
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    className={item.colSpan}
                   >
-                    <AnimatedCard className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all bg-white dark:bg-dark/50 shadow-md hover:shadow-xl rounded-2xl">
-                      <div className="p-6 md:p-8">
+                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-white shadow-sm hover:shadow-lg rounded-2xl">
+                      <div className="p-6 md:p-8 h-full flex flex-col">
                         <motion.div
                           initial={{ scale: 0, rotate: -180 }}
                           whileInView={{ scale: 1, rotate: 0 }}
                           transition={{ delay: idx * 0.15 + 0.2, type: 'spring', stiffness: 200 }}
-                          className={`w-14 h-14 md:w-16 md:h-16 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 md:mb-6 shadow-sm`}
+                          className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 flex-shrink-0`}
                         >
-                          <Icon className={`w-7 h-7 md:w-8 md:h-8 ${item.iconColor}`} />
+                          <Icon className={`w-6 h-6 ${item.iconColor}`} />
                         </motion.div>
-                        <h3 className="text-base md:text-lg font-semibold text-[#0F172A] mb-3">{item.title}</h3>
-                        <p className="text-sm text-[#64748B] leading-relaxed font-normal">{item.description}</p>
+                        <h3 className="text-sm md:text-base font-semibold text-[#0F172A] mb-2 tracking-[-0.02em]">{item.title}</h3>
+                        <p className="text-sm md:text-base text-[#64748B] leading-relaxed font-normal mt-auto">{item.description}</p>
                       </div>
                     </AnimatedCard>
                   </motion.div>
                 )
               })}
             </div>
-          </div>
-        </FadeUpSection>
 
-        {/* Возможности экосистемы - технологичный стиль */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 dark-hero relative overflow-hidden">
-          <div className="absolute inset-0 bg-black" />
-          {/* Декоративные элементы */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-          </div>
-          
-          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
-            <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
-                Возможности экосистемы
-              </h2>
-              <p className="text-base md:text-lg text-slate-300 font-normal">
-                Технологии будущего для HoReCa уже сегодня
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
+            {/* Bento Grid - нижний ряд: 2 элемента (отцентрованы) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {[
                 {
-                  icon: Target,
-                  title: 'Умный поиск работы',
-                  description: 'Персональная лента вакансий и стажировок, которая подстраивается под ваш профиль. Обновляется каждый день. Свайп влево/вправо как в Tinder — понравилось → отклик в 1 клик.',
+                  title: 'Рестораны не мучились месяцами в поисках надежной команды',
+                  description: 'Нашли хорошего повара или бариста — и сразу на работу.',
+                  icon: Clock,
+                  iconColor: 'text-blue-600',
+                  iconBg: 'bg-blue-100',
+                  colSpan: 'md:col-span-1',
                 },
                 {
-                  icon: UserCheck,
-                  title: 'Профиль-витрина',
-                  description: 'Красивая публичная страница (chefup.kz/@ваше-имя) с фото, опытом, кухнями, зарплатной вилкой и отзывами. Можно отправлять ресторанам и шефам напрямую.',
+                  title: 'Люди перестали уезжать из профессии и из страны просто потому что «не видят перспективы»',
+                  description: 'Чтобы талант оставался и развивался здесь, у нас дома.',
+                  icon: Heart,
+                  iconColor: 'text-pink-600',
+                  iconBg: 'bg-pink-100',
+                  colSpan: 'md:col-span-1',
                 },
                 {
-                  icon: Lock,
-                  title: 'Закрытые офферы',
-                  description: 'Раздел «Только для своих» — вакансии и предложения, которых нет в открытом доступе. Приходят пушем и в Telegram-бот.',
+                  title: 'У поваров, барменов и шефов появилось своё живое профессиональное сообщество',
+                  description: 'Где делятся опытом, помогают друг другу и вместе растут.',
+                  icon: Users,
+                  iconColor: 'text-purple-600',
+                  iconBg: 'bg-purple-100',
+                  colSpan: 'md:col-span-1',
                 },
-                {
-                  icon: Briefcase,
-                  title: 'Подбор команды (для ресторанов и шефов)',
-                  description: 'Раздел «Нанимаю»: размещаете вакансию → получаете только подходящих и проверенных кандидатов за 3–7 дней.',
-                },
-                {
-                  icon: GraduationCap,
-                  title: 'Курсы и сертификаты',
-                  description: 'Бесплатные и платные мини-курсы внутри приложения: HACCP, сервис, калькуляция, фуд-фото, молекулярка и т.д. После прохождения — сертификат в профиль.',
-                },
-                {
-                  icon: Calendar,
-                  title: 'События и стажировки',
-                  description: 'Календарь мастер-классов, гастролей, ужинов и оплачиваемых стажировок (Турция, ОАЭ, Грузия и др.). Отклик → собеседование → чемодан.',
-                },
-                {
-                  icon: MessageSquare,
-                  title: 'Сообщество',
-                  description: 'Закрытые чаты по городам и специализациям + общий чат «ChefUp Live». Здесь ищут замену на смену, делятся ТТК, находят партнёров и менторов.',
-                },
-                {
-                  icon: Star,
-                  title: 'Рейтинг и отзывы',
-                  description: 'После работы ресторан оставляет вам отзыв и рейтинг (как в Uber). Чем выше рейтинг — тем выше вы в выдаче и больше офферов.',
-                },
-                {
-                  icon: BarChart3,
-                  title: 'Аналитика карьеры',
-                  description: 'Раздел «Мой рост»: показывает, как менялась ваша зарплата, сколько откликов, в каких городах вас ждут, на сколько % вы выросли за год.',
-                },
-                {
-                  icon: ShoppingBag,
-                  title: 'Marketplace',
-                  description: 'Покупка-продажа оборудования, инвентаря, формы б/у + поиск партнёров и инвесторов для своего кафе/фудтрака.',
-                },
-              ].map((feature, idx) => {
-                const Icon = feature.icon
+              ].map((item, idx) => {
+                const Icon = item.icon
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20, rotateY: -15 }}
-                    whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    whileHover={{ rotateY: 5, scale: 1.02 }}
-                    className="group"
-                    style={{ perspective: '1000px' }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.15 + 0.3 }}
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    className={item.colSpan}
                   >
-                    <AnimatedCard className="h-full border-2 border-white/10 hover:border-[#F97316]/50 transition-all bg-white/5 dark:bg-dark/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
-                      <div className="p-5 md:p-6">
+                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-white shadow-sm hover:shadow-lg rounded-2xl">
+                      <div className="p-6 md:p-8 h-full flex flex-col">
                         <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            repeatDelay: 3,
-                          }}
-                          className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#F97316]/20 flex items-center justify-center mb-4 group-hover:bg-[#F97316]/30 transition-colors"
+                          initial={{ scale: 0, rotate: -180 }}
+                          whileInView={{ scale: 1, rotate: 0 }}
+                          transition={{ delay: idx * 0.15 + 0.5, type: 'spring', stiffness: 200 }}
+                          className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 flex-shrink-0`}
                         >
-                          <Icon className="w-6 h-6 md:w-7 md:h-7 text-[#F97316]" />
+                          <Icon className={`w-6 h-6 ${item.iconColor}`} />
                         </motion.div>
-                        <h3 className="text-base md:text-lg font-semibold text-white mb-3">{feature.title}</h3>
-                        <p className="text-sm text-white/70 leading-relaxed font-normal">{feature.description}</p>
+                        <h3 className="text-sm md:text-base font-semibold text-[#0F172A] mb-2 tracking-[-0.02em]">{item.title}</h3>
+                        <p className="text-sm md:text-base text-[#64748B] leading-relaxed font-normal mt-auto">{item.description}</p>
                       </div>
                     </AnimatedCard>
                   </motion.div>
@@ -790,6 +757,7 @@ export default function Home() {
             </div>
           </div>
         </FadeUpSection>
+
 
         {/* География присутствия */}
         <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white">
@@ -859,50 +827,72 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Представительство в Астане */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-gray-50">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
-            <div className="max-w-4xl mx-auto">
+        {/* Представительство в Астане - Редизайн */}
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-black relative overflow-hidden noise-overlay">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
+            <div className="max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-12"
+                className="text-center mb-12 md:mb-16"
               >
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-[-0.03em]">
                   Представительство в Астане
                 </h2>
               </motion.div>
-              <AnimatedCard className="border-2 border-gray-200 dark:border-gray-700 shadow-xl hover:shadow-2xl rounded-2xl overflow-hidden transition-all bg-white dark:bg-dark/50">
-                <div className="grid md:grid-cols-2 gap-0">
-                  <div className="relative h-64 md:h-auto bg-[#0a0a0a]">
-                    <ImageWithSkeleton
-                      src={hqImage}
-                      alt="Офис ChefUp - Аэросъемка Астаны"
-                      className="w-full h-full"
-                      aspectRatio="16/9"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <div className="p-8 md:p-10 flex flex-col justify-center bg-white dark:bg-dark/50">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Building className="w-8 h-8 text-[#F97316]" />
-                      <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A]">Офис</h3>
+              <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-2xl">
+                {/* Левая часть - Фото */}
+                <div className="relative h-96 md:h-[600px] bg-[#0a0a0a]">
+                  <ImageWithSkeleton
+                    src={hqImage}
+                    alt="Офис ChefUp - Аэросъемка Астаны"
+                    className="w-full h-full object-cover"
+                    aspectRatio="1/1"
+                    objectFit="cover"
+                  />
+                </div>
+                {/* Правая часть - Контент */}
+                <div className="p-10 md:p-12 lg:p-16 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-[#F97316]/20 flex items-center justify-center">
+                      <Building className="w-6 h-6 text-[#F97316]" />
                     </div>
-                    <p className="text-base md:text-lg text-[#64748B] leading-relaxed font-normal">
-                      Астана, Индустриальный парк,<br />
-                      улица Кендірлі, 4
-                    </p>
+                    <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-[-0.02em]">Офис</h3>
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light mb-2">
+                        Астана, Индустриальный парк
+                      </p>
+                      <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light">
+                        улица Кендірлі, 4
+                      </p>
+                    </div>
+                    <div className="pt-6 border-t border-white/10 space-y-4">
+                      <div className="flex items-center gap-3">
+                        <Phone className="w-5 h-5 text-[#F97316] flex-shrink-0" />
+                        <a href="tel:+77070156999" className="text-base md:text-lg text-white/80 hover:text-[#F97316] transition-colors font-light">
+                          +7 (707) 015-69-99
+                        </a>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <MessageSquare className="w-5 h-5 text-[#F97316] flex-shrink-0" />
+                        <a href="mailto:info@chefup.kz" className="text-base md:text-lg text-white/80 hover:text-[#F97316] transition-colors font-light">
+                          info@chefup.kz
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </AnimatedCard>
+              </div>
             </div>
           </div>
         </FadeUpSection>
 
         {/* Отзывы */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white">
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white noise-overlay">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
@@ -918,16 +908,16 @@ export default function Home() {
 
 
         {/* Final CTA */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#F97316]/10 via-white to-[#F97316]/5">
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#F97316]/10 via-white to-[#F97316]/5 noise-overlay">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <AnimatedCard className="bg-gradient-to-br from-[#F97316] via-[#F97316]/95 to-[#EA580C] border-0 shadow-2xl max-w-4xl mx-auto overflow-hidden relative rounded-2xl">
               <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
               <div className="p-8 md:p-12 text-center relative z-10">
                 <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  transition={{ type: 'spring', stiffness: 200, duration: 0.8 }}
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 0.6 }}
+                  whileHover={{ scale: 1.05 }}
                   className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 cursor-pointer"
                 >
                   <Trophy className="w-10 h-10 md:w-12 md:h-12 text-white" />
@@ -960,17 +950,17 @@ export default function Home() {
                 </motion.div>
 
                 <div className="max-w-md mx-auto pt-8 md:pt-10 border-t border-white/20">
-                  <p className="text-sm md:text-base text-white/80 mb-4 md:mb-6">Или оставь номер телефона</p>
-                  <form onSubmit={handlePhoneSubmit} className="flex flex-col sm:flex-row gap-3">
+                  <p className="text-sm md:text-base text-white/80 mb-4 md:mb-6 text-center">Или оставь номер телефона</p>
+                  <form onSubmit={handlePhoneSubmit} className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                     <AnimatedInput
                       type="tel"
                       placeholder="+7 (___) ___-__-__"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="flex-1 bg-white/90 border-white/20 h-12 md:h-14 text-base"
+                      className="flex-1 bg-white/90 border-white/20 h-12 md:h-14 text-base max-w-xs"
                     />
-                    <ShinyButton type="submit" variant="outline" className="bg-white/20 hover:bg-white/30 text-white border border-white/30 h-12 md:h-14 min-h-[52px] md:min-h-[56px]">
-                      Отправить
+                    <ShinyButton type="submit" variant="outline" className="bg-white/20 hover:bg-white/30 text-white border border-white/30 h-12 md:h-14 min-h-[56px] w-full sm:w-auto">
+                      <span className="text-white">Отправить</span>
                     </ShinyButton>
                   </form>
                 </div>
@@ -979,8 +969,8 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Наша команда */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white">
+        {/* Наша команда - Скрыт */}
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white hidden">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">

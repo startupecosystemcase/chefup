@@ -65,13 +65,13 @@ export function ShinyButton({
     icon: 'h-16 w-16 min-h-[64px] min-w-[64px] p-0',
   }
 
-  const baseClasses = 'relative inline-flex items-center justify-center whitespace-nowrap rounded-2xl font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden group'
+  const baseClasses = 'relative inline-flex items-center justify-center whitespace-nowrap rounded-2xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden group'
 
   if (variant === 'default') {
     const defaultClasses = cn(
       baseClasses,
       sizeClasses[size],
-      'bg-gradient-to-r from-[#F97316] via-[#FB923C] to-[#F97316] text-white',
+      'bg-[#F97316] text-white hover:bg-gradient-to-r hover:from-[#F97316] hover:via-[#FB923C] hover:to-[#F97316]',
       'shadow-[0_4px_20px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_30px_rgba(249,115,22,0.4)]',
       'border border-[#F97316]/20',
       'backdrop-blur-xl',
@@ -87,16 +87,38 @@ export function ShinyButton({
     }
     
     const { onDrag, onDragEnd, onDragStart, ...buttonProps } = props
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+    const [isHovered, setIsHovered] = useState(false)
+    
+    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!isHovered) return
+      const rect = e.currentTarget.getBoundingClientRect()
+      setMousePosition({
+        x: (e.clientX - rect.left - rect.width / 2) * 0.15,
+        y: (e.clientY - rect.top - rect.height / 2) * 0.15,
+      })
+    }
+    
     return (
       <motion.button
         type={type}
         disabled={disabled}
         onClick={handleClick}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false)
+          setMousePosition({ x: 0, y: 0 })
+        }}
         aria-label={ariaLabel}
         className={defaultClasses}
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+        animate={{
+          x: mousePosition.x,
+          y: mousePosition.y,
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         {...(buttonProps as any)}
       >
         {/* Ripple effects */}
@@ -121,7 +143,7 @@ export function ShinyButton({
           />
         ))}
         
-        {/* Animated gradient border */}
+        {/* Animated gradient border on hover */}
         <motion.div
           className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#F97316] via-[#FB923C] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100"
           style={{
@@ -145,7 +167,7 @@ export function ShinyButton({
           transition={{ duration: 0.8, ease: 'easeInOut' }}
         />
         
-        <span className="relative z-10 flex items-center gap-2">{children}</span>
+        <span className="relative z-10 flex items-center gap-2 text-white">{children}</span>
       </motion.button>
     )
   }
