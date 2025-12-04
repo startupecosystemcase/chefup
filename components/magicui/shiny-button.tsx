@@ -181,7 +181,6 @@ export function ShinyButton({
         transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         {...(buttonProps as any)}
       >
-        {/* Ripple effects */}
         {ripples.map((ripple) => (
           <motion.span
             key={ripple.id}
@@ -201,8 +200,8 @@ export function ShinyButton({
             }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           />
-        )}
-        {children}
+        ))}
+        <span className="relative z-10">{children}</span>
       </motion.button>
     )
   }
