@@ -7,8 +7,13 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [functions]
   node_bundler = "esbuild"
 
-# Поддомен admin обрабатывается через middleware
+# Redirects для Next.js
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
