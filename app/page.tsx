@@ -234,161 +234,137 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Экосистема для каждого - Контрастный Split View */}
-        <FadeUpSection className="py-0 relative overflow-hidden noise-overlay">
-          <div className="grid grid-cols-1 md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
-            {/* Левая половина - Специалистам (Светлый фон) */}
-            <div className="relative bg-white overflow-hidden">
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#F97316]/3 rounded-full blur-[100px]" />
-              </div>
-              <div className="container mx-auto px-5 md:px-6 lg:px-[120px] h-full relative z-10">
-                <div className="max-w-2xl mx-auto py-12 md:py-16">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                    className="group h-full transition-all duration-300"
-                    onMouseEnter={() => setHoveredCard('specialists')}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      opacity: hoveredCard === 'companies' ? 0.5 : 1,
-                      filter: hoveredCard === 'companies' ? 'grayscale(20%)' : 'none',
-                    }}
-                  >
-                    <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-gray-200/50 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.3)] hover:border-[#F97316]/30">
-                      <div className="pb-6">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
-                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
-                        >
-                          <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
-                        </motion.div>
-                        <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro text-left">Специалистам</h3>
-                        <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left">
-                          Для специалистов сферы HoReCa
-                        </p>
-                      </div>
-                      <div>
-                        <ul className="space-y-5 md:space-y-6">
-                          {[
-                            { icon: Target, text: 'Персональные рекомендации на основе AI' },
-                            { icon: FileText, text: 'Автоматическое формирование резюме в 1 клик' },
-                            { icon: Shield, text: 'Доступ к закрытым вакансиям от топ-ресторанов' },
-                            { icon: GraduationCap, text: 'Образовательные программы и сертификации' },
-                          ].map((item, idx) => {
-                            const Icon = item.icon
-                            return (
-                              <motion.li
-                                key={idx}
-                                initial={{ opacity: 0, x: -10 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left"
-                              >
-                                <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                  <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
-                                </div>
-                                <span>{item.text}</span>
-                              </motion.li>
-                            )
-                          })}
-                        </ul>
-                        <ShinyButton
-                          className="w-full mt-8 min-h-[64px] font-medium"
-                          onClick={() => router.push('/auth')}
-                        >
-                          <span className="text-white">Зарегистрироваться</span>
-                          <ArrowRight className="ml-2 w-5 h-5 text-white" />
-                        </ShinyButton>
-                      </div>
-                    </div>
-                  </motion.div>
+        {/* Экосистема для каждого - Белый фон для обеих карточек */}
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 bg-white relative overflow-hidden noise-overlay">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]" />
+          </div>
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-6xl mx-auto">
+              {/* Специалистам */}
+              <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="group h-full transition-all duration-300"
+                onMouseEnter={() => setHoveredCard('specialists')}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  opacity: hoveredCard === 'companies' ? 0.5 : 1,
+                  filter: hoveredCard === 'companies' ? 'grayscale(20%)' : 'none',
+                }}
+              >
+                <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-gray-200/50 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.3)] hover:border-[#F97316]/30 flex flex-col">
+                  <div className="pb-6">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
+                    >
+                      <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
+                    </motion.div>
+                    <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro text-left">Специалистам</h3>
+                    <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left">
+                      Для специалистов сферы HoReCa
+                    </p>
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <ul className="space-y-5 md:space-y-6 flex-1">
+                      {[
+                        { icon: Target, text: 'Персональные рекомендации на основе AI' },
+                        { icon: FileText, text: 'Автоматическое формирование резюме в 1 клик' },
+                        { icon: Shield, text: 'Доступ к закрытым вакансиям от топ-ресторанов' },
+                        { icon: GraduationCap, text: 'Образовательные программы и сертификации' },
+                      ].map((item, idx) => {
+                        const Icon = item.icon
+                        return (
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left"
+                          >
+                            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
+                            </div>
+                            <span>{item.text}</span>
+                          </motion.li>
+                        )
+                      })}
+                    </ul>
+                    <ShinyButton
+                      className="w-full mt-8 min-h-[64px] font-medium"
+                      onClick={() => router.push('/auth')}
+                    >
+                      <span className="text-white">Зарегистрироваться</span>
+                      <ArrowRight className="ml-2 w-5 h-5 text-white" />
+                    </ShinyButton>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
 
-            {/* Правая половина - Компаниям (Темный фон) */}
-            <div className="relative bg-black overflow-hidden">
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                  className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/6 rounded-full blur-[120px]"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-              </div>
-              <div className="container mx-auto px-5 md:px-6 lg:px-[120px] h-full relative z-10">
-                <div className="max-w-2xl mx-auto py-12 md:py-16">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                    className="group h-full transition-all duration-300"
-                    onMouseEnter={() => setHoveredCard('companies')}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      opacity: hoveredCard === 'specialists' ? 0.5 : 1,
-                      filter: hoveredCard === 'specialists' ? 'grayscale(20%)' : 'none',
-                    }}
-                  >
-                    <div className="glass-apple-dark float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/10 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.4)] hover:border-[#F97316]/50">
-                      <div className="pb-6 text-center">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
-                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/20 flex items-center justify-center mb-6 mx-auto"
-                        >
-                          <Building2 className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" style={{ filter: 'drop-shadow(0 0 8px rgba(249, 115, 22, 0.6))' }} />
-                        </motion.div>
-                        <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3 tracking-[-0.02em] font-sf-pro text-center">Компаниям</h3>
-                        <p className="text-base md:text-lg text-white/70 font-light font-sf-pro text-center">
-                          Для ресторанов, кафе, отелей, производств и других компаний
-                        </p>
-                      </div>
-                      <div>
-                        <ul className="space-y-5 md:space-y-6">
-                          {[
-                            { icon: UserCheck, text: 'Автоматизированный подбор персонала' },
-                            { icon: BarChart3, text: 'Продвинутая аналитика кандидатов' },
-                            { icon: Settings, text: 'Собственная IT-система и ERP ChefUp' },
-                            { icon: Users, text: 'Консалтинг и экспертиза HoReCa' },
-                          ].map((item, idx) => {
-                            const Icon = item.icon
-                            return (
-                              <motion.li
-                                key={idx}
-                                initial={{ opacity: 0, x: 10 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                className="flex items-center gap-4 text-base md:text-lg text-white/80 font-light font-sf-pro justify-center text-center"
-                              >
-                                <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/20 flex items-center justify-center flex-shrink-0">
-                                  <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" style={{ filter: 'drop-shadow(0 0 4px rgba(249, 115, 22, 0.5))' }} />
-                                </div>
-                                <span className="text-center">{item.text}</span>
-                              </motion.li>
-                            )
-                          })}
-                        </ul>
-                        <ShinyButton
-                          variant="outline"
-                          className="w-full mt-8 min-h-[64px] font-medium border-[#F97316]/50 bg-transparent hover:bg-[#F97316]/10"
-                          onClick={() => router.push('/auth')}
-                        >
-                          <span className="text-white">Подключить компанию</span>
-                          <ArrowRight className="ml-2 w-5 h-5 text-white" />
-                        </ShinyButton>
-                      </div>
-                    </div>
-                  </motion.div>
+              {/* Компаниям */}
+              <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="group h-full transition-all duration-300"
+                onMouseEnter={() => setHoveredCard('companies')}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  opacity: hoveredCard === 'specialists' ? 0.5 : 1,
+                  filter: hoveredCard === 'specialists' ? 'grayscale(20%)' : 'none',
+                }}
+              >
+                <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-gray-200/50 shadow-sm transition-all duration-300 hover:shadow-[0_20px_60px_rgba(249,115,22,0.3)] hover:border-[#F97316]/30 flex flex-col">
+                  <div className="pb-6">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
+                    >
+                      <Building2 className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
+                    </motion.div>
+                    <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro text-left">Компаниям</h3>
+                    <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left">
+                      Для ресторанов, кафе, отелей, производств и других компаний
+                    </p>
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <ul className="space-y-5 md:space-y-6 flex-1">
+                      {[
+                        { icon: UserCheck, text: 'Автоматизированный подбор персонала' },
+                        { icon: BarChart3, text: 'Продвинутая аналитика кандидатов' },
+                        { icon: Settings, text: 'Собственная IT-система и ERP ChefUp' },
+                        { icon: Users, text: 'Консалтинг и экспертиза HoReCa' },
+                      ].map((item, idx) => {
+                        const Icon = item.icon
+                        return (
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: 10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro text-left"
+                          >
+                            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
+                            </div>
+                            <span>{item.text}</span>
+                          </motion.li>
+                        )
+                      })}
+                    </ul>
+                    <ShinyButton
+                      className="w-full mt-8 min-h-[64px] font-medium"
+                      onClick={() => router.push('/auth')}
+                    >
+                      <span className="text-white">Подключить компанию</span>
+                      <ArrowRight className="ml-2 w-5 h-5 text-white" />
+                    </ShinyButton>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </FadeUpSection>
