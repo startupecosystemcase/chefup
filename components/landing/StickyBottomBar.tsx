@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
+import { ShinyButton } from '@/components/magicui/shiny-button'
 import { motion, AnimatePresence } from 'framer-motion'
 import { UserPlus } from 'lucide-react'
 
@@ -25,15 +25,18 @@ export function StickyBottomBar() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-white/20 p-3 md:hidden safe-area-bottom"
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="fixed bottom-0 left-0 right-0 z-50 glass-apple border-t border-white/20 p-4 md:hidden safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.08)]"
         >
-          <Button
-            className="w-full bg-[#F97316] hover:bg-[#F97316]/90 text-white h-12 text-base font-semibold rounded-xl"
+          <ShinyButton
+            size="lg"
+            withConfetti
+            className="w-full min-h-[56px] font-semibold"
             onClick={() => router.push('/auth')}
           >
-            <UserPlus className="w-4 h-4 mr-2" />
+            <UserPlus className="w-5 h-5 mr-2" />
             Создать профиль
-          </Button>
+          </ShinyButton>
         </motion.div>
       )}
     </AnimatePresence>

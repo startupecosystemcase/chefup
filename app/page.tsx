@@ -124,44 +124,44 @@ export default function Home() {
       <StickyBottomBar />
 
       <main>
-        {/* Hero Section */}
-        <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20">
-          {/* Анимированное оранжевое свечение */}
+        {/* Hero Section - Apple 2025 + Arc Browser Style */}
+        <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-32">
+          {/* Ultra-subtle orange glow */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#F97316]/20 rounded-full blur-3xl"
+              className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#F97316]/8 rounded-full blur-[120px]"
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
+                scale: [1, 1.1, 1],
+                opacity: [0.4, 0.6, 0.4],
               }}
               transition={{
-                duration: 4,
+                duration: 6,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
             />
             <motion.div
-              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl"
+              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/6 rounded-full blur-[100px]"
               animate={{
-                scale: [1.2, 1, 1.2],
+                scale: [1.1, 1, 1.1],
                 opacity: [0.5, 0.3, 0.5],
               }}
               transition={{
-                duration: 4,
+                duration: 6,
                 repeat: Infinity,
                 ease: 'easeInOut',
-                delay: 2,
+                delay: 3,
               }}
             />
           </div>
 
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
-            <div className="max-w-5xl mx-auto text-center">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
+            <div className="max-w-6xl mx-auto text-center">
               <motion.h1
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-black text-[#0F172A] mb-4 md:mb-6 leading-[1.2] md:leading-tight tracking-tight"
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-5xl md:text-7xl lg:text-8xl font-semibold text-[#0F172A] mb-6 md:mb-8 leading-[1.05] tracking-[-0.04em] font-sf-pro"
               >
                 Максимальная эффективность работы в HoReCa
               </motion.h1>
@@ -170,60 +170,61 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.15 }}
-                className="mb-6"
+                className="mb-8"
               >
                 <a
                   href="https://benevsky.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors text-sm md:text-base font-semibold"
+                  className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors text-sm md:text-base font-medium font-sf-pro"
                 >
                   Powered by CASE
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </motion.div>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-base md:text-xl lg:text-2xl text-[#64748B] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed font-normal"
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-lg md:text-2xl lg:text-3xl text-[#64748B] mb-12 md:mb-16 max-w-4xl mx-auto leading-[1.5] font-light font-sf-pro"
               >
                 ChefUp — это первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mb-12 md:mb-16"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center items-center"
               >
                 <motion.div
                   animate={{
-                    scale: [1, 1.05, 1],
+                    scale: [1, 1.02, 1],
                   }}
                   transition={{
-                    duration: 4,
+                    duration: 5,
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
                 >
                   <ShinyButton
                     size="lg"
-                    className="text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full sm:w-auto"
+                    withConfetti
+                    className="w-full sm:w-auto font-semibold"
                     onClick={() => router.push('/auth')}
                   >
                     Создать профиль бесплатно
-                    <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+                    <ArrowRight className="ml-2 w-5 h-5" />
                   </ShinyButton>
                 </motion.div>
                 <ShinyButton
                   variant="outline"
                   size="lg"
-                  className="text-base md:text-lg px-6 md:px-8 py-3 md:py-4 h-auto min-h-[52px] md:min-h-[56px] w-full sm:w-auto"
+                  className="w-full sm:w-auto font-semibold"
                   onClick={() => router.push('/auth')}
                 >
-                  <Phone className="mr-2 w-4 h-4 md:w-5 md:h-5" />
+                  <Phone className="mr-2 w-5 h-5" />
                   Заказать консультацию
                 </ShinyButton>
               </motion.div>
@@ -231,28 +232,50 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Ключевые цифры - отдельный блок с черным космическим фоном */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 dark-hero relative overflow-hidden">
-          <div className="absolute inset-0 bg-black" />
+        {/* Ключевые цифры - Apple 2025 Style */}
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+            <motion.div
+              className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            <motion.div
+              className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] bg-[#F97316]/5 rounded-full blur-[140px]"
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.4, 0.3, 0.4],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 4,
+              }}
+            />
           </div>
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
-            <div className="max-w-6xl mx-auto">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
+            <div className="max-w-7xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 0.6 }}
-                className="text-center mb-12 md:mb-16"
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-center mb-20 md:mb-24"
               >
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-[-0.04em] font-sf-pro">
                   Ключевые цифры
                 </h2>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 lg:gap-16">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-16 md:gap-20 lg:gap-24">
                 {[
                   { value: 2000, suffix: '+', label: 'Специалистов' },
                   { value: 100, suffix: '+', label: 'Ресторанов' },
@@ -262,30 +285,29 @@ export default function Home() {
                 ].map((stat, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ 
-                      delay: idx * 0.15,
-                      duration: 0.6,
-                      type: 'spring',
-                      stiffness: 100
+                      delay: idx * 0.1,
+                      duration: 0.8,
+                      ease: [0.25, 0.46, 0.45, 0.94]
                     }}
                     className="text-center"
                   >
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: idx * 0.15 + 0.2, duration: 0.5 }}
-                      className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 leading-none"
+                      transition={{ delay: idx * 0.1 + 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      className="text-7xl md:text-8xl lg:text-9xl font-semibold text-white mb-6 leading-none glow-orange font-sf-pro"
                       style={{
-                        textShadow: '0 0 40px rgba(249, 115, 22, 0.5)',
+                        textShadow: '0 0 60px rgba(249, 115, 22, 0.3)',
                       }}
                     >
                       <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                     </motion.div>
-                    <p className="text-sm md:text-base text-white/70 font-normal">{stat.label}</p>
+                    <p className="text-base md:text-lg text-white/60 font-light font-sf-pro">{stat.label}</p>
                   </motion.div>
                 ))}
               </div>
@@ -293,41 +315,42 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Для кого - белый фон с легким оранжевым свечением */}
-        <FadeUpSection className="py-24 md:py-32 lg:py-40 bg-white relative overflow-hidden">
+        {/* Для кого - Apple 2025 Style */}
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 bg-white relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-[#FF7A2E]/5 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]" />
           </div>
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
-            <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
+            <div className="text-center mb-20 md:mb-24 max-w-6xl mx-auto">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#0F172A] mb-6 tracking-[-0.04em] font-sf-pro">
                 Для кого
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-6xl mx-auto">
               {/* Специалистам */}
               <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                whileHover={{ y: -2 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="group"
               >
-                <HoverBorderGradient className="h-full">
-                  <div className="pb-4">
+                <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/20 shadow-apple hover:shadow-apple-hover inner-glow">
+                  <div className="pb-6">
                     <motion.div
-                      whileHover={{ rotateY: 15, rotateX: 5 }}
-                      transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center mb-4"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/8 flex items-center justify-center mb-6"
                     >
-                      <ChefHat className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
+                      <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
                     </motion.div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A] dark:text-white mb-2">Специалистам</h3>
-                    <p className="text-sm md:text-base text-[#64748B] dark:text-gray-400">
+                    <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro">Специалистам</h3>
+                    <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro">
                       Для специалистов сферы HoReCa
                     </p>
                   </div>
                   <div>
-                    <ul className="space-y-3 md:space-y-4">
+                    <ul className="space-y-5 md:space-y-6">
                       {[
                         { icon: Target, text: 'Персональные рекомендации вакансий на основе AI' },
                         { icon: FileText, text: 'Автоматическое формирование резюме в 1 клик' },
@@ -338,13 +361,13 @@ export default function Home() {
                         return (
                           <motion.li
                             key={idx}
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] dark:text-gray-400 font-normal"
+                            transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
+                            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/8 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
                           </motion.li>
@@ -352,37 +375,38 @@ export default function Home() {
                       })}
                     </ul>
                     <ShinyButton
-                      className="w-full mt-6 min-h-[52px] md:min-h-[56px]"
+                      className="w-full mt-8 min-h-[64px] font-semibold"
                       onClick={() => router.push('/auth')}
                     >
                       Зарегистрироваться
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      <ArrowRight className="ml-2 w-5 h-5" />
                     </ShinyButton>
                   </div>
-                </HoverBorderGradient>
+                </div>
               </motion.div>
 
               {/* Компаниям */}
               <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                whileHover={{ y: -2 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="group"
               >
-                <HoverBorderGradient className="h-full">
-                  <div className="pb-4">
+                <div className="glass-apple float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/20 shadow-apple hover:shadow-apple-hover inner-glow">
+                  <div className="pb-6">
                     <motion.div
-                      whileHover={{ rotateY: 15, rotateX: 5 }}
-                      transition={{ type: 'spring', stiffness: 200 }}
-                      className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center mb-4"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#F97316]/8 flex items-center justify-center mb-6"
                     >
-                      <Building2 className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
+                      <Building2 className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
                     </motion.div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-[#0F172A] dark:text-white mb-2">Компаниям</h3>
-                    <p className="text-sm md:text-base text-[#64748B] dark:text-gray-400">
+                    <h3 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-3 tracking-[-0.02em] font-sf-pro">Компаниям</h3>
+                    <p className="text-base md:text-lg text-[#64748B] font-light font-sf-pro">
                       Для ресторанов, кафе, отелей, производств и других компаний
                     </p>
                   </div>
                   <div>
-                    <ul className="space-y-3 md:space-y-4">
+                    <ul className="space-y-5 md:space-y-6">
                       {[
                         { icon: UserCheck, text: 'Автоматизированный подбор персонала' },
                         { icon: BarChart3, text: 'Продвинутая аналитика кандидатов' },
@@ -393,13 +417,13 @@ export default function Home() {
                         return (
                           <motion.li
                             key={idx}
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 text-sm md:text-base text-[#64748B] dark:text-gray-400 font-normal"
+                            transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="flex items-start gap-4 text-base md:text-lg text-[#64748B] font-light font-sf-pro"
                           >
-                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F97316]/10 dark:bg-[#F97316]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <Icon className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" />
+                            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#F97316]/8 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F97316]" />
                             </div>
                             <span>{item.text}</span>
                           </motion.li>
@@ -407,49 +431,70 @@ export default function Home() {
                       })}
                     </ul>
                     <ShinyButton
-                      className="w-full mt-6 min-h-[52px] md:min-h-[56px]"
+                      className="w-full mt-8 min-h-[64px] font-semibold"
                       onClick={() => router.push('/auth')}
                     >
                       Подключить компанию
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      <ArrowRight className="ml-2 w-5 h-5" />
                     </ShinyButton>
                   </div>
-                </HoverBorderGradient>
+                </div>
               </motion.div>
             </div>
           </div>
         </FadeUpSection>
 
-        {/* Возможности для вас */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 dark-hero relative overflow-hidden">
-          <div className="absolute inset-0 bg-black" />
-          {/* Декоративные элементы */}
+        {/* Возможности для вас - Apple 2025 Style */}
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F97316]/15 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+            <motion.div
+              className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            <motion.div
+              className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-[#F97316]/5 rounded-full blur-[140px]"
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.4, 0.3, 0.4],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 4,
+              }}
+            />
           </div>
           
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
-            <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
+            <div className="text-center mb-20 md:mb-24 max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#F97316]/20 backdrop-blur-sm border border-[#F97316]/30 rounded-full mb-6"
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 glass-apple-dark rounded-full mb-8 border-[0.5px] border-[#F97316]/20"
               >
                 <Sparkles className="w-4 h-4 text-[#F97316]" />
-                <span className="text-xs md:text-sm font-semibold text-[#F97316] tracking-wider uppercase">AI POWERED</span>
+                <span className="text-xs md:text-sm font-medium text-[#F97316] tracking-wider uppercase font-sf-pro">AI POWERED</span>
               </motion.div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-[-0.04em] font-sf-pro">
                 Возможности для вас
               </h2>
-              <p className="text-base md:text-xl text-white/70 max-w-3xl mx-auto font-normal">
+              <p className="text-lg md:text-2xl text-white/60 max-w-4xl mx-auto font-light leading-[1.5] font-sf-pro">
                 Одна платформа — вся карьера HoReCa в Центральной Евразии под контролем
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto">
               {[
                 {
                   icon: Lock,
@@ -519,33 +564,33 @@ export default function Home() {
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    whileHover={{ y: -2 }}
                     className="group"
                   >
-                    <AnimatedCard className="h-full border-2 border-white/10 hover:border-[#F97316]/50 cursor-pointer relative overflow-hidden bg-white/5 dark:bg-dark/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/20 rounded-2xl group">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="p-6 md:p-8 relative z-10">
+                    <div className="glass-apple-dark float float-hover h-full rounded-3xl p-8 md:p-10 border-[0.5px] border-white/5 relative overflow-hidden shadow-apple hover:shadow-apple-hover inner-glow-dark">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative z-10">
                         <motion.div
                           animate={{
-                            rotate: [0, 5, -5, 0],
-                            scale: [1, 1.1, 1],
+                            scale: [1, 1.05, 1],
                           }}
                           transition={{
-                            duration: 3,
+                            duration: 4,
                             repeat: Infinity,
-                            repeatDelay: 2,
+                            repeatDelay: 3,
+                            ease: 'easeInOut',
                           }}
-                          className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-[#F97316]/20 flex items-center justify-center mb-6 group-hover:bg-[#F97316]/30 group-hover:shadow-lg group-hover:shadow-[#F97316]/30 transition-all"
+                          className="w-16 h-16 md:w-18 md:h-18 rounded-2xl bg-[#F97316]/10 flex items-center justify-center mb-6"
                         >
-                          <Icon className="w-7 h-7 md:w-8 md:h-8 text-[#F97316]" />
+                          <Icon className="w-8 h-8 md:w-9 md:h-9 text-[#F97316]" />
                         </motion.div>
-                        <h3 className="text-base md:text-lg font-semibold text-white mb-3">{feature.title}</h3>
-                        <p className="text-sm text-white/70 leading-relaxed font-normal">{feature.description}</p>
+                        <h3 className="text-lg md:text-xl font-semibold text-white mb-4 tracking-[-0.02em] font-sf-pro">{feature.title}</h3>
+                        <p className="text-base text-white/60 leading-relaxed font-light font-sf-pro">{feature.description}</p>
                       </div>
-                    </AnimatedCard>
+                    </div>
                   </motion.div>
                 )
               })}
@@ -646,7 +691,7 @@ export default function Home() {
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF7A2E]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
           </div>
           
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px] relative z-10">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 tracking-tight">
                 Возможности экосистемы
@@ -790,15 +835,25 @@ export default function Home() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ delay: 0.9 }}
-                className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-gray-300 cursor-pointer bg-gradient-to-br from-gray-50 to-gray-100 shadow-md hover:shadow-xl transition-all flex items-center justify-center h-48"
+                className="col-span-full flex justify-center"
               >
-                <div className="text-center p-6">
-                  <Globe className="w-12 h-12 text-[#0F172A] mx-auto mb-3" />
-                  <h3 className="font-semibold text-lg text-[#0F172A] mb-2">И еще 33 города</h3>
-                  <p className="text-sm text-[#64748B] font-normal">Центральной Евразии</p>
-                </div>
+                <ShinyButton
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto font-semibold"
+                  asChild
+                >
+                  <a
+                    href="https://wa.me/+77070156999"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <MessageSquare className="w-5 h-5" />
+                    Открыть представительство в своем городе
+                  </a>
+                </ShinyButton>
               </motion.div>
             </div>
           </div>
