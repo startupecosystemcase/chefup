@@ -223,11 +223,10 @@ export default function Home() {
                 <ShinyButton
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto font-medium flex items-center justify-center"
+                  className="w-full sm:w-auto font-medium"
                   onClick={() => router.push('/auth')}
                 >
-                  <Phone className="mr-2 w-5 h-5 flex-shrink-0" />
-                  <span className="whitespace-nowrap">Заказать консультацию</span>
+                  Заказать консультацию
                 </ShinyButton>
               </motion.div>
             </div>
