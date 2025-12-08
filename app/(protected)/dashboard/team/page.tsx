@@ -7,38 +7,108 @@ import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/magicui/animated-dialog'
-import { Plus, Search, X } from 'lucide-react'
+import { Plus, Search, X, Search as SearchIcon, Loader2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import { usePublicProfilesStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { Label } from '@/components/ui/label'
+import { positions } from '@/lib/data'
 
 interface TeamMember {
   id: string
   name: string
   position: string
   userId?: string
+  username?: string
 }
 
 export default function TeamPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [searchUserId, setSearchUserId] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
+  const [foundUser, setFoundUser] = useState<{ name: string; position: string; userId: string; username?: string } | null>(null)
   const [newMemberName, setNewMemberName] = useState('')
   const [newMemberPosition, setNewMemberPosition] = useState('')
-  const [newMemberUserId, setNewMemberUserId] = useState('')
+  const [newMemberComment, setNewMemberComment] = useState('')
+  
+  const { getUserIdByUsername } = usePublicProfilesStore()
+  const formData = useOnboardingStore((state) => state.formData)
+
+  const handleSearchUser = async () => {
+    if (!searchUserId.trim()) {
+      toast.error('Введите ID или логин пользователя')
+      return
+    }
+
+    setIsSearching(true)
+    
+    // Имитация поиска пользователя (в реальном приложении будет API запрос)
+    setTimeout(() => {
+      // Проверяем, существует ли пользователь
+      const userId = getUserIdByUsername(searchUserId.toLowerCase().trim())
+      
+      if (userId || searchUserId.length > 0) {
+        // Mock данные найденного пользователя
+        const mockUser = {
+          userId: userId || searchUserId,
+          name: 'Иван Иванов', // В реальном приложении будет из API
+          position: 'Шеф-повар', // В реальном приложении будет из API
+          username: searchUserId.toLowerCase().trim(),
+        }
+        setFoundUser(mockUser)
+        setNewMemberName(mockUser.name)
+        setNewMemberPosition(mockUser.position)
+        toast.success('Пользователь найден!')
+      } else {
+        toast.error('Пользователь не найден')
+        setFoundUser(null)
+        setNewMemberName('')
+        setNewMemberPosition('')
+      }
+      setIsSearching(false)
+    }, 1000)
+  }
 
   const handleAddMember = () => {
-    if (newMemberName && newMemberPosition) {
-      const newMember: TeamMember = {
-        id: Date.now().toString(),
-        name: newMemberName,
-        position: newMemberPosition,
-        userId: newMemberUserId || undefined,
-      }
-      setTeamMembers([...teamMembers, newMember])
+    if (!foundUser) {
+      toast.error('Сначала найдите пользователя')
+      return
+    }
+    
+    if (!newMemberPosition.trim()) {
+      toast.error('Заполните должность')
+      return
+    }
+
+    const newMember: TeamMember = {
+      id: Date.now().toString(),
+      name: newMemberName.trim(),
+      position: newMemberPosition.trim(),
+      userId: foundUser.userId,
+      username: foundUser.username,
+    }
+    setTeamMembers([...teamMembers, newMember])
+    
+    // Сброс формы
+    setSearchUserId('')
+    setFoundUser(null)
+    setNewMemberName('')
+    setNewMemberPosition('')
+    setNewMemberComment('')
+    setIsDialogOpen(false)
+    toast.success('Участник добавлен в команду!')
+  }
+
+  const handleDialogClose = (open: boolean) => {
+    setIsDialogOpen(open)
+    if (!open) {
+      // Сброс формы при закрытии
+      setSearchUserId('')
+      setFoundUser(null)
       setNewMemberName('')
       setNewMemberPosition('')
-      setNewMemberUserId('')
-      setIsDialogOpen(false)
-      toast.success('Участник добавлен в команду!')
+      setNewMemberComment('')
     }
   }
 
@@ -57,48 +127,103 @@ export default function TeamPage() {
               Добавьте участников ChefUp, с которыми вы работали или хотите работать
             </p>
           </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
             <DialogTrigger asChild>
               <ShinyButton>
                 <Plus className="w-4 h-4 mr-2" />
                 Добавить участника
               </ShinyButton>
             </DialogTrigger>
-            <DialogContent className="bg-white dark:bg-dark/90">
-              <DialogHeader>
-                <DialogTitle className="dark:text-white">Добавить участника в команду</DialogTitle>
-                <DialogDescription className="dark:text-gray-400">
-                  Добавьте пользователя ChefUp или создайте запись вручную
+            <DialogContent className="bg-white dark:bg-dark max-w-2xl">
+              <DialogHeader className="mb-6">
+                <DialogTitle className="text-2xl mb-2">Добавить участника в команду</DialogTitle>
+                <DialogDescription className="text-base">
+                  Найдите пользователя по ID или логину, затем заполните информацию
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block dark:text-gray-300">ID пользователя ChefUp (опционально)</label>
-                  <AnimatedInput
-                    value={newMemberUserId}
-                    onChange={(e) => setNewMemberUserId(e.target.value)}
-                    placeholder="Введите ID пользователя"
-                  />
+              <div className="space-y-6">
+                {/* Поиск пользователя */}
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">ID профиля / Логин *</Label>
+                  <div className="flex gap-3">
+                    <AnimatedInput
+                      value={searchUserId}
+                      onChange={(e) => setSearchUserId(e.target.value)}
+                      placeholder="Введите ID или логин пользователя"
+                      className="flex-1"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleSearchUser()
+                        }
+                      }}
+                    />
+                    <ShinyButton 
+                      onClick={handleSearchUser}
+                      disabled={!searchUserId.trim() || isSearching}
+                      className="whitespace-nowrap"
+                    >
+                      {isSearching ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Поиск...
+                        </>
+                      ) : (
+                        <>
+                          <SearchIcon className="w-4 h-4 mr-2" />
+                          Найти
+                        </>
+                      )}
+                    </ShinyButton>
+                  </div>
                 </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block dark:text-gray-300">Имя *</label>
-                  <AnimatedInput
-                    value={newMemberName}
-                    onChange={(e) => setNewMemberName(e.target.value)}
-                    placeholder="Введите имя"
-                  />
+
+                {/* Найденные данные */}
+                {foundUser && (
+                  <div className="space-y-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <div className="space-y-3">
+                      <Label className="text-base font-medium">Имя</Label>
+                      <AnimatedInput
+                        value={newMemberName}
+                        onChange={(e) => setNewMemberName(e.target.value)}
+                        placeholder="Имя пользователя"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-base font-medium">Должность *</Label>
+                      <AnimatedInput
+                        value={newMemberPosition}
+                        onChange={(e) => setNewMemberPosition(e.target.value)}
+                        placeholder="Введите должность"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-base font-medium">Комментарий</Label>
+                      <AnimatedInput
+                        value={newMemberComment}
+                        onChange={(e) => setNewMemberComment(e.target.value)}
+                        placeholder="Дополнительная информация (необязательно)"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Кнопка добавления */}
+                <div className="flex gap-3 justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <ShinyButton 
+                    variant="outline" 
+                    onClick={() => handleDialogClose(false)}
+                  >
+                    Отмена
+                  </ShinyButton>
+                  <ShinyButton 
+                    onClick={handleAddMember}
+                    disabled={!foundUser || !newMemberPosition.trim()}
+                    className="whitespace-nowrap"
+                  >
+                    Добавить
+                  </ShinyButton>
                 </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block dark:text-gray-300">Должность *</label>
-                  <AnimatedInput
-                    value={newMemberPosition}
-                    onChange={(e) => setNewMemberPosition(e.target.value)}
-                    placeholder="Введите должность"
-                  />
-                </div>
-                <ShinyButton onClick={handleAddMember} className="w-full">
-                  Добавить
-                </ShinyButton>
               </div>
             </DialogContent>
           </Dialog>

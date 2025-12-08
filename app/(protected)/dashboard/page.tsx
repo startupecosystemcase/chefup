@@ -15,7 +15,7 @@ import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsSto
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
-import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, DollarSign, Briefcase } from 'lucide-react'
+import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, DollarSign, Briefcase, Heart } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
 import { ProfileCompleteness } from '@/components/ProfileCompleteness'
@@ -46,9 +46,14 @@ export default function DashboardPage() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
   const userRole = useAuthStore((state) => state.userRole)
+  const username = useAuthStore((state) => state.username)
   const formData = useOnboardingStore((state) => state.formData)
   const setFormData = useOnboardingStore((state) => state.setFormData)
   const subscriptionStatus = useAuthStore((state) => state.subscriptionStatus)
+  
+  // Mock данные для статистики (в реальном приложении будут из API)
+  const [subscribersCount, setSubscribersCount] = useState(0)
+  const [likesCount, setLikesCount] = useState(0)
   const { posts, socialLinks, addPost, updatePost, deletePost, setSocialLinks } = usePortfolioStore()
   const [isPortfolioDialogOpen, setIsPortfolioDialogOpen] = useState(false)
   const [isSocialLinksDialogOpen, setIsSocialLinksDialogOpen] = useState(false)
@@ -308,35 +313,95 @@ export default function DashboardPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full space-y-8">
-        {/* Баннер / Приветствие */}
-        <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-2xl border border-gray-200/50 dark:border-border/50">
-          <div className="p-8 md:p-12">
-            <div className="flex items-center gap-4 mb-4">
-              <Avatar className="h-16 w-16 md:h-20 md:w-20">
+        {/* Верхняя плашка профиля */}
+        {userRole === 'applicant' && (
+          <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-2xl border border-gray-200/50 dark:border-border/50">
+            <div className="p-6 md:p-8">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                {/* Аватар */}
+                <Avatar className="h-20 w-20 md:h-24 md:w-24 flex-shrink-0">
                 <AvatarImage src={formData.avatarUrl} alt={`${formData.firstName} ${formData.lastName}`} />
-                <AvatarFallback className="bg-gradient-to-br from-primary/20 to-[#FB923C]/20">
-                  <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
+                  <AvatarFallback className="bg-gradient-to-br from-primary/20 to-[#FB923C]/20 text-2xl md:text-3xl">
+                    {formData.firstName?.[0] || 'U'}
+                    {formData.lastName?.[0] || ''}
                 </AvatarFallback>
               </Avatar>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-semibold dark:text-white">
-                  Добро пожаловать, {formData.firstName || 'Пользователь'}!
-                </h1>
-                <p className="text-sm md:text-base text-muted-foreground dark:text-gray-400 mt-1">
-                  Ваша персональная лента обновлений и рекомендаций
-                </p>
-              </div>
+                
+                {/* Информация */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      {/* ФИО */}
+                      <h1 className="text-xl md:text-2xl font-bold dark:text-white mb-2 truncate">
+                        {formData.firstName || ''} {formData.lastName || ''}
+                      </h1>
+                      
+                      {/* Специализация, Город, ID/Username */}
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        {(formData.desiredPosition || formData.currentPosition) && (
+                          <AnimatedBadge variant="outline" className="text-xs">
+                            <Briefcase className="w-3 h-3 mr-1" />
+                            {getLabel(formData.desiredPosition || formData.currentPosition || '', positions)}
+                          </AnimatedBadge>
+                        )}
+                        {formData.city && (
+                          <AnimatedBadge variant="outline" className="text-xs">
+                            <MapPin className="w-3 h-3 mr-1" />
+                            {getLabel(formData.city, cities)}
+                          </AnimatedBadge>
+                        )}
+                        {username && (
+                          <AnimatedBadge variant="outline" className="text-xs">
+                            <User className="w-3 h-3 mr-1" />
+                            @{username}
+                          </AnimatedBadge>
+                        )}
+                        {userId && (
+                          <span className="text-xs text-muted-foreground dark:text-gray-400">
+                            ID: {userId.slice(0, 8)}...
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Статистика */}
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground dark:text-gray-400">
+                        {subscribersCount > 0 && (
+                          <div className="flex items-center gap-1.5">
+                            <Users className="w-4 h-4" />
+                            <span>{subscribersCount} подписчиков</span>
+                          </div>
+                        )}
+                        {likesCount > 0 && (
+                          <div className="flex items-center gap-1.5">
+                            <Heart className="w-4 h-4" />
+                            <span>{likesCount} лайков</span>
+                      </div>
+                    )}
             </div>
           </div>
-        </AnimatedCard>
+          
+                    {/* Кнопка перехода в профиль */}
+                    <ShinyButton 
+                      onClick={() => router.push('/dashboard/profile')}
+                      className="w-full md:w-auto whitespace-nowrap"
+                    >
+                      Перейти в мой профиль
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </ShinyButton>
+          </div>
+        </div>
+              </div>
+              </div>
+            </AnimatedCard>
+        )}
 
-        {/* Рекомендовано для вас */}
+        {/* Вакансии для вас */}
         {userRole === 'applicant' && recommendedJobs.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-primary" />
-                Рекомендовано для вас
+                Вакансии для вас
               </h2>
               <Link href="/dashboard/jobs">
                 <ShinyButton variant="ghost" size="sm" className="text-sm">
@@ -346,9 +411,9 @@ export default function DashboardPage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recommendedJobs.slice(0, 3).map((job) => (
+              {recommendedJobs.slice(0, 6).map((job) => (
                 <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-                  <div className="p-6">
+              <div className="p-6">
                     <h3 className="font-semibold text-lg mb-2 dark:text-white">{job.title}</h3>
                     <div className="flex flex-wrap gap-2 mb-4">
                       <AnimatedBadge variant="outline" className="text-xs">
@@ -368,8 +433,8 @@ export default function DashboardPage() {
                         Подробнее
                       </ShinyButton>
                     </Link>
-                  </div>
-                </AnimatedCard>
+              </div>
+            </AnimatedCard>
               ))}
             </div>
           </div>
@@ -393,7 +458,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcomingEvents.map((event) => (
                 <AnimatedCard key={event.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-                  <div className="p-6">
+          <div className="p-6">
                     <h3 className="font-semibold text-lg mb-2 dark:text-white">{event.title}</h3>
                     <div className="space-y-2 mb-4">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
@@ -410,11 +475,11 @@ export default function DashboardPage() {
                           {event.price} KZT
                         </div>
                       )}
-                    </div>
+              </div>
                     <Link href={`/dashboard/community/${event.id}`}>
                       <ShinyButton variant="outline" size="sm" className="w-full">
                         Подробнее
-                      </ShinyButton>
+                    </ShinyButton>
                     </Link>
                   </div>
                 </AnimatedCard>
@@ -425,7 +490,7 @@ export default function DashboardPage() {
 
         {/* Популярные программы */}
         {popularPrograms.length > 0 && (
-          <div>
+              <div>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-primary" />
@@ -435,9 +500,9 @@ export default function DashboardPage() {
                 <ShinyButton variant="ghost" size="sm" className="text-sm">
                   Все программы
                   <ArrowRight className="w-4 h-4 ml-2" />
-                </ShinyButton>
+                  </ShinyButton>
               </Link>
-            </div>
+                    </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {popularPrograms.map((program) => (
                 <AnimatedCard key={program.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
@@ -447,12 +512,12 @@ export default function DashboardPage() {
                       <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
                         <Clock className="w-4 h-4" />
                         {program.duration}
-                      </div>
+                    </div>
                       {program.price > 0 && (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
                           <DollarSign className="w-4 h-4" />
                           {program.price} KZT
-                        </div>
+                    </div>
                       )}
                     </div>
                     <Link href={`/dashboard/practice/${program.id}`}>
@@ -467,58 +532,6 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Вакансии */}
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
-              <Briefcase className="w-5 h-5 text-primary" />
-              Вакансии
-            </h2>
-            <Link href="/dashboard/jobs">
-              <ShinyButton variant="ghost" size="sm" className="text-sm">
-                Все вакансии
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </ShinyButton>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockJobs.slice(0, 6).map((job) => (
-              <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-                <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2 dark:text-white">{job.title}</h3>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <AnimatedBadge variant="outline" className="text-xs">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      {job.city}
-                    </AnimatedBadge>
-                    <AnimatedBadge variant="outline" className="text-xs">
-                      <Briefcase className="w-3 h-3 mr-1" />
-                      {job.position}
-                    </AnimatedBadge>
-                  </div>
-                  <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2 mb-4">
-                    {job.description}
-                  </p>
-                  <Link href={`/dashboard/jobs/${job.id}`}>
-                    <ShinyButton variant="outline" size="sm" className="w-full">
-                      Подробнее
-                    </ShinyButton>
-                  </Link>
-                </div>
-              </AnimatedCard>
-            ))}
-          </div>
-        </div>
-
-        {/* Старый контент профиля - скрыт, но можно добавить ссылку на профиль */}
-        <div className="pt-8 border-t border-gray-200/50 dark:border-border/50">
-          <Link href="/dashboard/profile">
-            <ShinyButton variant="outline" className="w-full sm:w-auto">
-              Перейти в личный кабинет
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </ShinyButton>
-          </Link>
-        </div>
       </div>
     </div>
   )

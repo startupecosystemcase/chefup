@@ -14,6 +14,8 @@ import { astanaEducationItems } from '@/lib/mockEducationAstana'
 import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, Search, DollarSign, CheckCircle2, Filter } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
+import { Label } from '@/components/ui/label'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { EventRegistrationForm } from '@/components/EventRegistrationForm'
 import type { EducationType } from '@/types/education.types'
@@ -42,6 +44,13 @@ export default function PracticePage() {
   const [priceFilter, setPriceFilter] = useState<'all' | 'free' | 'paid'>('all')
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
   const [selectedEducationId, setSelectedEducationId] = useState<string | null>(null)
+  const [isAddCertificateOpen, setIsAddCertificateOpen] = useState(false)
+  const [certificateForm, setCertificateForm] = useState({
+    title: '',
+    description: '',
+    organization: '',
+    image: null as File | null,
+  })
 
   useEffect(() => {
     if (!userId) {
@@ -113,8 +122,8 @@ export default function PracticePage() {
           </p>
         </div>
 
-        {/* Фильтры */}
-        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+        {/* Фильтры - статичная полоса без hover эффектов */}
+        <div className="mb-8 bg-white dark:bg-dark/50 rounded-xl border border-gray-200/50 dark:border-border/50 shadow-sm">
           <div className="pt-6 p-6">
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row gap-3 md:gap-4">
@@ -171,7 +180,7 @@ export default function PracticePage() {
               </div>
             </div>
           </div>
-        </AnimatedCard>
+        </div>
 
         {filteredItems.length === 0 ? (
           <StaggerItem>

@@ -11,13 +11,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuthStore, useEventsStore } from '@/stores/useOnboardingStore'
 import { mockEvents } from '@/lib/mockEvents'
 import { astanaEvents } from '@/lib/mockEventsAstana'
-import { Calendar, MapPin, Users, Coffee, Search, CheckCircle2, Clock, DollarSign, Filter } from 'lucide-react'
+import { Calendar, MapPin, Users, Coffee, Search, CheckCircle2, Clock, DollarSign, Filter, UserPlus, Share2, Copy } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import { EventRegistrationForm } from '@/components/EventRegistrationForm'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
+import { Label } from '@/components/ui/label'
 import type { EventType } from '@/types/events.types'
 
 const typeIcons = {
@@ -49,6 +51,8 @@ export default function CommunityPage() {
   const [priceFilter, setPriceFilter] = useState<'all' | 'free' | 'paid'>('all')
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null)
+  const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false)
+  const [inviteMessage, setInviteMessage] = useState('Присоединяйся к ChefUp - первой экосистеме для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса!')
 
   useEffect(() => {
     if (!userId) {
@@ -121,16 +125,22 @@ export default function CommunityPage() {
         <div className="mb-8 md:mb-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Коммьюнити</h1>
+              <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Сообщества</h1>
               <p className="text-muted-foreground dark:text-gray-400">
                 Мероприятия коммьюнити ChefUp: бизнес-завтраки, открытия ресторанов и многое другое
               </p>
             </div>
-            {userRole === 'moderator' && (
-              <ShinyButton onClick={() => router.push('/dashboard/community/create')}>
-                Создать событие
+            <div className="flex gap-3">
+              <ShinyButton variant="outline" onClick={() => setIsInviteDialogOpen(true)}>
+                <UserPlus className="w-4 h-4 mr-2" />
+                Пригласить участника
               </ShinyButton>
-            )}
+              {userRole === 'moderator' && (
+                <ShinyButton onClick={() => router.push('/dashboard/community/create')}>
+                  Создать событие
+                </ShinyButton>
+              )}
+            </div>
           </div>
           {/* Быстрая навигация по категориям */}
           <div className="flex flex-wrap gap-4">
@@ -179,8 +189,8 @@ export default function CommunityPage() {
           </div>
         </div>
 
-        {/* Фильтры */}
-        <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+        {/* Фильтры - статичная полоса без hover эффектов */}
+        <div className="mb-8 bg-white dark:bg-dark/50 rounded-xl border border-gray-200/50 dark:border-border/50 shadow-sm">
           <div className="p-6">
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row gap-4">
@@ -239,7 +249,7 @@ export default function CommunityPage() {
               </div>
             </div>
           </div>
-        </AnimatedCard>
+        </div>
 
         {filteredEvents.length === 0 ? (
           <StaggerItem>
@@ -350,6 +360,72 @@ export default function CommunityPage() {
             })}
           </StaggerAnimation>
         )}
+
+        {/* Диалог приглашения участника */}
+        <Dialog open={isInviteDialogOpen} onOpenChange={setIsInviteDialogOpen}>
+          <DialogContent className="bg-white dark:bg-dark max-w-2xl">
+            <DialogHeader className="mb-6">
+              <DialogTitle className="text-2xl mb-2">Пригласить участника</DialogTitle>
+              <DialogDescription className="text-base">
+                Поделитесь ссылкой для приглашения в сообщество ChefUp
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Label className="text-base font-medium">Сообщение приглашения</Label>
+                <AnimatedTextarea
+                  value={inviteMessage}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInviteMessage(e.target.value)}
+                  className="min-h-[100px]"
+                  placeholder="Введите текст приглашения..."
+                />
+              </div>
+              <div className="flex gap-3 justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+                <ShinyButton 
+                  variant="outline" 
+                  onClick={() => setIsInviteDialogOpen(false)}
+                >
+                  Отмена
+                </ShinyButton>
+                <ShinyButton
+                  onClick={async () => {
+                    const inviteUrl = typeof window !== 'undefined' ? window.location.origin : ''
+                    const shareData = {
+                      title: 'Приглашение в ChefUp',
+                      text: inviteMessage,
+                      url: inviteUrl,
+                    }
+
+                    try {
+                      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+                        await navigator.share(shareData)
+                        toast.success('Приглашение отправлено!')
+                      } else {
+                        // Fallback: копирование в буфер обмена
+                        const fullText = `${inviteMessage}\n\n${inviteUrl}`
+                        await navigator.clipboard.writeText(fullText)
+                        toast.success('Ссылка скопирована в буфер обмена!')
+                      }
+                      setIsInviteDialogOpen(false)
+                    } catch (error) {
+                      // Пользователь отменил или произошла ошибка
+                      if ((error as Error).name !== 'AbortError') {
+                        // Если не отмена, пробуем скопировать
+                        const fullText = `${inviteMessage}\n\n${inviteUrl}`
+                        await navigator.clipboard.writeText(fullText)
+                        toast.success('Ссылка скопирована в буфер обмена!')
+                        setIsInviteDialogOpen(false)
+                      }
+                    }
+                  }}
+                >
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Поделиться
+                </ShinyButton>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   )

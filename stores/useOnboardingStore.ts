@@ -453,3 +453,41 @@ export const useResponseStore = create<ResponseState>()(
   )
 )
 
+interface PublicProfilesState {
+  profiles: Record<string, string> // username -> userId
+  isUsernameAvailable: (username: string) => boolean
+  publishProfile: (userId: string, username: string) => void
+  getUserIdByUsername: (username: string) => string | null
+}
+
+export const usePublicProfilesStore = create<PublicProfilesState>()(
+  persist(
+    (set, get) => ({
+      profiles: {},
+      isUsernameAvailable: (username) => {
+        const state = get()
+        const normalizedUsername = username.toLowerCase().trim()
+        // Проверяем, что username не пустой и не занят
+        return normalizedUsername.length > 0 && !state.profiles[normalizedUsername]
+      },
+      publishProfile: (userId, username) => {
+        const normalizedUsername = username.toLowerCase().trim()
+        set((state) => ({
+          profiles: { ...state.profiles, [normalizedUsername]: userId },
+        }))
+      },
+      getUserIdByUsername: (username) => {
+        const state = get()
+        const normalizedUsername = username.toLowerCase().trim()
+        return state.profiles[normalizedUsername] || null
+      },
+    }),
+    {
+      name: 'chefapp-public-profiles',
+      storage: typeof window !== 'undefined'
+        ? createJSONStorage(() => localStorage)
+        : undefined,
+    }
+  )
+)
+

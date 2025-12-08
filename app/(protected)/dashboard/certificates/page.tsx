@@ -46,8 +46,8 @@ export default function CertificatesPage() {
             <div className="py-12 text-center">
               <Award className="w-16 h-16 mx-auto mb-8 text-muted-foreground dark:text-gray-400" />
               <p className="text-muted-foreground dark:text-gray-400 mb-8">У вас пока нет сертификатов</p>
-              <ShinyButton asChild>
-                <Link href="/dashboard/practice">Посмотреть доступные курсы</Link>
+              <ShinyButton onClick={() => router.push('/dashboard/practice')}>
+                Добавить сертификат
               </ShinyButton>
             </div>
           </AnimatedCard>

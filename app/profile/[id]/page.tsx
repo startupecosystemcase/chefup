@@ -8,14 +8,19 @@ import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-import { useOnboardingStore, usePortfolioStore } from '@/stores/useOnboardingStore'
+import { useOnboardingStore, usePortfolioStore, usePublicProfilesStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
-import { Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, Edit, Eye, Heart, UserPlus, Users, Plus } from 'lucide-react'
+import { Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, Edit, Eye, Heart, UserPlus, Users, Plus, UserCheck, MessageCircle } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { AnimatedCard } from '@/components/magicui/animated-card'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { toast } from 'react-hot-toast'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/magicui/animated-dialog'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
+import { Label } from '@/components/ui/label'
 import {
   cities,
   ageRanges,
@@ -33,15 +38,41 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   const { posts, socialLinks } = usePortfolioStore()
   const [mounted, setMounted] = useState(false)
   const [activeTab, setActiveTab] = useState<'activity' | 'about' | 'data'>('activity')
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [subscribersCount, setSubscribersCount] = useState(0)
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false)
+  const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  const { getUserIdByUsername } = usePublicProfilesStore()
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    // В реальном приложении здесь будет запрос к API для получения данных подписки
+    // Если id - это username, получаем userId
+    const userId = getUserIdByUsername(id)
+    if (userId) {
+      // В реальном приложении здесь будет загрузка данных профиля по userId
+    }
+  }, [id, getUserIdByUsername])
 
   const handleShareProfile = () => {
     const profileUrl = window.location.href
     navigator.clipboard.writeText(profileUrl)
-    // В реальном приложении здесь будет toast
+    toast.success('Ссылка на профиль скопирована!')
+  }
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    // Имитация отправки (в реальном приложении здесь будет API запрос)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setIsContactDialogOpen(false)
+      setContactForm({ name: '', email: '', phone: '', message: '' })
+      toast.success('Сообщение отправлено!')
+    }, 1000)
   }
 
   const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
@@ -57,20 +88,37 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
       <main className="flex-1">
         <div className="container mx-auto px-4 py-6 md:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            {/* Profile Header with Gradient Banner */}
-            <div className="relative mb-8 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-400 via-cyan-400 to-teal-400 h-64 md:h-80">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
-              <div className="relative h-full flex flex-col items-center justify-end pb-8 px-6">
-                {/* Large Avatar */}
-                <div className="relative -mb-12">
-                  <Avatar className="h-32 w-32 md:h-40 md:w-40 ring-4 ring-white shadow-xl">
-                    <AvatarImage src={formData.avatarUrl} />
-                    <AvatarFallback className="text-3xl md:text-4xl bg-white text-gray-700">
-                      {formData.firstName?.[0] || 'U'}
-                      {formData.lastName?.[0] || ''}
-                    </AvatarFallback>
-                  </Avatar>
+            {/* Profile Header with Cover Image or ChefUp Logo */}
+            <div className="relative mb-8 rounded-2xl overflow-hidden h-64 md:h-80">
+              {formData.coverImage ? (
+                <div className="relative w-full h-full">
+                  <img 
+                    src={formData.coverImage} 
+                    alt="Cover" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
                 </div>
+              ) : (
+                <div className="w-full h-full bg-[#FFF8F0] flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl md:text-8xl font-bold">
+                      <span className="text-[#171616]">chef</span>
+                      <span className="text-[#FF4617]">up</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Avatar positioned on left, overlapping banner (half on cover, half below) */}
+              <div className="absolute left-6 md:left-8 bottom-0 translate-y-1/2 z-10">
+                <Avatar className="h-32 w-32 md:h-40 md:w-40 ring-4 ring-white shadow-xl rounded-full">
+                  <AvatarImage src={formData.avatarUrl} />
+                  <AvatarFallback className="text-3xl md:text-4xl bg-white text-gray-700 rounded-full">
+                    {formData.firstName?.[0] || 'U'}
+                    {formData.lastName?.[0] || ''}
+                  </AvatarFallback>
+                </Avatar>
               </div>
             </div>
 
@@ -83,10 +131,36 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                     <CheckCircle2 className="w-6 h-6 text-blue-500" />
                   </h1>
                 </div>
-                <ShinyButton variant="outline" size="sm">
-                  <Edit className="w-4 h-4 mr-2" />
-                  Редактировать
-                </ShinyButton>
+                <div className="flex gap-2">
+                  <ShinyButton 
+                    variant={isSubscribed ? "outline" : "default"}
+                    size="sm"
+                    onClick={() => {
+                      setIsSubscribed(!isSubscribed)
+                      setSubscribersCount(prev => isSubscribed ? prev - 1 : prev + 1)
+                    }}
+                  >
+                    {isSubscribed ? (
+                      <>
+                        <UserCheck className="w-4 h-4 mr-2" />
+                        Подписан
+                      </>
+                    ) : (
+                      <>
+                        <UserPlus className="w-4 h-4 mr-2" />
+                        Подписаться
+                      </>
+                    )}
+                  </ShinyButton>
+                  <ShinyButton 
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setIsContactDialogOpen(true)}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Связаться
+                  </ShinyButton>
+                </div>
               </div>
 
               {/* Tags/Badges */}
@@ -105,22 +179,22 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                     {getLabel(cuisine, cuisines)}
                   </AnimatedBadge>
                 ))}
-              </div>
+          </div>
 
               {/* Statistics */}
               <div className="flex flex-wrap gap-6 text-sm text-muted-foreground dark:text-gray-400 mb-6">
                 <div className="flex items-center gap-2">
                   <UserPlus className="w-4 h-4" />
-                  <span>0 подписчиков</span>
+                  <span>{subscribersCount} подписчиков</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
                   <span>0 подписок</span>
-                </div>
+                  </div>
                 <div className="flex items-center gap-2">
                   <Eye className="w-4 h-4" />
                   <span>0 просмотров</span>
-                </div>
+                  </div>
                 <div className="flex items-center gap-2">
                   <Heart className="w-4 h-4" />
                   <span>0 лайков</span>
@@ -225,77 +299,77 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                                 <span className="dark:text-white">{getLabel(formData.age, ageRanges)}</span>
                               </div>
                             )}
-                          </div>
-                        </div>
+                </div>
+              </div>
 
-                        <Separator />
+              <Separator />
 
-                        <div>
+              <div>
                           <h3 className="mb-3 font-semibold text-base dark:text-white">Опыт и образование</h3>
                           <div className="grid gap-3 text-sm">
                             {formData.experience && (
-                              <div>
+                  <div>
                                 <span className="text-muted-foreground dark:text-gray-400">Опыт: </span>
                                 <span className="dark:text-white">{getLabel(formData.experience, experienceRanges)}</span>
-                              </div>
+                  </div>
                             )}
                             {(formData.desiredPosition || formData.currentPosition) && (
-                              <div>
+                  <div>
                                 <span className="text-muted-foreground dark:text-gray-400">Позиция: </span>
                                 <span className="dark:text-white">
-                                  {(formData.desiredPosition && getLabel(formData.desiredPosition, positions)) || 
-                                   (formData.currentPosition && getLabel(formData.currentPosition, positions))}
+                    {(formData.desiredPosition && getLabel(formData.desiredPosition, positions)) || 
+                     (formData.currentPosition && getLabel(formData.currentPosition, positions))}
                                 </span>
-                              </div>
+                  </div>
                             )}
                             {formData.education && (
-                              <div>
+                  <div>
                                 <span className="text-muted-foreground dark:text-gray-400">Образование: </span>
                                 <span className="dark:text-white">{getLabel(formData.education, educationLevels)}</span>
-                              </div>
+                  </div>
                             )}
                             {formData.rank && (
-                              <div>
+                  <div>
                                 <span className="text-muted-foreground dark:text-gray-400">Разряд: </span>
                                 <span className="dark:text-white">{getLabel(formData.rank, ranks)}</span>
-                              </div>
+                  </div>
                             )}
-                          </div>
-                        </div>
+                </div>
+              </div>
 
                         {formData.cuisines && formData.cuisines.length > 0 && (
                           <>
-                            <Separator />
-                            <div>
+              <Separator />
+                <div>
                               <h3 className="mb-3 font-semibold text-base dark:text-white">Кухни</h3>
-                              <div className="flex flex-wrap gap-2">
-                                {formData.cuisines.map((cuisine) => (
+                  <div className="flex flex-wrap gap-2">
+                    {formData.cuisines.map((cuisine) => (
                                   <Badge key={cuisine} variant="secondary" className="text-sm">
-                                    {getLabel(cuisine, cuisines)}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
+                        {getLabel(cuisine, cuisines)}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
                           </>
-                        )}
+              )}
 
-                        {formData.goals && formData.goals.length > 0 && (
+              {formData.goals && formData.goals.length > 0 && (
                           <>
                             <Separator />
-                            <div>
+                <div>
                               <h3 className="mb-3 font-semibold text-base dark:text-white">Цели</h3>
-                              <div className="flex flex-wrap gap-2">
-                                {formData.goals.map((goal) => (
+                  <div className="flex flex-wrap gap-2">
+                    {formData.goals.map((goal) => (
                                   <Badge key={goal} variant="outline" className="text-sm">
-                                    {getLabel(goal, goals)}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
+                        {getLabel(goal, goals)}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
                           </>
                         )}
                       </div>
-                    </div>
+                </div>
                   </AnimatedCard>
                 )}
               </div>
@@ -308,73 +382,73 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                     <h3 className="text-lg font-semibold mb-4 dark:text-white">Контакты</h3>
                     {Object.keys(socialLinks).length > 0 ? (
                       <div className="space-y-3">
-                        {socialLinks.instagram && (
-                          <a
-                            href={socialLinks.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                  {socialLinks.instagram && (
+                    <a
+                      href={socialLinks.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
                             className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Instagram className="w-5 h-5" />
-                            <span>Instagram</span>
-                          </a>
-                        )}
-                        {socialLinks.telegram && (
-                          <a
-                            href={socialLinks.telegram}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    >
+                      <Instagram className="w-5 h-5" />
+                      <span>Instagram</span>
+                    </a>
+                  )}
+                  {socialLinks.telegram && (
+                    <a
+                      href={socialLinks.telegram}
+                      target="_blank"
+                      rel="noopener noreferrer"
                             className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Send className="w-5 h-5" />
-                            <span>Telegram</span>
-                          </a>
-                        )}
-                        {socialLinks.facebook && (
-                          <a
-                            href={socialLinks.facebook}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    >
+                      <Send className="w-5 h-5" />
+                      <span>Telegram</span>
+                    </a>
+                  )}
+                  {socialLinks.facebook && (
+                    <a
+                      href={socialLinks.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
                             className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Facebook className="w-5 h-5" />
-                            <span>Facebook</span>
-                          </a>
-                        )}
-                        {socialLinks.linkedin && (
-                          <a
-                            href={socialLinks.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    >
+                      <Facebook className="w-5 h-5" />
+                      <span>Facebook</span>
+                    </a>
+                  )}
+                  {socialLinks.linkedin && (
+                    <a
+                      href={socialLinks.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
                             className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Linkedin className="w-5 h-5" />
-                            <span>LinkedIn</span>
-                          </a>
-                        )}
-                        {socialLinks.youtube && (
-                          <a
-                            href={socialLinks.youtube}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                      <span>LinkedIn</span>
+                    </a>
+                  )}
+                  {socialLinks.youtube && (
+                    <a
+                      href={socialLinks.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
                             className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Youtube className="w-5 h-5" />
-                            <span>YouTube</span>
-                          </a>
-                        )}
-                        {socialLinks.website && (
-                          <a
-                            href={socialLinks.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    >
+                      <Youtube className="w-5 h-5" />
+                      <span>YouTube</span>
+                    </a>
+                  )}
+                  {socialLinks.website && (
+                    <a
+                      href={socialLinks.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
                             className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Globe className="w-5 h-5" />
-                            <span>Веб-сайт</span>
-                          </a>
-                        )}
-                      </div>
+                    >
+                      <Globe className="w-5 h-5" />
+                      <span>Веб-сайт</span>
+                    </a>
+                  )}
+                </div>
                     ) : (
                       <p className="text-sm text-muted-foreground dark:text-gray-400">Контакты не указаны</p>
                     )}
@@ -397,8 +471,8 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   </div>
                 </AnimatedCard>
               </div>
-            </div>
-          </div>
+                </div>
+                </div>
         </div>
       </main>
       <Footer />

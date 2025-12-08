@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from './theme-provider'
-import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -15,41 +15,37 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="h-9 w-9 rounded-full bg-muted" />
+      <div className="h-7 w-14 rounded-lg bg-gray-100/50 dark:bg-gray-800/50" />
     )
   }
 
   return (
-    <motion.button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="relative h-8 w-8 rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-muted/50"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      aria-label="Переключить тему"
-    >
-      <motion.div
-        initial={false}
-        animate={{
-          rotate: theme === 'dark' ? 0 : 180,
-          opacity: theme === 'dark' ? 1 : 0,
-        }}
-        transition={{ duration: 0.3 }}
-        className="absolute"
+    <div className="flex items-center gap-1 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg p-0.5">
+      <button
+        onClick={() => setTheme('light')}
+        className={cn(
+          'px-2 py-1 rounded-md transition-all flex items-center justify-center',
+          theme === 'light'
+            ? 'bg-white dark:bg-gray-700 text-[#0F172A] dark:text-white shadow-sm'
+            : 'text-gray-500 dark:text-gray-400 hover:text-[#0F172A] dark:hover:text-white'
+        )}
+        aria-label="Светлая тема"
       >
-        <Moon className="h-4 w-4 text-foreground" />
-      </motion.div>
-      <motion.div
-        initial={false}
-        animate={{
-          rotate: theme === 'dark' ? -180 : 0,
-          opacity: theme === 'dark' ? 0 : 1,
-        }}
-        transition={{ duration: 0.3 }}
-        className="absolute"
+        <Sun className="h-3.5 w-3.5" />
+      </button>
+      <button
+        onClick={() => setTheme('dark')}
+        className={cn(
+          'px-2 py-1 rounded-md transition-all flex items-center justify-center',
+          theme === 'dark'
+            ? 'bg-white dark:bg-gray-700 text-[#0F172A] dark:text-white shadow-sm'
+            : 'text-gray-500 dark:text-gray-400 hover:text-[#0F172A] dark:hover:text-white'
+        )}
+        aria-label="Темная тема"
       >
-        <Sun className="h-4 w-4 text-foreground" />
-      </motion.div>
-    </motion.button>
+        <Moon className="h-3.5 w-3.5" />
+      </button>
+    </div>
   )
 }
 

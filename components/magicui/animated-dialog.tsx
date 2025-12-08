@@ -37,8 +37,8 @@ const DialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-6',
-        'border-2 border-border/50 bg-background/95 backdrop-blur-xl p-8 shadow-2xl',
-        'dark:border-gray-700 dark:bg-dark/95',
+        'border-2 border-border/50 bg-white p-8 shadow-2xl',
+        'dark:border-gray-700 dark:bg-dark',
         'sm:rounded-xl',
         className
       )}

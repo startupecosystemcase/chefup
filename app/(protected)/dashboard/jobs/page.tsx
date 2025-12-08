@@ -31,8 +31,14 @@ export default function JobsPage() {
   const [selectedPosition, setSelectedPosition] = useState<string>('all')
   const [selectedCuisine, setSelectedCuisine] = useState<string>('all')
   const [selectedExperience, setSelectedExperience] = useState<string>('all')
-  const [activeTab, setActiveTab] = useState<'recommended' | 'all'>('recommended')
+  const [showRecommended, setShowRecommended] = useState(true)
   const [showOnlyMatches, setShowOnlyMatches] = useState(false)
+  const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false)
+  
+  // Проверяем, заполнена ли анкета
+  const isProfileComplete = useMemo(() => {
+    return !!(formData.firstName && formData.lastName && (formData.desiredPosition || formData.currentPosition))
+  }, [formData])
 
   // Вычисляем рекомендации для соискателей
   const recommendedJobs = useMemo(() => {
@@ -66,11 +72,22 @@ export default function JobsPage() {
     })
   }, [searchQuery, selectedCity, selectedPosition, selectedCuisine, selectedExperience])
 
+  // Симуляция загрузки рекомендаций
+  useEffect(() => {
+    if (userRole === 'applicant' && isProfileComplete && showRecommended) {
+      setIsLoadingRecommendations(true)
+      // Имитация загрузки
+      setTimeout(() => {
+        setIsLoadingRecommendations(false)
+      }, 1500)
+    }
+  }, [userRole, isProfileComplete, showRecommended])
+
   // Определяем, какие вакансии показывать
   const jobsToDisplay = useMemo(() => {
     let jobs: typeof mockJobs = []
     
-    if (activeTab === 'recommended' && userRole === 'applicant' && recommendedJobs.length > 0) {
+    if (showRecommended && userRole === 'applicant' && recommendedJobs.length > 0) {
       let relevantJobs = recommendedJobs.map(r => r.job)
       
       // Фильтр "показывать только совпадения"
@@ -120,11 +137,30 @@ export default function JobsPage() {
           </p>
         </div>
 
-        {/* Вкладки для соискателей */}
+        {/* Toggle для соискателей */}
         {userRole === 'applicant' && (
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'recommended' | 'all')} className="mb-8">
-            <TabsList className="dark:bg-dark/50">
-              <TabsTrigger value="recommended" className="flex items-center gap-4 dark:text-gray-300 dark:data-[state=active]:text-white">
+          <div className="mb-8 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium dark:text-white">Все вакансии</span>
+              <button
+                onClick={() => setShowRecommended(!showRecommended)}
+                className={`
+                  relative inline-flex h-6 w-11 items-center rounded-full transition-colors
+                  ${showRecommended ? 'bg-[#F97316]' : 'bg-gray-300 dark:bg-gray-600'}
+                  focus:outline-none focus:ring-2 focus:ring-[#F97316] focus:ring-offset-2
+                `}
+                role="switch"
+                aria-checked={showRecommended}
+                aria-label="Переключить между рекомендациями и всеми вакансиями"
+              >
+                <span
+                  className={`
+                    inline-block h-4 w-4 transform rounded-full bg-white transition-transform
+                    ${showRecommended ? 'translate-x-6' : 'translate-x-1'}
+                  `}
+                />
+              </button>
+              <span className="text-sm font-medium dark:text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4" />
                 Рекомендации
                 {recommendedJobs.length > 0 && (
@@ -132,21 +168,36 @@ export default function JobsPage() {
                     {recommendedJobs.length}
                   </AnimatedBadge>
                 )}
-              </TabsTrigger>
-              <TabsTrigger value="all" className="dark:text-gray-300 dark:data-[state=active]:text-white">
-                Все вакансии
-                {filteredJobs.length > 0 && (
-                  <AnimatedBadge variant="secondary" className="ml-1">
-                    {filteredJobs.length}
-                  </AnimatedBadge>
-                )}
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+              </span>
+            </div>
+          </div>
         )}
 
-        {/* Поиск и фильтры */}
-        <AnimatedCard className="mb-8 md:mb-8 bg-white dark:bg-dark/50">
+        {/* Сообщение о неполной анкете */}
+        {userRole === 'applicant' && !isProfileComplete && showRecommended && (
+          <AnimatedCard className="mb-8 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800">
+            <div className="p-6 text-center">
+              <p className="text-amber-800 dark:text-amber-200">
+                Рекомендации появятся после заполнения анкеты
+              </p>
+            </div>
+          </AnimatedCard>
+        )}
+
+        {/* Индикатор загрузки рекомендаций */}
+        {userRole === 'applicant' && isProfileComplete && showRecommended && isLoadingRecommendations && (
+          <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
+            <div className="p-6 text-center">
+              <Loader2 className="w-6 h-6 mx-auto mb-2 animate-spin text-[#F97316]" />
+              <p className="text-muted-foreground dark:text-gray-400">
+                Ожидайте, система подбирает лучшие вакансии...
+              </p>
+            </div>
+          </AnimatedCard>
+        )}
+
+        {/* Поиск и фильтры - статичная полоса без hover эффектов */}
+        <div className="mb-8 md:mb-8 bg-white dark:bg-dark/50 rounded-xl border border-gray-200/50 dark:border-border/50 shadow-sm">
           <div className="p-4 md:p-6">
             <div className="flex items-center gap-4 mb-4">
               <Filter className="w-4 h-4 dark:text-gray-400" />
@@ -246,7 +297,7 @@ export default function JobsPage() {
 
         {/* Список вакансий */}
         <StaggerAnimation className="space-y-6" staggerDelay={0.05}>
-          {activeTab === 'recommended' && userRole === 'applicant' && recommendedJobs.length === 0 && (
+          {showRecommended && userRole === 'applicant' && recommendedJobs.length === 0 && !isProfileComplete && (
             <StaggerItem>
               <AnimatedCard className="glass bg-white dark:bg-dark/50">
                 <div className="py-16 text-center">

@@ -40,8 +40,21 @@ export const onboardingSchema = z.object({
   // Дополнительные поля
   email: z.string().email('Неверный формат email').optional().or(z.literal('')),
   avatarUrl: z.string().url('Неверный формат URL').optional().or(z.literal('')),
+  coverImage: z.string().url('Неверный формат URL').optional().or(z.literal('')),
   username: z.string().min(3, 'Username должен содержать минимум 3 символа').max(30, 'Username не должен превышать 30 символов').regex(/^[a-zA-Z0-9_]+$/, 'Username может содержать только буквы, цифры и подчёркивание').optional().or(z.literal('')),
   telegramUsername: z.string().optional().or(z.literal('')),
+  // Расширенная анкета
+  extendedQuestionnaire: z.object({
+    bestDishes: z.array(z.string()),
+    bestDishesWhy: z.string(),
+    seasonalIngredientsExperience: z.string(),
+    wasteOptimization: z.string(),
+    shiftScheduleReady: z.boolean(),
+    relocationReady: z.boolean(),
+    schedulePreferences: z.array(z.string()),
+    jobSearchReasons: z.array(z.string()),
+    teamCulturePreferences: z.array(z.string()),
+  }).optional(),
 })
 
 export type OnboardingFormData = z.infer<typeof onboardingSchema>

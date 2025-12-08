@@ -7,8 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { AnimatedInput } from '@/components/magicui/animated-input'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 import { useAuthStore } from '@/stores/useOnboardingStore'
-import { Search, User, Building2, Shield, Ban, CheckCircle2 } from 'lucide-react'
+import { Search, User, Building2, Shield, Ban, CheckCircle2, Gift, Plus, Copy } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 interface UserForManagement {
@@ -63,6 +66,12 @@ export default function ModerateUsersPage() {
   const [mounted, setMounted] = useState(false)
   const [users, setUsers] = useState<UserForManagement[]>(mockUsers)
   const [searchTerm, setSearchTerm] = useState('')
+  const [isPromoDialogOpen, setIsPromoDialogOpen] = useState(false)
+  const [newPromoCode, setNewPromoCode] = useState('')
+  const [generatedPromoCodes, setGeneratedPromoCodes] = useState<string[]>(['CHEFUP2026', 'CHEFAPP2026', 'PRO2026'])
+  const [isPromoDialogOpen, setIsPromoDialogOpen] = useState(false)
+  const [newPromoCode, setNewPromoCode] = useState('')
+  const [generatedPromoCodes, setGeneratedPromoCodes] = useState<string[]>(['CHEFUP2026', 'CHEFAPP2026', 'PRO2026'])
 
   useEffect(() => {
     if (!userId) {
@@ -199,6 +208,90 @@ export default function ModerateUsersPage() {
             ))
           )}
         </div>
+
+        {/* Генерация промокодов */}
+        <Card className="mt-8">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Gift className="w-5 h-5" />
+                  Управление промокодами
+                </CardTitle>
+                <CardDescription>Генерация и управление промокодами для PRO подписки</CardDescription>
+              </div>
+              <ShinyButton onClick={() => setIsPromoDialogOpen(true)}>
+                <Plus className="w-4 h-4 mr-2" />
+                Создать промокод
+              </ShinyButton>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {generatedPromoCodes.map((code) => (
+                <div key={code} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <code className="font-mono text-sm font-semibold">{code}</code>
+                    <Badge variant="outline">Активен</Badge>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText(code)
+                      toast.success('Промокод скопирован!')
+                    }}
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Диалог создания промокода */}
+        <Dialog open={isPromoDialogOpen} onOpenChange={setIsPromoDialogOpen}>
+          <DialogContent className="bg-white dark:bg-dark max-w-md">
+            <DialogHeader className="mb-6">
+              <DialogTitle className="text-2xl mb-2">Создать промокод</DialogTitle>
+              <DialogDescription className="text-base">
+                Введите название промокода для генерации
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <label className="text-base font-medium">Название промокода</label>
+                <AnimatedInput
+                  value={newPromoCode}
+                  onChange={(e) => setNewPromoCode(e.target.value.toUpperCase())}
+                  placeholder="Например: CHEFUP2026"
+                  className="w-full"
+                />
+              </div>
+              <div className="flex gap-3 justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+                <ShinyButton variant="outline" onClick={() => setIsPromoDialogOpen(false)}>
+                  Отмена
+                </ShinyButton>
+                <ShinyButton
+                  onClick={() => {
+                    if (!newPromoCode.trim()) {
+                      toast.error('Введите название промокода')
+                      return
+                    }
+                    const code = newPromoCode.trim().toUpperCase()
+                    setGeneratedPromoCodes([...generatedPromoCodes, code])
+                    toast.success(`Промокод ${code} создан!`)
+                    setNewPromoCode('')
+                    setIsPromoDialogOpen(false)
+                  }}
+                >
+                  Создать
+                </ShinyButton>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   )

@@ -6,68 +6,71 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedCard } from '@/components/magicui/animated-card'
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
-import { Crown, CheckCircle, Sparkles, TrendingUp, Shield, Zap, Star, ArrowRight } from 'lucide-react'
+import { Crown, CheckCircle, Sparkles, TrendingUp, Shield, ArrowRight, Loader2 } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 import { cn } from '@/lib/utils'
 
+// Упрощенный список реальных преимуществ PRO
 const proBenefits = [
   {
     icon: Sparkles,
-    title: 'Приоритет в поиске',
-    description: 'Ваше резюме показывается работодателям в первую очередь',
+    title: 'Профиль в приоритете',
+    description: 'Ваш профиль показывается работодателям в первую очередь',
     color: 'text-yellow-500',
     bgColor: 'bg-yellow-500/10',
   },
   {
     icon: TrendingUp,
-    title: 'Расширенная аналитика',
-    description: 'Детальная статистика просмотров, откликов и совпадений',
+    title: 'Приоритет в подборе',
+    description: 'Система подбирает лучшие вакансии специально для вас',
     color: 'text-blue-500',
     bgColor: 'bg-blue-500/10',
   },
   {
     icon: Shield,
-    title: 'Закрытые вакансии',
-    description: 'Доступ к эксклюзивным вакансиям от премиум-работодателей',
+    title: 'Доступ к приоритетным вакансиям',
+    description: 'Эксклюзивные вакансии от премиум-работодателей',
     color: 'text-purple-500',
     bgColor: 'bg-purple-500/10',
   },
   {
-    icon: Zap,
-    title: 'Безлимитное портфолио',
-    description: 'Публикуйте неограниченное количество работ и проектов',
-    color: 'text-orange-500',
-    bgColor: 'bg-orange-500/10',
-  },
-  {
-    icon: Star,
-    title: 'Приоритетная поддержка',
-    description: 'Быстрые ответы на вопросы и персональный менеджер',
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10',
-  },
-  {
-    icon: Crown,
-    title: 'Эксклюзивные события',
-    description: 'Приглашения на закрытые мероприятия и мастер-классы',
-    color: 'text-primary',
-    bgColor: 'bg-primary/10',
+    icon: CheckCircle,
+    title: 'Верифицированный профиль',
+    description: 'Подтверждение личности через онлайн собеседование',
+    color: 'text-blue-500',
+    bgColor: 'bg-blue-500/10',
   },
 ]
 
+// Mock список валидных промокодов (в реальном приложении будет на бэкенде)
+const validPromoCodes = ['CHEFUP2026', 'CHEFAPP2026', 'PRO2026', 'TESTPRO']
+
 export default function SubscriptionPage() {
   const [promoCode, setPromoCode] = useState('')
+  const [isValidating, setIsValidating] = useState(false)
   const subscriptionStatus = useAuthStore((state) => state.subscriptionStatus)
   const setSubscriptionStatus = useAuthStore((state) => state.setSubscriptionStatus)
 
-  const handleActivatePromo = () => {
-    if (promoCode.trim()) {
-      setSubscriptionStatus('PRO')
-      toast.success('PRO подписка активирована!')
-      setPromoCode('')
-    } else {
+  const handleActivatePromo = async () => {
+    if (!promoCode.trim()) {
       toast.error('Введите промокод')
+      return
     }
+
+    setIsValidating(true)
+    
+    // Имитация валидации промокода (в реальном приложении будет API запрос)
+    setTimeout(() => {
+      const normalizedCode = promoCode.trim().toUpperCase()
+      if (validPromoCodes.includes(normalizedCode)) {
+        setSubscriptionStatus('PRO')
+        toast.success('PRO подписка успешно активирована!')
+        setPromoCode('')
+      } else {
+        toast.error('Неверный промокод. Проверьте правильность ввода.')
+      }
+      setIsValidating(false)
+    }, 1000)
   }
 
   return (
@@ -183,9 +186,19 @@ export default function SubscriptionPage() {
                     onClick={handleActivatePromo} 
                     size="lg"
                     className="px-8"
+                    disabled={isValidating || !promoCode.trim()}
                   >
-                    Активировать
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    {isValidating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Проверка...
+                      </>
+                    ) : (
+                      <>
+                        Активировать
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </>
+                    )}
                   </ShinyButton>
                 </div>
                 <p className="text-sm text-muted-foreground dark:text-gray-400">

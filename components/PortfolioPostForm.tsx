@@ -6,6 +6,7 @@ import { AnimatedInput } from '@/components/magicui/animated-input'
 import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Label } from '@/components/ui/label'
 import { Image as ImageIcon, Video, Link as LinkIcon, X, Plus } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import type { PortfolioPost } from '@/types/portfolio.types'
 
 interface PortfolioPostFormProps {
@@ -24,6 +25,17 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
   )
   const [newVideoUrl, setNewVideoUrl] = useState('')
   const [newLink, setNewLink] = useState({ url: '', title: '', description: '' })
+
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  const canPublish = title.trim() && text.trim()
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -86,9 +98,9 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div>
-        <Label htmlFor="title" className="text-base mb-3 block">Заголовок *</Label>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-2">
+        <Label htmlFor="title" className="text-base font-medium block">Заголовок *</Label>
         <AnimatedInput
           id="title"
           value={title}
@@ -99,8 +111,8 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
         />
       </div>
 
-      <div>
-        <Label htmlFor="text" className="text-base mb-3 block">Текст *</Label>
+      <div className="space-y-2">
+        <Label htmlFor="text" className="text-base font-medium block">Текст *</Label>
         <AnimatedTextarea
           id="text"
           value={text}
@@ -112,8 +124,8 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       </div>
 
       {/* Фотографии */}
-      <div>
-        <Label>Фотографии ({images.length}/20)</Label>
+      <div className="space-y-3">
+        <Label className="text-base font-medium block">Фотографии ({images.length}/20)</Label>
         <input
           type="file"
           accept="image/*"
@@ -124,7 +136,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
           disabled={images.length >= 20}
         />
         <label htmlFor="image-upload">
-          <ShinyButton type="button" variant="outline" disabled={images.length >= 20} className="cursor-pointer">
+          <ShinyButton type="button" variant="outline" disabled={images.length >= 20} className="cursor-pointer w-full sm:w-auto">
             <ImageIcon className="w-4 h-4 mr-2" />
             Добавить фото
           </ShinyButton>
@@ -152,18 +164,27 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       </div>
 
       {/* Видео */}
-      <div>
-        <Label>Видео (YouTube, Vimeo и т.д.)</Label>
-        <div className="flex gap-4">
+      <div className="space-y-3">
+        <Label className="text-base font-medium block">Видео (YouTube, Vimeo и т.д.)</Label>
+        <div className="flex gap-2">
           <AnimatedInput
             value={newVideoUrl}
             onChange={(e) => setNewVideoUrl(e.target.value)}
             placeholder="https://youtube.com/watch?v=..."
             type="url"
+            className="flex-1"
           />
-          <ShinyButton type="button" variant="outline" onClick={addVideo}>
-            <Plus className="w-4 h-4 mr-2" />
-            Добавить
+          <ShinyButton 
+            type="button" 
+            variant="outline" 
+            onClick={addVideo}
+            disabled={!isValidUrl(newVideoUrl)}
+            className={cn(
+              "px-4",
+              isValidUrl(newVideoUrl) && "bg-[#F97316] text-white border-[#F97316] hover:bg-[#F97316]/90"
+            )}
+          >
+            <Plus className="w-4 h-4" />
           </ShinyButton>
         </div>
         {videos.length > 0 && (
@@ -186,9 +207,9 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
       </div>
 
       {/* Ссылки */}
-      <div>
-        <Label>Ссылки</Label>
-        <div className="space-y-4">
+      <div className="space-y-3">
+        <Label className="text-base font-medium block">Ссылки</Label>
+        <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg space-y-3 bg-gray-50/50 dark:bg-gray-900/50">
           <AnimatedInput
             value={newLink.url}
             onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
@@ -206,7 +227,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
             placeholder="Описание (необязательно)"
             className="min-h-[60px]"
           />
-          <ShinyButton type="button" variant="outline" onClick={addLink}>
+          <ShinyButton type="button" variant="outline" onClick={addLink} className="w-full sm:w-auto">
             <LinkIcon className="w-4 h-4 mr-2" />
             Добавить ссылку
           </ShinyButton>
@@ -245,13 +266,18 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
         )}
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
         {onCancel && (
           <ShinyButton type="button" variant="outline" onClick={onCancel} className="flex-1">
             Отмена
           </ShinyButton>
         )}
-        <ShinyButton type="submit" className="flex-1">
+        <ShinyButton 
+          type="submit" 
+          className="flex-1"
+          disabled={!canPublish}
+          style={!canPublish ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+        >
           Опубликовать
         </ShinyButton>
       </div>

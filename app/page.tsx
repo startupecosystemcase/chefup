@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/stores/useOnboardingStore'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { ShinyButton } from '@/components/magicui/shiny-button'
@@ -16,6 +17,7 @@ import { AnimatedCounter } from '@/components/landing/AnimatedCounter'
 import { TestimonialsSwiper } from '@/components/landing/TestimonialsSwiper'
 import { StickyBottomBar } from '@/components/landing/StickyBottomBar'
 import { Footer } from '@/components/Footer'
+import { LoadingScreen } from '@/components/LoadingScreen'
 import Image from 'next/image'
 import {
   ChefHat,
@@ -88,10 +90,146 @@ function FadeUpSection({ children, className = '', noFade = false }: { children:
   )
 }
 
+// Компонент для эффекта печатания текста
+function TypingText({ 
+  text, 
+  delay = 100, 
+  className = '',
+  onComplete
+}: { 
+  text: string
+  delay?: number
+  className?: string
+  onComplete?: () => void
+}) {
+  const [displayedText, setDisplayedText] = useState('')
+  const [isComplete, setIsComplete] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+    
+    if (displayedText.length < text.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText(text.slice(0, displayedText.length + 1))
+      }, delay)
+      return () => clearTimeout(timer)
+    } else if (!isComplete) {
+      setIsComplete(true)
+      if (onComplete) {
+        setTimeout(onComplete, 300)
+      }
+    }
+  }, [displayedText, text, delay, isComplete, onComplete, mounted])
+
+  if (!mounted) {
+    return <span className={className}>{text}</span>
+  }
+
+  return (
+    <span className={className}>
+      {displayedText}
+      {!isComplete && (
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+          className="inline-block w-0.5 h-full bg-current ml-1"
+        >
+          |
+        </motion.span>
+      )}
+    </span>
+  )
+}
+
 export default function Home() {
   const router = useRouter()
   const [phone, setPhone] = useState('')
   const [hoveredCard, setHoveredCard] = useState<'specialists' | 'companies' | null>(null)
+  const [showContent, setShowContent] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Инициализация Vanta.js DOTS эффекта
+  useEffect(() => {
+    if (typeof window === 'undefined' || isLoading) return
+
+    let vantaEffect: any = null
+
+    // Динамически загружаем скрипты Vanta.js
+    const loadVanta = async () => {
+      // Проверяем, существует ли элемент
+      const element = document.getElementById('vanta-dots')
+      if (!element) {
+        // Повторяем попытку через небольшую задержку
+        setTimeout(loadVanta, 200)
+        return
+      }
+
+      try {
+        if (!(window as any).VANTA) {
+          // Проверяем, не загружен ли уже Three.js
+          if (!(window as any).THREE) {
+            const threeScript = document.createElement('script')
+            threeScript.src = 'https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js'
+            threeScript.async = true
+            document.head.appendChild(threeScript)
+
+            await new Promise((resolve, reject) => {
+              threeScript.onload = resolve
+              threeScript.onerror = reject
+            })
+          }
+
+          // Проверяем, не загружен ли уже Vanta.js
+          if (!(window as any).VANTA) {
+            const vantaScript = document.createElement('script')
+            vantaScript.src = 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js'
+            vantaScript.async = true
+            document.head.appendChild(vantaScript)
+
+            await new Promise((resolve, reject) => {
+              vantaScript.onload = resolve
+              vantaScript.onerror = reject
+            })
+          }
+        }
+
+        if ((window as any).VANTA && document.getElementById('vanta-dots')) {
+          vantaEffect = (window as any).VANTA.DOTS({
+            el: '#vanta-dots',
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundColor: 0xffffff,
+            size: 3.10,
+            spacing: 66.00
+          })
+        }
+      } catch (error) {
+        console.error('Error loading Vanta.js:', error)
+      }
+    }
+
+    // Небольшая задержка для гарантии, что DOM готов
+    const timer = setTimeout(() => {
+      loadVanta()
+    }, 300)
+
+    return () => {
+      clearTimeout(timer)
+      if (vantaEffect && typeof vantaEffect.destroy === 'function') {
+        vantaEffect.destroy()
+      }
+    }
+  }, [isLoading])
 
   const handlePhoneSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -129,84 +267,87 @@ export default function Home() {
   const hqImage = imagePaths.hq
 
   return (
-    <div className="min-h-screen bg-[#FEFCF9] transition-colors light" data-theme="light">
-      <StickyHeader />
-      <StickyBottomBar />
+    <>
+      <LoadingScreen onComplete={() => setIsLoading(false)} />
+      {!isLoading && (
+        <div className="min-h-screen bg-[#FEFCF9] transition-colors light" data-theme="light">
+          <StickyHeader />
+          <StickyBottomBar />
 
       <main>
         {/* Hero Section - Apple 2025 + Arc Browser Style */}
         <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-32">
-          {/* Ultra-subtle orange glow */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <motion.div
-              className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#F97316]/12 rounded-full blur-[120px]"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            <motion.div
-              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/10 rounded-full blur-[100px]"
-              animate={{
-                scale: [1.1, 1, 1.1],
-                opacity: [0.6, 0.4, 0.6],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 3,
-              }}
-            />
-          </div>
+          {/* Vanta.js DOTS эффект на фоне */}
+          <div id="vanta-dots" className="absolute inset-0 w-full h-full z-0" />
 
           <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
             <div className="max-w-6xl mx-auto text-center">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="text-5xl md:text-7xl lg:text-8xl font-semibold text-[#0F172A] mb-6 md:mb-8 leading-[1.05] tracking-[-0.04em] font-sf-pro"
-              >
-                Максимальная эффективность работы в HoReCa
-              </motion.h1>
-
+              {/* Заголовок ChefUp с эффектом печатания */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.15 }}
-                className="mb-8"
+                transition={{ duration: 0.5 }}
+                className="mb-10 md:mb-14 lg:mb-16"
+              >
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight font-sf-pro">
+                  <TypingText
+                    text="ChefUp"
+                    delay={150}
+                    className="bg-gradient-to-r from-[#F97316] via-[#FB923C] to-[#F97316] bg-clip-text text-transparent animate-gradient"
+                    onComplete={() => setShowContent(true)}
+                  />
+                </h1>
+              </motion.div>
+
+              {/* Основной заголовок - появляется после печатания ChefUp */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-3xl md:text-5xl lg:text-6xl font-semibold text-[#0F172A] mb-8 md:mb-10 lg:mb-12 leading-[1.1] tracking-[-0.04em] font-sf-pro"
+              >
+                Максимальная эффективность работы в HoReCa
+              </motion.h2>
+
+              {/* Ссылка Powered by CASE */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mb-10 md:mb-12"
               >
                 <a
                   href="https://benevsky.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors text-sm md:text-base font-medium font-sf-pro"
+                  className="inline-flex items-center gap-2 text-[#F97316] hover:text-[#EA580C] transition-colors text-xs md:text-sm font-medium font-sf-pro group"
                 >
                   Powered by CASE
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <motion.div
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                  </motion.div>
                 </a>
               </motion.div>
 
+              {/* Подзаголовок */}
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="text-lg md:text-2xl lg:text-3xl text-[#64748B] mb-12 md:mb-16 max-w-4xl mx-auto leading-[1.5] font-light font-sf-pro"
+                animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                transition={{ duration: 0.8, delay: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-base md:text-xl lg:text-2xl text-[#64748B] mb-16 md:mb-20 lg:mb-24 max-w-3xl mx-auto leading-[1.6] font-light font-sf-pro"
               >
-                ChefUp — это первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса
+                Первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса
               </motion.p>
 
+              {/* Кнопки действий */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center items-center"
+                animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center items-center mb-20 md:mb-24 lg:mb-32"
               >
                 <motion.div
                   animate={{
@@ -219,18 +360,18 @@ export default function Home() {
                   }}
                 >
                   <ShinyButton
-                    size="lg"
+                    size="default"
                     withConfetti
                     className="w-full sm:w-auto font-semibold"
                     onClick={() => router.push('/auth')}
                   >
                     Создать профиль бесплатно
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </ShinyButton>
                 </motion.div>
                 <ShinyButton
                   variant="outline"
-                  size="lg"
+                  size="default"
                   className="w-full sm:w-auto font-medium"
                   asChild
                 >
@@ -1253,5 +1394,7 @@ export default function Home() {
 
       <Footer />
     </div>
+      )}
+    </>
   )
 }
