@@ -69,9 +69,6 @@ export default function ModerateUsersPage() {
   const [isPromoDialogOpen, setIsPromoDialogOpen] = useState(false)
   const [newPromoCode, setNewPromoCode] = useState('')
   const [generatedPromoCodes, setGeneratedPromoCodes] = useState<string[]>(['CHEFUP2026', 'CHEFAPP2026', 'PRO2026'])
-  const [isPromoDialogOpen, setIsPromoDialogOpen] = useState(false)
-  const [newPromoCode, setNewPromoCode] = useState('')
-  const [generatedPromoCodes, setGeneratedPromoCodes] = useState<string[]>(['CHEFUP2026', 'CHEFAPP2026', 'PRO2026'])
 
   useEffect(() => {
     if (!userId) {

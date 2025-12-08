@@ -206,7 +206,7 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<'about' | 'activity' | 'blog'>('about')
   const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false)
   const [isPublishSuccessDialogOpen, setIsPublishSuccessDialogOpen] = useState(false)
-  const [username, setUsername] = useState('')
+  const [publishUsername, setPublishUsername] = useState('')
   const [usernameCheckStatus, setUsernameCheckStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle')
   const [isPublishing, setIsPublishing] = useState(false)
   const [isPortfolioDialogOpen, setIsPortfolioDialogOpen] = useState(false)
@@ -351,12 +351,12 @@ export default function ProfilePage() {
 
   // Проверка доступности username
   useEffect(() => {
-    if (!username.trim()) {
+    if (!publishUsername.trim()) {
       setUsernameCheckStatus('idle')
       return
     }
 
-    const normalizedUsername = username.toLowerCase().trim()
+    const normalizedUsername = publishUsername.toLowerCase().trim()
     if (normalizedUsername.length < 3) {
       setUsernameCheckStatus('idle')
       return
@@ -374,15 +374,15 @@ export default function ProfilePage() {
       const available = isUsernameAvailable(normalizedUsername)
       setUsernameCheckStatus(available ? 'available' : 'taken')
     }, 500)
-  }, [username, isUsernameAvailable])
+  }, [publishUsername, isUsernameAvailable])
 
   const handlePublishPage = async () => {
-    if (!username.trim()) {
+    if (!publishUsername.trim()) {
       toast.error('Введите никнейм')
       return
     }
 
-    const normalizedUsername = username.toLowerCase().trim()
+    const normalizedUsername = publishUsername.toLowerCase().trim()
     
     if (!isUsernameAvailable(normalizedUsername)) {
       toast.error('Этот никнейм уже занят')
@@ -648,15 +648,15 @@ export default function ProfilePage() {
                     <div>
                       <label className="text-sm font-medium mb-2 block">Никнейм</label>
                       <AnimatedInput
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={publishUsername}
+                        onChange={(e) => setPublishUsername(e.target.value)}
                         placeholder="например: chef_savva"
                         className="w-full"
                       />
                       <p className="text-xs text-muted-foreground mt-1 mb-2">
-                        Ваша страница будет доступна по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{username || 'никнейм'}
+                        Ваша страница будет доступна по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{publishUsername || 'никнейм'}
                       </p>
-                      {username.trim() && (
+                      {publishUsername.trim() && (
                         <div className="mt-2">
                           {usernameCheckStatus === 'checking' && (
                             <p className="text-xs text-gray-500 flex items-center gap-2">
@@ -676,12 +676,12 @@ export default function ProfilePage() {
                               Никнейм уже занят
                             </p>
                           )}
-                          {username.trim().length > 0 && username.trim().length < 3 && (
+                          {publishUsername.trim().length > 0 && publishUsername.trim().length < 3 && (
                             <p className="text-xs text-amber-600">
                               Никнейм должен содержать минимум 3 символа
                             </p>
                           )}
-                          {username.trim() && !/^[a-zA-Z0-9_-]+$/.test(username.trim()) && (
+                          {publishUsername.trim() && !/^[a-zA-Z0-9_-]+$/.test(publishUsername.trim()) && (
                             <p className="text-xs text-amber-600">
                               Используйте только буквы, цифры, подчеркивания и дефисы
                             </p>
@@ -720,7 +720,7 @@ export default function ProfilePage() {
                     </div>
                     <DialogTitle className="text-2xl mb-2 text-center">Ваша страница успешно опубликована!</DialogTitle>
                     <DialogDescription className="text-base text-center">
-                      Теперь ваш профиль доступен по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{username}
+                      Теперь ваш профиль доступен по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{publishUsername}
                     </DialogDescription>
                   </DialogHeader>
                   <div className="flex gap-3">
@@ -734,7 +734,7 @@ export default function ProfilePage() {
                     <ShinyButton 
                       onClick={() => {
                         if (typeof window !== 'undefined') {
-                          window.open(`/${username}`, '_blank')
+                          window.open(`/${publishUsername}`, '_blank')
                         }
                         setIsPublishSuccessDialogOpen(false)
                       }}
