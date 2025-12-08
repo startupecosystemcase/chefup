@@ -140,7 +140,7 @@ export default function ResumesPage() {
           ) : (
             filteredResumes.map((resume) => (
               <StaggerItem key={resume.id}>
-                <AnimatedCard className="card-hover bg-white dark:bg-dark/50">
+                <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
                 <div className="p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <Avatar className="h-12 w-12">
@@ -155,8 +155,8 @@ export default function ResumesPage() {
                       <p className="text-sm text-muted-foreground dark:text-gray-400">{resume.position}</p>
                     </div>
                   </div>
-                  <div className="space-y-5">
-                    <div className="flex flex-wrap gap-4">
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap gap-2">
                       <AnimatedBadge variant="outline" className="text-xs">
                         <MapPin className="w-3 h-3 mr-1" />
                         {resume.city}
@@ -169,7 +169,7 @@ export default function ResumesPage() {
                         {resume.cuisine}
                       </AnimatedBadge>
                     </div>
-                    <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-3">
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-3 leading-relaxed">
                       {resume.about}
                     </p>
                     <ShinyButton variant="outline" className="w-full" asChild>

@@ -106,9 +106,8 @@ export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, a
   return (
     <AnimatedCard
       className={cn(
-        'cursor-pointer card-hover relative overflow-hidden transition-all duration-300 bg-white/90 dark:bg-dark/50 backdrop-blur-sm animate-fade-in glass',
-        isTopMatch ? 'top-match-glow animate-bounce-in' : 'card-soft-shadow',
-        !isTopMatch && relevance && 'border-2 border-primary/20 dark:border-primary/30'
+        'cursor-pointer relative overflow-hidden transition-all duration-300 bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md',
+        isTopMatch && 'ring-2 ring-primary/20'
       )}
       onClick={onClick}
     >
@@ -144,11 +143,11 @@ export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, a
         </div>
       )}
 
-      <div className={cn('p-6 pb-3', relevance && 'pr-20 md:pr-28')}>
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-lg md:text-xl pr-2 md:pr-4 font-semibold dark:text-white">{job.title}</h3>
+      <div className={cn('p-6', relevance && 'pr-20 md:pr-28')}>
+        <div className="flex items-start justify-between mb-4">
+          <h3 className="text-lg md:text-xl pr-2 md:pr-4 font-semibold dark:text-white leading-tight">{job.title}</h3>
         </div>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-2 mb-4">
           <AnimatedBadge variant="outline" className="flex items-center gap-1">
             <MapPin className="w-3 h-3" />
             {job.city}

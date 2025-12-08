@@ -15,7 +15,7 @@ import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsSto
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
-import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat } from 'lucide-react'
+import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, DollarSign, Briefcase } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
 import { ProfileCompleteness } from '@/components/ProfileCompleteness'
@@ -33,6 +33,14 @@ import {
   goals,
 } from '@/lib/data'
 import { getRecommendedSkills } from '@/lib/recommendations'
+import { mockJobs } from '@/lib/mockData'
+import { mockEvents } from '@/lib/mockEvents'
+import { mockEducationItems } from '@/lib/mockEducation'
+import { getRecommendedJobs } from '@/lib/jobRecommendations'
+import { useEventsStore } from '@/stores/useOnboardingStore'
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale'
+import Link from 'next/link'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -283,7 +291,238 @@ export default function DashboardPage() {
     )
   }
 
+  // Данные для ленты
+  const { events } = useEventsStore()
+  const upcomingEvents = [...mockEvents, ...events]
+    .filter((event) => event.status === 'approved')
+    .slice(0, 3)
+  
+  const popularPrograms = mockEducationItems
+    .filter((item) => item.status === 'approved')
+    .slice(0, 3)
+  
+  const recommendedJobs = userRole === 'applicant' 
+    ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map(r => r.job)
+    : mockJobs.slice(0, 6)
+
   return (
+    <div className="p-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
+      <div className="mx-auto max-w-7xl w-full space-y-8">
+        {/* Баннер / Приветствие */}
+        <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-2xl border border-gray-200/50 dark:border-border/50">
+          <div className="p-8 md:p-12">
+            <div className="flex items-center gap-4 mb-4">
+              <Avatar className="h-16 w-16 md:h-20 md:w-20">
+                <AvatarImage src={formData.avatarUrl} alt={`${formData.firstName} ${formData.lastName}`} />
+                <AvatarFallback className="bg-gradient-to-br from-primary/20 to-[#FB923C]/20">
+                  <ChefHat className="w-8 h-8 md:w-10 md:h-10 text-[#F97316]" />
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-semibold dark:text-white">
+                  Добро пожаловать, {formData.firstName || 'Пользователь'}!
+                </h1>
+                <p className="text-sm md:text-base text-muted-foreground dark:text-gray-400 mt-1">
+                  Ваша персональная лента обновлений и рекомендаций
+                </p>
+              </div>
+            </div>
+          </div>
+        </AnimatedCard>
+
+        {/* Рекомендовано для вас */}
+        {userRole === 'applicant' && recommendedJobs.length > 0 && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                Рекомендовано для вас
+              </h2>
+              <Link href="/dashboard/jobs">
+                <ShinyButton variant="ghost" size="sm" className="text-sm">
+                  Все вакансии
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </ShinyButton>
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recommendedJobs.slice(0, 3).map((job) => (
+                <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
+                  <div className="p-6">
+                    <h3 className="font-semibold text-lg mb-2 dark:text-white">{job.title}</h3>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <AnimatedBadge variant="outline" className="text-xs">
+                        <MapPin className="w-3 h-3 mr-1" />
+                        {job.city}
+                      </AnimatedBadge>
+                      <AnimatedBadge variant="outline" className="text-xs">
+                        <Briefcase className="w-3 h-3 mr-1" />
+                        {job.position}
+                      </AnimatedBadge>
+                    </div>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2 mb-4">
+                      {job.description}
+                    </p>
+                    <Link href={`/dashboard/jobs/${job.id}`}>
+                      <ShinyButton variant="outline" size="sm" className="w-full">
+                        Подробнее
+                      </ShinyButton>
+                    </Link>
+                  </div>
+                </AnimatedCard>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Предстоящие мероприятия */}
+        {upcomingEvents.length > 0 && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-primary" />
+                Предстоящие мероприятия
+              </h2>
+              <Link href="/dashboard/community">
+                <ShinyButton variant="ghost" size="sm" className="text-sm">
+                  Все мероприятия
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </ShinyButton>
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {upcomingEvents.map((event) => (
+                <AnimatedCard key={event.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
+                  <div className="p-6">
+                    <h3 className="font-semibold text-lg mb-2 dark:text-white">{event.title}</h3>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
+                        <Calendar className="w-4 h-4" />
+                        {format(new Date(event.date), 'd MMMM yyyy', { locale: ru })}
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
+                        <MapPin className="w-4 h-4" />
+                        {event.location}
+                      </div>
+                      {event.price > 0 && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
+                          <DollarSign className="w-4 h-4" />
+                          {event.price} KZT
+                        </div>
+                      )}
+                    </div>
+                    <Link href={`/dashboard/community/${event.id}`}>
+                      <ShinyButton variant="outline" size="sm" className="w-full">
+                        Подробнее
+                      </ShinyButton>
+                    </Link>
+                  </div>
+                </AnimatedCard>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Популярные программы */}
+        {popularPrograms.length > 0 && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-primary" />
+                Популярные программы
+              </h2>
+              <Link href="/dashboard/practice">
+                <ShinyButton variant="ghost" size="sm" className="text-sm">
+                  Все программы
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </ShinyButton>
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {popularPrograms.map((program) => (
+                <AnimatedCard key={program.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
+                  <div className="p-6">
+                    <h3 className="font-semibold text-lg mb-2 dark:text-white">{program.title}</h3>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
+                        <Clock className="w-4 h-4" />
+                        {program.duration}
+                      </div>
+                      {program.price > 0 && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
+                          <DollarSign className="w-4 h-4" />
+                          {program.price} KZT
+                        </div>
+                      )}
+                    </div>
+                    <Link href={`/dashboard/practice/${program.id}`}>
+                      <ShinyButton variant="outline" size="sm" className="w-full">
+                        Подробнее
+                      </ShinyButton>
+                    </Link>
+                  </div>
+                </AnimatedCard>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Вакансии */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
+              <Briefcase className="w-5 h-5 text-primary" />
+              Вакансии
+            </h2>
+            <Link href="/dashboard/jobs">
+              <ShinyButton variant="ghost" size="sm" className="text-sm">
+                Все вакансии
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </ShinyButton>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockJobs.slice(0, 6).map((job) => (
+              <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
+                <div className="p-6">
+                  <h3 className="font-semibold text-lg mb-2 dark:text-white">{job.title}</h3>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <AnimatedBadge variant="outline" className="text-xs">
+                      <MapPin className="w-3 h-3 mr-1" />
+                      {job.city}
+                    </AnimatedBadge>
+                    <AnimatedBadge variant="outline" className="text-xs">
+                      <Briefcase className="w-3 h-3 mr-1" />
+                      {job.position}
+                    </AnimatedBadge>
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2 mb-4">
+                    {job.description}
+                  </p>
+                  <Link href={`/dashboard/jobs/${job.id}`}>
+                    <ShinyButton variant="outline" size="sm" className="w-full">
+                      Подробнее
+                    </ShinyButton>
+                  </Link>
+                </div>
+              </AnimatedCard>
+            ))}
+          </div>
+        </div>
+
+        {/* Старый контент профиля - скрыт, но можно добавить ссылку на профиль */}
+        <div className="pt-8 border-t border-gray-200/50 dark:border-border/50">
+          <Link href="/dashboard/profile">
+            <ShinyButton variant="outline" className="w-full sm:w-auto">
+              Перейти в личный кабинет
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </ShinyButton>
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
     <div className="p-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
         {/* Header */}

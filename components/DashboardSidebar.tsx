@@ -22,11 +22,14 @@ import {
   Search,
   CheckCircle,
   Award,
-  Handshake
+  Handshake,
+  Home
 } from 'lucide-react'
+import { ThemeToggle } from '@/components/magicui/theme-toggle'
 
 const applicantMenuItems = [
-  { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
+  { href: '/dashboard', label: 'Главная', icon: Home },
+  { href: '/dashboard/profile', label: 'Личный кабинет', icon: LayoutDashboard },
   { href: '/dashboard/resume', label: 'Моё резюме', icon: FileText },
   { href: '/dashboard/subscription', label: 'Подписка', icon: Crown },
   { href: '/dashboard/team', label: 'Команда', icon: Users },
@@ -41,7 +44,8 @@ const applicantMenuItems = [
 ]
 
 const employerMenuItems = [
-  { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
+  { href: '/dashboard', label: 'Главная', icon: Home },
+  { href: '/dashboard/profile', label: 'Личный кабинет', icon: LayoutDashboard },
   { href: '/dashboard/jobs/create', label: 'Подать вакансию', icon: FilePlus },
   { href: '/dashboard/candidates', label: 'Кандидаты', icon: UserCheck },
   { href: '/dashboard/jobs/history', label: 'История вакансий', icon: History },
@@ -65,6 +69,7 @@ export function DashboardSidebar() {
   const pathname = usePathname()
   const userRole = useAuthStore((state) => state.userRole)
   const [mounted, setMounted] = useState(false)
+  const [language, setLanguage] = useState<'RU' | 'KZ' | 'EN'>('RU')
 
   useEffect(() => {
     setMounted(true)
@@ -88,9 +93,9 @@ export function DashboardSidebar() {
   }
 
   return (
-    <aside className="hidden md:block w-64 relative bg-white border-r border-gray-200/50">
+    <aside className="hidden md:flex flex-col w-64 relative bg-white dark:bg-dark border-r border-gray-200/50 dark:border-border/50">
       {/* Content */}
-      <nav className="relative p-4 space-y-1">
+      <nav className="relative flex-1 px-4 py-6 space-y-0.5">
         {menuItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
@@ -99,29 +104,48 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-300',
+                'relative flex items-center gap-3 rounded-lg px-4 py-2.5 text-xs font-semibold transition-all duration-200 leading-relaxed',
                 isActive
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'text-foreground bg-muted/50'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               )}
             >
               <Icon className={cn(
-                'h-4 w-4 transition-all duration-300',
-                isActive && 'text-primary'
+                'h-4 w-4 transition-all duration-200 flex-shrink-0',
+                isActive ? 'text-foreground' : 'text-foreground/70'
               )} />
-              <span className={cn(
-                'transition-all duration-300',
-                isActive && 'font-semibold text-primary'
-              )}>{item.label}</span>
-              
-              {/* Active indicator */}
-              {isActive && (
-                <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary ml-auto" />
-              )}
+              <span className="flex-1">{item.label}</span>
             </Link>
           )
         })}
       </nav>
+      
+      {/* Bottom section - Theme toggle and Language selector */}
+      <div className="px-4 py-4 border-t border-gray-200/50 dark:border-border/50 space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold text-muted-foreground">Тема</span>
+          <ThemeToggle />
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold text-muted-foreground">Язык</span>
+          <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-0.5">
+            {(['RU', 'KZ', 'EN'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguage(lang)}
+                className={cn(
+                  'px-2 py-1 text-xs font-semibold rounded-md transition-all',
+                  language === lang
+                    ? 'bg-background dark:bg-dark text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </aside>
   )
 }

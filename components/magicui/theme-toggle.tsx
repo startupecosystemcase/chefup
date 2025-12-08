@@ -22,7 +22,7 @@ export function ThemeToggle() {
   return (
     <motion.button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="relative h-9 w-9 rounded-full bg-muted/50 backdrop-blur-sm border border-border/50 flex items-center justify-center transition-all duration-300 hover:bg-primary/10 hover:border-primary/30"
+      className="relative h-8 w-8 rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-muted/50"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Переключить тему"
@@ -36,7 +36,7 @@ export function ThemeToggle() {
         transition={{ duration: 0.3 }}
         className="absolute"
       >
-        <Moon className="h-4 w-4 text-primary" />
+        <Moon className="h-4 w-4 text-foreground" />
       </motion.div>
       <motion.div
         initial={false}
@@ -47,7 +47,7 @@ export function ThemeToggle() {
         transition={{ duration: 0.3 }}
         className="absolute"
       >
-        <Sun className="h-4 w-4 text-primary" />
+        <Sun className="h-4 w-4 text-foreground" />
       </motion.div>
     </motion.button>
   )
