@@ -9,7 +9,8 @@ import { AnimatedInput } from '@/components/magicui/animated-input'
 import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { useAuthStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { useAuthStore } from '@/stores/useOnboardingStore'
+import { useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
 import { Settings, CheckCircle2, Upload, X } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 
@@ -36,7 +37,7 @@ const priorityRequirements = [
 export default function HRSystemPage() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
-  const employerData = useOnboardingStore((state) => state.employerFormData)
+  const employerData = useEmployerOnboardingStore((state) => state.formData)
   const [mounted, setMounted] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [formData, setFormData] = useState({
