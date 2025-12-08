@@ -18,8 +18,12 @@ export const metadata: Metadata = {
   title: 'ChefUp - Профессиональная экосистема для HoReCa',
   description: 'Нетворкинг, поиск работы и обучение для поваров и специалистов HoReCa',
   icons: {
-    icon: '/icon.svg',
-    apple: '/apple-icon.svg',
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.svg', type: 'image/svg+xml' },
+    ],
   },
 }
 
