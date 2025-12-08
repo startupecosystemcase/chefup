@@ -25,14 +25,14 @@ export function StickyHeader() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/90 backdrop-blur-2xl shadow-sm border-b border-white/30' 
-          : 'bg-white/70 backdrop-blur-xl'
+          ? 'bg-[#FEFCF9]/80 backdrop-blur-2xl shadow-sm border-b border-white/20' 
+          : 'bg-[#FEFCF9]/60 backdrop-blur-xl'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+      <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
         <div className="flex items-center justify-between h-20 md:h-24 lg:h-28">
-          <div className="flex items-center justify-start -ml-4 md:-ml-6 lg:-ml-8 pt-1 md:pt-1.5">
-            <Logo className="h-14 md:h-16 lg:h-20" />
+          <div className="flex items-center justify-start -ml-4 md:-ml-6 lg:-ml-8 pt-1.5 md:pt-2">
+            <Logo className="h-16 md:h-20 lg:h-20" />
           </div>
           
           <div className="flex items-center gap-3 md:gap-4">

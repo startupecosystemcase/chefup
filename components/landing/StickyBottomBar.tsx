@@ -26,15 +26,15 @@ export function StickyBottomBar() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 z-50 glass-apple border-t border-white/20 p-4 md:hidden safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.08)]"
+          className="fixed bottom-0 left-0 right-0 z-50 bg-[#FEFCF9]/80 backdrop-blur-2xl border-t border-white/20 p-3 md:hidden safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.08)]"
         >
           <ShinyButton
-            size="lg"
+            size="default"
             withConfetti
-            className="w-full min-h-[56px] font-semibold"
+            className="w-full min-h-[48px] font-medium text-sm"
             onClick={() => router.push('/auth')}
           >
-            <UserPlus className="w-5 h-5 mr-2" />
+            <UserPlus className="w-4 h-4 mr-2" />
             Создать профиль
           </ShinyButton>
         </motion.div>

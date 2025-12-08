@@ -63,8 +63,16 @@ const fadeUpVariants = {
   visible: { opacity: 1, y: 0, scale: 1 },
 }
 
-function FadeUpSection({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+function FadeUpSection({ children, className = '', noFade = false }: { children: React.ReactNode; className?: string; noFade?: boolean }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
+
+  if (noFade) {
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    )
+  }
 
   return (
     <motion.div
@@ -224,9 +232,15 @@ export default function Home() {
                   variant="outline"
                   size="lg"
                   className="w-full sm:w-auto font-medium"
-                  onClick={() => router.push('/auth')}
+                  asChild
                 >
-                  Заказать консультацию
+                  <a
+                    href="https://wa.me/+77070156999"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Заказать консультацию
+                  </a>
                 </ShinyButton>
               </motion.div>
             </div>
@@ -369,7 +383,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Возможности для вас - Apple 2025 Style */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
+        <FadeUpSection noFade className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
               className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
@@ -643,7 +657,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Ключевые цифры - Новая сетка */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
+        <FadeUpSection noFade className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
           {/* Фон как в блоке "Возможности для вас" */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
@@ -824,7 +838,7 @@ export default function Home() {
 
         {/* География присутствия */}
         <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9]">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
                 География присутствия
@@ -881,8 +895,8 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
                   >
-                    <MessageSquare className="w-5 h-5" />
-                    Открыть представительство в своем городе
+                    <MessageSquare className="w-4 h-4 md:w-5 md:h-5" />
+                    <span className="text-sm md:text-base">Открыть представительство в своем городе</span>
                   </a>
                 </ShinyButton>
               </motion.div>
@@ -891,7 +905,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Представительство в Астане - Редизайн */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-black relative overflow-hidden noise-overlay">
+        <FadeUpSection noFade className="py-20 md:py-28 lg:py-32 bg-black relative overflow-hidden noise-overlay">
           <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
             <div className="max-w-6xl mx-auto">
               <motion.div
@@ -956,7 +970,7 @@ export default function Home() {
 
         {/* Отзывы - Скрыт */}
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay hidden">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
                 Отзывы
@@ -971,7 +985,7 @@ export default function Home() {
 
 
         {/* Final CTA - Получи оффер уже завтра */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
+        <FadeUpSection noFade className="py-32 md:py-40 lg:py-48 relative overflow-hidden bg-black noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
               className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#F97316]/6 rounded-full blur-[150px]"
@@ -1085,7 +1099,7 @@ export default function Home() {
 
         {/* Наша команда - Скрыт */}
         <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9] hidden">
-          <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
                 Наша команда
