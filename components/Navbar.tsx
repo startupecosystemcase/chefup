@@ -79,7 +79,7 @@ export function Navbar() {
                   <span className="absolute top-0 right-0 h-2.5 w-2.5 bg-[#F97316] rounded-full border-2 border-white dark:border-dark" />
                 )}
               </button>
-              <DropdownMenu>
+            <DropdownMenu>
               <DropdownMenuTrigger asChild>
                   <button className="flex items-center justify-center gap-2 h-8 md:h-9 px-3 md:px-4 rounded-lg bg-[#F97316] hover:bg-[#F97316]/90 transition-colors">
                     <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
@@ -114,7 +114,7 @@ export function Navbar() {
                         )} />
                         {subscriptionStatus === 'PRO' ? 'PRO' : 'Базовая'}
                       </AnimatedBadge>
-                    </div>
+                  </div>
                   </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>

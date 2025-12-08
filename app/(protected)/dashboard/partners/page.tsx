@@ -287,7 +287,7 @@ export default function PartnersPage() {
                   <div className="p-8 flex flex-col items-center text-center h-full">
                     <div className="w-16 h-16 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-6">
                       <Icon className="w-8 h-8 text-primary" />
-                    </div>
+              </div>
                     <h3 className="text-xl font-semibold mb-3 dark:text-white">{category.title}</h3>
                     <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4 flex-1">
                       {category.description}
@@ -297,8 +297,8 @@ export default function PartnersPage() {
                         {partnersCount} {partnersCount === 1 ? 'партнёр' : partnersCount < 5 ? 'партнёра' : 'партнёров'}
                       </AnimatedBadge>
                     )}
-                  </div>
-                </AnimatedCard>
+          </div>
+        </AnimatedCard>
               </StaggerItem>
             )
           })}

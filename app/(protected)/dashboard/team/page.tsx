@@ -81,14 +81,14 @@ export default function TeamPage() {
       return
     }
 
-    const newMember: TeamMember = {
-      id: Date.now().toString(),
+      const newMember: TeamMember = {
+        id: Date.now().toString(),
       name: newMemberName.trim(),
       position: newMemberPosition.trim(),
       userId: foundUser.userId,
       username: foundUser.username,
-    }
-    setTeamMembers([...teamMembers, newMember])
+      }
+      setTeamMembers([...teamMembers, newMember])
     
     // Сброс формы
     setSearchUserId('')
@@ -146,7 +146,7 @@ export default function TeamPage() {
                 <div className="space-y-3">
                   <Label className="text-base font-medium">ID профиля / Логин *</Label>
                   <div className="flex gap-3">
-                    <AnimatedInput
+                  <AnimatedInput
                       value={searchUserId}
                       onChange={(e) => setSearchUserId(e.target.value)}
                       placeholder="Введите ID или логин пользователя"
@@ -182,18 +182,18 @@ export default function TeamPage() {
                   <div className="space-y-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
                     <div className="space-y-3">
                       <Label className="text-base font-medium">Имя</Label>
-                      <AnimatedInput
-                        value={newMemberName}
-                        onChange={(e) => setNewMemberName(e.target.value)}
+                  <AnimatedInput
+                    value={newMemberName}
+                    onChange={(e) => setNewMemberName(e.target.value)}
                         placeholder="Имя пользователя"
-                      />
-                    </div>
+                  />
+                </div>
                     <div className="space-y-3">
                       <Label className="text-base font-medium">Должность *</Label>
-                      <AnimatedInput
-                        value={newMemberPosition}
-                        onChange={(e) => setNewMemberPosition(e.target.value)}
-                        placeholder="Введите должность"
+                  <AnimatedInput
+                    value={newMemberPosition}
+                    onChange={(e) => setNewMemberPosition(e.target.value)}
+                    placeholder="Введите должность"
                         required
                       />
                     </div>
@@ -203,8 +203,8 @@ export default function TeamPage() {
                         value={newMemberComment}
                         onChange={(e) => setNewMemberComment(e.target.value)}
                         placeholder="Дополнительная информация (необязательно)"
-                      />
-                    </div>
+                  />
+                </div>
                   </div>
                 )}
 
@@ -221,8 +221,8 @@ export default function TeamPage() {
                     disabled={!foundUser || !newMemberPosition.trim()}
                     className="whitespace-nowrap"
                   >
-                    Добавить
-                  </ShinyButton>
+                  Добавить
+                </ShinyButton>
                 </div>
               </div>
             </DialogContent>

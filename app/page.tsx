@@ -270,9 +270,9 @@ export default function Home() {
     <>
       <LoadingScreen onComplete={() => setIsLoading(false)} />
       {!isLoading && (
-        <div className="min-h-screen bg-[#FEFCF9] transition-colors light" data-theme="light">
-          <StickyHeader />
-          <StickyBottomBar />
+    <div className="min-h-screen bg-[#FEFCF9] transition-colors light" data-theme="light">
+      <StickyHeader />
+      <StickyBottomBar />
 
       <main>
         {/* Hero Section - Apple 2025 + Arc Browser Style */}

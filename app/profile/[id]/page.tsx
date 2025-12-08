@@ -115,10 +115,10 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 ring-4 ring-white shadow-xl rounded-full">
                   <AvatarImage src={formData.avatarUrl} />
                   <AvatarFallback className="text-3xl md:text-4xl bg-white text-gray-700 rounded-full">
-                    {formData.firstName?.[0] || 'U'}
-                    {formData.lastName?.[0] || ''}
-                  </AvatarFallback>
-                </Avatar>
+                {formData.firstName?.[0] || 'U'}
+                {formData.lastName?.[0] || ''}
+              </AvatarFallback>
+            </Avatar>
               </div>
             </div>
 

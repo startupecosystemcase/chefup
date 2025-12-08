@@ -54,7 +54,7 @@ export default function SubscriptionPage() {
   const [isValidating, setIsValidating] = useState(false)
   const subscriptionStatus = useAuthStore((state) => state.subscriptionStatus)
   const setSubscriptionStatus = useAuthStore((state) => state.setSubscriptionStatus)
-  
+
   // Если работодатель - показываем форму для компаний
   if (userRole === 'employer') {
     return <EmployerSubscriptionPage />
@@ -204,8 +204,8 @@ export default function SubscriptionPage() {
                       </>
                     ) : (
                       <>
-                        Активировать
-                        <ArrowRight className="w-4 h-4 ml-2" />
+                    Активировать
+                    <ArrowRight className="w-4 h-4 ml-2" />
                       </>
                     )}
                   </ShinyButton>

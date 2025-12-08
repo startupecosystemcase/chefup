@@ -135,11 +135,11 @@ export default function CommunityPage() {
                 <UserPlus className="w-4 h-4 mr-2" />
                 Пригласить участника
               </ShinyButton>
-              {userRole === 'moderator' && (
-                <ShinyButton onClick={() => router.push('/dashboard/community/create')}>
-                  Создать событие
-                </ShinyButton>
-              )}
+            {userRole === 'moderator' && (
+              <ShinyButton onClick={() => router.push('/dashboard/community/create')}>
+                Создать событие
+              </ShinyButton>
+            )}
             </div>
           </div>
           {/* Быстрая навигация по категориям */}

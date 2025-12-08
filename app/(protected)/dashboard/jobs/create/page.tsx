@@ -117,8 +117,8 @@ export default function CreateJobPage() {
     }
 
     try {
-      addJob(jobData, userId)
-      toast.success('Вакансия успешно создана и отправлена на модерацию!')
+    addJob(jobData, userId)
+    toast.success('Вакансия успешно создана и отправлена на модерацию!')
       router.push('/dashboard/jobs')
     } catch (error) {
       toast.error('Ошибка при создании вакансии')
@@ -144,30 +144,30 @@ export default function CreateJobPage() {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <AnimatedCard className={`bg-white dark:bg-dark/50 ${!form.watch('title') && form.formState.submitCount > 0 ? 'border-red-300 dark:border-red-700' : ''}`}>
-              <div className="p-6">
+          <div className="p-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <FileText className="w-5 h-5 text-primary" />
-                  <h2 className="text-xl font-semibold dark:text-white">Информация о вакансии</h2>
-                </div>
-                <p className="text-sm text-muted-foreground mb-6 dark:text-gray-400">
-                  Все поля обязательны для заполнения
-                </p>
+              <FileText className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-semibold dark:text-white">Информация о вакансии</h2>
+            </div>
+            <p className="text-sm text-muted-foreground mb-6 dark:text-gray-400">
+              Все поля обязательны для заполнения
+            </p>
 
                 <div className="space-y-6">
                   {/* 1. Заголовок вакансии */}
-                  <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                      <FormItem>
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
                         <FormLabel className="dark:text-gray-300 text-base font-semibold">1. Заголовок вакансии *</FormLabel>
-                        <FormControl>
-                          <AnimatedInput placeholder="Например: Шеф-повар в ресторане европейской кухни" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                      <FormControl>
+                        <AnimatedInput placeholder="Например: Шеф-повар в ресторане европейской кухни" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                   {/* 2. Компания / Подразделение */}
                   <FormField
@@ -176,9 +176,9 @@ export default function CreateJobPage() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="dark:text-gray-300 text-base font-semibold">2. Компания / Подразделение *</FormLabel>
-                        <FormControl>
+                          <FormControl>
                           <AnimatedInput placeholder="Название компании или подразделения" {...field} />
-                        </FormControl>
+                          </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -187,52 +187,52 @@ export default function CreateJobPage() {
                   {/* 3. Локация (город/удалённо) */}
                   <div className="space-y-4">
                     <FormLabel className="dark:text-gray-300 text-base font-semibold">3. Локация *</FormLabel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="country"
-                        render={({ field }) => (
-                          <FormItem>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="country"
+                    render={({ field }) => (
+                      <FormItem>
                             <FormLabel className="dark:text-gray-300">Страна *</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Выберите страну" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {countries.map((country) => (
-                                  <SelectItem key={country.value} value={country.value}>
-                                    {country.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="city"
-                        render={({ field }) => (
-                          <FormItem>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Выберите страну" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {countries.map((country) => (
+                              <SelectItem key={country.value} value={country.value}>
+                                {country.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="city"
+                    render={({ field }) => (
+                      <FormItem>
                             <FormLabel className="dark:text-gray-300">Город *</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Выберите город" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {cities.map((city) => (
-                                  <SelectItem key={city.value} value={city.label}>
-                                    {city.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
+                        <Select onValueChange={field.onChange} value={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Выберите город" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {cities.map((city) => (
+                              <SelectItem key={city.value} value={city.label}>
+                                {city.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
                           </FormItem>
                         )}
                       />
@@ -251,10 +251,10 @@ export default function CreateJobPage() {
                           <div className="space-y-1 leading-none">
                             <FormLabel className="dark:text-gray-300">Удалённая работа</FormLabel>
                           </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                   {/* 4. Тип занятости */}
                   <FormField
@@ -347,26 +347,26 @@ export default function CreateJobPage() {
                   />
 
                   {/* 7. Описание вакансии */}
-                  <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
                         <FormLabel className="dark:text-gray-300 text-base font-semibold">7. Описание вакансии *</FormLabel>
-                        <FormControl>
-                          <AnimatedTextarea
+                      <FormControl>
+                        <AnimatedTextarea
                             placeholder="Подробно опишите вакансию, условия работы..."
-                            className="min-h-[120px]"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                        <p className="text-xs text-muted-foreground dark:text-gray-400">
-                          Минимум 50 символов. {field.value?.length || 0}/1000
-                        </p>
-                      </FormItem>
-                    )}
-                  />
+                          className="min-h-[120px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                      <p className="text-xs text-muted-foreground dark:text-gray-400">
+                        Минимум 50 символов. {field.value?.length || 0}/1000
+                      </p>
+                    </FormItem>
+                  )}
+                />
 
                   {/* 8. Требования */}
                   <div className="space-y-4">
@@ -423,17 +423,17 @@ export default function CreateJobPage() {
                           value={newCustomRequirement}
                           onChange={(e) => setNewCustomRequirement(e.target.value)}
                           placeholder="Введите требование"
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault()
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault()
                               handleAddCustomRequirement()
-                            }
-                          }}
-                        />
+                          }
+                        }}
+                      />
                         <ShinyButton type="button" variant="outline" onClick={handleAddCustomRequirement}>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Добавить
-                        </ShinyButton>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Добавить
+                      </ShinyButton>
                       </div>
                       {customRequirements.length > 0 && (
                         <div className="flex flex-wrap gap-2">
@@ -537,19 +537,19 @@ export default function CreateJobPage() {
                   onClick={() => router.back()} 
                   className="flex-1"
                 >
-                  Отмена
-                </ShinyButton>
+                    Отмена
+                  </ShinyButton>
                 <ShinyButton 
                   type="submit" 
                   className="flex-1"
                   disabled={!isFormValid || isSubmitting}
                 >
                   {isSubmitting ? 'Отправка...' : 'Добавить'}
-                </ShinyButton>
+                  </ShinyButton>
               </div>
-            </div>
-          </form>
-        </FormProvider>
+                </div>
+              </form>
+            </FormProvider>
       </div>
     </div>
   )

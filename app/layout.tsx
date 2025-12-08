@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'ChefUp - Профессиональная экосистема для HoReCa',
-  description: 'Нетворкинг, поиск работы и обучение для поваров и специалистов HoReCa',
+  description: 'ChefUp — это первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса',
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
@@ -24,6 +24,26 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-icon.svg', type: 'image/svg+xml' },
     ],
+  },
+  openGraph: {
+    title: 'ChefUp - Профессиональная экосистема для HoReCa',
+    description: 'ChefUp — это первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'ChefUp - Экосистема для HoReCa',
+      },
+    ],
+    locale: 'ru_RU',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ChefUp - Профессиональная экосистема для HoReCa',
+    description: 'ChefUp — это первая экосистема в Центральной Евразии для поиска работы, нетворкинга и обучения в сфере ресторанного бизнеса',
+    images: ['/og-image.svg'],
   },
 }
 
