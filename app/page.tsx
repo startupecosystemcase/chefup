@@ -954,8 +954,8 @@ export default function Home() {
           </div>
         </FadeUpSection>
 
-        {/* Отзывы */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay">
+        {/* Отзывы - Скрыт */}
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay hidden">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
