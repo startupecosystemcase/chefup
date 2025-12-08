@@ -44,7 +44,7 @@ export function StickyHeader() {
                 onClick={() => router.push('/dashboard')}
                 aria-label="Профиль"
               >
-                <User className="w-6 h-6" />
+                <User className="w-3 h-3" />
               </ShinyButton>
             ) : (
               <>
@@ -55,7 +55,7 @@ export function StickyHeader() {
                   onClick={() => router.push('/auth')}
                   aria-label="Войти"
                 >
-                  <User className="w-6 h-6" />
+                  <User className="w-3 h-3" />
                 </ShinyButton>
                 <ShinyButton
                   size="default"

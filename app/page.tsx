@@ -250,8 +250,31 @@ export default function Home() {
         {/* Экосистема для каждого - Белый фон для обеих карточек */}
         <FadeUpSection className="py-32 md:py-40 lg:py-48 bg-[#FEFCF9] relative overflow-hidden noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]" />
+            <motion.div
+              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            <motion.div
+              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]"
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.3, 0.2, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 4,
+              }}
+            />
           </div>
           <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-6xl mx-auto">
@@ -534,8 +557,35 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Наша миссия - Bento Grid */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay">
-          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            <motion.div
+              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]"
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.3, 0.2, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 4,
+              }}
+            />
+          </div>
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-[-0.03em]">
                 Наша миссия
@@ -837,8 +887,35 @@ export default function Home() {
 
 
         {/* География присутствия */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9]">
-          <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9] relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            <motion.div
+              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]"
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.3, 0.2, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 4,
+              }}
+            />
+          </div>
+          <div className="container mx-auto px-5 md:px-6 lg:px-[120px] relative z-10">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
                 География присутствия
