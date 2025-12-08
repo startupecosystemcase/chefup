@@ -121,7 +121,7 @@ export default function Home() {
   const hqImage = imagePaths.hq
 
   return (
-    <div className="min-h-screen bg-white transition-colors light" data-theme="light">
+    <div className="min-h-screen bg-[#FEFCF9] transition-colors light" data-theme="light">
       <StickyHeader />
       <StickyBottomBar />
 
@@ -234,7 +234,7 @@ export default function Home() {
         </section>
 
         {/* Экосистема для каждого - Белый фон для обеих карточек */}
-        <FadeUpSection className="py-32 md:py-40 lg:py-48 bg-white relative overflow-hidden noise-overlay">
+        <FadeUpSection className="py-32 md:py-40 lg:py-48 bg-[#FEFCF9] relative overflow-hidden noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/3 rounded-full blur-[120px]" />
             <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/2 rounded-full blur-[100px]" />
@@ -520,7 +520,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Наша миссия - Bento Grid */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white noise-overlay">
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay">
           <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-[-0.03em]">
@@ -564,7 +564,7 @@ export default function Home() {
                     whileHover={{ y: -4, scale: 1.01 }}
                     className={item.colSpan}
                   >
-                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-white shadow-sm hover:shadow-lg rounded-2xl">
+                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-[#FEFCF9] shadow-sm hover:shadow-lg rounded-2xl">
                       <div className="p-6 md:p-8 h-full flex flex-col">
                         <motion.div
                           initial={{ scale: 0, rotate: -180 }}
@@ -621,7 +621,7 @@ export default function Home() {
                     whileHover={{ y: -4, scale: 1.01 }}
                     className={item.colSpan}
                   >
-                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-white shadow-sm hover:shadow-lg rounded-2xl">
+                    <AnimatedCard className="h-full border border-gray-200 hover:border-gray-300 transition-all bg-[#FEFCF9] shadow-sm hover:shadow-lg rounded-2xl">
                       <div className="p-6 md:p-8 h-full flex flex-col">
                         <motion.div
                           initial={{ scale: 0, rotate: -180 }}
@@ -823,7 +823,7 @@ export default function Home() {
 
 
         {/* География присутствия */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white">
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9]">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
@@ -843,7 +843,7 @@ export default function Home() {
                   viewport={{ once: true, margin: '-50px' }}
                   whileHover={{ scale: 1.03, y: -8 }}
                   transition={{ delay: idx * 0.1, duration: 0.4 }}
-                  className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-[#F97316]/50 cursor-pointer bg-white shadow-md hover:shadow-2xl hover:shadow-[#F97316]/10 transition-all"
+                  className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-[#F97316]/50 cursor-pointer bg-[#FEFCF9] shadow-md hover:shadow-2xl hover:shadow-[#F97316]/10 transition-all"
                 >
                   <div className="relative h-56 overflow-hidden bg-[#0a0a0a]">
                     <ImageWithSkeleton
@@ -955,7 +955,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Отзывы */}
-        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-white noise-overlay">
+        <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-12 md:mb-16 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
@@ -1084,7 +1084,7 @@ export default function Home() {
         </FadeUpSection>
 
         {/* Наша команда - Скрыт */}
-        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-white hidden">
+        <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9] hidden">
           <div className="container mx-auto px-4 md:px-6 lg:px-[120px]">
             <div className="text-center mb-16 md:mb-20 max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#0F172A] mb-4 tracking-tight">
@@ -1102,7 +1102,7 @@ export default function Home() {
                   transition={{ delay: idx * 0.15, duration: 0.6 }}
                   whileHover={{ y: -8, scale: 1.01 }}
                 >
-                  <AnimatedCard className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-[#F97316]/30 transition-all bg-white dark:bg-dark/50 shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl overflow-hidden">
+                  <AnimatedCard className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-[#F97316]/30 transition-all bg-[#FEFCF9] dark:bg-dark/50 shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 rounded-2xl overflow-hidden">
                     <div className="p-8 md:p-10">
                       <div className="flex flex-col items-center text-center">
                         <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-gray-100 shadow-xl mb-6 ring-4 ring-gray-100">
