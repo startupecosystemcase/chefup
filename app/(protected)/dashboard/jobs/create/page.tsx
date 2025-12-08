@@ -13,7 +13,8 @@ import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/magicui/animated-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { jobPostingSchema } from '@/types/job.types'
-import { useEmployerJobsStore, useAuthStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { useEmployerJobsStore, useAuthStore } from '@/stores/useOnboardingStore'
+import { useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
 import { cities, employmentTypes, workSchedules } from '@/lib/data'
 import { standardJobRequirements } from '@/lib/jobRequirements'
 import { ArrowLeft, Plus, X, FileText, CheckCircle2, AlertCircle } from 'lucide-react'
@@ -31,7 +32,7 @@ const countries = [
 export default function CreateJobPage() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
-  const employerData = useOnboardingStore((state) => state.employerFormData)
+  const employerData = useEmployerOnboardingStore((state) => state.formData)
   const addJob = useEmployerJobsStore((state) => state.addJob)
   const [selectedStandardRequirements, setSelectedStandardRequirements] = useState<string[]>([])
   const [customRequirements, setCustomRequirements] = useState<string[]>([])
@@ -304,12 +305,13 @@ export default function CreateJobPage() {
                                     >
                                       <FormControl>
                                         <Checkbox
-                                          checked={field.value?.includes(schedule.value)}
+                                          checked={field.value?.includes(schedule.value) || false}
                                           onCheckedChange={(checked) => {
+                                            const currentValue = field.value || []
                                             return checked
-                                              ? field.onChange([...field.value, schedule.value])
+                                              ? field.onChange([...currentValue, schedule.value])
                                               : field.onChange(
-                                                  field.value?.filter(
+                                                  currentValue.filter(
                                                     (value) => value !== schedule.value
                                                   )
                                                 )

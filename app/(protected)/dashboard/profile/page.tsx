@@ -7,7 +7,7 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { useOnboardingStore, useAuthStore } from '@/stores/useOnboardingStore'
+import { useOnboardingStore, useAuthStore, useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
 import {
   cities,
   ageRanges,

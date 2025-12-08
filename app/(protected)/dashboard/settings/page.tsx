@@ -24,6 +24,9 @@ import {
   DialogFooter,
 } from '@/components/magicui/animated-dialog'
 
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
 const settingsSchema = z.object({
   phone: z.string().regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, 'Неверный формат телефона'),
   username: z.string().min(3, 'Username должен содержать минимум 3 символа').max(30, 'Username не должен превышать 30 символов').regex(/^[a-zA-Z0-9_]+$/, 'Username может содержать только буквы, цифры и подчёркивание').optional().or(z.literal('')),
@@ -318,6 +321,129 @@ export default function SettingsPage() {
             </ShinyButton>
           </div>
         </form>
+      </div>
+    </div>
+  )
+}
+
+// Компонент настроек для работодателей
+function EmployerSettingsPage() {
+  const router = useRouter()
+  const userId = useAuthStore((state) => state.userId)
+  const employerFormData = useEmployerOnboardingStore((state) => state.formData)
+  const [notifications, setNotifications] = useState(true)
+
+  useEffect(() => {
+    if (!userId) {
+      router.push('/auth')
+    }
+  }, [userId, router])
+
+  if (!userId) {
+    return null
+  }
+
+  return (
+    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-4 dark:text-white">
+            <Settings className="w-8 h-8" />
+            Настройки компании
+          </h1>
+          <p className="text-muted-foreground dark:text-gray-400">Управление корпоративными настройками</p>
+        </div>
+
+        <div className="space-y-6">
+          {/* Данные компании */}
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+                <Building className="w-5 h-5" />
+                Данные компании
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Основная информация о компании</p>
+              <div className="space-y-4">
+                <div>
+                  <Label className="dark:text-gray-300">Название компании</Label>
+                  <p className="text-base dark:text-white mt-1">{employerFormData?.companyName || 'Не указано'}</p>
+                </div>
+                <div>
+                  <Label className="dark:text-gray-300">Тип компании</Label>
+                  <p className="text-base dark:text-white mt-1">{employerFormData?.companyType || 'Не указано'}</p>
+                </div>
+                <div>
+                  <Label className="dark:text-gray-300">Город</Label>
+                  <p className="text-base dark:text-white mt-1">{employerFormData?.city || 'Не указано'}</p>
+                </div>
+              </div>
+            </div>
+          </AnimatedCard>
+
+          {/* Управление ролями */}
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+                <Users className="w-5 h-5" />
+                Управление ролями и доступами
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Назначение ролей сотрудникам</p>
+              <ShinyButton variant="outline">
+                Управление ролями
+              </ShinyButton>
+            </div>
+          </AnimatedCard>
+
+          {/* Уведомления */}
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+                <Bell className="w-5 h-5" />
+                Уведомления
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Управление уведомлениями</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="notifications" className="dark:text-gray-300">Email и push-уведомления</Label>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">Получать уведомления о новых заявках и сообщениях</p>
+                </div>
+                <Switch
+                  id="notifications"
+                  checked={notifications}
+                  onCheckedChange={setNotifications}
+                />
+              </div>
+            </div>
+          </AnimatedCard>
+
+          {/* Интеграции */}
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+                <Link2 className="w-5 h-5" />
+                Управление интеграциями
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">HR-системы и партнёры</p>
+              <ShinyButton variant="outline" onClick={() => router.push('/dashboard/hr-system')}>
+                Интеграция HR-системы
+              </ShinyButton>
+            </div>
+          </AnimatedCard>
+
+          {/* Подписки */}
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+                <CreditCard className="w-5 h-5" />
+                Подписки / Биллинг
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Управление подпиской</p>
+              <ShinyButton variant="outline" onClick={() => router.push('/dashboard/subscription')}>
+                Управление подпиской
+              </ShinyButton>
+            </div>
+          </AnimatedCard>
+        </div>
       </div>
     </div>
   )
