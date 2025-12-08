@@ -251,10 +251,10 @@ export default function Home() {
         <FadeUpSection className="py-32 md:py-40 lg:py-48 bg-[#FEFCF9] relative overflow-hidden noise-overlay">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/12 rounded-full blur-[120px]"
+              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/20 rounded-full blur-[120px]"
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
+                scale: [1, 1.3, 1],
+                opacity: [0.6, 0.9, 0.6],
               }}
               transition={{
                 duration: 8,
@@ -263,10 +263,10 @@ export default function Home() {
               }}
             />
             <motion.div
-              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/10 rounded-full blur-[100px]"
+              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/18 rounded-full blur-[100px]"
               animate={{
                 scale: [1.1, 1, 1.1],
-                opacity: [0.6, 0.4, 0.6],
+                opacity: [0.7, 0.5, 0.7],
               }}
               transition={{
                 duration: 8,
@@ -560,10 +560,10 @@ export default function Home() {
         <FadeUpSection className="py-16 md:py-20 lg:py-24 bg-[#FEFCF9] noise-overlay relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/12 rounded-full blur-[120px]"
+              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/20 rounded-full blur-[120px]"
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
+                scale: [1, 1.3, 1],
+                opacity: [0.6, 0.9, 0.6],
               }}
               transition={{
                 duration: 8,
@@ -572,10 +572,10 @@ export default function Home() {
               }}
             />
             <motion.div
-              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/10 rounded-full blur-[100px]"
+              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/18 rounded-full blur-[100px]"
               animate={{
                 scale: [1.1, 1, 1.1],
-                opacity: [0.6, 0.4, 0.6],
+                opacity: [0.7, 0.5, 0.7],
               }}
               transition={{
                 duration: 8,
@@ -890,10 +890,10 @@ export default function Home() {
         <FadeUpSection className="py-20 md:py-28 lg:py-32 bg-[#FEFCF9] relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/12 rounded-full blur-[120px]"
+              className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#F97316]/20 rounded-full blur-[120px]"
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
+                scale: [1, 1.3, 1],
+                opacity: [0.6, 0.9, 0.6],
               }}
               transition={{
                 duration: 8,
@@ -902,10 +902,10 @@ export default function Home() {
               }}
             />
             <motion.div
-              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/10 rounded-full blur-[100px]"
+              className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#F97316]/18 rounded-full blur-[100px]"
               animate={{
                 scale: [1.1, 1, 1.1],
-                opacity: [0.6, 0.4, 0.6],
+                opacity: [0.7, 0.5, 0.7],
               }}
               transition={{
                 duration: 8,

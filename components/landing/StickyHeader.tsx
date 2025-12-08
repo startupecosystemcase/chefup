@@ -31,8 +31,8 @@ export function StickyHeader() {
     >
       <div className="container mx-auto px-5 md:px-6 lg:px-[120px]">
         <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
-          <div className="flex items-center justify-start -ml-4 md:-ml-6 lg:-ml-8 pt-1 md:pt-1.5">
-            <Logo className="h-14 md:h-16 lg:h-18" />
+          <div className="flex items-center justify-start -ml-4 md:-ml-6 lg:-ml-8">
+            <Logo className="h-28 md:h-32 lg:h-36" />
           </div>
           
           <div className="flex items-center gap-2 md:gap-3">
@@ -40,22 +40,22 @@ export function StickyHeader() {
               <ShinyButton 
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 md:h-9 md:w-9 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
+                className="h-4 w-4 md:h-5 md:w-5 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
                 onClick={() => router.push('/dashboard')}
                 aria-label="Профиль"
               >
-                <User className="w-4 h-4" />
+                <User className="w-2 h-2" />
               </ShinyButton>
             ) : (
               <>
                 <ShinyButton 
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 md:h-9 md:w-9"
+                  className="h-4 w-4 md:h-5 md:w-5"
                   onClick={() => router.push('/auth')}
                   aria-label="Войти"
                 >
-                  <User className="w-4 h-4" />
+                  <User className="w-2 h-2" />
                 </ShinyButton>
                 <ShinyButton
                   size="default"
