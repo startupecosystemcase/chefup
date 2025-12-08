@@ -139,22 +139,22 @@ export default function Home() {
           {/* Ultra-subtle orange glow */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#F97316]/8 rounded-full blur-[120px]"
+              className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#F97316]/12 rounded-full blur-[120px]"
               animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.4, 0.6, 0.4],
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
               }}
               transition={{
-                duration: 6,
+                duration: 8,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
             />
             <motion.div
-              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/6 rounded-full blur-[100px]"
+              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#F97316]/10 rounded-full blur-[100px]"
               animate={{
                 scale: [1.1, 1, 1.1],
-                opacity: [0.5, 0.3, 0.5],
+                opacity: [0.6, 0.4, 0.6],
               }}
               transition={{
                 duration: 6,
