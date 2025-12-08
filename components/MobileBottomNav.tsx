@@ -24,10 +24,11 @@ import {
   Search,
   CheckCircle,
   Award,
-  Handshake
+  Handshake,
+  ArrowLeft
 } from 'lucide-react'
 import { useAuthStore, type UserRole } from '@/stores/useOnboardingStore'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
 
 const applicantMenuItems = [
   { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
@@ -46,9 +47,7 @@ const applicantMenuItems = [
 
 const employerMenuItems = [
   { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
-  { href: '/dashboard/jobs/create', label: 'Подать вакансию', icon: FilePlus },
-  { href: '/dashboard/candidates', label: 'Кандидаты', icon: UserCheck },
-  { href: '/dashboard/jobs/history', label: 'История вакансий', icon: History },
+  { href: '/dashboard/jobs', label: 'Вакансии', icon: FilePlus },
   { href: '/dashboard/education', label: 'Образование', icon: GraduationCap },
   { href: '/dashboard/hr-system', label: 'HR-система', icon: Settings },
   { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
@@ -67,7 +66,6 @@ const moderatorMenuItems = [
 
 const bottomNavItems = [
   { href: '/dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/chat', icon: MessageSquare },
   { href: '/dashboard/resume', icon: FileText },
 ]
 
@@ -84,6 +82,15 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
 
   return (
     <nav className="space-y-1">
+      {/* Стрелочка влево для закрытия меню */}
+      <SheetClose asChild>
+        <button
+          className="flex items-center gap-2 mb-4 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Назад</span>
+        </button>
+      </SheetClose>
       {menuItems.map((item) => {
         const Icon = item.icon
         const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))

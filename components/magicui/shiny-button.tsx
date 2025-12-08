@@ -87,38 +87,17 @@ export function ShinyButton({
     }
     
     const { onDrag, onDragEnd, onDragStart, ...buttonProps } = props
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-    const [isHovered, setIsHovered] = useState(false)
-    
-    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!isHovered) return
-      const rect = e.currentTarget.getBoundingClientRect()
-      setMousePosition({
-        x: (e.clientX - rect.left - rect.width / 2) * 0.15,
-        y: (e.clientY - rect.top - rect.height / 2) * 0.15,
-      })
-    }
     
     return (
       <motion.button
         type={type}
         disabled={disabled}
         onClick={handleClick}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => {
-          setIsHovered(false)
-          setMousePosition({ x: 0, y: 0 })
-        }}
         aria-label={ariaLabel}
         className={defaultClasses}
-        whileHover={{ scale: 1.02, y: -2 }}
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         {...(buttonProps as any)}
       >
         {/* Ripple effects */}

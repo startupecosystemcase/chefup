@@ -40,9 +40,7 @@ const applicantMenuItems = [
 
 const employerMenuItems = [
   { href: '/dashboard', label: 'Главная', icon: Home },
-  { href: '/dashboard/jobs/create', label: 'Подать вакансию', icon: FilePlus },
-  { href: '/dashboard/candidates', label: 'Кандидаты', icon: UserCheck },
-  { href: '/dashboard/jobs/history', label: 'История вакансий', icon: History },
+  { href: '/dashboard/jobs', label: 'Вакансии', icon: FilePlus },
   { href: '/dashboard/education', label: 'Образование', icon: GraduationCap },
   { href: '/dashboard/hr-system', label: 'HR-система', icon: Settings },
   { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
@@ -90,30 +88,30 @@ export function DashboardSidebar() {
       {/* Content */}
       <nav className="relative flex-1 py-6" style={{ paddingLeft: '20%' }}>
         <div className="space-y-0.5">
-          {menuItems.map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
+        {menuItems.map((item) => {
+          const Icon = item.icon
+          const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
                   'relative flex items-center gap-3 rounded-lg px-4 py-2 text-sm transition-all duration-200',
                   'font-semibold',
-                  isActive
+                isActive
                     ? 'bg-[#F97316] text-white'
                     : 'text-[#0F172A] dark:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
-                )}
+              )}
                 style={{ fontFamily: 'Gilroy, sans-serif' }}
-              >
+            >
               <Icon className={cn(
                 'h-4 w-4 transition-all duration-200 flex-shrink-0',
                 isActive ? 'text-white' : 'text-[#0F172A] dark:text-white'
               )} />
               <span className="flex-1">{item.label}</span>
-              </Link>
-            )
-          })}
+            </Link>
+          )
+        })}
         </div>
         
         {/* Theme toggle and Language selector after menu items */}

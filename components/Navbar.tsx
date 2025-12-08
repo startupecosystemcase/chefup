@@ -83,7 +83,9 @@ export function Navbar() {
               <DropdownMenuTrigger asChild>
                   <button className="flex items-center justify-center gap-2 h-8 md:h-9 px-3 md:px-4 rounded-lg bg-[#F97316] hover:bg-[#F97316]/90 transition-colors">
                     <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                    <span className="text-white text-xs md:text-sm font-medium hidden sm:inline">Мой профиль</span>
+                    <span className="text-white text-xs md:text-sm font-medium hidden sm:inline">
+                      {userRole === 'employer' ? 'Профиль компании' : 'Мой профиль'}
+                    </span>
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background dark:bg-dark border-border/50">

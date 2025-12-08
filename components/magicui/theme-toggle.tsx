@@ -30,7 +30,7 @@ export function ThemeToggle() {
             : 'text-gray-500 dark:text-gray-400 hover:text-[#0F172A] dark:hover:text-white'
         )}
         aria-label="Светлая тема"
-      >
+    >
         <Sun className="h-3.5 w-3.5" />
       </button>
       <button

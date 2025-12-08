@@ -164,7 +164,7 @@ export const useEmployerJobsStore = create<EmployerJobsState>()(
           ...jobData,
           id: Date.now().toString(),
           employerId,
-          status: 'pending',
+          status: 'moderating', // Статус "На модерации" сразу после отправки
           createdAt: new Date().toISOString(),
         }
         set((state) => ({ jobs: [newJob, ...state.jobs] }))

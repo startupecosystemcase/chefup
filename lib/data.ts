@@ -163,6 +163,42 @@ export const employeeCounts = [
   { value: '100+', label: 'Более 100 сотрудников' },
 ] as const
 
+export const employmentTypes = [
+  { value: 'full-time', label: 'Полная занятость' },
+  { value: 'part-time', label: 'Частичная занятость' },
+  { value: 'contract', label: 'Договор' },
+  { value: 'internship', label: 'Стажировка' },
+] as const
+
+export const workSchedules = [
+  { value: 'day-shift', label: 'Дневная смена' },
+  { value: 'evening-shift', label: 'Вечерняя смена' },
+  { value: 'night-shift', label: 'Ночная смена' },
+  { value: 'flexible', label: 'Гибкий график' },
+  { value: 'weekends', label: 'Выходные дни' },
+  { value: 'rotating', label: 'Сменный график' },
+  { value: '5/2', label: '5/2 (пять рабочих, два выходных)' },
+  { value: '2/2', label: '2/2 (два рабочих, два выходных)' },
+] as const
+
+export const corporateCulture = [
+  { value: 'teamwork', label: 'Командная работа' },
+  { value: 'creativity', label: 'Креативность' },
+  { value: 'professionalism', label: 'Профессионализм' },
+  { value: 'innovation', label: 'Инновации' },
+  { value: 'tradition', label: 'Традиции' },
+  { value: 'fast-paced', label: 'Динамичная среда' },
+] as const
+
+export const trainingFrequency = [
+  { value: 'weekly', label: 'Еженедельно' },
+  { value: 'monthly', label: 'Ежемесячно' },
+  { value: 'quarterly', label: 'Ежеквартально' },
+  { value: 'annually', label: 'Ежегодно' },
+  { value: 'on-demand', label: 'По запросу' },
+  { value: 'rarely', label: 'Редко' },
+] as const
+
 export const employerNeeds = [
   { value: 'recruitment', label: 'Подбор персонала' },
   { value: 'hr-management', label: 'HR-управление' },

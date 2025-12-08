@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { toast } from 'react-hot-toast'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedCard } from '@/components/magicui/animated-card'
@@ -12,9 +10,10 @@ import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Separator } from '@/components/ui/separator'
-import { useAuthStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { useAuthStore, useOnboardingStore, useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
 import { isUsernameAvailable, suggestUsernameAlternatives, validateTelegramUsername } from '@/lib/usernameUtils'
-import { Settings, Phone, User, Bell, Lock, Trash2, AlertTriangle } from 'lucide-react'
+import { Settings, Phone, User, Bell, Lock, Trash2, AlertTriangle, Users, Building, Link2, CreditCard } from 'lucide-react'
+import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import {
   Dialog,
   DialogContent,
@@ -36,6 +35,7 @@ type SettingsFormData = z.infer<typeof settingsSchema>
 export default function SettingsPage() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
+  const userRole = useAuthStore((state) => state.userRole)
   const username = useAuthStore((state) => state.username)
   const setUsername = useAuthStore((state) => state.setUsername)
   const notifications = useAuthStore((state) => state.notifications)
@@ -44,6 +44,13 @@ export default function SettingsPage() {
   const setProfilePrivacy = useAuthStore((state) => state.setProfilePrivacy)
   const formData = useOnboardingStore((state) => state.formData)
   const setFormData = useOnboardingStore((state) => state.setFormData)
+  const employerFormData = useEmployerOnboardingStore((state) => state.formData)
+  const setEmployerFormData = useEmployerOnboardingStore((state) => state.setFormData)
+  
+  // Если работодатель - показываем корпоративные настройки
+  if (userRole === 'employer') {
+    return <EmployerSettingsPage />
+  }
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [usernameSuggestions, setUsernameSuggestions] = useState<string[]>([])
 

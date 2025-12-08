@@ -180,29 +180,30 @@ export default function DashboardPage() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-semibold dark:text-white">Быстрые действия</h3>
-                  <p className="text-sm text-muted-foreground dark:text-gray-400">
-                    Управляйте вакансиями и просматривайте кандидатов
+                  <h3 className="text-xl font-semibold text-[#000] dark:text-white mb-2">Подать вакансию на модерацию. История вакансии и кандидаты.</h3>
+                  <p className="text-sm font-semibold text-[#000] dark:text-gray-400">
+                    Подать вакансию на модерацию. Просмотр всех собственных вакансий и просмотров доступных кандидатов.
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} className="h-auto py-6 justify-start">
+                <ShinyButton 
+                  onClick={() => router.push('/dashboard/jobs/create')} 
+                  className="h-auto py-6 justify-start active:scale-100 hover:scale-100 transition-colors"
+                >
                   <div className="text-left">
                     <div className="font-semibold mb-1">Создать вакансию</div>
                     <div className="text-sm text-muted-foreground">Подать новую вакансию на модерацию</div>
                   </div>
                 </ShinyButton>
-                <ShinyButton variant="outline" onClick={() => router.push('/dashboard/jobs/history')} className="h-auto py-6 justify-start">
+                <ShinyButton 
+                  variant="outline" 
+                  onClick={() => router.push('/dashboard/jobs')} 
+                  className="h-auto py-6 justify-start active:scale-100 hover:scale-100 transition-colors"
+                >
                   <div className="text-left">
-                    <div className="font-semibold mb-1">История вакансий</div>
+                    <div className="font-semibold mb-1">Вакансии</div>
                     <div className="text-sm text-muted-foreground">Просмотр всех созданных вакансий</div>
-                  </div>
-                </ShinyButton>
-                <ShinyButton variant="outline" onClick={() => router.push('/dashboard/candidates')} className="h-auto py-6 justify-start">
-                  <div className="text-left">
-                    <div className="font-semibold mb-1">Кандидаты</div>
-                    <div className="text-sm text-muted-foreground">Просмотр доступных кандидатов</div>
                   </div>
                 </ShinyButton>
               </div>

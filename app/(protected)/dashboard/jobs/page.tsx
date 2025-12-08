@@ -10,22 +10,27 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/magicui/animated-select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Search, MapPin, Briefcase, Clock, Sparkles, Filter, CheckCircle2 } from 'lucide-react'
+import { Search, MapPin, Briefcase, Clock, Sparkles, Filter, CheckCircle2, Loader2, DollarSign, Plus } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { mockJobs } from '@/lib/mockData'
 import { cities, positions, cuisines, experienceRanges } from '@/lib/data'
 import { useOnboardingStore } from '@/stores/useOnboardingStore'
-import { useAuthStore } from '@/stores/useOnboardingStore'
+import { useAuthStore, useEmployerJobsStore } from '@/stores/useOnboardingStore'
 import { getRecommendedJobs, filterByRelevanceThreshold, type JobRelevance } from '@/lib/jobRecommendations'
 import { JobCardEnhanced } from '@/components/JobCardEnhanced'
 import { ScrollReveal } from '@/components/ScrollReveal'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
+import type { JobPosting } from '@/types/job.types'
+import { Users, ChevronDown, ChevronUp, UserCheck, AlertCircle } from 'lucide-react'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 
 export default function JobsPage() {
   const router = useRouter()
   const formData = useOnboardingStore((state) => state.formData)
   const userRole = useAuthStore((state) => state.userRole)
+  const userId = useAuthStore((state) => state.userId)
+  const { jobs: employerJobs } = useEmployerJobsStore()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCity, setSelectedCity] = useState<string>('all')
   const [selectedPosition, setSelectedPosition] = useState<string>('all')
@@ -115,7 +120,7 @@ export default function JobsPage() {
     }
 
     return jobs
-  }, [activeTab, recommendedJobs, filteredJobs, userRole, formData, showOnlyMatches])
+  }, [showRecommended, recommendedJobs, filteredJobs, userRole, formData, showOnlyMatches])
 
   // Функция для получения релевантности вакансии
   const getJobRelevance = (jobId: string): JobRelevance | null => {
@@ -125,6 +130,180 @@ export default function JobsPage() {
     return null
   }
 
+  // Логика для работодателей
+  if (userRole === 'employer') {
+    const myJobs = employerJobs.filter((job) => job.employerId === userId)
+    const [expandedJobId, setExpandedJobId] = useState<string | null>(null)
+    
+    // Mock кандидаты для вакансий
+    const getCandidatesForJob = (jobId: string) => {
+      // В реальном приложении это будет API запрос
+      return [
+        { id: '1', name: 'Иван Иванов', position: 'Шеф-повар', experience: '5 лет', match: 95 },
+        { id: '2', name: 'Мария Петрова', position: 'Су-шеф', experience: '3 года', match: 87 },
+      ]
+    }
+
+    const statusConfig: Record<JobPosting['status'], { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; color: string }> = {
+      pending: { label: 'На модерации', variant: 'outline', color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400' },
+      moderating: { label: 'На модерации', variant: 'outline', color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400' },
+      approved: { label: 'Опубликовано', variant: 'default', color: 'text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400' },
+      rejected: { label: 'Отклонена', variant: 'destructive', color: 'text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400' },
+      closed: { label: 'Закрыта', variant: 'outline', color: 'text-gray-600 bg-gray-50 dark:bg-gray-900/20 dark:text-gray-400' },
+    }
+
+    return (
+      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-8 md:mb-8 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Вакансии</h1>
+              <p className="text-muted-foreground dark:text-gray-400">
+                Управляйте созданными вакансиями и просматривайте кандидатов
+              </p>
+            </div>
+            <ShinyButton onClick={() => router.push('/dashboard/jobs/create')}>
+              <Plus className="w-4 h-4 mr-2" />
+              Создать вакансию
+            </ShinyButton>
+          </div>
+
+          {myJobs.length === 0 ? (
+            <AnimatedCard className="bg-white dark:bg-dark/50">
+              <div className="py-12 text-center">
+                <p className="text-muted-foreground dark:text-gray-400 mb-8">У вас пока нет созданных вакансий</p>
+                <ShinyButton onClick={() => router.push('/dashboard/jobs/create')}>
+                  Создать первую вакансию
+                </ShinyButton>
+              </div>
+            </AnimatedCard>
+          ) : (
+            <div className="space-y-6">
+              {myJobs.map((job) => {
+                const status = statusConfig[job.status]
+                const candidates = getCandidatesForJob(job.id)
+                const hasCandidates = candidates.length > 0
+                const isExpanded = expandedJobId === job.id
+                
+                return (
+                  <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50">
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-4 mb-3">
+                            <h3 className="text-xl font-semibold dark:text-white">{job.title}</h3>
+                            <AnimatedBadge className={status.color}>
+                              {status.label}
+                            </AnimatedBadge>
+                            {job.status === 'approved' && hasCandidates && (
+                              <AnimatedBadge variant="secondary" className="bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
+                                <AlertCircle className="w-3 h-3 mr-1" />
+                                Проверьте кандидатов
+                              </AnimatedBadge>
+                            )}
+                          </div>
+                          <div className="flex flex-wrap gap-3 mb-3">
+                            <AnimatedBadge variant="outline" className="text-xs">
+                              <MapPin className="w-3 h-3 mr-1" />
+                              {job.city}, {job.country}
+                            </AnimatedBadge>
+                            {job.company && (
+                              <AnimatedBadge variant="outline" className="text-xs">
+                                {job.company}
+                              </AnimatedBadge>
+                            )}
+                            {job.salary && (
+                              <AnimatedBadge variant="outline" className="text-xs">
+                                <DollarSign className="w-3 h-3 mr-1" />
+                                {job.salary}
+                              </AnimatedBadge>
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2">
+                            {job.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Кандидаты внутри карточки */}
+                      {hasCandidates && (
+                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                          <button
+                            onClick={() => setExpandedJobId(isExpanded ? null : job.id)}
+                            className="flex items-center justify-between w-full text-left"
+                          >
+                            <div className="flex items-center gap-2">
+                              <Users className="w-4 h-4 text-primary" />
+                              <span className="font-semibold dark:text-white">
+                                Кандидаты ({candidates.length})
+                              </span>
+                            </div>
+                            {isExpanded ? (
+                              <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                            ) : (
+                              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                            )}
+                          </button>
+                          
+                          {isExpanded && (
+                            <div className="mt-4 space-y-3">
+                              {candidates.map((candidate) => (
+                                <AnimatedCard key={candidate.id} className="bg-gray-50 dark:bg-dark/70 p-4">
+                                  <div className="flex items-center justify-between">
+                                    <div>
+                                      <h4 className="font-semibold dark:text-white">{candidate.name}</h4>
+                                      <p className="text-sm text-muted-foreground dark:text-gray-400">
+                                        {candidate.position} • {candidate.experience}
+                                      </p>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                      <AnimatedBadge variant="secondary" className="bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400">
+                                        Совпадение {candidate.match}%
+                                      </AnimatedBadge>
+                                      <ShinyButton variant="outline" size="sm" onClick={() => router.push(`/profile/${candidate.id}`)}>
+                                        Профиль
+                                      </ShinyButton>
+                                    </div>
+                                  </div>
+                                </AnimatedCard>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <span className="text-xs text-muted-foreground dark:text-gray-400">
+                          Создано: {new Date(job.createdAt).toLocaleDateString('ru-RU')}
+                        </span>
+                        <div className="flex gap-2">
+                          <ShinyButton variant="outline" size="sm" onClick={() => router.push(`/dashboard/jobs/${job.id}`)}>
+                            Подробнее
+                          </ShinyButton>
+                        </div>
+                      </div>
+                    </div>
+                  </AnimatedCard>
+                )
+              })}
+
+              {/* Кнопка "Создать ещё одну вакансию" */}
+              <AnimatedCard className="bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/20">
+                <div className="p-6 text-center">
+                  <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} variant="outline">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Создать ещё одну вакансию
+                  </ShinyButton>
+                </div>
+              </AnimatedCard>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Логика для соискателей (существующий код)
   return (
     <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
@@ -293,7 +472,7 @@ export default function JobsPage() {
               )}
             </div>
           </div>
-        </AnimatedCard>
+        </div>
 
         {/* Список вакансий */}
         <StaggerAnimation className="space-y-6" staggerDelay={0.05}>
