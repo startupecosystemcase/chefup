@@ -101,38 +101,36 @@ export default function SubscriptionPage() {
               : 'border-border dark:border-gray-700'
           )}>
             <div className="p-3 md:p-6">
-              <div className="flex items-center justify-between mb-6 md:mb-4">
-                <div>
-                  <h2 className="text-2xl mb-6 md:mb-2 font-semibold dark:text-white">Текущий план</h2>
-                  <p className="text-sm text-muted-foreground dark:text-gray-400">Ваш активный план подписки</p>
-                </div>
-                <AnimatedBadge 
-                  variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} 
-                  className={cn(
-                    'text-lg px-6 py-3 transition-all duration-300',
-                    subscriptionStatus === 'PRO' && 'animate-pulse'
-                  )}
-                >
+              <div className="flex items-center justify-between gap-4 whitespace-nowrap">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <h2 className="text-lg md:text-xl font-semibold dark:text-white whitespace-nowrap">Текущий план:</h2>
+                  <AnimatedBadge 
+                    variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} 
+                    className={cn(
+                      'text-sm md:text-base px-4 py-2 transition-all duration-300 whitespace-nowrap',
+                      subscriptionStatus === 'PRO' && 'animate-pulse'
+                    )}
+                  >
+                    {subscriptionStatus === 'PRO' ? (
+                      <>
+                        <Crown className="w-4 h-4 mr-2 flex-shrink-0" />
+                        <span>PRO</span>
+                      </>
+                    ) : (
+                      <span>BASIC</span>
+                    )}
+                  </AnimatedBadge>
                   {subscriptionStatus === 'PRO' ? (
-                    <>
-                      <Crown className="w-5 h-5 mr-2" />
-                      PRO
-                    </>
+                    <span className="text-sm md:text-base text-primary font-medium dark:text-primary whitespace-nowrap overflow-hidden text-ellipsis">
+                      PRO подписка активна
+                    </span>
                   ) : (
-                    'BASIC'
+                    <span className="text-sm md:text-base text-muted-foreground dark:text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis">
+                      Обновите до PRO
+                    </span>
                   )}
-                </AnimatedBadge>
-              </div>
-              {subscriptionStatus === 'PRO' ? (
-                <div className="flex items-center gap-4 text-primary">
-                  <CheckCircle className="w-5 h-5" />
-                  <span className="font-medium dark:text-primary">PRO подписка активна. Наслаждайтесь всеми преимуществами!</span>
                 </div>
-              ) : (
-                <p className="text-muted-foreground dark:text-gray-400">
-                  Обновите до PRO для доступа к расширенным функциям и преимуществам
-                </p>
-              )}
+              </div>
             </div>
           </AnimatedCard>
         </div>

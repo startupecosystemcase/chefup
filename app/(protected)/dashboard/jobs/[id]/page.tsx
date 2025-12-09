@@ -8,7 +8,7 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore, useResponseStore } from '@/stores/useOnboardingStore'
 import { mockJobs } from '@/lib/mockData'
-import { MapPin, Briefcase, Clock, DollarSign, Building2, Phone, Mail, Send, CheckCircle, AlertTriangle, Zap } from 'lucide-react'
+import { MapPin, Briefcase, Clock, CreditCard, Building2, Phone, Mail, Send, CheckCircle, AlertTriangle, Zap } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { JobCardEnhanced } from '@/components/JobCardEnhanced'
 import { getRecommendedJobs } from '@/lib/jobRecommendations'
@@ -137,7 +137,7 @@ export default function JobDetailPage() {
             <div className="space-y-6">
               <div>
                 <h3 className="font-semibold mb-6 md:mb-2 flex items-center gap-4 dark:text-white">
-                  <DollarSign className="w-4 h-4 text-primary" />
+                  <CreditCard className="w-4 h-4 text-primary" />
                   Зарплата
                 </h3>
                 <p className="text-lg font-semibold text-primary">{job.salary}</p>

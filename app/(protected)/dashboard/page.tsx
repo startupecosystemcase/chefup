@@ -15,7 +15,7 @@ import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsSto
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
-import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, DollarSign, Briefcase, Heart, Building2, Edit, Settings, Briefcase as BriefcaseIcon } from 'lucide-react'
+import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, CreditCard, Briefcase, Heart, Building2, Edit, Settings, Briefcase as BriefcaseIcon } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
 import { ProfileCompleteness } from '@/components/ProfileCompleteness'
@@ -389,7 +389,7 @@ export default function DashboardPage() {
     : mockJobs.slice(0, 6)
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full space-y-8">
         {/* Верхняя плашка профиля */}
         {userRole === 'applicant' && (
@@ -459,13 +459,15 @@ export default function DashboardPage() {
           </div>
           
                     {/* Кнопка перехода в профиль */}
-                    <ShinyButton 
-                      onClick={() => router.push('/dashboard/profile')}
-                      className="w-full md:w-auto whitespace-nowrap flex items-center gap-2"
-                    >
-                      <span>Перейти в мой профиль</span>
-                      <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                    </ShinyButton>
+                    <div className="w-full md:w-auto flex justify-center md:justify-end">
+                      <ShinyButton 
+                        onClick={() => router.push('/dashboard/profile')}
+                        className="w-full md:w-auto whitespace-nowrap flex items-center justify-center gap-2"
+                      >
+                        <span>Перейти в мой профиль</span>
+                        <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                      </ShinyButton>
+                    </div>
           </div>
         </div>
               </div>
@@ -475,21 +477,19 @@ export default function DashboardPage() {
 
         {/* Вакансии для вас */}
         {userRole === 'applicant' && recommendedJobs.length > 0 && (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-primary" />
-                Вакансии для вас
-              </h2>
-              <Link href="/dashboard/jobs">
-                <ShinyButton variant="ghost" size="sm" className="text-sm whitespace-nowrap">
-                  Все вакансии
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </ShinyButton>
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recommendedJobs.slice(0, 6).map((job) => (
+          <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
+            <div className="p-3 md:p-6">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <h2 className="text-lg md:text-xl font-semibold dark:text-white flex items-center gap-2 whitespace-nowrap">
+                  <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
+                  <span>Вакансии для вас</span>
+                </h2>
+                <Link href="/dashboard/jobs" className="flex-shrink-0">
+                  <ArrowRight className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-6">
+                {recommendedJobs.slice(0, 5).map((job) => (
                 <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
               <div className="p-3 md:p-6">
                     <h3 className="font-semibold text-lg mb-6 md:mb-2 dark:text-white">{job.title}</h3>
@@ -520,21 +520,19 @@ export default function DashboardPage() {
 
         {/* Предстоящие мероприятия */}
         {upcomingEvents.length > 0 && (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-primary" />
-                Предстоящие мероприятия
-              </h2>
-              <Link href="/dashboard/community">
-                <ShinyButton variant="ghost" size="sm" className="text-sm">
-                  Все мероприятия
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </ShinyButton>
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {upcomingEvents.map((event) => (
+          <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
+            <div className="p-3 md:p-6">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <h2 className="text-lg md:text-xl font-semibold dark:text-white flex items-center gap-2 whitespace-nowrap">
+                  <Calendar className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
+                  <span>Предстоящие мероприятия</span>
+                </h2>
+                <Link href="/dashboard/community" className="flex-shrink-0">
+                  <ArrowRight className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-6">
+                {upcomingEvents.slice(0, 5).map((event) => (
                 <AnimatedCard key={event.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
           <div className="p-3 md:p-6">
                     <h3 className="font-semibold text-lg mb-6 md:mb-2 dark:text-white">{event.title}</h3>
@@ -549,7 +547,7 @@ export default function DashboardPage() {
                       </div>
                       {event.price > 0 && (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
-                          <DollarSign className="w-4 h-4" />
+                          <CreditCard className="w-4 h-4" />
                           {event.price} KZT
                         </div>
                       )}
@@ -562,27 +560,34 @@ export default function DashboardPage() {
                   </div>
                 </AnimatedCard>
               ))}
+              </div>
+              <div className="pt-4 border-t border-gray-200/50 dark:border-border/50">
+                <Link href="/dashboard/community">
+                  <ShinyButton variant="outline" size="sm" className="w-full whitespace-nowrap">
+                    Все мероприятия
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </ShinyButton>
+                </Link>
+              </div>
             </div>
-          </div>
+          </AnimatedCard>
         )}
 
         {/* Популярные программы */}
         {popularPrograms.length > 0 && (
-              <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold dark:text-white flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-primary" />
-                Популярные программы
-              </h2>
-              <Link href="/dashboard/practice">
-                <ShinyButton variant="ghost" size="sm" className="text-sm">
-                  Все программы
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                  </ShinyButton>
-              </Link>
-                    </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {popularPrograms.map((program) => (
+          <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
+            <div className="p-3 md:p-6">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <h2 className="text-lg md:text-xl font-semibold dark:text-white flex items-center gap-2 whitespace-nowrap">
+                  <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
+                  <span>Популярные программы</span>
+                </h2>
+                <Link href="/dashboard/practice" className="flex-shrink-0">
+                  <ArrowRight className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-6">
+                {popularPrograms.slice(0, 5).map((program) => (
                 <AnimatedCard key={program.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
                   <div className="p-3 md:p-6">
                     <h3 className="font-semibold text-lg mb-6 md:mb-2 dark:text-white">{program.title}</h3>
@@ -593,7 +598,7 @@ export default function DashboardPage() {
                     </div>
                       {program.price > 0 && (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
-                          <DollarSign className="w-4 h-4" />
+                          <CreditCard className="w-4 h-4" />
                           {program.price} KZT
                     </div>
                       )}

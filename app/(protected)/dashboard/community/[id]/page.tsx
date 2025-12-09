@@ -9,7 +9,7 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore, useEventsStore } from '@/stores/useOnboardingStore'
 import { mockEvents } from '@/lib/mockEvents'
-import { Calendar, MapPin, Users, Coffee, ArrowLeft, CheckCircle2, Clock, DollarSign, XCircle } from 'lucide-react'
+import { Calendar, MapPin, Users, Coffee, ArrowLeft, CheckCircle2, Clock, CreditCard, XCircle } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
@@ -122,7 +122,7 @@ export default function EventDetailPage() {
                 <span className="text-sm dark:text-white">До {event.maxParticipants} участников</span>
               </div>
               <div className="flex items-center gap-4">
-                <DollarSign className="w-4 h-4 text-primary" />
+                <CreditCard className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold dark:text-white">
                   {event.price === 0 ? 'Бесплатно' : `${event.price.toLocaleString('ru-RU')} ₸`}
                 </span>

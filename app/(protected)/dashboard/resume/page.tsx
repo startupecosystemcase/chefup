@@ -20,7 +20,7 @@ import {
   venueFormats,
   salaryRanges,
 } from '@/lib/data'
-import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil } from 'lucide-react'
+import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, CreditCard, Pencil } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 export default function ResumePage() {
@@ -249,7 +249,7 @@ export default function ResumePage() {
                 {formData.salaryExpectation && (
                   <div>
                     <p className="text-sm text-muted-foreground dark:text-gray-400 mb-1 flex items-center gap-1">
-                      <DollarSign className="w-4 h-4" />
+                      <CreditCard className="w-4 h-4" />
                       Ожидаемая зарплата
                     </p>
                     <p className="font-medium dark:text-white">

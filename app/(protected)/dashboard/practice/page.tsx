@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuthStore, useEducationStore } from '@/stores/useOnboardingStore'
 import { mockEducationItems } from '@/lib/mockEducation'
 import { astanaEducationItems } from '@/lib/mockEducationAstana'
-import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, Search, DollarSign, CheckCircle2, Filter } from 'lucide-react'
+import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, Search, CreditCard, CheckCircle2, Filter } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/magicui/animated-dialog'
 import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
@@ -240,7 +240,7 @@ export default function PracticePage() {
                           </div>
                         )}
                         <div className="flex items-center gap-4 font-semibold dark:text-white">
-                          <DollarSign className="w-4 h-4 text-primary" />
+                          <CreditCard className="w-4 h-4 text-primary" />
                           <span>{item.price === 0 ? 'Бесплатно' : `${item.price.toLocaleString('ru-RU')} ₸`}</span>
                         </div>
                       </div>

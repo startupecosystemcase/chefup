@@ -7,7 +7,7 @@ import { AnimatedCard } from '@/components/magicui/animated-card'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { useEmployerJobsStore, useAuthStore } from '@/stores/useOnboardingStore'
-import { MapPin, Briefcase, Clock, DollarSign, Eye, CheckCircle2, XCircle, ClockIcon, AlertCircle } from 'lucide-react'
+import { MapPin, Briefcase, Clock, CreditCard, Eye, CheckCircle2, XCircle, ClockIcon, AlertCircle } from 'lucide-react'
 import type { JobPosting } from '@/types/job.types'
 
 const statusConfig: Record<JobPosting['status'], { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: React.ReactNode }> = {
@@ -100,7 +100,7 @@ export default function JobsHistoryPage() {
                     <div className="flex items-center justify-between mt-4">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-4 text-sm">
-                          <DollarSign className="w-4 h-4 text-primary" />
+                          <CreditCard className="w-4 h-4 text-primary" />
                           <span className="font-semibold dark:text-white">{job.salary}</span>
                         </div>
                         {job.moderatorComment && (

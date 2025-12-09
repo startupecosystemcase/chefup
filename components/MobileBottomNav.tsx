@@ -66,7 +66,6 @@ const moderatorMenuItems = [
 
 const bottomNavItems = [
   { href: '/dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/profile', icon: User },
 ]
 
 function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
@@ -140,7 +139,7 @@ export function MobileBottomNav() {
         <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/70 to-white/60 dark:from-gray-900/80 dark:via-gray-900/70 dark:to-gray-900/60 backdrop-blur-2xl border-t border-white/30 dark:border-gray-700/30 shadow-[0_-8px_32px_rgba(0,0,0,0.12)]" />
         
         {/* Content */}
-        <div className="relative flex items-center justify-around h-16 px-4">
+        <div className="relative flex items-center justify-between h-16 px-4">
           {bottomNavItems.map((item, index) => {
             const Icon = item.icon
             const isActive = item.href === '/dashboard' 

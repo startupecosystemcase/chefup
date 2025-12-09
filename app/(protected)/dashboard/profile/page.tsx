@@ -20,7 +20,7 @@ import {
   venueFormats,
   salaryRanges,
 } from '@/lib/data'
-import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil, Edit, Eye, Heart, UserPlus, Users, CheckCircle2, Globe, Plus, FileCheck, Clock, Upload, Crop, Instagram, Facebook, Linkedin, Youtube, Send, X } from 'lucide-react'
+import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, CreditCard, Pencil, Edit, Eye, Heart, UserPlus, Users, CheckCircle2, Globe, Plus, FileCheck, Clock, Upload, Crop, Instagram, Facebook, Linkedin, Youtube, Send, X } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
@@ -1304,7 +1304,7 @@ export default function ProfilePage() {
                           color: getCharacteristicColor('salary').text
                         }}
                       >
-                        <DollarSign className="w-3 h-3" />
+                        <CreditCard className="w-3 h-3" />
                         {getLabel(formData.salaryExpectation, salaryRanges)}
                       </div>
                     )}

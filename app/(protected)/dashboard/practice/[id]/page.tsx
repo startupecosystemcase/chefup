@@ -9,7 +9,7 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore, useEducationStore } from '@/stores/useOnboardingStore'
 import { mockEducationItems } from '@/lib/mockEducation'
-import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, ArrowLeft, CheckCircle2, Download, DollarSign } from 'lucide-react'
+import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, ArrowLeft, CheckCircle2, Download, CreditCard } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
@@ -124,7 +124,7 @@ export default function EducationDetailPage() {
                 </div>
               )}
               <div className="flex items-center gap-4">
-                <DollarSign className="w-4 h-4 text-primary" />
+                <CreditCard className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold dark:text-white">
                   {education.price === 0 ? 'Бесплатно' : `${education.price.toLocaleString('ru-RU')} ₸`}
                 </span>

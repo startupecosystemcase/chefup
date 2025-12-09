@@ -139,19 +139,12 @@ export default function NotificationsPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl w-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Уведомления</h1>
-            {unreadCount > 0 && (
-              <p className="text-sm text-muted-foreground dark:text-gray-400">
-                {unreadCount} непрочитанных
-              </p>
-            )}
-          </div>
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Уведомления</h1>
           {unreadCount > 0 && (
-            <ShinyButton variant="outline" size="sm" onClick={handleMarkAllAsRead}>
-              Отметить все как прочитанные
-            </ShinyButton>
+            <p className="text-sm text-muted-foreground dark:text-gray-400">
+              {unreadCount} непрочитанных
+            </p>
           )}
         </div>
 
@@ -179,20 +172,29 @@ export default function NotificationsPage() {
                       handleMarkAsRead(notification.id)
                     }
                   }}
+                  onMouseDown={(e) => {
+                    e.currentTarget.style.backgroundColor = '#FFF8F0'
+                  }}
+                  onMouseUp={(e) => {
+                    e.currentTarget.style.backgroundColor = ''
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = ''
+                  }}
                 >
                   <div className="p-4 md:p-6">
                     <div className="flex items-start gap-4">
-                      {/* Icon */}
+                      {/* Icon - левый верхний угол */}
                       <div className={cn('p-2 rounded-lg flex-shrink-0', iconColor)}>
                         <Icon className="w-5 h-5" />
                       </div>
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2 mb-1">
+                        <div className="flex items-start justify-between gap-2 mb-2">
                           <h3
                             className={cn(
-                              'font-semibold text-sm md:text-base',
+                              'font-semibold text-sm md:text-base whitespace-nowrap overflow-hidden text-ellipsis',
                               notification.read
                                 ? 'text-gray-700 dark:text-gray-300'
                                 : 'text-[#0F172A] dark:text-white'
@@ -200,45 +202,25 @@ export default function NotificationsPage() {
                           >
                             {notification.title}
                           </h3>
-                          {!notification.read && (
-                            <div className="h-2 w-2 bg-[#F97316] rounded-full flex-shrink-0 mt-1.5" />
-                          )}
-                        </div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-2">
-                          {notification.message}
-                        </p>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1.5 text-xs text-muted-foreground dark:text-gray-500">
-                            <Clock className="w-3.5 h-3.5" />
-                            {format(notification.date, 'd MMMM yyyy, HH:mm', { locale: ru })}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex items-center gap-1 flex-shrink-0">
-                        {!notification.read && (
+                          {/* Крестик - правый верхний угол */}
                           <button
                             onClick={(e) => {
                               e.stopPropagation()
-                              handleMarkAsRead(notification.id)
+                              handleDelete(notification.id)
                             }}
-                            className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                            title="Отметить как прочитанное"
+                            className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+                            title="Закрыть"
                           >
-                            <CheckCircle className="w-4 h-4 text-muted-foreground" />
+                            <X className="w-4 h-4 text-muted-foreground" />
                           </button>
-                        )}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleDelete(notification.id)
-                          }}
-                          className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                          title="Удалить"
-                        >
-                          <X className="w-4 h-4 text-muted-foreground" />
-                        </button>
+                        </div>
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 mb-2 line-clamp-2">
+                          {notification.message}
+                        </p>
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground dark:text-gray-500 whitespace-nowrap">
+                          <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                          <span>{format(notification.date, 'd MMMM yyyy, HH:mm', { locale: ru })}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -246,7 +228,18 @@ export default function NotificationsPage() {
               )
             })}
           </div>
-        ) : (
+        ) : null}
+        
+        {/* Кнопка "Отметить все как прочитанное" внизу */}
+        {unreadCount > 0 && notifications.length > 0 && (
+          <div className="mt-6 flex justify-center">
+            <ShinyButton variant="outline" size="sm" onClick={handleMarkAllAsRead} className="whitespace-nowrap">
+              Отметить все как прочитанное
+            </ShinyButton>
+          </div>
+        )}
+
+        {notifications.length === 0 && (
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
             <div className="p-12 text-center">
               <Bell className="w-16 h-16 text-muted-foreground/50 mx-auto mb-6 md:mb-4" />

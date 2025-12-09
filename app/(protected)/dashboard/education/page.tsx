@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuthStore, useEducationStore } from '@/stores/useOnboardingStore'
 import { mockEducationItems } from '@/lib/mockEducation'
 import { astanaEducationItems } from '@/lib/mockEducationAstana'
-import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, Search, DollarSign, Filter } from 'lucide-react'
+import { BookOpen, Clock, Users, Calendar, MapPin, Video, Award, Search, CreditCard, Filter } from 'lucide-react'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
 import type { EducationType } from '@/types/education.types'
 
@@ -185,7 +185,7 @@ export default function EducationPage() {
                             <span>Автор: {item.author}</span>
                           </div>
                           <div className="flex items-center gap-4 font-semibold dark:text-white">
-                            <DollarSign className="w-4 h-4 text-primary" />
+                            <CreditCard className="w-4 h-4 text-primary" />
                             <span>{item.price === 0 ? 'Бесплатно' : `${item.price.toLocaleString('ru-RU')} ₸`}</span>
                           </div>
                         </div>

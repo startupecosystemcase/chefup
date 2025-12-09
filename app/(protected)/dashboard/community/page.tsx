@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuthStore, useEventsStore } from '@/stores/useOnboardingStore'
 import { mockEvents } from '@/lib/mockEvents'
 import { astanaEvents } from '@/lib/mockEventsAstana'
-import { Calendar, MapPin, Users, Coffee, Search, CheckCircle2, Clock, DollarSign, Filter, UserPlus, Share2, Copy } from 'lucide-react'
+import { Calendar, MapPin, Users, Coffee, Search, CheckCircle2, Clock, CreditCard, Filter, UserPlus, Share2, Copy } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
@@ -297,7 +297,7 @@ export default function CommunityPage() {
                           <span>До {event.maxParticipants} участников</span>
                         </div>
                         <div className="flex items-center gap-4 font-semibold dark:text-white">
-                          <DollarSign className="w-4 h-4 text-primary" />
+                          <CreditCard className="w-4 h-4 text-primary" />
                           <span>{event.price === 0 ? 'Бесплатно' : `${event.price.toLocaleString('ru-RU')} ₸`}</span>
                         </div>
                       </div>

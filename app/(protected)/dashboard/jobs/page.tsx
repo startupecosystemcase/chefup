@@ -10,7 +10,7 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/magicui/animated-select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Search, MapPin, Briefcase, Clock, Sparkles, Filter, CheckCircle2, Loader2, DollarSign, Plus } from 'lucide-react'
+import { Search, MapPin, Briefcase, Clock, Sparkles, Filter, CheckCircle2, Loader2, CreditCard, Plus } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { mockJobs } from '@/lib/mockData'
@@ -217,7 +217,7 @@ export default function JobsPage() {
                             )}
                             {job.salary && (
                               <AnimatedBadge variant="outline" className="text-xs">
-                                <DollarSign className="w-3 h-3 mr-1" />
+                                <CreditCard className="w-3 h-3 mr-1" />
                                 {job.salary}
                               </AnimatedBadge>
                             )}
