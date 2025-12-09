@@ -251,14 +251,22 @@ export default function AdminVacanciesPage() {
                 })}
               </tbody>
             </table>
-            {filteredJobs.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground">
-                Вакансии не найдены
-              </div>
-            )}
-          </div>
+            </div>
+          ) : null}
         </CardContent>
       </Card>
+
+      {filteredJobs.length === 0 && allJobs.length === 0 && (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-muted-foreground mb-4">На данный момент вакансий нет</p>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              Добавить вакансию
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Диалог просмотра вакансии с откликами */}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>

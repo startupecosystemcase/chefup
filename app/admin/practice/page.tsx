@@ -145,8 +145,13 @@ export default function AdminPracticePage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          {filteredItems.length === 0 && allItems.length > 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              Курсы/тренинги не найдены по заданным фильтрам
+            </div>
+          ) : filteredItems.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full">
               <thead>
                 <tr className="border-b">
                   <th className="text-left p-2">Название</th>
@@ -188,14 +193,22 @@ export default function AdminPracticePage() {
                 })}
               </tbody>
             </table>
-            {filteredItems.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground">
-                Курсы/тренинги не найдены
-              </div>
-            )}
-          </div>
+            </div>
+          ) : null}
         </CardContent>
       </Card>
+
+      {filteredItems.length === 0 && allItems.length === 0 && (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-muted-foreground mb-4">Практик пока нет</p>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              Добавить практику
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Диалог просмотра с участниками */}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>

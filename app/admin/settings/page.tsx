@@ -37,12 +37,42 @@ export default function AdminSettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Информация об администраторе</CardTitle>
+          <CardTitle>Настройки системы</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Название проекта</Label>
+            <AnimatedInput defaultValue="ChefUp" placeholder="Название проекта" />
+          </div>
+          <div>
+            <Label>Email поддержки</Label>
+            <AnimatedInput type="email" defaultValue="support@chefup.com" placeholder="support@chefup.com" />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <Label>Телеграм уведомления</Label>
+              <p className="text-sm text-muted-foreground">Включить уведомления в Telegram (пока выключено)</p>
+            </div>
+            <Switch disabled />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Настройки администратора</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
             <Label>Текущий логин</Label>
             <Input value={adminLogin || ''} disabled />
+          </div>
+          <div>
+            <Label>Изменить логин</Label>
+            <div className="space-y-2">
+              <AnimatedInput placeholder="Новый логин" />
+              <Button variant="outline">Изменить логин</Button>
+            </div>
           </div>
           <div>
             <Label>Смена пароля</Label>
@@ -51,6 +81,10 @@ export default function AdminSettingsPage() {
               <AnimatedInput type="password" placeholder="Подтвердите пароль" />
               <Button>Изменить пароль</Button>
             </div>
+          </div>
+          <div>
+            <Label>Настройки доступа</Label>
+            <p className="text-sm text-muted-foreground">Полный доступ ко всем разделам админ-панели</p>
           </div>
         </CardContent>
       </Card>

@@ -114,8 +114,13 @@ export default function AdminCommunityPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {filteredPosts.map((post) => (
+          {filteredPosts.length === 0 && allPosts.length > 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              Посты не найдены по заданным фильтрам
+            </div>
+          ) : filteredPosts.length > 0 ? (
+            <div className="space-y-4">
+              {filteredPosts.map((post) => (
               <Card key={post.id}>
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between">
@@ -145,14 +150,22 @@ export default function AdminCommunityPage() {
                 </CardContent>
               </Card>
             ))}
-            {filteredPosts.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground">
-                Посты не найдены
-              </div>
-            )}
-          </div>
+            </div>
+          ) : null}
         </CardContent>
       </Card>
+
+      {filteredPosts.length === 0 && allPosts.length === 0 && (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-muted-foreground mb-4">Записей пока нет</p>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              Создать пост
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Диалог создания поста */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label'
 import { toast } from 'react-hot-toast'
 import { cities, companyTypes } from '@/lib/data'
+import { AdminFiltersPanel } from '@/components/AdminFiltersPanel'
 
 interface Company {
   id: string
@@ -33,6 +34,17 @@ interface Company {
 export default function AdminCompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [filters, setFilters] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    city: '',
+    branchesMin: '',
+    vacanciesMin: '',
+    status: '',
+    dateFrom: '',
+    dateTo: '',
+  })
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [newCompany, setNewCompany] = useState({
     name: '',
@@ -323,7 +335,35 @@ export default function AdminCompaniesPage() {
         </Dialog>
       </div>
 
-      <Card>
+      <AdminFiltersPanel
+        filters={filters}
+        onFiltersChange={setFilters}
+        onReset={() => setFilters({
+          name: '',
+          phone: '',
+          email: '',
+          city: '',
+          branchesMin: '',
+          vacanciesMin: '',
+          status: '',
+          dateFrom: '',
+          dateTo: '',
+        })}
+        type="companies"
+      />
+
+      {filteredCompanies.length === 0 && companies.length === 0 ? (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-muted-foreground mb-4">Компании не найдены</p>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              Создать компанию
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
         <CardHeader>
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
