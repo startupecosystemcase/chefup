@@ -32,6 +32,10 @@ export const employerOnboardingSchema = z.object({
   
   // Шаг 5: Цели регистрации
   goals: z.array(z.string()).min(1, 'Выберите хотя бы одну цель'),
+  
+  // Реферальная информация (заполняется при активации промокода)
+  referralCode: z.string().optional(),
+  referralBy: z.string().optional(), // ФИО или username шеф-повара
 })
 
 export type EmployerOnboardingFormData = z.infer<typeof employerOnboardingSchema>
