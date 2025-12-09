@@ -20,7 +20,7 @@ import {
   venueFormats,
   salaryRanges,
 } from '@/lib/data'
-import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil, Edit, Eye, Heart, UserPlus, Users, CheckCircle2, Globe, Plus, FileCheck, Clock, Upload, Crop, Instagram, Facebook, Linkedin, Youtube, Send, X, Copy } from 'lucide-react'
+import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil, Edit, Eye, Heart, UserPlus, Users, CheckCircle2, Globe, Plus, FileCheck, Clock, Upload, Crop, Instagram, Facebook, Linkedin, Youtube, Send, X } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
@@ -274,10 +274,10 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="p-12 md:p-[72px] lg:p-[96px] w-full bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
         {/* Profile Header with Cover Image or Vanta.js FOG */}
-        <div className="relative mb-8 h-[180px] md:h-[224px]">
+        <div className="relative mb-6 md:mb-8 h-[140px] md:h-[224px]">
           {/* Cover Container */}
           <div className="relative w-full h-full overflow-hidden rounded-2xl">
             {coverImage ? (
@@ -355,11 +355,11 @@ export default function ProfilePage() {
           </div>
 
           {/* Avatar positioned on left, overlapping banner (half on cover, half below) - OUTSIDE cover container */}
-          <div className="absolute left-6 md:left-8 bottom-0 translate-y-1/2 z-30">
+          <div className="absolute left-4 md:left-8 bottom-0 translate-y-1/2 z-30">
             <div className="relative group">
-              <Avatar className="h-32 w-32 md:h-40 md:w-40 ring-4 ring-white shadow-xl rounded-full overflow-visible">
+              <Avatar className="h-24 w-24 md:h-40 md:w-40 ring-4 ring-white shadow-xl rounded-full overflow-visible">
                 <AvatarImage src={formData.avatarUrl} className="rounded-full" />
-                <AvatarFallback className="text-3xl md:text-4xl bg-white text-gray-700 dark:bg-gray-800 dark:text-white rounded-full">
+                <AvatarFallback className="text-2xl md:text-4xl bg-white text-gray-700 dark:bg-gray-800 dark:text-white rounded-full">
                   {formData.firstName?.[0] || 'U'}
                   {formData.lastName?.[0] || ''}
                 </AvatarFallback>
@@ -401,10 +401,10 @@ export default function ProfilePage() {
         />
 
         {/* Profile Info Section */}
-        <div className="mt-20 md:mt-24 mb-8">
+        <div className="mt-16 md:mt-24 mb-6 md:mb-8">
           {/* Full Name with Verification */}
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold dark:text-white flex items-center gap-2 mb-8">
+            <h1 className="text-xl md:text-3xl font-bold dark:text-white flex items-center gap-2 mb-4 md:mb-8">
               {formData.firstName || 'Пользователь'} {formData.lastName || ''}
               <TooltipProvider>
                 <Tooltip>
@@ -465,7 +465,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Badges - Specialization, City, Profession (Orange) */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
               {formData.cuisines && formData.cuisines.length > 0 && (
                 <div className="px-3 py-1.5 bg-[#F97316] text-white rounded-lg text-sm font-medium">
                   {getLabel(formData.cuisines[0], cuisines)}
@@ -487,7 +487,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Buttons Row - White buttons */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
               <Dialog open={isExtendedQuestionnaireOpen} onOpenChange={setIsExtendedQuestionnaireOpen}>
                 <DialogTrigger asChild>
                   <ShinyButton variant="outline" size="sm" className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2 flex items-center gap-1.5">
