@@ -143,7 +143,12 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
             {(['RU', 'KZ', 'EN'] as const).map((lang) => (
               <button
                 key={lang}
-                onClick={() => setLanguage(lang)}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setLanguage(lang)
+                }}
                 className={cn(
                   'px-2 py-1 text-xs font-semibold rounded-md transition-all whitespace-nowrap',
                   language === lang
