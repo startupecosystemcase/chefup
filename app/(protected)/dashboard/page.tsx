@@ -390,11 +390,11 @@ export default function DashboardPage() {
 
   return (
     <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
-      <div className="mx-auto max-w-7xl w-full space-y-8">
+      <div className="mx-auto max-w-7xl w-full space-y-4 md:space-y-8">
         {/* Верхняя плашка профиля */}
         {userRole === 'applicant' && (
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-2xl border border-gray-200/50 dark:border-border/50">
-            <div className="p-6 md:p-8">
+            <div className="p-3 md:p-6 lg:p-8">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                 {/* Аватар */}
                 <Avatar className="h-20 w-20 md:h-24 md:w-24 flex-shrink-0">
