@@ -44,167 +44,6 @@ import { BadgeSelector } from '@/components/BadgeSelector'
 import { useEmployerJobsStore } from '@/stores/useOnboardingStore'
 import { Copy, Check } from 'lucide-react'
 
-// Компонент профиля компании для работодателей
-function CompanyProfilePage() {
-  const router = useRouter()
-  const userId = useAuthStore((state) => state.userId)
-  const username = useAuthStore((state) => state.username)
-  const employerFormData = useEmployerOnboardingStore((state) => state.formData)
-  const { jobs } = useEmployerJobsStore()
-  const [copied, setCopied] = useState(false)
-
-  const companyJobs = jobs.filter((job) => job.employerId === userId)
-  const approvedJobs = companyJobs.filter((job) => job.status === 'approved')
-  const pendingJobs = companyJobs.filter((job) => job.status === 'moderating' || job.status === 'pending')
-
-  const handleCopyId = () => {
-    if (userId) {
-      navigator.clipboard.writeText(userId)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-  }
-
-  return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Профиль компании</h1>
-          <p className="text-muted-foreground dark:text-gray-400">
-            Управление данными компании и статистика
-          </p>
-        </div>
-
-        {/* ID и Username */}
-        <AnimatedCard className="bg-white dark:bg-dark/50 mb-6">
-          <div className="p-6">
-            <div className="flex items-center gap-4 mb-4">
-              <div>
-                <h2 className="text-xl font-semibold dark:text-white mb-2">
-                  {employerFormData?.companyName || 'Компания'}
-                </h2>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground dark:text-gray-400">
-                  {username && <span>@{username}</span>}
-                  {userId && (
-                    <div className="flex items-center gap-2">
-                      <span>ID: {userId.slice(0, 8)}...</span>
-                      <button
-                        onClick={handleCopyId}
-                        className="flex items-center gap-1 text-primary hover:text-primary/80"
-                      >
-                        {copied ? (
-                          <>
-                            <Check className="w-3 h-3" />
-                            Скопировано
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            Копировать
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimatedCard>
-
-        {/* Статистика */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4 dark:text-white">Всего вакансий</h3>
-              <div className="text-3xl font-bold dark:text-white">{companyJobs.length}</div>
-            </div>
-          </AnimatedCard>
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4 dark:text-white">Опубликовано</h3>
-              <div className="text-3xl font-bold text-green-600">{approvedJobs.length}</div>
-            </div>
-          </AnimatedCard>
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4 dark:text-white">На модерации</h3>
-              <div className="text-3xl font-bold text-orange-600">{pendingJobs.length}</div>
-            </div>
-          </AnimatedCard>
-        </div>
-
-        {/* Информация о компании */}
-        <AnimatedCard className="bg-white dark:bg-dark/50 mb-6">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-6 dark:text-white">Общая информация</h2>
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Название компании</Label>
-                <p className="text-base dark:text-white">{employerFormData?.companyName || 'Не указано'}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Тип заведения</Label>
-                <p className="text-base dark:text-white">{employerFormData?.companyType || 'Не указано'}</p>
-              </div>
-              {employerFormData?.referralCode && employerFormData?.referralBy && (
-                <div>
-                  <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Реферальный промокод</Label>
-                  <div className="mt-2 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary/20">
-                    <p className="text-sm dark:text-white">
-                      <span className="font-semibold">Промокод:</span> {employerFormData.referralCode}
-                    </p>
-                    <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">
-                      Пришёл по реферальному промокоду: <span className="font-medium">{employerFormData.referralBy}</span>
-                    </p>
-                  </div>
-                </div>
-              )}
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Город</Label>
-                <p className="text-base dark:text-white">{employerFormData?.city || 'Не указано'}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Адрес</Label>
-                <p className="text-base dark:text-white">{employerFormData?.address || 'Не указано'}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Описание</Label>
-                <p className="text-base dark:text-white">{employerFormData?.description || 'Не указано'}</p>
-              </div>
-            </div>
-          </div>
-        </AnimatedCard>
-
-        {/* Контакты */}
-        <AnimatedCard className="bg-white dark:bg-dark/50 mb-6">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-6 dark:text-white">Контакты</h2>
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Контактное лицо</Label>
-                <p className="text-base dark:text-white">{employerFormData?.contactPerson || 'Не указано'}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Должность</Label>
-                <p className="text-base dark:text-white">{employerFormData?.position || 'Не указано'}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Email</Label>
-                <p className="text-base dark:text-white">{employerFormData?.email || 'Не указано'}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Телефон</Label>
-                <p className="text-base dark:text-white">{employerFormData?.phone || 'Не указано'}</p>
-              </div>
-            </div>
-          </div>
-        </AnimatedCard>
-      </div>
-    </div>
-  )
-}
-
 export default function ProfilePage() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
@@ -425,6 +264,12 @@ export default function ProfilePage() {
   }
 
   if (!mounted || !userId) {
+    return null
+  }
+
+  // Если работодатель - редирект на отдельную страницу профиля компании
+  if (userRole === 'employer') {
+    router.push('/dashboard/profile/company')
     return null
   }
 

@@ -131,12 +131,12 @@ export default function CommunityPage() {
               </p>
             </div>
             <div className="flex gap-3">
-              <ShinyButton variant="outline" onClick={() => setIsInviteDialogOpen(true)}>
+              <ShinyButton variant="outline" onClick={() => setIsInviteDialogOpen(true)} className="whitespace-nowrap">
                 <UserPlus className="w-4 h-4 mr-2" />
                 Пригласить участника
               </ShinyButton>
             {userRole === 'moderator' && (
-              <ShinyButton onClick={() => router.push('/dashboard/community/create')}>
+              <ShinyButton onClick={() => router.push('/dashboard/community/create')} className="whitespace-nowrap">
                 Создать событие
               </ShinyButton>
             )}
@@ -303,25 +303,25 @@ export default function CommunityPage() {
                       </div>
                       <div className="mt-auto space-y-4">
                         {participationStatus === 'pending' && (
-                          <ShinyButton variant="outline" className="w-full" disabled>
+                          <ShinyButton variant="outline" className="w-full whitespace-nowrap" disabled>
                             <Clock className="w-4 h-4 mr-2" />
                             Заявка на модерации
                           </ShinyButton>
                         )}
                         {participationStatus === 'approved' && (
-                          <ShinyButton variant="outline" className="w-full" disabled>
+                          <ShinyButton variant="outline" className="w-full whitespace-nowrap" disabled>
                             <CheckCircle2 className="w-4 h-4 mr-2" />
                             Вы одобрены
                           </ShinyButton>
                         )}
                         {participationStatus === 'rejected' && (
-                          <ShinyButton variant="outline" className="w-full" disabled>
+                          <ShinyButton variant="outline" className="w-full whitespace-nowrap" disabled>
                             Заявка отклонена
                           </ShinyButton>
                         )}
                         {!participationStatus && (
                           <>
-                            <ShinyButton className="w-full" onClick={() => handleApply(event.id!)}>
+                            <ShinyButton className="w-full whitespace-nowrap" onClick={() => handleApply(event.id!)}>
                               Подать заявку
                             </ShinyButton>
                             <Dialog open={isRegistrationOpen && selectedEventId === event.id} onOpenChange={(open) => {
@@ -384,6 +384,7 @@ export default function CommunityPage() {
                 <ShinyButton 
                   variant="outline" 
                   onClick={() => setIsInviteDialogOpen(false)}
+                  className="whitespace-nowrap"
                 >
                   Отмена
                 </ShinyButton>
@@ -418,6 +419,7 @@ export default function CommunityPage() {
                       }
                     }
                   }}
+                  className="whitespace-nowrap"
                 >
                   <Share2 className="w-4 h-4 mr-2" />
                   Поделиться

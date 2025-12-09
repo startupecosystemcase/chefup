@@ -66,11 +66,11 @@ export default function ResumePage() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <ShinyButton variant="outline" onClick={handleShareResume} className="w-full sm:w-auto">
+            <ShinyButton variant="outline" onClick={handleShareResume} className="w-full sm:w-auto whitespace-nowrap">
               <Share2 className="w-4 h-4 mr-2" />
               Поделиться
             </ShinyButton>
-            <ShinyButton onClick={handleDownloadPDF} className="w-full sm:w-auto">
+            <ShinyButton onClick={handleDownloadPDF} className="w-full sm:w-auto whitespace-nowrap">
               <Download className="w-4 h-4 mr-2" />
               Скачать PDF
             </ShinyButton>
@@ -293,11 +293,11 @@ export default function ResumePage() {
 
         {/* Действия */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <ShinyButton onClick={() => router.push('/onboarding')} variant="outline" className="flex-1 text-sm">
+          <ShinyButton onClick={() => router.push('/onboarding')} variant="outline" className="flex-1 text-sm whitespace-nowrap">
             <Pencil className="w-4 h-4 mr-2" />
             Редактировать анкету
           </ShinyButton>
-          <ShinyButton onClick={handleShareResume} className="flex-1 text-sm">
+          <ShinyButton onClick={handleShareResume} className="flex-1 text-sm whitespace-nowrap">
             <Share2 className="w-4 h-4 mr-2" />
             Поделиться резюме
           </ShinyButton>

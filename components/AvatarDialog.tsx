@@ -102,12 +102,18 @@ export function AvatarDialog({ open, onOpenChange, currentAvatar, firstName, las
           </div>
 
           <Tabs defaultValue="photo" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="photo">
+            <TabsList className="grid w-full grid-cols-2 bg-gray-100 dark:bg-gray-800">
+              <TabsTrigger 
+                value="photo"
+                className="data-[state=active]:bg-white data-[state=active]:text-gray-900 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-white text-gray-600 dark:text-gray-400"
+              >
                 <ImageIcon className="w-4 h-4 mr-2" />
                 Фото
               </TabsTrigger>
-              <TabsTrigger value="emoji">
+              <TabsTrigger 
+                value="emoji"
+                className="data-[state=active]:bg-white data-[state=active]:text-gray-900 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-white text-gray-600 dark:text-gray-400"
+              >
                 <Smile className="w-4 h-4 mr-2" />
                 Смайлик
               </TabsTrigger>

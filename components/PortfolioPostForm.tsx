@@ -136,7 +136,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
           disabled={images.length >= 20}
         />
         <label htmlFor="image-upload">
-          <ShinyButton type="button" variant="outline" disabled={images.length >= 20} className="cursor-pointer w-full sm:w-auto">
+          <ShinyButton type="button" variant="outline" disabled={images.length >= 20} className="cursor-pointer w-full sm:w-auto whitespace-nowrap">
             <ImageIcon className="w-4 h-4 mr-2" />
             Добавить фото
           </ShinyButton>
@@ -227,7 +227,7 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
             placeholder="Описание (необязательно)"
             className="min-h-[60px]"
           />
-          <ShinyButton type="button" variant="outline" onClick={addLink} className="w-full sm:w-auto">
+          <ShinyButton type="button" variant="outline" onClick={addLink} className="w-full sm:w-auto whitespace-nowrap">
             <LinkIcon className="w-4 h-4 mr-2" />
             Добавить ссылку
           </ShinyButton>
@@ -268,13 +268,13 @@ export function PortfolioPostForm({ onSubmit, onCancel, initialData }: Portfolio
 
       <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
         {onCancel && (
-          <ShinyButton type="button" variant="outline" onClick={onCancel} className="flex-1">
+          <ShinyButton type="button" variant="outline" onClick={onCancel} className="flex-1 whitespace-nowrap">
             Отмена
           </ShinyButton>
         )}
         <ShinyButton 
           type="submit" 
-          className="flex-1"
+          className="flex-1 whitespace-nowrap"
           disabled={!canPublish}
           style={!canPublish ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
         >

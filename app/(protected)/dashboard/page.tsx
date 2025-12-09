@@ -267,7 +267,7 @@ export default function DashboardPage() {
               <div className="flex-shrink-0">
                 <Plus className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <div className="text-left flex-1">
+              <div className="text-left flex-1 whitespace-normal">
                 <div className="text-lg md:text-xl font-bold mb-1">Создать вакансию</div>
                 <div className="text-sm font-medium text-white/80">Подать новую вакансию на модерацию</div>
               </div>
@@ -482,7 +482,7 @@ export default function DashboardPage() {
                 Вакансии для вас
               </h2>
               <Link href="/dashboard/jobs">
-                <ShinyButton variant="ghost" size="sm" className="text-sm">
+                <ShinyButton variant="ghost" size="sm" className="text-sm whitespace-nowrap">
                   Все вакансии
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </ShinyButton>

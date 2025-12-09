@@ -189,7 +189,7 @@ export default function EducationPage() {
                             <span>{item.price === 0 ? 'Бесплатно' : `${item.price.toLocaleString('ru-RU')} ₸`}</span>
                           </div>
                         </div>
-                        <ShinyButton variant="outline" className="w-full" asChild>
+                        <ShinyButton variant="outline" className="w-full whitespace-nowrap" asChild>
                           <Link href={`/dashboard/education/${item.id}`}>
                             Подробнее
                           </Link>

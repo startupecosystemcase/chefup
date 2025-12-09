@@ -212,7 +212,7 @@ export function ExtendedQuestionnaire({ onComplete, onCancel }: ExtendedQuestion
               <p className="text-sm text-muted-foreground mb-8">
                 Выберите ровно 3 вида блюд
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 {dishTypes.map((dish) => {
                   const Icon = dish.icon
                   const isSelected = data.bestDishes?.includes(dish.name) || false

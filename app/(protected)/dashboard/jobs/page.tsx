@@ -162,7 +162,7 @@ export default function JobsPage() {
                 Управляйте созданными вакансиями и просматривайте кандидатов
               </p>
             </div>
-            <ShinyButton onClick={() => router.push('/dashboard/jobs/create')}>
+                <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} className="whitespace-nowrap">
               <Plus className="w-4 h-4 mr-2" />
               Создать вакансию
             </ShinyButton>
@@ -172,7 +172,7 @@ export default function JobsPage() {
             <AnimatedCard className="bg-white dark:bg-dark/50">
               <div className="py-12 text-center">
                 <p className="text-muted-foreground dark:text-gray-400 mb-8">У вас пока нет созданных вакансий</p>
-                <ShinyButton onClick={() => router.push('/dashboard/jobs/create')}>
+                <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} className="whitespace-nowrap">
                   Создать первую вакансию
                 </ShinyButton>
               </div>
@@ -260,7 +260,7 @@ export default function JobsPage() {
                                       <AnimatedBadge variant="secondary" className="bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400">
                                         Совпадение {candidate.match}%
                                       </AnimatedBadge>
-                                      <ShinyButton variant="outline" size="sm" onClick={() => router.push(`/profile/${candidate.id}`)}>
+                                      <ShinyButton variant="outline" size="sm" onClick={() => router.push(`/profile/${candidate.id}`)} className="whitespace-nowrap">
                                         Профиль
                                       </ShinyButton>
                                     </div>
@@ -277,7 +277,7 @@ export default function JobsPage() {
                           Создано: {new Date(job.createdAt).toLocaleDateString('ru-RU')}
                         </span>
                         <div className="flex gap-2">
-                          <ShinyButton variant="outline" size="sm" onClick={() => router.push(`/dashboard/jobs/${job.id}`)}>
+                          <ShinyButton variant="outline" size="sm" onClick={() => router.push(`/dashboard/jobs/${job.id}`)} className="whitespace-nowrap">
                             Подробнее
                           </ShinyButton>
                         </div>
@@ -290,7 +290,7 @@ export default function JobsPage() {
               {/* Кнопка "Создать ещё одну вакансию" */}
               <AnimatedCard className="bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/20">
                 <div className="p-6 text-center">
-                  <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} variant="outline">
+                  <ShinyButton onClick={() => router.push('/dashboard/jobs/create')} variant="outline" className="whitespace-nowrap">
                     <Plus className="w-4 h-4 mr-2" />
                     Создать ещё одну вакансию
                   </ShinyButton>
@@ -466,6 +466,7 @@ export default function JobsPage() {
                     setSelectedCuisine('all')
                     setSelectedExperience('all')
                   }}
+                  className="whitespace-nowrap"
                 >
                   Сбросить фильтры
                 </ShinyButton>
@@ -484,7 +485,7 @@ export default function JobsPage() {
                   <p className="text-lg text-muted-foreground dark:text-gray-400 mb-4">
                     Рекомендации появятся после заполнения анкеты
                   </p>
-                  <ShinyButton variant="outline" onClick={() => router.push('/onboarding')}>
+                  <ShinyButton variant="outline" onClick={() => router.push('/onboarding')} className="whitespace-nowrap">
                     Заполнить анкету
                   </ShinyButton>
                 </div>
