@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label'
 import { toast } from 'react-hot-toast'
 import { cities, positions, cuisines, experienceRanges, salaryRanges } from '@/lib/data'
+import { AdminFiltersPanel } from '@/components/AdminFiltersPanel'
 
 interface Worker {
   id: string
@@ -34,6 +35,20 @@ export default function AdminWorkersPage() {
   const { formData: allUsersData } = useOnboardingStore()
   const [workers, setWorkers] = useState<Worker[]>([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [filters, setFilters] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    city: '',
+    position: '',
+    skills: '',
+    cuisines: '',
+    salaryMin: '',
+    salaryMax: '',
+    dateFrom: '',
+    dateTo: '',
+    status: '',
+  })
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [editWorker, setEditWorker] = useState<Worker | null>(null)
@@ -82,12 +97,24 @@ export default function AdminWorkersPage() {
   const filteredWorkers = workers.filter((worker) => {
     const fullName = `${worker.firstName} ${worker.lastName}`.toLowerCase()
     const search = searchTerm.toLowerCase()
-    return (
+    
+    // Базовый поиск
+    const matchesSearch = searchTerm === '' || (
       fullName.includes(search) ||
       worker.phone.includes(search) ||
       worker.email?.toLowerCase().includes(search) ||
       worker.city.toLowerCase().includes(search)
     )
+
+    // Фильтры
+    const matchesName = !filters.name || fullName.includes(filters.name.toLowerCase())
+    const matchesPhone = !filters.phone || worker.phone.includes(filters.phone)
+    const matchesEmail = !filters.email || worker.email?.toLowerCase().includes(filters.email.toLowerCase())
+    const matchesCity = !filters.city || worker.city === filters.city
+    const matchesPosition = !filters.position || worker.position === filters.position
+    const matchesStatus = !filters.status || (filters.status === 'active' ? worker.subscriptionStatus === 'PRO' : true)
+
+    return matchesSearch && matchesName && matchesPhone && matchesEmail && matchesCity && matchesPosition && matchesStatus
   })
 
   const handleCreateWorker = () => {
@@ -204,7 +231,7 @@ export default function AdminWorkersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-bold">Работники</h1>
           <p className="text-muted-foreground mt-1">Управление профилями работников</p>
@@ -307,7 +334,38 @@ export default function AdminWorkersPage() {
         </Dialog>
       </div>
 
-      <Card>
+      <AdminFiltersPanel
+        filters={filters}
+        onFiltersChange={setFilters}
+        onReset={() => setFilters({
+          name: '',
+          phone: '',
+          email: '',
+          city: '',
+          position: '',
+          skills: '',
+          cuisines: '',
+          salaryMin: '',
+          salaryMax: '',
+          dateFrom: '',
+          dateTo: '',
+          status: '',
+        })}
+        type="workers"
+      />
+
+      {filteredWorkers.length === 0 ? (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-muted-foreground mb-4">Работники не найдены</p>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              Создать работника
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
         <CardHeader>
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
