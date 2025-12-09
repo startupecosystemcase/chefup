@@ -96,7 +96,7 @@ export default function JobDetailPage() {
         {/* Основная информация */}
         <AnimatedCard className="mb-8 card-soft-shadow bg-white dark:bg-dark/50">
           <div className="p-3 md:p-6">
-            <div className="flex items-start justify-between mb-6 md:mb-4">
+            <div className="flex items-start justify-between mb-4 md:mb-4">
               <div>
                 <h2 className="text-2xl mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{job.title}</h2>
                 <div className="flex flex-wrap gap-4">
