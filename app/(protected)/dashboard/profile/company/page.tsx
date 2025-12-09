@@ -8,7 +8,7 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore, useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
-import { Building2, Edit, Settings, MapPin, Copy, Check, Briefcase, Users, Award, FileText, Globe, Phone, Mail, Pencil, Plus, Eye } from 'lucide-react'
+import { Building2, Edit, Settings, MapPin, Copy, Check, Briefcase, Users, Award, FileText, Globe, Phone, Mail, Pencil, Plus, Eye, FilePlus } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Label } from '@/components/ui/label'
 import { useEmployerJobsStore } from '@/stores/useOnboardingStore'
@@ -235,7 +235,7 @@ export default function CompanyProfilePage() {
             <div className="p-4 md:p-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <Plus className="w-6 h-6 text-primary" />
+                  <FilePlus className="w-6 h-6 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-lg md:text-xl font-bold dark:text-white mb-1">Создать вакансию</h3>
@@ -248,7 +248,7 @@ export default function CompanyProfilePage() {
             <div className="p-4 md:p-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <Eye className="w-6 h-6 text-primary" />
+                  <Briefcase className="w-6 h-6 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-lg md:text-xl font-bold dark:text-white mb-1">Посмотреть текущие вакансии</h3>
