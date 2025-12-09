@@ -514,8 +514,17 @@ export default function DashboardPage() {
               </div>
             </AnimatedCard>
               ))}
+              </div>
+              <div className="pt-4 border-t border-gray-200/50 dark:border-border/50">
+                <Link href="/dashboard/jobs">
+                  <ShinyButton variant="outline" size="sm" className="w-full whitespace-nowrap">
+                    Все вакансии
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </ShinyButton>
+                </Link>
+              </div>
             </div>
-          </div>
+          </AnimatedCard>
         )}
 
         {/* Предстоящие мероприятия */}

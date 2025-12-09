@@ -114,7 +114,7 @@ export default function SubscriptionPage() {
                     variant={subscriptionStatus === 'PRO' ? 'default' : 'outline'} 
                     className={cn(
                       'text-sm md:text-base px-4 py-2 transition-all duration-300 whitespace-nowrap',
-                      subscriptionStatus === 'PRO' && 'animate-pulse'
+                      isPromoActivated && 'animate-pulse'
                     )}
                   >
                     {subscriptionStatus === 'PRO' ? (
