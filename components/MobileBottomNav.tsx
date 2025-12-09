@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -74,6 +74,13 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
   const userRole = useAuthStore((state) => state.userRole)
   const language = useAuthStore((state) => state.language)
   const setLanguage = useAuthStore((state) => state.setLanguage)
+  
+  useEffect(() => {
+    // Убеждаемся, что язык инициализирован
+    if (!language) {
+      setLanguage('RU')
+    }
+  }, [language, setLanguage])
 
   let menuItems = applicantMenuItems
   if (userRole === 'employer') {

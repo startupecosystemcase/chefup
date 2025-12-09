@@ -65,7 +65,11 @@ export function DashboardSidebar() {
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    // Убеждаемся, что язык инициализирован
+    if (!language) {
+      setLanguage('RU')
+    }
+  }, [language, setLanguage])
 
   if (!mounted) {
     return (
