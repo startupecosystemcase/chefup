@@ -64,7 +64,7 @@ export default function CompanyProfilePage() {
         {/* Company Header - только логотип, без обложки */}
         <div className="mb-8">
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-            <div className="p-4 md:p-8">
+            <div className="p-3 md:p-6">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
                 {/* Логотип компании */}
                 <div className="relative group">
