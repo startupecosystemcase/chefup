@@ -79,10 +79,10 @@ export default function ResponsesPage() {
               return (
                 <AnimatedCard key={response.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
                   <div className="p-3 md:p-6">
-                    <div className="flex items-start justify-between mb-6 md:mb-4">
+                    <div className="flex items-start justify-between mb-4 md:mb-4">
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold mb-6 md:mb-4 md:mb-3 dark:text-white leading-tight">{job.title}</h3>
-                        <div className="flex flex-wrap gap-2 mb-6 md:mb-4 md:mb-3">
+                        <h3 className="text-xl font-semibold mb-4 md:mb-3 dark:text-white leading-tight">{job.title}</h3>
+                        <div className="flex flex-wrap gap-2 mb-4 md:mb-3">
                           <AnimatedBadge variant="outline">{job.city}</AnimatedBadge>
                           <AnimatedBadge variant="outline">{job.position}</AnimatedBadge>
                           <AnimatedBadge variant={statusInfo.variant} className="flex items-center gap-1">
