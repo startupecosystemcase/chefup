@@ -88,7 +88,7 @@ export default function ModerateCandidatesPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
           <Button variant="ghost" onClick={() => router.back()} className="mb-8">

@@ -59,9 +59,9 @@ export function ShinyButton({
   }
 
   const sizeClasses = {
-    sm: 'h-11 px-4 text-xs font-semibold min-h-[44px] min-w-[100px]',
-    default: 'h-16 px-8 text-sm font-semibold min-h-[64px] min-w-[120px]',
-    lg: 'h-16 px-10 text-base font-semibold min-h-[64px] min-w-[140px]',
+    sm: 'h-11 px-4 text-[11px] md:text-xs font-semibold min-h-[44px] min-w-[100px]',
+    default: 'h-16 px-8 text-xs md:text-sm font-semibold min-h-[64px] min-w-[120px]',
+    lg: 'h-16 px-10 text-sm md:text-base font-semibold min-h-[64px] min-w-[140px]',
     icon: 'h-16 w-16 min-h-[64px] min-w-[64px] p-0',
   }
 

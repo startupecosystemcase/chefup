@@ -83,7 +83,7 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8 text-center">
           <h1 className="text-4xl font-bold mb-2 dark:text-white">Управление подпиской</h1>
@@ -253,7 +253,7 @@ function EmployerSubscriptionPage() {
 
   if (isSubmitted) {
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-3xl">
           <AnimatedCard className="bg-white dark:bg-dark/50">
             <div className="p-12 text-center">
@@ -275,7 +275,7 @@ function EmployerSubscriptionPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold mb-2 dark:text-white">Управление подпиской</h1>

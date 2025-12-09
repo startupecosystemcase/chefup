@@ -78,7 +78,7 @@ export default function EducationPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
         <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-3 dark:text-white">

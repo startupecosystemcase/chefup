@@ -66,7 +66,7 @@ const moderatorMenuItems = [
 
 const bottomNavItems = [
   { href: '/dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/resume', icon: FileText },
+  { href: '/dashboard/profile', icon: User },
 ]
 
 function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {

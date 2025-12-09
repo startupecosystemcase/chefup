@@ -38,7 +38,7 @@ export default function JobsHistoryPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>

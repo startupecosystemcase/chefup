@@ -136,7 +136,7 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl w-full">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">

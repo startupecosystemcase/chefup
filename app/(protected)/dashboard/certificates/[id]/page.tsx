@@ -34,7 +34,7 @@ export default function CertificateDetailPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
         <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />

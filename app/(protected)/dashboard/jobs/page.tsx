@@ -153,7 +153,7 @@ export default function JobsPage() {
     }
 
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
           <div className="mb-8 md:mb-8 flex items-center justify-between">
             <div>
@@ -377,7 +377,7 @@ export default function JobsPage() {
 
         {/* Поиск и фильтры - статичная полоса без hover эффектов */}
         <div className="mb-8 md:mb-8 bg-white dark:bg-dark/50 rounded-xl border border-gray-200/50 dark:border-border/50 shadow-sm">
-          <div className="p-4 md:p-6">
+          <div className="px-3 py-4 md:p-6">
             <div className="flex items-center gap-4 mb-4">
               <Filter className="w-4 h-4 dark:text-gray-400" />
               <h3 className="text-base md:text-lg font-semibold dark:text-white">Поиск и фильтры</h3>

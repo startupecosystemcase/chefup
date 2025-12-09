@@ -113,7 +113,7 @@ export default function ModerateUsersPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8">
+    <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">Управление пользователями</h1>

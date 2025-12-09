@@ -121,7 +121,7 @@ export default function HRSystemPage() {
 
   if (isSubmitted) {
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-3xl">
           <AnimatedCard className="bg-white dark:bg-dark/50">
             <div className="p-12 text-center">
@@ -143,7 +143,7 @@ export default function HRSystemPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white flex items-center gap-3">

@@ -130,7 +130,7 @@ export default function PartnersPage() {
   } catch (error) {
     console.error('Ошибка загрузки партнёров:', error)
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-7xl">
           <AnimatedCard className="bg-white dark:bg-dark/50">
             <div className="py-12 text-center">
@@ -164,7 +164,7 @@ export default function PartnersPage() {
   // Если выбрана категория, показываем страницу категории
   if (categoryId && selectedCategory) {
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
           {/* Кнопка назад и заголовок */}
           <div className="mb-8">
@@ -288,7 +288,7 @@ export default function PartnersPage() {
 
   // Главный экран с плитками категорий
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Партнёры</h1>

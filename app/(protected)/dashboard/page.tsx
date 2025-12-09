@@ -152,7 +152,7 @@ export default function DashboardPage() {
     const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
 
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
           <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8 dark:text-white">Личный кабинет работодателя</h1>
           
@@ -297,7 +297,7 @@ export default function DashboardPage() {
     const approvedJobs = jobs.filter((job) => job.status === 'approved')
 
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
           <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8 dark:text-white">Панель модератора</h1>
           

@@ -59,7 +59,7 @@ export default function JobDetailPage() {
 
   if (!job) {
     return (
-      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+      <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-4xl">
           <AnimatedCard className="bg-white dark:bg-dark/50">
             <div className="py-12 text-center">
@@ -75,7 +75,7 @@ export default function JobDetailPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
         <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-8">
           ← Назад
