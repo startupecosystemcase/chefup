@@ -20,7 +20,7 @@ import {
   venueFormats,
   salaryRanges,
 } from '@/lib/data'
-import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil, Edit, Eye, Heart, UserPlus, Users, CheckCircle2, Globe, Plus, FileCheck, Clock, Upload, Crop, Instagram, Facebook, Linkedin, Youtube, Send, X } from 'lucide-react'
+import { Download, Share2, FileText, MapPin, Briefcase, GraduationCap, Award, Target, DollarSign, Pencil, Edit, Eye, Heart, UserPlus, Users, CheckCircle2, Globe, Plus, FileCheck, Clock, Upload, Crop, Instagram, Facebook, Linkedin, Youtube, Send, X, Copy } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
@@ -421,17 +421,45 @@ export default function ProfilePage() {
             </h1>
 
             {/* ID и Username */}
-            <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-4 text-sm text-muted-foreground dark:text-gray-400">
+            <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-4 text-sm">
               {userId && (
                 <div className="flex items-center gap-1.5">
-                  <span className="font-medium">ID:</span>
-                  <span className="font-mono break-all">{userId}</span>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">ID:</span>
+                  <span className="font-mono break-all text-gray-900 dark:text-white">{userId}</span>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(userId)
+                      toast.success('ID скопирован!')
+                    }}
+                    className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                    title="Копировать ID"
+                  >
+                    <Copy className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      toast.info('Редактирование логина будет доступно в следующей версии')
+                    }}
+                    className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                    title="Редактировать логин"
+                  >
+                    <Pencil className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                  </button>
                 </div>
               )}
               {username && (
                 <div className="flex items-center gap-1.5">
-                  <span className="font-medium">Username:</span>
-                  <span className="font-mono break-all">@{username}</span>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Username:</span>
+                  <span className="font-mono break-all text-gray-900 dark:text-white">@{username}</span>
+                  <button
+                    onClick={() => {
+                      toast.info('Редактирование логина будет доступно в следующей версии')
+                    }}
+                    className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                    title="Редактировать логин"
+                  >
+                    <Pencil className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                  </button>
                 </div>
               )}
             </div>

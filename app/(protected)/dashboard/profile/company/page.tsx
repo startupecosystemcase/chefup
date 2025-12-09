@@ -8,7 +8,7 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore, useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
-import { Building2, Edit, Settings, MapPin, Copy, Check, Briefcase, Users, Award, FileText, Globe, Phone, Mail } from 'lucide-react'
+import { Building2, Edit, Settings, MapPin, Copy, Check, Briefcase, Users, Award, FileText, Globe, Phone, Mail, Pencil, Plus, Eye } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { Label } from '@/components/ui/label'
 import { useEmployerJobsStore } from '@/stores/useOnboardingStore'
@@ -51,8 +51,16 @@ export default function CompanyProfilePage() {
   }
 
   return (
-    <div className="p-12 md:p-[72px] lg:p-[96px] w-full bg-white dark:bg-dark transition-colors">
+    <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
+        {/* Заголовок страницы */}
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold dark:text-white flex items-center gap-3">
+            <Building2 className="w-6 h-6 md:w-8 md:h-8" />
+            Профиль компании
+          </h1>
+        </div>
+
         {/* Company Header - только логотип, без обложки */}
         <div className="mb-8">
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
@@ -88,11 +96,11 @@ export default function CompanyProfilePage() {
                       </h1>
                       
                       {/* ID и Username */}
-                      <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-4 text-sm text-muted-foreground dark:text-gray-400">
+                      <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-4 text-sm">
                         {userId && (
                           <div className="flex items-center gap-1.5">
-                            <span className="font-medium">ID:</span>
-                            <span className="font-mono break-all">{userId}</span>
+                            <span className="font-medium text-gray-700 dark:text-gray-300">ID:</span>
+                            <span className="font-mono break-all text-gray-900 dark:text-white">{userId}</span>
                             <button
                               onClick={handleCopyId}
                               className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
@@ -101,15 +109,35 @@ export default function CompanyProfilePage() {
                               {copied ? (
                                 <Check className="w-3 h-3 text-green-600" />
                               ) : (
-                                <Copy className="w-3 h-3" />
+                                <Copy className="w-3 h-3 text-gray-600 dark:text-gray-400" />
                               )}
+                            </button>
+                            <button
+                              onClick={() => {
+                                // TODO: Открыть диалог редактирования логина
+                                toast.info('Редактирование логина будет доступно в следующей версии')
+                              }}
+                              className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                              title="Редактировать логин"
+                            >
+                              <Pencil className="w-3 h-3 text-gray-600 dark:text-gray-400" />
                             </button>
                           </div>
                         )}
                         {username && (
                           <div className="flex items-center gap-1.5">
-                            <span className="font-medium">Username:</span>
-                            <span className="font-mono break-all">@{username}</span>
+                            <span className="font-medium text-gray-700 dark:text-gray-300">Username:</span>
+                            <span className="font-mono break-all text-gray-900 dark:text-white">@{username}</span>
+                            <button
+                              onClick={() => {
+                                // TODO: Открыть диалог редактирования логина
+                                toast.info('Редактирование логина будет доступно в следующей версии')
+                              }}
+                              className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                              title="Редактировать логин"
+                            >
+                              <Pencil className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                            </button>
                           </div>
                         )}
                       </div>
@@ -201,10 +229,40 @@ export default function CompanyProfilePage() {
           </AnimatedCard>
         </div>
 
+        {/* Кнопки действий */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <AnimatedCard className="bg-white dark:bg-dark/50 cursor-pointer hover:shadow-lg transition-shadow" onClick={() => router.push('/dashboard/jobs/create')}>
+            <div className="p-4 md:p-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Plus className="w-6 h-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg md:text-xl font-bold dark:text-white mb-1">Создать вакансию</h3>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 font-medium">Добавить новую вакансию на платформу</p>
+                </div>
+              </div>
+            </div>
+          </AnimatedCard>
+          <AnimatedCard className="bg-white dark:bg-dark/50 cursor-pointer hover:shadow-lg transition-shadow" onClick={() => router.push('/dashboard/jobs')}>
+            <div className="p-4 md:p-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Eye className="w-6 h-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg md:text-xl font-bold dark:text-white mb-1">Посмотреть текущие вакансии</h3>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 font-medium">Просмотр и управление вакансиями</p>
+                </div>
+              </div>
+            </div>
+          </AnimatedCard>
+        </div>
+
         {/* Информация о компании */}
         <AnimatedCard className="bg-white dark:bg-dark/50 mb-6">
           <div className="p-3 md:p-6">
-            <h2 className="text-xl font-semibold mb-6 dark:text-white">Общая информация</h2>
+            <h2 className="text-xl font-semibold mb-6 dark:text-white">О компании</h2>
             <div className="space-y-4">
               <div>
                 <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Название компании</Label>

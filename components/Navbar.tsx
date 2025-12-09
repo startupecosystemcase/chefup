@@ -72,7 +72,7 @@ export function Navbar() {
               {/* Иконка уведомлений */}
               <button
                 onClick={() => router.push('/dashboard/notifications')}
-                className="relative flex items-center justify-center h-8 md:h-9 w-8 md:w-9 rounded-lg hover:bg-muted/50 transition-colors"
+                className="relative flex items-center justify-center h-8 md:h-9 w-8 md:w-9 rounded-lg hover:bg-[#FFF8F0] dark:hover:bg-gray-800 transition-colors"
               >
                 <Bell className="w-5 h-5 text-[#0F172A] dark:text-white" />
                 {hasNotifications && (
