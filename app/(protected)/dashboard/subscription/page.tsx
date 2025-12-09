@@ -60,6 +60,8 @@ export default function SubscriptionPage() {
     return <EmployerSubscriptionPage />
   }
 
+  const [isPromoActivated, setIsPromoActivated] = useState(false)
+
   const handleActivatePromo = async () => {
     if (!promoCode.trim()) {
       toast.error('Введите промокод')
@@ -73,8 +75,11 @@ export default function SubscriptionPage() {
       const normalizedCode = promoCode.trim().toUpperCase()
       if (validPromoCodes.includes(normalizedCode)) {
         setSubscriptionStatus('PRO')
+        setIsPromoActivated(true)
         toast.success('PRO подписка успешно активирована!')
         setPromoCode('')
+        // Убираем мигание через 3 секунды
+        setTimeout(() => setIsPromoActivated(false), 3000)
       } else {
         toast.error('Неверный промокод. Проверьте правильность ввода.')
       }
@@ -98,7 +103,8 @@ export default function SubscriptionPage() {
             'border-2 transition-all duration-300 bg-white dark:bg-dark/50',
             subscriptionStatus === 'PRO' 
               ? 'border-primary bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20' 
-              : 'border-border dark:border-gray-700'
+              : 'border-border dark:border-gray-700',
+            isPromoActivated && 'animate-pulse'
           )}>
             <div className="p-3 md:p-6">
               <div className="flex items-center justify-between gap-4 whitespace-nowrap">
