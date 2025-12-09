@@ -91,10 +91,31 @@
   }
   body {
     @apply bg-background text-foreground transition-colors duration-300;
-    font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Системные элементы - Gilroy */
+  h1, h2, h3, h4, h5, h6,
+  button, .btn, [role="button"],
+  nav, .nav, .navbar,
+  .filter, .search-bar,
+  .form-label, label,
+  .badge, .chip,
+  .menu, .dropdown,
+  .sidebar, .header {
+    font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  /* Контент - Inter */
+  .content, .card-content,
+  .job-card, .event-card, .news-card,
+  .vacancy, .resume,
+  p, span, div:not(.system),
+  .description, .text-content {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
 
   .dark body {

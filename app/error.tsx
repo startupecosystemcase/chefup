@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ShinyButton } from '@/components/magicui/shiny-button'
-import { AlertCircle, RefreshCw, Home, HelpCircle } from 'lucide-react'
+import { AlertCircle, RefreshCw, Home, HelpCircle, MessageCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 
 export default function Error({
@@ -73,10 +73,24 @@ export default function Error({
           <ShinyButton
             variant="outline"
             onClick={() => router.push(homeUrl)}
-            className="w-full"
+            className="w-full bg-white dark:bg-white hover:bg-gray-50 flex items-center justify-center whitespace-nowrap"
           >
-            <Home className="w-4 h-4 mr-2" />
-            На главную {userId ? '(интерфейс)' : ''}
+            <Home className="w-4 h-4 mr-2 flex-shrink-0" />
+            <span>На главную</span>
+          </ShinyButton>
+          <ShinyButton 
+            variant="outline" 
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                const phoneNumber = '+77001234567' // Замените на реальный номер
+                const message = encodeURIComponent('Здравствуйте! Нужна помощь с платформой ChefUp.')
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank')
+              }
+            }}
+            className="w-full bg-white dark:bg-white hover:bg-gray-50 flex items-center justify-center whitespace-nowrap"
+          >
+            <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0 text-green-600" />
+            <span>Связаться через WhatsApp</span>
           </ShinyButton>
           {showSupport && (
             <ShinyButton 

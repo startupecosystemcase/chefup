@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ShinyButton } from '@/components/magicui/shiny-button'
-import { Home, Search, RefreshCw, HelpCircle } from 'lucide-react'
+import { Home, Search, RefreshCw, HelpCircle, MessageCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 
 export default function NotFound() {
@@ -57,11 +57,25 @@ export default function NotFound() {
             <RefreshCw className="w-4 h-4 mr-2" />
             Попробовать снова
           </ShinyButton>
-          <ShinyButton variant="outline" asChild className="w-full">
-            <Link href={homeUrl}>
-              <Home className="w-4 h-4 mr-2" />
-              На главную {userId ? '(интерфейс)' : ''}
+          <ShinyButton variant="outline" asChild className="w-full bg-white dark:bg-white hover:bg-gray-50">
+            <Link href={homeUrl} className="flex items-center justify-center whitespace-nowrap">
+              <Home className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span>На главную</span>
             </Link>
+          </ShinyButton>
+          <ShinyButton 
+            variant="outline" 
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                const phoneNumber = '+77001234567' // Замените на реальный номер
+                const message = encodeURIComponent('Здравствуйте! Нужна помощь с платформой ChefUp.')
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank')
+              }
+            }}
+            className="w-full bg-white dark:bg-white hover:bg-gray-50 flex items-center justify-center whitespace-nowrap"
+          >
+            <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0 text-green-600" />
+            <span>Связаться через WhatsApp</span>
           </ShinyButton>
           {showSupport && (
             <ShinyButton 
