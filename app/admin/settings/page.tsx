@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { toast } from 'react-hot-toast'
 import { useAdminStore } from '@/stores/useAdminStore'
 import { AlertTriangle, Trash2 } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 
 export default function AdminSettingsPage() {
   const { adminLogin } = useAdminStore()

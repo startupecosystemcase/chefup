@@ -157,7 +157,10 @@ export default function JobsPage() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-8 md:mb-8 flex items-center justify-between">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Вакансии</h1>
+              <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white flex items-center gap-3">
+                <Briefcase className="w-6 h-6 md:w-8 md:h-8" />
+                Вакансии
+              </h1>
               <p className="text-muted-foreground dark:text-gray-400">
                 Управляйте созданными вакансиями и просматривайте кандидатов
               </p>
@@ -308,7 +311,10 @@ export default function JobsPage() {
     <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Вакансии</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white flex items-center gap-3">
+            <Briefcase className="w-6 h-6 md:w-8 md:h-8" />
+            Вакансии
+          </h1>
           <p className="text-muted-foreground dark:text-gray-400">
             {userRole === 'applicant' 
               ? 'Персональная лента вакансий, подобранных специально для вас'

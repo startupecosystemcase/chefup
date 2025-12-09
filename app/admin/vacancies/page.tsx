@@ -191,66 +191,71 @@ export default function AdminVacanciesPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b">
-                  <th className="text-left p-2">ID</th>
-                  <th className="text-left p-2">Должность</th>
-                  <th className="text-left p-2">Компания</th>
-                  <th className="text-left p-2">Город</th>
-                  <th className="text-left p-2">Статус</th>
-                  <th className="text-left p-2">Дата</th>
-                  <th className="text-left p-2">Отклики</th>
-                  <th className="text-left p-2">Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredJobs.map((job) => {
-                  const responsesCount = getJobResponses(job.id).length
-                  return (
-                    <tr key={job.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className="p-2 text-sm font-mono">{job.id.slice(0, 8)}...</td>
-                      <td className="p-2">{job.title}</td>
-                      <td className="p-2">{job.company}</td>
-                      <td className="p-2">{job.city}</td>
-                      <td className="p-2">
-                        <Select
-                          value={job.status}
-                          onValueChange={(value) => handleStatusChange(job.id, value as JobPosting['status'])}
-                        >
-                          <SelectTrigger className="w-40">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="moderating">На модерации</SelectItem>
-                            <SelectItem value="approved">Опубликовано</SelectItem>
-                            <SelectItem value="rejected">Отклонено</SelectItem>
-                            <SelectItem value="closed">Закрыто</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </td>
-                      <td className="p-2">{new Date(job.createdAt).toLocaleDateString('ru-RU')}</td>
-                      <td className="p-2">
-                        <Badge variant={responsesCount > 0 ? 'default' : 'secondary'}>
-                          {responsesCount}
-                        </Badge>
-                      </td>
-                      <td className="p-2">
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm" onClick={() => handleViewJob(job)}>
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm" onClick={() => handleDeleteJob(job.id)}>
-                            <Trash2 className="w-4 h-4 text-red-600" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+          {filteredJobs.length === 0 && allJobs.length > 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              Вакансии не найдены по заданным фильтрам
+            </div>
+          ) : filteredJobs.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-2">ID</th>
+                    <th className="text-left p-2">Должность</th>
+                    <th className="text-left p-2">Компания</th>
+                    <th className="text-left p-2">Город</th>
+                    <th className="text-left p-2">Статус</th>
+                    <th className="text-left p-2">Дата</th>
+                    <th className="text-left p-2">Отклики</th>
+                    <th className="text-left p-2">Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredJobs.map((job) => {
+                    const responsesCount = getJobResponses(job.id).length
+                    return (
+                      <tr key={job.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
+                        <td className="p-2 text-sm font-mono">{job.id.slice(0, 8)}...</td>
+                        <td className="p-2">{job.title}</td>
+                        <td className="p-2">{job.company}</td>
+                        <td className="p-2">{job.city}</td>
+                        <td className="p-2">
+                          <Select
+                            value={job.status}
+                            onValueChange={(value) => handleStatusChange(job.id, value as JobPosting['status'])}
+                          >
+                            <SelectTrigger className="w-40">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="moderating">На модерации</SelectItem>
+                              <SelectItem value="approved">Опубликовано</SelectItem>
+                              <SelectItem value="rejected">Отклонено</SelectItem>
+                              <SelectItem value="closed">Закрыто</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </td>
+                        <td className="p-2">{new Date(job.createdAt).toLocaleDateString('ru-RU')}</td>
+                        <td className="p-2">
+                          <Badge variant={responsesCount > 0 ? 'default' : 'secondary'}>
+                            {responsesCount}
+                          </Badge>
+                        </td>
+                        <td className="p-2">
+                          <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="sm" onClick={() => handleViewJob(job)}>
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={() => handleDeleteJob(job.id)}>
+                              <Trash2 className="w-4 h-4 text-red-600" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
             </div>
           ) : null}
         </CardContent>
