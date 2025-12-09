@@ -27,7 +27,7 @@ import {
   Hotel,
   ShoppingBag,
   Target,
-  DollarSign,
+  CreditCard,
   TrendingUp,
   Network,
   Lightbulb,

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { MapPin, Briefcase, Clock, DollarSign, CheckCircle, ArrowLeft } from 'lucide-react'
+import { MapPin, Briefcase, Clock, CreditCard, CheckCircle, ArrowLeft } from 'lucide-react'
 import { mockJobs } from '@/lib/mockData'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
@@ -72,7 +72,7 @@ export default function PublicJobPage({ params }: { params: { id: string } }) {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="font-semibold mb-2 flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-primary" />
+                  <CreditCard className="w-5 h-5 text-primary" />
                   Зарплата
                 </h3>
                 <p className="text-lg font-semibold text-primary">{job.salary}</p>

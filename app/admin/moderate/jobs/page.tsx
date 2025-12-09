@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
 import { useEmployerJobsStore, useAuthStore } from '@/stores/useOnboardingStore'
-import { MapPin, Briefcase, Clock, DollarSign, CheckCircle2, XCircle, Eye } from 'lucide-react'
+import { MapPin, Briefcase, Clock, CreditCard, CheckCircle2, XCircle, Eye } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import type { JobPosting } from '@/types/job.types'
 
@@ -131,7 +131,7 @@ export default function ModerateJobsPage() {
                       </ul>
                     </div>
                     <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-primary" />
+                      <CreditCard className="w-4 h-4 text-primary" />
                       <span className="font-semibold">{job.salary}</span>
                     </div>
 

@@ -44,7 +44,7 @@ import {
   Star,
   Play,
   Lock,
-  DollarSign,
+  CreditCard,
   Heart,
   Rocket,
   Trophy,

@@ -6,7 +6,7 @@ import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { AnimatedProgress } from '@/components/magicui/animated-progress'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/magicui/animated-dialog'
-import { MapPin, Briefcase, Clock, DollarSign, TrendingUp, CheckCircle2, XCircle, AlertCircle, Sparkles, BarChart3, Send, CheckCircle, Building2, Phone, Mail, AlertTriangle, Zap } from 'lucide-react'
+import { MapPin, Briefcase, Clock, CreditCard, TrendingUp, CheckCircle2, XCircle, AlertCircle, Sparkles, BarChart3, Send, CheckCircle, Building2, Phone, Mail, AlertTriangle, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { toast } from 'react-hot-toast'
 import { useAuthStore } from '@/stores/useOnboardingStore'
@@ -169,7 +169,7 @@ export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, a
 
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <DollarSign className="w-4 h-4 text-primary" />
+            <CreditCard className="w-4 h-4 text-primary" />
             <span className="font-semibold dark:text-white">{job.salary}</span>
           </div>
           
@@ -238,7 +238,7 @@ export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, a
                 <span className="text-muted-foreground dark:text-gray-400">Опыт</span>
               </div>
               <div className="flex flex-col items-center p-2 rounded-md bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50">
-                <DollarSign className="w-4 h-4 mb-1 text-primary" />
+                <CreditCard className="w-4 h-4 mb-1 text-primary" />
                 <span className="font-semibold dark:text-white">{analysis.salary.match}%</span>
                 <span className="text-muted-foreground dark:text-gray-400">Зарплата</span>
               </div>
@@ -355,7 +355,7 @@ export const JobCardEnhanced = memo(function JobCardEnhanced({ job, relevance, a
                   {/* Соответствие зарплаты */}
                   <div className="space-y-5">
                     <h3 className="font-semibold flex items-center gap-4 dark:text-white">
-                      <DollarSign className="w-5 h-5 text-primary" />
+                      <CreditCard className="w-5 h-5 text-primary" />
                       Соответствие зарплатных ожиданий: {analysis.salary.match}%
                     </h3>
                     <div className="p-3 rounded-md bg-muted dark:bg-dark/70">

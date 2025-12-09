@@ -4,7 +4,7 @@ import { AnimatedCard } from '@/components/magicui/animated-card'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedBadge } from '@/components/magicui/animated-badge'
 import { AnimatedProgress } from '@/components/magicui/animated-progress'
-import { DollarSign, TrendingUp, Target, Eye, Send, Sparkles, AlertCircle, CheckCircle2, ArrowUp, ArrowDown, Minus } from 'lucide-react'
+import { CreditCard, TrendingUp, Target, Eye, Send, Sparkles, AlertCircle, CheckCircle2, ArrowUp, ArrowDown, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { OnboardingFormData } from '@/types/onboarding.types'
 
@@ -78,7 +78,7 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
       <AnimatedCard className="glass shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_8px_-1px_rgba(0,0,0,0.04)] border-t border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-dark/50">
         <div className="p-6">
           <h3 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
-            <DollarSign className="w-5 h-5 text-primary" />
+            <CreditCard className="w-5 h-5 text-primary" />
             Средняя зарплата по должности
           </h3>
           <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Сравнение ваших ожиданий с рынком</p>

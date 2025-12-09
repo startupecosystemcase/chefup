@@ -22,7 +22,7 @@ import {
   User,
   Briefcase,
   Utensils,
-  DollarSign,
+  CreditCard,
   Target,
   Phone,
   MessageCircle,
@@ -88,7 +88,7 @@ import {
 
 const TOTAL_STEPS = 5
 
-const stepIcons = [User, Briefcase, Utensils, DollarSign, Target]
+const stepIcons = [User, Briefcase, Utensils, CreditCard, Target]
 
 export function OnboardingWizard() {
   const router = useRouter()
