@@ -7,6 +7,9 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Home, Search, RefreshCw, HelpCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 
+// Отключаем статическую генерацию для этой страницы
+export const dynamic = 'force-dynamic'
+
 export default function NotFound() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
@@ -16,7 +19,7 @@ export default function NotFound() {
   const handleRetry = () => {
     setRetryCount(prev => prev + 1)
     // Попытка вернуться назад или перезагрузить
-    if (window.history.length > 1) {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
     } else {
       router.refresh()
@@ -65,7 +68,9 @@ export default function NotFound() {
               variant="outline" 
               onClick={() => {
                 // В реальном приложении здесь будет форма поддержки
-                window.location.href = 'mailto:support@chefup.com?subject=Ошибка 404'
+                if (typeof window !== 'undefined') {
+                  window.location.href = 'mailto:support@chefup.com?subject=Ошибка 404'
+                }
               }}
               className="w-full"
             >

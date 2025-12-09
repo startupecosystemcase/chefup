@@ -6,6 +6,9 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AlertCircle, RefreshCw, Home, HelpCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
 
+// Отключаем статическую генерацию для этой страницы
+export const dynamic = 'force-dynamic'
+
 export default function Error({
   error,
   reset,
@@ -80,7 +83,9 @@ export default function Error({
               variant="outline" 
               onClick={() => {
                 // В реальном приложении здесь будет форма поддержки
-                window.location.href = 'mailto:support@chefup.com?subject=Ошибка загрузки'
+                if (typeof window !== 'undefined') {
+                  window.location.href = 'mailto:support@chefup.com?subject=Ошибка загрузки'
+                }
               }}
               className="w-full"
             >

@@ -26,6 +26,9 @@ const phoneSchema = z.object({
 
 type PhoneFormData = z.infer<typeof phoneSchema>
 
+// Отключаем статическую генерацию для этой страницы
+export const dynamic = 'force-dynamic'
+
 export default function AuthPage() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
