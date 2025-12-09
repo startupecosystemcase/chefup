@@ -176,7 +176,7 @@ export default function PartnersPage() {
               <ArrowLeft className="w-4 h-4 flex-shrink-0" />
               <span>Назад</span>
             </ShinyButton>
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">{selectedCategory.title}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">{selectedCategory.title}</h1>
             <p className="text-muted-foreground dark:text-gray-400">{selectedCategory.description}</p>
           </div>
 
@@ -218,19 +218,19 @@ export default function PartnersPage() {
                     <AnimatedCard className="card-hover flex flex-col bg-white dark:bg-dark/50">
                       <div className="p-6 flex flex-col flex-1">
                         <div className="mb-6 md:mb-4">
-                          <div className="flex items-start justify-between mb-6 md:mb-4 md:mb-2">
+                          <div className="flex items-start justify-between mb-6 md:mb-2">
                             <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                               <Icon className="w-6 h-6 text-primary" />
                             </div>
                             <AnimatedBadge variant="secondary">{typeLabels[partner.type]}</AnimatedBadge>
                           </div>
-                          <h3 className="text-lg mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{partner.name}</h3>
+                          <h3 className="text-lg mb-6 md:mb-2 font-semibold dark:text-white">{partner.name}</h3>
                           <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-3">{partner.description}</p>
                         </div>
                         <div className="flex-1 flex flex-col">
                           <div className="space-y-5 mb-8">
                             <div>
-                              <h4 className="text-sm font-semibold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
+                              <h4 className="text-sm font-semibold mb-6 md:mb-2 flex items-center gap-4 dark:text-white">
                                 <Gift className="w-4 h-4 text-primary" />
                                 Преимущества:
                               </h4>
@@ -291,7 +291,7 @@ export default function PartnersPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Партнёры</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Партнёры</h1>
           <p className="text-muted-foreground dark:text-gray-400">
             {userRole === 'employer'
               ? 'Проверенные партнёры для развития вашего ресторанного бизнеса'
@@ -314,7 +314,7 @@ export default function PartnersPage() {
                     <div className="w-16 h-16 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-6">
                       <Icon className="w-8 h-8 text-primary" />
               </div>
-                    <h3 className="text-xl font-semibold mb-6 md:mb-4 md:mb-3 dark:text-white">{category.title}</h3>
+                    <h3 className="text-xl font-semibold mb-6 md:mb-3 dark:text-white">{category.title}</h3>
                     <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-4 flex-1">
                       {category.description}
                     </p>
@@ -348,19 +348,19 @@ export default function PartnersPage() {
                   <AnimatedCard className="card-hover flex flex-col bg-white dark:bg-dark/50">
                   <div className="p-6 flex flex-col flex-1">
                     <div className="mb-6 md:mb-4">
-                      <div className="flex items-start justify-between mb-6 md:mb-4 md:mb-2">
+                      <div className="flex items-start justify-between mb-6 md:mb-2">
                         <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                           <Icon className="w-6 h-6 text-primary" />
                         </div>
                         <AnimatedBadge variant="secondary">{typeLabels[partner.type]}</AnimatedBadge>
                       </div>
-                      <h3 className="text-lg mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{partner.name}</h3>
+                      <h3 className="text-lg mb-6 md:mb-2 font-semibold dark:text-white">{partner.name}</h3>
                       <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-3">{partner.description}</p>
                     </div>
                     <div className="flex-1 flex flex-col">
                       <div className="space-y-5 mb-8">
                         <div>
-                          <h4 className="text-sm font-semibold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
+                          <h4 className="text-sm font-semibold mb-6 md:mb-2 flex items-center gap-4 dark:text-white">
                             <Gift className="w-4 h-4 text-primary" />
                             Преимущества:
                           </h4>
@@ -376,7 +376,7 @@ export default function PartnersPage() {
 
                         {partner.offers && partner.offers.length > 0 && (
                           <div>
-                            <h4 className="text-sm font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Предложения:</h4>
+                            <h4 className="text-sm font-semibold mb-6 md:mb-2 dark:text-white">Предложения:</h4>
                             <ul className="text-sm text-muted-foreground dark:text-gray-400 space-y-1">
                               {partner.offers.slice(0, 2).map((offer, idx) => (
                                 <li key={idx} className="flex items-start gap-4">

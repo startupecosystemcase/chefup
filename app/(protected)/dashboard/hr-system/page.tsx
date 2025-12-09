@@ -146,7 +146,7 @@ export default function HRSystemPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-3">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white flex items-center gap-3">
             <Settings className="w-6 h-6 md:w-7 md:h-7 text-primary" />
             Интеграция HR-системы
           </h1>
@@ -162,7 +162,7 @@ export default function HRSystemPage() {
               
               <div className="space-y-6">
                 <div>
-                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Название компании *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Название компании *</Label>
                   <AnimatedInput
                     value={formData.companyName}
                     onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
@@ -173,7 +173,7 @@ export default function HRSystemPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Контактное лицо *</Label>
+                    <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Контактное лицо *</Label>
                     <AnimatedInput
                       value={formData.contactPerson}
                       onChange={(e) => setFormData(prev => ({ ...prev, contactPerson: e.target.value }))}
@@ -182,7 +182,7 @@ export default function HRSystemPage() {
                     />
                   </div>
                   <div>
-                    <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Должность *</Label>
+                    <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Должность *</Label>
                     <AnimatedInput
                       value={formData.contactPosition}
                       onChange={(e) => setFormData(prev => ({ ...prev, contactPosition: e.target.value }))}
@@ -194,7 +194,7 @@ export default function HRSystemPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">E-mail *</Label>
+                    <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">E-mail *</Label>
                     <AnimatedInput
                       type="email"
                       value={formData.email}
@@ -204,7 +204,7 @@ export default function HRSystemPage() {
                     />
                   </div>
                   <div>
-                    <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Телефон *</Label>
+                    <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Телефон *</Label>
                     <AnimatedInput
                       type="tel"
                       value={formData.phone}
@@ -217,7 +217,7 @@ export default function HRSystemPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Количество филиалов *</Label>
+                    <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Количество филиалов *</Label>
                     <AnimatedInput
                       type="number"
                       value={formData.branchesCount}
@@ -228,7 +228,7 @@ export default function HRSystemPage() {
                     />
                   </div>
                   <div>
-                    <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Среднее количество вакансий/заявок в месяц (на филиал) *</Label>
+                    <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Среднее количество вакансий/заявок в месяц (на филиал) *</Label>
                     <AnimatedInput
                       type="number"
                       value={formData.vacanciesPerMonth}
@@ -270,7 +270,7 @@ export default function HRSystemPage() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Текущие проблемы *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Текущие проблемы *</Label>
                   <AnimatedTextarea
                     value={formData.currentProblems}
                     onChange={(e) => setFormData(prev => ({ ...prev, currentProblems: e.target.value }))}
@@ -302,7 +302,7 @@ export default function HRSystemPage() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Прикрепить документы (опционально)</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-2 block dark:text-gray-300">Прикрепить документы (опционально)</Label>
                   <div className="space-y-3">
                     <input
                       type="file"

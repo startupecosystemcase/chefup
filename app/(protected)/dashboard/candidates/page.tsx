@@ -83,7 +83,7 @@ export default function CandidatesPage() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </ShinyButton>
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">
             {job ? `Кандидаты на вакансию: ${job.title}` : 'Кандидаты'}
           </h1>
           <p className="text-muted-foreground dark:text-gray-400">

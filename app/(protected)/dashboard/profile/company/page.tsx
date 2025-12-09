@@ -83,7 +83,7 @@ export default function CompanyProfilePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 md:mb-4">
                     <div className="flex-1 min-w-0">
-                      <h1 className="text-2xl md:text-3xl font-bold dark:text-white mb-6 md:mb-4 md:mb-2 truncate">
+                      <h1 className="text-2xl md:text-3xl font-bold dark:text-white mb-6 md:mb-2 truncate">
                         {employerFormData?.companyName || 'Название компании'}
                       </h1>
                       

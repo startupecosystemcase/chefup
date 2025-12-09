@@ -35,7 +35,7 @@ export default function CertificatesPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Мои сертификаты</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Мои сертификаты</h1>
           <p className="text-muted-foreground dark:text-gray-400">
             Все полученные сертификаты об обучении и прохождении курсов
           </p>
@@ -62,7 +62,7 @@ export default function CertificatesPage() {
                     </div>
                     <AnimatedBadge variant="default">Сертификат</AnimatedBadge>
                   </div>
-                  <h3 className="text-lg mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{certificate.educationTitle}</h3>
+                  <h3 className="text-lg mb-6 md:mb-2 font-semibold dark:text-white">{certificate.educationTitle}</h3>
                   <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">
                     Номер: {certificate.certificateNumber}
                   </p>

@@ -60,7 +60,7 @@ export default function ResumePage() {
       <div className="mx-auto max-w-5xl w-full">
         <div className="mb-8 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Моё резюме</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Моё резюме</h1>
             <p className="text-muted-foreground dark:text-gray-400">
               Автоматически сформировано на основе вашей анкеты
             </p>

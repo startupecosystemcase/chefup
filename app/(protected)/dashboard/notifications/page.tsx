@@ -141,7 +141,7 @@ export default function NotificationsPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Уведомления</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Уведомления</h1>
             {unreadCount > 0 && (
               <p className="text-sm text-muted-foreground dark:text-gray-400">
                 {unreadCount} непрочитанных
@@ -204,7 +204,7 @@ export default function NotificationsPage() {
                             <div className="h-2 w-2 bg-[#F97316] rounded-full flex-shrink-0 mt-1.5" />
                           )}
                         </div>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-4 md:mb-2">
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-2">
                           {notification.message}
                         </p>
                         <div className="flex items-center gap-3">
@@ -250,7 +250,7 @@ export default function NotificationsPage() {
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
             <div className="p-12 text-center">
               <Bell className="w-16 h-16 text-muted-foreground/50 mx-auto mb-6 md:mb-4" />
-              <h3 className="text-lg font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Нет уведомлений</h3>
+              <h3 className="text-lg font-semibold mb-6 md:mb-2 dark:text-white">Нет уведомлений</h3>
               <p className="text-sm text-muted-foreground dark:text-gray-400">
                 Когда появятся новые уведомления, они отобразятся здесь
               </p>

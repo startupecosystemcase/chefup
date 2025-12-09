@@ -469,7 +469,7 @@ export default function ProfilePage() {
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
                   <DialogHeader className="mb-6">
-                    <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Расширенная анкета</DialogTitle>
+                    <DialogTitle className="text-2xl mb-6 md:mb-2">Расширенная анкета</DialogTitle>
                     <DialogDescription className="text-base">
                       Заполните расширенную анкету для лучшего подбора вакансий
                     </DialogDescription>
@@ -497,21 +497,21 @@ export default function ProfilePage() {
                 </DialogTrigger>
                 <DialogContent className="bg-white dark:bg-dark">
                   <DialogHeader className="mb-6">
-                    <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Опубликовать публичную страницу</DialogTitle>
+                    <DialogTitle className="text-2xl mb-6 md:mb-2">Опубликовать публичную страницу</DialogTitle>
                     <DialogDescription className="text-base">
                       Создайте публичную страницу профиля с уникальным никнеймом
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6">
                     <div>
-                      <label className="text-sm font-medium mb-6 md:mb-4 md:mb-2 block">Никнейм</label>
+                      <label className="text-sm font-medium mb-6 md:mb-2 block">Никнейм</label>
                       <AnimatedInput
                         value={publishUsername}
                         onChange={(e) => setPublishUsername(e.target.value)}
                         placeholder="например: chef_savva"
                         className="w-full"
                       />
-                      <p className="text-xs text-muted-foreground mt-1 mb-6 md:mb-4 md:mb-2">
+                      <p className="text-xs text-muted-foreground mt-1 mb-6 md:mb-2">
                         Ваша страница будет доступна по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{publishUsername || 'никнейм'}
                       </p>
                       {publishUsername.trim() && (
@@ -576,7 +576,7 @@ export default function ProfilePage() {
                         <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-400" />
                       </div>
                     </div>
-                    <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2 text-center">Ваша страница успешно опубликована!</DialogTitle>
+                    <DialogTitle className="text-2xl mb-6 md:mb-2 text-center">Ваша страница успешно опубликована!</DialogTitle>
                     <DialogDescription className="text-base text-center">
                       Теперь ваш профиль доступен по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{publishUsername}
                     </DialogDescription>
@@ -661,7 +661,7 @@ export default function ProfilePage() {
                 <div className="p-3 md:p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Расширенная анкета</h3>
+                      <h3 className="text-xl font-semibold mb-6 md:mb-2 dark:text-white">Расширенная анкета</h3>
                       <p className="text-sm text-muted-foreground dark:text-gray-400">
                         {formData.extendedQuestionnaire 
                           ? 'Расширенная анкета заполнена' 
@@ -677,7 +677,7 @@ export default function ProfilePage() {
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
                         <DialogHeader className="mb-6">
-                          <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Расширенная анкета</DialogTitle>
+                          <DialogTitle className="text-2xl mb-6 md:mb-2">Расширенная анкета</DialogTitle>
                           <DialogDescription className="text-base">
                             Заполните расширенную анкету для лучшего подбора вакансий
                           </DialogDescription>
@@ -715,7 +715,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать "О себе"</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать "О себе"</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -927,7 +927,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать контакты</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать контакты</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -994,7 +994,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать цели и интересы</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать цели и интересы</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1083,7 +1083,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark max-w-2xl">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать опыт работы</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать опыт работы</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1166,7 +1166,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать образование</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать образование</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1225,7 +1225,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать специализацию</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать специализацию</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1293,7 +1293,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать предпочтения</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать предпочтения</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1393,7 +1393,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать соцсети</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-2">Редактировать соцсети</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">

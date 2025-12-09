@@ -136,7 +136,7 @@ export default function CreateJobPage() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </ShinyButton>
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Создать вакансию</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Создать вакансию</h1>
           <p className="text-muted-foreground dark:text-gray-400">
             Заполните информацию о вакансии. После создания она будет отправлена на модерацию.
           </p>
@@ -154,7 +154,7 @@ export default function CreateJobPage() {
               Все поля обязательны для заполнения
             </p>
 
-                <div className="space-y-6">
+                <div className="space-y-5 md:space-y-6">
                   {/* 1. Заголовок вакансии */}
                 <FormField
                   control={form.control}

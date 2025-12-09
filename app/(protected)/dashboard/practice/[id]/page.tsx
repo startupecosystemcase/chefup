@@ -96,7 +96,7 @@ export default function EducationDetailPage() {
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <AnimatedBadge variant="secondary" className="mb-6 md:mb-4 md:mb-2">
+                  <AnimatedBadge variant="secondary" className="mb-6 md:mb-2">
                     {typeLabels[education.type]}
                   </AnimatedBadge>
                   <h2 className="text-2xl font-semibold dark:text-white">{education.title}</h2>
@@ -149,20 +149,20 @@ export default function EducationDetailPage() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Описание</h3>
+                <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Описание</h3>
                 <p className="text-muted-foreground dark:text-gray-400">{education.description}</p>
               </div>
 
               {education.content && (
                 <div>
-                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Программа</h3>
+                  <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Программа</h3>
                   <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-line">{education.content}</p>
                 </div>
               )}
 
               {education.materials && education.materials.length > 0 && (
                 <div>
-                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Материалы</h3>
+                  <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Материалы</h3>
                   <div className="space-y-4">
                     {education.materials.map((material, index) => (
                       <a
@@ -182,7 +182,7 @@ export default function EducationDetailPage() {
 
               {education.videoUrl && (
                 <div>
-                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Видео</h3>
+                  <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Видео</h3>
                   <div className="aspect-video w-full rounded-md overflow-hidden">
                     <iframe
                       src={education.videoUrl}

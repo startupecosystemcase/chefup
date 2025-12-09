@@ -44,7 +44,7 @@ export default function ResumesPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Резюме</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 dark:text-white">Резюме</h1>
           <p className="text-muted-foreground dark:text-gray-400">
             Список зарегистрированных участников платформы
           </p>

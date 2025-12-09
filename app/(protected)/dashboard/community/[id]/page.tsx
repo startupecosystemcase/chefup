@@ -92,7 +92,7 @@ export default function EventDetailPage() {
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <AnimatedBadge variant="secondary" className="mb-6 md:mb-4 md:mb-2">
+                  <AnimatedBadge variant="secondary" className="mb-6 md:mb-2">
                     {typeLabels[event.type]}
                   </AnimatedBadge>
                   <h2 className="text-2xl font-semibold dark:text-white">{event.title}</h2>
@@ -133,13 +133,13 @@ export default function EventDetailPage() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Описание</h3>
+                <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Описание</h3>
                 <p className="text-muted-foreground dark:text-gray-400">{event.description}</p>
               </div>
 
               {event.tags && event.tags.length > 0 && (
                 <div>
-                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Теги</h3>
+                  <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Теги</h3>
                   <div className="flex flex-wrap gap-4">
                     {event.tags.map((tag, index) => (
                       <AnimatedBadge key={index} variant="outline">
@@ -152,7 +152,7 @@ export default function EventDetailPage() {
 
               {participation && participation.moderatorComment && (
                 <div>
-                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Комментарий модератора</h3>
+                  <h3 className="font-semibold mb-6 md:mb-2 dark:text-white">Комментарий модератора</h3>
                   <p className="text-sm text-muted-foreground dark:text-gray-400">{participation.moderatorComment}</p>
                 </div>
               )}

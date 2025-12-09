@@ -190,7 +190,7 @@ export default function JobsPage() {
                     <div className="p-3 md:p-6">
                       <div className="flex items-start justify-between mb-6 md:mb-4">
                         <div className="flex-1">
-                          <div className="flex items-center gap-4 mb-6 md:mb-4 md:mb-3">
+                          <div className="flex items-center gap-4 mb-6 md:mb-3">
                             <h3 className="text-xl font-semibold dark:text-white">{job.title}</h3>
                             <AnimatedBadge className={status.color}>
                               {status.label}
@@ -202,7 +202,7 @@ export default function JobsPage() {
                               </AnimatedBadge>
                             )}
                           </div>
-                          <div className="flex flex-wrap gap-3 mb-6 md:mb-4 md:mb-3">
+                          <div className="flex flex-wrap gap-3 mb-6 md:mb-3">
                             <AnimatedBadge variant="outline" className="text-xs">
                               <MapPin className="w-3 h-3 mr-1" />
                               {job.city}, {job.country}

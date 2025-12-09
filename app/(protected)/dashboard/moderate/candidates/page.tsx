@@ -94,7 +94,7 @@ export default function ModerateCandidatesPage() {
           <Button variant="ghost" onClick={() => router.back()} className="mb-8">
             Назад
           </Button>
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2">Автоподбор кандидатов</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2">Автоподбор кандидатов</h1>
           <p className="text-muted-foreground">
             Проверьте автоматически подобранных кандидатов и отправьте финальный список работодателю
           </p>
@@ -155,7 +155,7 @@ export default function ModerateCandidatesPage() {
                           <AvatarFallback>{candidate.avatarFallback}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <div className="flex items-center gap-5 mb-6 md:mb-4 md:mb-2">
+                          <div className="flex items-center gap-5 mb-6 md:mb-2">
                             <CardTitle className="text-lg">
                               {candidate.firstName} {candidate.lastName}
                             </CardTitle>
@@ -167,7 +167,7 @@ export default function ModerateCandidatesPage() {
                               {match.score}%
                             </Badge>
                           </div>
-                          <div className="flex flex-wrap gap-4 mb-6 md:mb-4 md:mb-2">
+                          <div className="flex flex-wrap gap-4 mb-6 md:mb-2">
                             <Badge variant="outline" className="flex items-center gap-1">
                               <MapPin className="w-3 h-3" />
                               {candidate.city}

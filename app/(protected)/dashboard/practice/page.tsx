@@ -113,7 +113,7 @@ export default function PracticePage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 flex items-center gap-3 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-2 flex items-center gap-3 dark:text-white">
             <BookOpen className="w-6 h-6 md:w-7 md:h-7 text-primary" />
             Практика и обучение
           </h1>
@@ -206,7 +206,7 @@ export default function PracticePage() {
                       </div>
                       <AnimatedBadge variant="secondary">{typeLabels[item.type]}</AnimatedBadge>
                     </div>
-                    <h3 className="text-lg mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{item.title}</h3>
+                    <h3 className="text-lg mb-6 md:mb-2 font-semibold dark:text-white">{item.title}</h3>
                     <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">Автор: {item.author}</p>
                     <div className="flex-1 flex flex-col">
                       <p className="text-sm text-muted-foreground dark:text-gray-400 mb-8 line-clamp-3">{item.description}</p>
