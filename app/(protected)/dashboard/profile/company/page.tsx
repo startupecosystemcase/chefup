@@ -56,7 +56,7 @@ export default function CompanyProfilePage() {
         {/* Company Header - только логотип, без обложки */}
         <div className="mb-8">
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-            <div className="p-8">
+            <div className="p-4 md:p-8">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
                 {/* Логотип компании */}
                 <div className="relative group">
@@ -81,14 +81,14 @@ export default function CompanyProfilePage() {
                 
                 {/* Информация о компании */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 md:mb-4">
                     <div className="flex-1 min-w-0">
-                      <h1 className="text-2xl md:text-3xl font-bold dark:text-white mb-2 truncate">
+                      <h1 className="text-2xl md:text-3xl font-bold dark:text-white mb-6 md:mb-4 md:mb-2 truncate">
                         {employerFormData?.companyName || 'Название компании'}
                       </h1>
                       
                       {/* ID и Username */}
-                      <div className="flex flex-wrap items-center gap-3 mb-4 text-sm text-muted-foreground dark:text-gray-400">
+                      <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-4 text-sm text-muted-foreground dark:text-gray-400">
                         {userId && (
                           <div className="flex items-center gap-1.5">
                             <span className="font-medium">ID:</span>
@@ -115,7 +115,7 @@ export default function CompanyProfilePage() {
                       </div>
 
                       {/* Badges - Город, Статус подписки */}
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-2 mb-6 md:mb-4">
                         {employerFormData?.city && (
                           <AnimatedBadge variant="outline" className="text-xs">
                             <MapPin className="w-3 h-3 mr-1" />
@@ -129,7 +129,7 @@ export default function CompanyProfilePage() {
 
                       {/* Краткое описание */}
                       {(employerFormData?.companyDescription || employerFormData?.description) && (
-                        <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4">
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">
                           {employerFormData.companyDescription || employerFormData.description}
                         </p>
                       )}
@@ -182,20 +182,20 @@ export default function CompanyProfilePage() {
         {/* Статистика */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4 dark:text-white">Всего вакансий</h3>
+            <div className="p-3 md:p-6">
+              <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Всего вакансий</h3>
               <div className="text-3xl font-bold dark:text-white">{companyJobs.length}</div>
             </div>
           </AnimatedCard>
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4 dark:text-white">Опубликовано</h3>
+            <div className="p-3 md:p-6">
+              <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Опубликовано</h3>
               <div className="text-3xl font-bold text-green-600">{approvedJobs.length}</div>
             </div>
           </AnimatedCard>
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4 dark:text-white">На модерации</h3>
+            <div className="p-3 md:p-6">
+              <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">На модерации</h3>
               <div className="text-3xl font-bold text-orange-600">{pendingJobs.length}</div>
             </div>
           </AnimatedCard>
@@ -203,7 +203,7 @@ export default function CompanyProfilePage() {
 
         {/* Информация о компании */}
         <AnimatedCard className="bg-white dark:bg-dark/50 mb-6">
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <h2 className="text-xl font-semibold mb-6 dark:text-white">Общая информация</h2>
             <div className="space-y-4">
               <div>
@@ -245,7 +245,7 @@ export default function CompanyProfilePage() {
 
         {/* Контакты */}
         <AnimatedCard className="bg-white dark:bg-dark/50 mb-6">
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <h2 className="text-xl font-semibold mb-6 dark:text-white">Контакты</h2>
             <div className="space-y-4">
               <div>

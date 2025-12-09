@@ -132,11 +132,11 @@ export default function CreateJobPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors min-h-screen">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8">
-          <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-4">
+          <ShinyButton variant="ghost" onClick={() => router.back()} className="mb-6 md:mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </ShinyButton>
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Создать вакансию</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Создать вакансию</h1>
           <p className="text-muted-foreground dark:text-gray-400">
             Заполните информацию о вакансии. После создания она будет отправлена на модерацию.
           </p>
@@ -145,7 +145,7 @@ export default function CreateJobPage() {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <AnimatedCard className={`bg-white dark:bg-dark/50 ${!form.watch('title') && form.formState.submitCount > 0 ? 'border-red-300 dark:border-red-700' : ''}`}>
-          <div className="p-6">
+          <div className="p-3 md:p-6">
                 <div className="flex items-center gap-4 mb-6">
               <FileText className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold dark:text-white">Информация о вакансии</h2>

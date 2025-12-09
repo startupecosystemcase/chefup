@@ -125,7 +125,7 @@ export default function CommunityPage() {
         <div className="mb-8 md:mb-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Сообщества</h1>
+              <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Сообщества</h1>
               <p className="text-muted-foreground dark:text-gray-400">
                 Мероприятия коммьюнити ChefUp: бизнес-завтраки, открытия ресторанов и многое другое
               </p>
@@ -191,7 +191,7 @@ export default function CommunityPage() {
 
         {/* Фильтры - статичная полоса без hover эффектов */}
         <div className="mb-8 bg-white dark:bg-dark/50 rounded-xl border border-gray-200/50 dark:border-border/50 shadow-sm">
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
@@ -268,15 +268,15 @@ export default function CommunityPage() {
               return (
                 <StaggerItem key={event.id}>
                   <AnimatedCard className="card-hover flex flex-col bg-white dark:bg-dark/50">
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="mb-4">
-                      <div className="flex items-start justify-between mb-2">
+                  <div className="p-3 md:p-6 flex flex-col flex-1">
+                    <div className="mb-6 md:mb-4">
+                      <div className="flex items-start justify-between mb-6 md:mb-4 md:mb-2">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                           <Icon className="w-5 h-5 text-primary" />
                         </div>
                         <AnimatedBadge variant="secondary">{typeLabels[event.type]}</AnimatedBadge>
                       </div>
-                      <h3 className="text-lg mb-2 font-semibold dark:text-white">{event.title}</h3>
+                      <h3 className="text-lg mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{event.title}</h3>
                       <p className="text-sm text-muted-foreground dark:text-gray-400">Организатор: {event.organizer}</p>
                     </div>
                     <div className="flex-1 flex flex-col">
@@ -365,7 +365,7 @@ export default function CommunityPage() {
         <Dialog open={isInviteDialogOpen} onOpenChange={setIsInviteDialogOpen}>
           <DialogContent className="bg-white dark:bg-dark max-w-2xl">
             <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl mb-2">Пригласить участника</DialogTitle>
+              <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Пригласить участника</DialogTitle>
               <DialogDescription className="text-base">
                 Поделитесь ссылкой для приглашения в сообщество ChefUp
               </DialogDescription>

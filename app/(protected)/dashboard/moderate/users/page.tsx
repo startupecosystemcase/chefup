@@ -116,7 +116,7 @@ export default function ModerateUsersPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Управление пользователями</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2">Управление пользователями</h1>
           <p className="text-muted-foreground">
             Управляйте пользователями платформы, блокируйте и разблокируйте аккаунты
           </p>
@@ -251,7 +251,7 @@ export default function ModerateUsersPage() {
         <Dialog open={isPromoDialogOpen} onOpenChange={setIsPromoDialogOpen}>
           <DialogContent className="bg-white dark:bg-dark max-w-md">
             <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl mb-2">Создать промокод</DialogTitle>
+              <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Создать промокод</DialogTitle>
               <DialogDescription className="text-base">
                 Введите название промокода для генерации
               </DialogDescription>

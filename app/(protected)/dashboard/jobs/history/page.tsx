@@ -42,7 +42,7 @@ export default function JobsHistoryPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">История вакансий</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">История вакансий</h1>
             <p className="text-muted-foreground dark:text-gray-400">
               Управляйте созданными вакансиями и отслеживайте их статус
             </p>
@@ -67,17 +67,17 @@ export default function JobsHistoryPage() {
               const status = statusConfig[job.status]
               return (
                 <AnimatedCard key={job.id} className="hover:shadow-md transition-shadow bg-white dark:bg-dark/50">
-                  <div className="p-6">
+                  <div className="p-3 md:p-6">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center gap-5 mb-2">
+                        <div className="flex items-center gap-5 mb-6 md:mb-4 md:mb-2">
                           <h3 className="text-xl font-semibold dark:text-white">{job.title}</h3>
                           <AnimatedBadge variant={status.variant} className="flex items-center gap-1">
                             {status.icon}
                             {status.label}
                           </AnimatedBadge>
                         </div>
-                        <div className="flex flex-wrap gap-4 mb-2">
+                        <div className="flex flex-wrap gap-4 mb-6 md:mb-4 md:mb-2">
                           <AnimatedBadge variant="outline" className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" />
                             {job.city}, {job.country}

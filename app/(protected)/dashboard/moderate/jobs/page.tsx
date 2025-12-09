@@ -78,7 +78,7 @@ export default function ModerateJobsPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация вакансий</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2">Модерация вакансий</h1>
           <p className="text-muted-foreground">
             Проверьте и одобрите или отклоните вакансии работодателей
           </p>
@@ -97,11 +97,11 @@ export default function ModerateJobsPage() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center gap-5 mb-2">
+                      <div className="flex items-center gap-5 mb-6 md:mb-4 md:mb-2">
                         <CardTitle className="text-xl">{job.title}</CardTitle>
                         <Badge variant="outline">На проверке</Badge>
                       </div>
-                      <div className="flex flex-wrap gap-4 mb-2">
+                      <div className="flex flex-wrap gap-4 mb-6 md:mb-4 md:mb-2">
                         <Badge variant="outline" className="flex items-center gap-1">
                           <MapPin className="w-3 h-3" />
                           {job.city}, {job.country}
@@ -123,7 +123,7 @@ export default function ModerateJobsPage() {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold mb-2">Требования:</h4>
+                      <h4 className="font-semibold mb-6 md:mb-4 md:mb-2">Требования:</h4>
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {job.requirements.map((req, index) => (
                           <li key={index}>{req}</li>
@@ -138,7 +138,7 @@ export default function ModerateJobsPage() {
                     {selectedJob?.id === job.id ? (
                       <div className="space-y-4 p-4 border rounded-md bg-muted/50">
                         <div>
-                          <label className="text-sm font-medium mb-2 block">
+                          <label className="text-sm font-medium mb-6 md:mb-4 md:mb-2 block">
                             Комментарий модератора
                           </label>
                           <Textarea

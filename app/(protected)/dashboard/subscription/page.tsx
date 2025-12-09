@@ -86,7 +86,7 @@ export default function SubscriptionPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2 dark:text-white">Управление подпиской</h1>
+          <h1 className="text-4xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Управление подпиской</h1>
           <p className="text-muted-foreground dark:text-gray-400 text-lg">
             Выберите план, который подходит именно вам
           </p>
@@ -100,10 +100,10 @@ export default function SubscriptionPage() {
               ? 'border-primary bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20' 
               : 'border-border dark:border-gray-700'
           )}>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
+            <div className="p-3 md:p-6">
+              <div className="flex items-center justify-between mb-6 md:mb-4">
                 <div>
-                  <h2 className="text-2xl mb-2 font-semibold dark:text-white">Текущий план</h2>
+                  <h2 className="text-2xl mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">Текущий план</h2>
                   <p className="text-sm text-muted-foreground dark:text-gray-400">Ваш активный план подписки</p>
                 </div>
                 <AnimatedBadge 
@@ -151,14 +151,14 @@ export default function SubscriptionPage() {
                     subscriptionStatus === 'PRO' && 'border-primary/50'
                   )}
                 >
-                  <div className="p-6">
+                  <div className="p-3 md:p-6">
                     <div className={cn(
                       'w-12 h-12 rounded-lg flex items-center justify-center mb-8 transition-all duration-300',
                       benefit.bgColor
                     )}>
                       <Icon className={cn('w-6 h-6', benefit.color)} />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 dark:text-white">{benefit.title}</h3>
+                    <h3 className="text-lg font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">{benefit.title}</h3>
                     <p className="text-sm text-muted-foreground dark:text-gray-400">{benefit.description}</p>
                   </div>
                 </AnimatedCard>
@@ -170,8 +170,8 @@ export default function SubscriptionPage() {
         {/* Активация промокода */}
         {subscriptionStatus === 'BASIC' && (
           <AnimatedCard className="bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/20">
-            <div className="p-6">
-              <h2 className="text-2xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-2xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Crown className="w-6 h-6 text-primary" />
                 Активировать PRO подписку
               </h2>
@@ -260,7 +260,7 @@ function EmployerSubscriptionPage() {
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center">
                 <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
-              <h2 className="text-2xl font-bold mb-4 dark:text-white">Форма отправлена</h2>
+              <h2 className="text-2xl font-bold mb-6 md:mb-4 dark:text-white">Форма отправлена</h2>
               <p className="text-muted-foreground dark:text-gray-400 mb-8">
                 С вами свяжутся в ближайшее время для обсуждения подписки
               </p>
@@ -278,7 +278,7 @@ function EmployerSubscriptionPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2 dark:text-white">Управление подпиской</h1>
+          <h1 className="text-4xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Управление подпиской</h1>
           <p className="text-muted-foreground dark:text-gray-400 text-lg">
             Заполните форму для связи с нами по вопросам подписки
           </p>
@@ -286,12 +286,12 @@ function EmployerSubscriptionPage() {
 
         <form onSubmit={handleSubmit}>
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
+            <div className="p-3 md:p-6">
               <h2 className="text-xl font-semibold mb-6 dark:text-white">Информация о компании</h2>
               
               <div className="space-y-6">
                 <div>
-                  <Label className="text-base font-medium mb-2 block dark:text-gray-300">Количество заявок в месяц (общее) *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Количество заявок в месяц (общее) *</Label>
                   <AnimatedInput
                     type="number"
                     value={formData.requestsPerMonth}
@@ -303,7 +303,7 @@ function EmployerSubscriptionPage() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium mb-2 block dark:text-gray-300">Количество филиалов *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Количество филиалов *</Label>
                   <AnimatedInput
                     type="number"
                     value={formData.branchesCount}
@@ -315,7 +315,7 @@ function EmployerSubscriptionPage() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium mb-2 block dark:text-gray-300">Удобный контакт (email/телефон) *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Удобный контакт (email/телефон) *</Label>
                   <AnimatedInput
                     type="text"
                     value={formData.contact}
@@ -326,7 +326,7 @@ function EmployerSubscriptionPage() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium mb-2 block dark:text-gray-300">Предпочтительный способ связи *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Предпочтительный способ связи *</Label>
                   <Select value={formData.preferredContact} onValueChange={(value: 'email' | 'phone') => setFormData(prev => ({ ...prev, preferredContact: value }))}>
                     <SelectTrigger>
                       <SelectValue />
@@ -339,7 +339,7 @@ function EmployerSubscriptionPage() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium mb-2 block dark:text-gray-300">Комментарий / Цель *</Label>
+                  <Label className="text-base font-medium mb-6 md:mb-4 md:mb-2 block dark:text-gray-300">Комментарий / Цель *</Label>
                   <AnimatedTextarea
                     value={formData.comment}
                     onChange={(e) => setFormData(prev => ({ ...prev, comment: e.target.value }))}

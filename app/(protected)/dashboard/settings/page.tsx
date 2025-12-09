@@ -119,7 +119,7 @@ export default function SettingsPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-4 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
             <Settings className="w-8 h-8" />
             Настройки
           </h1>
@@ -129,12 +129,12 @@ export default function SettingsPage() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* Контактная информация */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Phone className="w-5 h-5" />
                 Контактная информация
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Обновите ваши контактные данные</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Обновите ваши контактные данные</p>
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="phone" className="dark:text-gray-300">Телефон</Label>
@@ -170,12 +170,12 @@ export default function SettingsPage() {
 
           {/* Username и Telegram */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <User className="w-5 h-5" />
                 Username и Telegram
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Настройте отображаемое имя и Telegram username</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Настройте отображаемое имя и Telegram username</p>
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="username" className="dark:text-gray-300">Username</Label>
@@ -190,7 +190,7 @@ export default function SettingsPage() {
                   )}
                   {usernameSuggestions.length > 0 && (
                     <div className="mt-2">
-                      <p className="text-sm text-muted-foreground dark:text-gray-400 mb-2">Этот username занят. Предлагаем:</p>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 md:mb-4 md:mb-2">Этот username занят. Предлагаем:</p>
                       <div className="flex flex-wrap gap-4">
                         {usernameSuggestions.slice(0, 3).map((suggestion, idx) => (
                           <ShinyButton
@@ -234,12 +234,12 @@ export default function SettingsPage() {
 
           {/* Уведомления */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Bell className="w-5 h-5" />
                 Уведомления
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Управление уведомлениями</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Управление уведомлениями</p>
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="notifications" className="dark:text-gray-300">Email и push-уведомления</Label>
@@ -256,12 +256,12 @@ export default function SettingsPage() {
 
           {/* Приватность */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Lock className="w-5 h-5" />
                 Приватность
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Настройки видимости профиля</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Настройки видимости профиля</p>
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="privacy" className="dark:text-gray-300">Публичный профиль</Label>
@@ -282,12 +282,12 @@ export default function SettingsPage() {
 
           {/* Удаление аккаунта */}
           <AnimatedCard className="border-destructive/50 dark:border-red-500/50 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4 text-destructive">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4 text-destructive">
                 <Trash2 className="w-5 h-5" />
                 Удаление аккаунта
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Это действие нельзя отменить</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Это действие нельзя отменить</p>
               <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                 <DialogTrigger asChild>
                   <ShinyButton variant="destructive">Удалить аккаунт</ShinyButton>
@@ -347,7 +347,7 @@ function EmployerSettingsPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-4 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
             <Settings className="w-8 h-8" />
             Настройки компании
           </h1>
@@ -357,12 +357,12 @@ function EmployerSettingsPage() {
         <div className="space-y-6">
           {/* Данные компании */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Building className="w-5 h-5" />
                 Данные компании
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Основная информация о компании</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Основная информация о компании</p>
               <div className="space-y-4">
                 <div>
                   <Label className="dark:text-gray-300">Название компании</Label>
@@ -382,12 +382,12 @@ function EmployerSettingsPage() {
 
           {/* Управление ролями */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Users className="w-5 h-5" />
                 Управление ролями и доступами
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Назначение ролей сотрудникам</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Назначение ролей сотрудникам</p>
               <ShinyButton variant="outline">
                 Управление ролями
               </ShinyButton>
@@ -396,12 +396,12 @@ function EmployerSettingsPage() {
 
           {/* Уведомления */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Bell className="w-5 h-5" />
                 Уведомления
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Управление уведомлениями</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Управление уведомлениями</p>
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="notifications" className="dark:text-gray-300">Email и push-уведомления</Label>
@@ -418,12 +418,12 @@ function EmployerSettingsPage() {
 
           {/* Интеграции */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <Link2 className="w-5 h-5" />
                 Управление интеграциями
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">HR-системы и партнёры</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">HR-системы и партнёры</p>
               <ShinyButton variant="outline" onClick={() => router.push('/dashboard/hr-system')}>
                 Интеграция HR-системы
               </ShinyButton>
@@ -432,12 +432,12 @@ function EmployerSettingsPage() {
 
           {/* Подписки */}
           <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h2 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white flex items-center gap-4">
                 <CreditCard className="w-5 h-5" />
                 Подписки / Биллинг
               </h2>
-              <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Управление подпиской</p>
+              <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Управление подпиской</p>
               <ShinyButton variant="outline" onClick={() => router.push('/dashboard/subscription')}>
                 Управление подпиской
               </ShinyButton>

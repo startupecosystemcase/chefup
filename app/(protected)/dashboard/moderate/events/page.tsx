@@ -91,7 +91,7 @@ export default function ModerateEventsPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация участия в событиях</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2">Модерация участия в событиях</h1>
           <p className="text-muted-foreground">
             Проверьте и одобрите заявки на участие в событиях
           </p>
@@ -192,7 +192,7 @@ export default function ModerateEventsPage() {
                               <CardContent className="pt-0">
                                 <div className="space-y-4 p-4 border rounded-md bg-muted/50">
                                   <div>
-                                    <label className="text-sm font-medium mb-2 block">
+                                    <label className="text-sm font-medium mb-6 md:mb-4 md:mb-2 block">
                                       Комментарий модератора
                                     </label>
                                     <Textarea

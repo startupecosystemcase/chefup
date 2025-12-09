@@ -80,7 +80,7 @@ export default function ModerateEducationPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация образовательных материалов</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2">Модерация образовательных материалов</h1>
           <p className="text-muted-foreground">
             Проверьте курсы, тренинги, вебинары и сертификации перед публикацией
           </p>
@@ -100,7 +100,7 @@ export default function ModerateEducationPage() {
               return (
                 <Card key={item.id} className="h-full flex flex-col">
                   <CardHeader>
-                    <div className="flex items-start gap-5 mb-2">
+                    <div className="flex items-start gap-5 mb-6 md:mb-4 md:mb-2">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-primary" />
                       </div>
@@ -120,7 +120,7 @@ export default function ModerateEducationPage() {
                     {selectedItem?.id === item.id ? (
                       <div className="space-y-4 p-4 border rounded-md bg-muted/50">
                         <div>
-                          <label className="text-sm font-medium mb-2 block">
+                          <label className="text-sm font-medium mb-6 md:mb-4 md:mb-2 block">
                             Комментарий модератора
                           </label>
                           <Textarea

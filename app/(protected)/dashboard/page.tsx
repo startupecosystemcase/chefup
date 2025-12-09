@@ -158,7 +158,7 @@ export default function DashboardPage() {
           
           {/* Карточка компании */}
           <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 mb-8">
-            <div className="p-6">
+            <div className="p-3 md:p-6">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                 {/* Логотип / Аватар */}
                 <div className="flex-shrink-0">
@@ -175,10 +175,10 @@ export default function DashboardPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <h2 className="text-xl md:text-2xl font-bold dark:text-white mb-2 truncate">
+                      <h2 className="text-xl md:text-2xl font-bold dark:text-white mb-6 md:mb-2 truncate">
                         {employerFormData?.companyName || 'Название компании'}
                       </h2>
-                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-3">
                         {employerFormData?.city && (
                           <AnimatedBadge variant="outline" className="text-xs">
                             <MapPin className="w-3 h-3 mr-1" />
@@ -239,20 +239,20 @@ export default function DashboardPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">Всего вакансий</h3>
+              <div className="p-3 md:p-6">
+                <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Всего вакансий</h3>
                 <div className="text-2xl md:text-3xl font-bold dark:text-white">{employerJobs.length}</div>
               </div>
             </AnimatedCard>
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">На модерации</h3>
+              <div className="p-3 md:p-6">
+                <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">На модерации</h3>
                 <div className="text-2xl md:text-3xl font-bold text-primary">{pendingJobs.length}</div>
               </div>
             </AnimatedCard>
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">Одобрено</h3>
+              <div className="p-3 md:p-6">
+                <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Одобрено</h3>
                 <div className="text-2xl md:text-3xl font-bold text-green-600">{approvedJobs.length}</div>
               </div>
             </AnimatedCard>
@@ -303,20 +303,20 @@ export default function DashboardPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">Вакансии на модерации</h3>
+              <div className="p-3 md:p-6">
+                <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Вакансии на модерации</h3>
                 <div className="text-2xl md:text-3xl font-bold text-primary">{pendingJobs.length}</div>
               </div>
             </AnimatedCard>
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">Одобрено вакансий</h3>
+              <div className="p-3 md:p-6">
+                <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Одобрено вакансий</h3>
                 <div className="text-2xl md:text-3xl font-bold text-green-600">{approvedJobs.length}</div>
               </div>
             </AnimatedCard>
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">Всего вакансий</h3>
+              <div className="p-3 md:p-6">
+                <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Всего вакансий</h3>
                 <div className="text-2xl md:text-3xl font-bold dark:text-white">{jobs.length}</div>
               </div>
             </AnimatedCard>
@@ -324,9 +324,9 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <AnimatedCard className="bg-white dark:bg-dark/50">
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 dark:text-white">Быстрые действия</h3>
-                <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Основные функции модерации</p>
+              <div className="p-3 md:p-6">
+                <h3 className="text-xl font-semibold mb-6 md:mb-2 dark:text-white">Быстрые действия</h3>
+                <p className="text-sm text-muted-foreground mb-6 md:mb-4 dark:text-gray-400">Основные функции модерации</p>
                 <div className="space-y-4">
                   <ShinyButton
                     variant="outline"
@@ -410,12 +410,12 @@ export default function DashboardPage() {
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       {/* ФИО */}
-                      <h1 className="text-xl md:text-2xl font-bold dark:text-white mb-2 truncate">
+                      <h1 className="text-xl md:text-2xl font-bold dark:text-white mb-6 md:mb-2 truncate">
                         {formData.firstName || ''} {formData.lastName || ''}
                       </h1>
                       
                       {/* Специализация, Город, ID/Username */}
-                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-3">
                         {(formData.desiredPosition || formData.currentPosition) && (
                           <AnimatedBadge variant="outline" className="text-xs">
                             <Briefcase className="w-3 h-3 mr-1" />
@@ -491,9 +491,9 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {recommendedJobs.slice(0, 6).map((job) => (
                 <AnimatedCard key={job.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-              <div className="p-6">
-                    <h3 className="font-semibold text-lg mb-2 dark:text-white">{job.title}</h3>
-                    <div className="flex flex-wrap gap-2 mb-4">
+              <div className="p-3 md:p-6">
+                    <h3 className="font-semibold text-lg mb-6 md:mb-2 dark:text-white">{job.title}</h3>
+                    <div className="flex flex-wrap gap-2 mb-6 md:mb-4">
                       <AnimatedBadge variant="outline" className="text-xs">
                         <MapPin className="w-3 h-3 mr-1" />
                         {job.city}
@@ -503,7 +503,7 @@ export default function DashboardPage() {
                         {job.position}
                       </AnimatedBadge>
                     </div>
-                    <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2 mb-4">
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-2 mb-6 md:mb-4">
                       {job.description}
                     </p>
                     <Link href={`/dashboard/jobs/${job.id}`}>
@@ -536,9 +536,9 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcomingEvents.map((event) => (
                 <AnimatedCard key={event.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-          <div className="p-6">
-                    <h3 className="font-semibold text-lg mb-2 dark:text-white">{event.title}</h3>
-                    <div className="space-y-2 mb-4">
+          <div className="p-3 md:p-6">
+                    <h3 className="font-semibold text-lg mb-6 md:mb-2 dark:text-white">{event.title}</h3>
+                    <div className="space-y-2 mb-6 md:mb-4">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
                         <Calendar className="w-4 h-4" />
                         {format(new Date(event.date), 'd MMMM yyyy', { locale: ru })}
@@ -584,9 +584,9 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {popularPrograms.map((program) => (
                 <AnimatedCard key={program.id} className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-                  <div className="p-6">
-                    <h3 className="font-semibold text-lg mb-2 dark:text-white">{program.title}</h3>
-                    <div className="space-y-2 mb-4">
+                  <div className="p-3 md:p-6">
+                    <h3 className="font-semibold text-lg mb-6 md:mb-2 dark:text-white">{program.title}</h3>
+                    <div className="space-y-2 mb-6 md:mb-4">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
                         <Clock className="w-4 h-4" />
                         {program.duration}

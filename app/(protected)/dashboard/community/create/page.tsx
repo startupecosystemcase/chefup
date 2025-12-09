@@ -75,8 +75,8 @@ export default function CreateEventPage() {
         </ShinyButton>
 
         <AnimatedCard className="bg-white dark:bg-dark/50">
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold mb-2 dark:text-white">Создать событие</h2>
+          <div className="p-3 md:p-6">
+            <h2 className="text-2xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Создать событие</h2>
             <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6">
               Заполните информацию о событии. После создания оно будет отправлено на модерацию.
             </p>

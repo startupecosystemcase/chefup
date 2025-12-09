@@ -84,7 +84,7 @@ export default function ModerateProfilesPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">Модерация профилей</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2">Модерация профилей</h1>
           <p className="text-muted-foreground">
             Проверьте профили и микроблоги пользователей
           </p>
@@ -122,7 +122,7 @@ export default function ModerateProfilesPage() {
                   <CardContent>
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-4">
+                        <h4 className="font-semibold mb-6 md:mb-4 md:mb-2 flex items-center gap-4">
                           <User className="w-4 h-4" />
                           Посты в микроблоге: {userPosts.length}
                         </h4>

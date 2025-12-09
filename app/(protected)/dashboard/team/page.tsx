@@ -122,7 +122,7 @@ export default function TeamPage() {
       <div className="mx-auto max-w-7xl w-full">
         <div className="mb-8 md:mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Команда</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Команда</h1>
             <p className="text-muted-foreground dark:text-gray-400">
               Добавьте участников ChefUp, с которыми вы работали или хотите работать
             </p>
@@ -136,7 +136,7 @@ export default function TeamPage() {
             </DialogTrigger>
             <DialogContent className="bg-white dark:bg-dark max-w-2xl">
               <DialogHeader className="mb-6">
-                <DialogTitle className="text-2xl mb-2">Добавить участника в команду</DialogTitle>
+                <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Добавить участника в команду</DialogTitle>
                 <DialogDescription className="text-base">
                   Найдите пользователя по ID или логину, затем заполните информацию
                 </DialogDescription>
@@ -246,7 +246,7 @@ export default function TeamPage() {
         {teamMembers.length === 0 ? (
           <AnimatedCard className="bg-white dark:bg-dark/50">
             <div className="py-12 text-center">
-              <p className="text-muted-foreground dark:text-gray-400 mb-4 text-lg">
+              <p className="text-muted-foreground dark:text-gray-400 mb-6 md:mb-4 text-lg">
                 У вас пока нет участников в команде 😢
               </p>
               <p className="text-sm text-muted-foreground dark:text-gray-400">
@@ -263,7 +263,7 @@ export default function TeamPage() {
               )
               .map((member) => (
                 <AnimatedCard key={member.id} className="bg-white dark:bg-dark/50">
-                  <div className="p-6">
+                  <div className="p-3 md:p-6">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-4 flex-1">
                         <Avatar>

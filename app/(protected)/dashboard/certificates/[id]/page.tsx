@@ -48,7 +48,7 @@ export default function CertificateDetailPage() {
                 <Award className="w-12 h-12 text-primary" />
               </div>
             </div>
-            <h2 className="text-2xl md:text-3xl mb-2 font-semibold dark:text-white">Сертификат</h2>
+            <h2 className="text-2xl md:text-3xl mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">Сертификат</h2>
             <p className="text-lg text-muted-foreground dark:text-gray-400">
               Подтверждает успешное прохождение обучения
             </p>

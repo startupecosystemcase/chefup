@@ -22,7 +22,7 @@ export function AnimatedCard({
   return (
     <motion.div
       className={cn(
-        'rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-6 shadow-sm transition-all duration-300',
+        'rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-3 md:p-6 shadow-sm transition-all duration-300',
         hover && 'hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1',
         onClick && 'cursor-pointer',
         className

@@ -421,7 +421,7 @@ export default function ProfilePage() {
             </h1>
 
             {/* ID и Username */}
-            <div className="flex flex-wrap items-center gap-3 mb-4 text-sm text-muted-foreground dark:text-gray-400">
+            <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-4 text-sm text-muted-foreground dark:text-gray-400">
               {userId && (
                 <div className="flex items-center gap-1.5">
                   <span className="font-medium">ID:</span>
@@ -469,7 +469,7 @@ export default function ProfilePage() {
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
                   <DialogHeader className="mb-6">
-                    <DialogTitle className="text-2xl mb-2">Расширенная анкета</DialogTitle>
+                    <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Расширенная анкета</DialogTitle>
                     <DialogDescription className="text-base">
                       Заполните расширенную анкету для лучшего подбора вакансий
                     </DialogDescription>
@@ -497,21 +497,21 @@ export default function ProfilePage() {
                 </DialogTrigger>
                 <DialogContent className="bg-white dark:bg-dark">
                   <DialogHeader className="mb-6">
-                    <DialogTitle className="text-2xl mb-2">Опубликовать публичную страницу</DialogTitle>
+                    <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Опубликовать публичную страницу</DialogTitle>
                     <DialogDescription className="text-base">
                       Создайте публичную страницу профиля с уникальным никнеймом
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6">
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Никнейм</label>
+                      <label className="text-sm font-medium mb-6 md:mb-4 md:mb-2 block">Никнейм</label>
                       <AnimatedInput
                         value={publishUsername}
                         onChange={(e) => setPublishUsername(e.target.value)}
                         placeholder="например: chef_savva"
                         className="w-full"
                       />
-                      <p className="text-xs text-muted-foreground mt-1 mb-2">
+                      <p className="text-xs text-muted-foreground mt-1 mb-6 md:mb-4 md:mb-2">
                         Ваша страница будет доступна по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{publishUsername || 'никнейм'}
                       </p>
                       {publishUsername.trim() && (
@@ -571,12 +571,12 @@ export default function ProfilePage() {
               <Dialog open={isPublishSuccessDialogOpen} onOpenChange={setIsPublishSuccessDialogOpen}>
                 <DialogContent className="bg-white dark:bg-dark max-w-md">
                   <DialogHeader className="mb-6">
-                    <div className="flex justify-center mb-4">
+                    <div className="flex justify-center mb-6 md:mb-4">
                       <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
                         <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-400" />
                       </div>
                     </div>
-                    <DialogTitle className="text-2xl mb-2 text-center">Ваша страница успешно опубликована!</DialogTitle>
+                    <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2 text-center">Ваша страница успешно опубликована!</DialogTitle>
                     <DialogDescription className="text-base text-center">
                       Теперь ваш профиль доступен по адресу: {typeof window !== 'undefined' ? window.location.origin : ''}/{publishUsername}
                     </DialogDescription>
@@ -658,10 +658,10 @@ export default function ProfilePage() {
             <TabsContent value="about" className="mt-6 space-y-6">
               {/* Кнопка Расширенная анкета */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                <div className="p-6">
+                <div className="p-3 md:p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Расширенная анкета</h3>
+                      <h3 className="text-xl font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Расширенная анкета</h3>
                       <p className="text-sm text-muted-foreground dark:text-gray-400">
                         {formData.extendedQuestionnaire 
                           ? 'Расширенная анкета заполнена' 
@@ -677,7 +677,7 @@ export default function ProfilePage() {
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
                         <DialogHeader className="mb-6">
-                          <DialogTitle className="text-2xl mb-2">Расширенная анкета</DialogTitle>
+                          <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Расширенная анкета</DialogTitle>
                           <DialogDescription className="text-base">
                             Заполните расширенную анкету для лучшего подбора вакансий
                           </DialogDescription>
@@ -696,8 +696,8 @@ export default function ProfilePage() {
 
               {/* О себе */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <FileText className="w-5 h-5" />
                     О себе
                   </h3>
@@ -715,7 +715,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать "О себе"</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать "О себе"</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -746,8 +746,8 @@ export default function ProfilePage() {
                   {/* Лучшие блюда */}
                   {formData.extendedQuestionnaire.bestDishes && formData.extendedQuestionnaire.bestDishes.length > 0 && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Award className="w-5 h-5" />
                           Лучшие блюда
                         </h3>
@@ -772,8 +772,8 @@ export default function ProfilePage() {
                   {/* Опыт с сезонными ингредиентами */}
                   {formData.extendedQuestionnaire.seasonalIngredientsExperience && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Target className="w-5 h-5" />
                           Опыт с сезонными ингредиентами
                         </h3>
@@ -787,8 +787,8 @@ export default function ProfilePage() {
                   {/* Оптимизация отходов */}
                   {formData.extendedQuestionnaire.wasteOptimization && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Target className="w-5 h-5" />
                           Оптимизация кухонного процесса
                         </h3>
@@ -802,8 +802,8 @@ export default function ProfilePage() {
                   {/* Готовность к сменному графику и переезду */}
                   {(formData.extendedQuestionnaire.shiftScheduleReady !== undefined || formData.extendedQuestionnaire.relocationReady !== undefined) && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Briefcase className="w-5 h-5" />
                           Готовность к работе
                         </h3>
@@ -828,8 +828,8 @@ export default function ProfilePage() {
                   {/* Предпочтения по графику */}
                   {formData.extendedQuestionnaire.schedulePreferences && formData.extendedQuestionnaire.schedulePreferences.length > 0 && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Clock className="w-5 h-5" />
                           Предпочтения по графику работы
                         </h3>
@@ -847,8 +847,8 @@ export default function ProfilePage() {
                   {/* Причины поиска работы */}
                   {formData.extendedQuestionnaire.jobSearchReasons && formData.extendedQuestionnaire.jobSearchReasons.length > 0 && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Target className="w-5 h-5" />
                           Причины поиска новой работы
                         </h3>
@@ -866,8 +866,8 @@ export default function ProfilePage() {
                   {/* Предпочтения по команде */}
                   {formData.extendedQuestionnaire.teamCulturePreferences && formData.extendedQuestionnaire.teamCulturePreferences.length > 0 && (
                     <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                      <div className="p-3 md:p-6">
+                        <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                           <Users className="w-5 h-5" />
                           Предпочтения по команде и культуре
                         </h3>
@@ -886,8 +886,8 @@ export default function ProfilePage() {
 
               {/* Контакты */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <FileText className="w-5 h-5" />
                     Контактная информация
                   </h3>
@@ -927,7 +927,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать контакты</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать контакты</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -962,8 +962,8 @@ export default function ProfilePage() {
 
               {/* Цели и интересы */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <Target className="w-5 h-5" />
                     Цели и интересы
                   </h3>
@@ -994,7 +994,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать цели и интересы</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать цели и интересы</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1020,8 +1020,8 @@ export default function ProfilePage() {
 
               {/* Опыт работы */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <Briefcase className="w-5 h-5" />
                     Опыт работы
                   </h3>
@@ -1083,7 +1083,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark max-w-2xl">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать опыт работы</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать опыт работы</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1137,8 +1137,8 @@ export default function ProfilePage() {
 
               {/* Образование */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <GraduationCap className="w-5 h-5" />
                     Образование
                   </h3>
@@ -1166,7 +1166,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать образование</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать образование</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1193,8 +1193,8 @@ export default function ProfilePage() {
 
               {/* Специализация */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <Award className="w-5 h-5" />
                     Специализация
                   </h3>
@@ -1225,7 +1225,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать специализацию</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать специализацию</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1251,8 +1251,8 @@ export default function ProfilePage() {
 
               {/* Предпочтения */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <Target className="w-5 h-5" />
                     Предпочтения
                   </h3>
@@ -1293,7 +1293,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать предпочтения</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать предпочтения</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1329,8 +1329,8 @@ export default function ProfilePage() {
 
               {/* Соцсети */}
               <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 relative">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                     <Globe className="w-5 h-5" />
                     Соцсети
                   </h3>
@@ -1393,7 +1393,7 @@ export default function ProfilePage() {
                   </DialogTrigger>
                   <DialogContent className="bg-white dark:bg-dark">
                     <DialogHeader className="mb-6">
-                      <DialogTitle className="text-2xl mb-2">Редактировать соцсети</DialogTitle>
+                      <DialogTitle className="text-2xl mb-6 md:mb-4 md:mb-2">Редактировать соцсети</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6">
                       <div className="space-y-3">
@@ -1516,7 +1516,7 @@ export default function ProfilePage() {
                 ) : (
                   <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
                     <div className="p-12 text-center">
-                      <p className="text-muted-foreground dark:text-gray-400 mb-4">Пока нет постов в микроблоге</p>
+                      <p className="text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">Пока нет постов в микроблоге</p>
                       <ShinyButton onClick={() => setIsPortfolioDialogOpen(true)} className="flex items-center gap-2 whitespace-nowrap">
                         <Plus className="w-4 h-4 flex-shrink-0" />
                         <span>Создать первый пост</span>

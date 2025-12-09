@@ -60,7 +60,7 @@ export default function ResumePage() {
       <div className="mx-auto max-w-5xl w-full">
         <div className="mb-8 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Моё резюме</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Моё резюме</h1>
             <p className="text-muted-foreground dark:text-gray-400">
               Автоматически сформировано на основе вашей анкеты
             </p>
@@ -78,7 +78,7 @@ export default function ResumePage() {
         </div>
 
         <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <div className="flex items-center gap-4">
               <Avatar className="h-20 w-20">
                 <AvatarFallback className="text-2xl dark:bg-dark/70 dark:text-white">
@@ -117,8 +117,8 @@ export default function ResumePage() {
         {/* Контакты */}
         {(formData.phone || formData.email) && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <FileText className="w-5 h-5" />
                   Контактная информация
@@ -148,8 +148,8 @@ export default function ResumePage() {
         {/* Опыт работы */}
         {(formData.experience || formData.desiredPosition || formData.currentPosition || formData.rank) && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <Briefcase className="w-5 h-5" />
                   Опыт работы
@@ -190,8 +190,8 @@ export default function ResumePage() {
         {/* Образование */}
         {formData.education && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <GraduationCap className="w-5 h-5" />
                   Образование
@@ -208,8 +208,8 @@ export default function ResumePage() {
         {/* Специализация */}
         {formData.cuisines && formData.cuisines.length > 0 && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center justify-between">
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <Award className="w-5 h-5" />
                   Специализация
@@ -232,8 +232,8 @@ export default function ResumePage() {
         {/* Предпочтения */}
         {(formData.preferredVenueFormat || formData.salaryExpectation) && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                 <Target className="w-5 h-5" />
                 Предпочтения
               </h3>
@@ -265,8 +265,8 @@ export default function ResumePage() {
         {/* Цели */}
         {formData.goals && formData.goals.length > 0 && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
                 <Target className="w-5 h-5" />
                 Цели и интересы
               </h3>
@@ -284,8 +284,8 @@ export default function ResumePage() {
         {/* О себе */}
         {formData.about && (
           <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white">О себе</h3>
+            <div className="p-3 md:p-6">
+              <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white">О себе</h3>
               <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-wrap break-words">{formData.about}</p>
             </div>
           </AnimatedCard>

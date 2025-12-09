@@ -89,21 +89,21 @@ export default function EducationDetailPage() {
         </ShinyButton>
 
         <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <div className="flex items-start justify-between mb-8">
               <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <AnimatedBadge variant="secondary" className="mb-2">
+                  <AnimatedBadge variant="secondary" className="mb-6 md:mb-4 md:mb-2">
                     {typeLabels[education.type]}
                   </AnimatedBadge>
                   <h2 className="text-2xl font-semibold dark:text-white">{education.title}</h2>
                 </div>
               </div>
             </div>
-            <p className="text-base text-muted-foreground dark:text-gray-400 mb-4">Автор: {education.author}</p>
+            <p className="text-base text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">Автор: {education.author}</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="flex items-center gap-4">
                 <Clock className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
@@ -149,20 +149,20 @@ export default function EducationDetailPage() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-2 dark:text-white">Описание</h3>
+                <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Описание</h3>
                 <p className="text-muted-foreground dark:text-gray-400">{education.description}</p>
               </div>
 
               {education.content && (
                 <div>
-                  <h3 className="font-semibold mb-2 dark:text-white">Программа</h3>
+                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Программа</h3>
                   <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-line">{education.content}</p>
                 </div>
               )}
 
               {education.materials && education.materials.length > 0 && (
                 <div>
-                  <h3 className="font-semibold mb-2 dark:text-white">Материалы</h3>
+                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Материалы</h3>
                   <div className="space-y-4">
                     {education.materials.map((material, index) => (
                       <a
@@ -182,7 +182,7 @@ export default function EducationDetailPage() {
 
               {education.videoUrl && (
                 <div>
-                  <h3 className="font-semibold mb-2 dark:text-white">Видео</h3>
+                  <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Видео</h3>
                   <div className="aspect-video w-full rounded-md overflow-hidden">
                     <iframe
                       src={education.videoUrl}

@@ -44,7 +44,7 @@ export default function ResumesPage() {
     <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">Резюме</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">Резюме</h1>
           <p className="text-muted-foreground dark:text-gray-400">
             Список зарегистрированных участников платформы
           </p>
@@ -52,7 +52,7 @@ export default function ResumesPage() {
 
         {/* Поиск и фильтры */}
         <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <div className="space-y-4">
               {/* Поиск */}
               <div className="relative">
@@ -141,8 +141,8 @@ export default function ResumesPage() {
             filteredResumes.map((resume) => (
               <StaggerItem key={resume.id}>
                 <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 hover:shadow-md transition-shadow">
-                <div className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 md:p-6">
+                  <div className="flex items-center gap-4 mb-6 md:mb-4">
                     <Avatar className="h-12 w-12">
                       <AvatarFallback className="dark:bg-gray-800 dark:text-white">
                         {resume.firstName[0]}{resume.lastName[0]}

@@ -83,7 +83,7 @@ export default function CandidatesPage() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </ShinyButton>
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-4 md:mb-2 dark:text-white">
             {job ? `Кандидаты на вакансию: ${job.title}` : 'Кандидаты'}
           </h1>
           <p className="text-muted-foreground dark:text-gray-400">
@@ -99,8 +99,8 @@ export default function CandidatesPage() {
 
         {/* Фильтры */}
         <AnimatedCard className="mb-8 bg-white dark:bg-dark/50">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4 dark:text-white">Поиск и фильтры</h2>
+          <div className="p-3 md:p-6">
+            <h2 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white">Поиск и фильтры</h2>
             <div className="space-y-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-gray-400" />
@@ -184,7 +184,7 @@ export default function CandidatesPage() {
               <StaggerItem key={candidate.id}>
                 <AnimatedCard className="h-full flex flex-col bg-white dark:bg-dark/50">
                 <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center gap-4 mb-6 md:mb-4">
                     <Avatar className="h-12 w-12">
                       <AvatarFallback className="dark:bg-gray-800 dark:text-white">
                         {candidate.firstName[0]}{candidate.lastName[0]}

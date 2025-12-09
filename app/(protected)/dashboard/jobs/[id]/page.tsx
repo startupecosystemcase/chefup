@@ -95,10 +95,10 @@ export default function JobDetailPage() {
 
         {/* Основная информация */}
         <AnimatedCard className="mb-8 card-soft-shadow bg-white dark:bg-dark/50">
-          <div className="p-6">
-            <div className="flex items-start justify-between mb-4">
+          <div className="p-3 md:p-6">
+            <div className="flex items-start justify-between mb-6 md:mb-4">
               <div>
-                <h2 className="text-2xl mb-2 font-semibold dark:text-white">{job.title}</h2>
+                <h2 className="text-2xl mb-6 md:mb-4 md:mb-2 font-semibold dark:text-white">{job.title}</h2>
                 <div className="flex flex-wrap gap-4">
                   <AnimatedBadge variant="outline" className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
@@ -136,7 +136,7 @@ export default function JobDetailPage() {
             </div>
             <div className="space-y-6">
               <div>
-                <h3 className="font-semibold mb-2 flex items-center gap-4 dark:text-white">
+                <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
                   <DollarSign className="w-4 h-4 text-primary" />
                   Зарплата
                 </h3>
@@ -146,14 +146,14 @@ export default function JobDetailPage() {
               <Separator className="dark:bg-gray-700" />
 
               <div>
-                <h3 className="font-semibold mb-2 dark:text-white">Описание</h3>
+                <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Описание</h3>
                 <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-line">{job.description}</p>
               </div>
 
               <Separator className="dark:bg-gray-700" />
 
               <div>
-                <h3 className="font-semibold mb-2 dark:text-white">Требования</h3>
+                <h3 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Требования</h3>
                 <p className="text-muted-foreground dark:text-gray-400 whitespace-pre-line">{job.requirements}</p>
               </div>
             </div>
@@ -162,8 +162,8 @@ export default function JobDetailPage() {
 
         {/* Информация о партнёре/компании */}
         <AnimatedCard className="mb-8 card-soft-shadow bg-white dark:bg-dark/50">
-          <div className="p-6">
-            <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center gap-4">
+          <div className="p-3 md:p-6">
+            <h3 className="text-xl font-semibold mb-6 md:mb-4 dark:text-white flex items-center gap-4">
               <Building2 className="w-5 h-5 text-primary" />
               Информация о компании
             </h3>
@@ -182,13 +182,13 @@ export default function JobDetailPage() {
             )}
             {(job as any).companyDescription && (
               <div>
-                <h4 className="font-semibold mb-2 dark:text-white">О компании</h4>
+                <h4 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">О компании</h4>
                 <p className="text-sm text-muted-foreground dark:text-gray-400">{(job as any).companyDescription}</p>
               </div>
             )}
             {(job as any).companyAddress && (
               <div>
-                <h4 className="font-semibold mb-2 flex items-center gap-4 dark:text-white">
+                <h4 className="font-semibold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
                   <MapPin className="w-4 h-4 text-primary" />
                   Адрес
                 </h4>
@@ -197,7 +197,7 @@ export default function JobDetailPage() {
             )}
             {(job as any).companyContacts && (
               <div>
-                <h4 className="font-semibold mb-2 flex items-center gap-4 dark:text-white">
+                <h4 className="font-semibold mb-6 md:mb-4 md:mb-2 flex items-center gap-4 dark:text-white">
                   <Phone className="w-4 h-4 text-primary" />
                   Контакты
                 </h4>
@@ -206,7 +206,7 @@ export default function JobDetailPage() {
             )}
             {(job as any).companyPhotos && (job as any).companyPhotos.length > 0 && (
               <div>
-                <h4 className="font-semibold mb-2 dark:text-white">Фото</h4>
+                <h4 className="font-semibold mb-6 md:mb-4 md:mb-2 dark:text-white">Фото</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {(job as any).companyPhotos.map((photo: string, idx: number) => (
                     <img
