@@ -6,7 +6,6 @@ import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Label } from '@/components/ui/label'
-import { Checkbox } from '@/components/ui/checkbox'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Progress } from '@/components/ui/progress'
 import { ArrowLeft, ArrowRight, Check, Utensils, Pizza, Fish, Salad, Soup, Beef, Coffee, Cake, Sandwich, Cookie, Apple, Cherry, Grape, Carrot, Egg, Milk, Croissant, Donut, Candy } from 'lucide-react'
@@ -217,13 +216,16 @@ export function ExtendedQuestionnaire({ onComplete, onCancel }: ExtendedQuestion
                   const Icon = dish.icon
                   const isSelected = data.bestDishes?.includes(dish.name) || false
                   return (
-                    <div
+                    <motion.button
                       key={dish.name}
+                      type="button"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       className={`
-                        flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer
+                        flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 cursor-pointer transition-all duration-300 relative
                         ${isSelected 
-                          ? 'border-[#F97316] bg-[#F97316]/10' 
-                          : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
+                          ? 'bg-gradient-to-br from-[#F97316] to-[#FB923C] text-white border-[#F97316] shadow-lg shadow-[#F97316]/50 ring-4 ring-[#F97316]/30 dark:ring-[#F97316]/50' 
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-[#F97316]/30 dark:hover:border-[#F97316]/50'
                         }
                       `}
                       onClick={() => {
@@ -238,27 +240,20 @@ export function ExtendedQuestionnaire({ onComplete, onCancel }: ExtendedQuestion
                         }
                       }}
                     >
-                      <Checkbox
-                        id={`dish-${dish.name}`}
-                        checked={isSelected}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            if (data.bestDishes && data.bestDishes.length >= 3) {
-                              toast.error('Можно выбрать только 3 вида блюд')
-                              return
-                            }
-                            setData({ ...data, bestDishes: [...(data.bestDishes || []), dish.name] })
-                          } else {
-                            setData({ ...data, bestDishes: data.bestDishes?.filter((d) => d !== dish.name) })
-                          }
-                        }}
-                        className="pointer-events-none flex-shrink-0"
-                      />
-                      <Icon className={`w-5 h-5 flex-shrink-0 ${isSelected ? 'text-[#F97316]' : 'text-gray-500'}`} />
-                      <Label htmlFor={`dish-${dish.name}`} className="cursor-pointer flex-1 text-sm font-medium truncate">
+                      <Icon className={`w-6 h-6 flex-shrink-0 ${isSelected ? 'text-white' : 'text-gray-500'}`} />
+                      <span className={`text-sm font-medium text-center ${isSelected ? 'text-white' : 'text-gray-700 dark:text-gray-300'}`}>
                         {dish.name}
-                      </Label>
-                    </div>
+                      </span>
+                      {isSelected && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white flex items-center justify-center"
+                        >
+                          <span className="text-[#F97316] text-xs font-bold">✓</span>
+                        </motion.div>
+                      )}
+                    </motion.button>
                   )
                 })}
               </div>

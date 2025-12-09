@@ -81,23 +81,31 @@ export default function JobDetailPage() {
           ← Назад
         </ShinyButton>
 
-        {/* Карточка вакансии с релевантностью */}
+        {/* Информация о релевантности (только для соискателей) */}
         {userRole === 'applicant' && relevance && (
-          <div className="mb-8">
-            <JobCardEnhanced
-              job={job}
-              relevance={relevance}
-              applicantData={formData}
-              onClick={() => {}}
-            />
-          </div>
+          <AnimatedCard className="mb-8 card-soft-shadow bg-white dark:bg-dark/50">
+            <div className="p-3 md:p-6">
+              <h3 className="text-lg font-semibold mb-4 dark:text-white flex items-center gap-2">
+                <Zap className="w-5 h-5 text-primary" />
+                Соответствие вакансии
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground dark:text-gray-400">Общее совпадение</span>
+                  <AnimatedBadge variant={relevance.score >= 85 ? 'default' : relevance.score >= 60 ? 'secondary' : 'outline'}>
+                    {relevance.score}%
+                  </AnimatedBadge>
+                </div>
+              </div>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Основная информация */}
         <AnimatedCard className="mb-8 card-soft-shadow bg-white dark:bg-dark/50">
           <div className="p-3 md:p-6">
             <div className="flex items-start justify-between mb-4 md:mb-4">
-              <div>
+              <div className="flex-1">
                 <h2 className="text-2xl mb-6 md:mb-2 font-semibold dark:text-white">{job.title}</h2>
                 <div className="flex flex-wrap gap-4">
                   <AnimatedBadge variant="outline" className="flex items-center gap-1">
@@ -116,7 +124,7 @@ export default function JobDetailPage() {
                 </div>
               </div>
               {userRole === 'applicant' && (
-                <div>
+                <div className="ml-4 flex-shrink-0">
                   {existingResponse ? (
                     <ShinyButton variant="outline" disabled>
                       <CheckCircle className="w-4 h-4 mr-2" />
