@@ -29,6 +29,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore, type UserRole } from '@/stores/useOnboardingStore'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
+import { ThemeToggle } from '@/components/magicui/theme-toggle'
 
 const applicantMenuItems = [
   { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
@@ -71,6 +72,8 @@ const bottomNavItems = [
 function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
   const pathname = usePathname()
   const userRole = useAuthStore((state) => state.userRole)
+  const language = useAuthStore((state) => state.language)
+  const setLanguage = useAuthStore((state) => state.setLanguage)
 
   let menuItems = applicantMenuItems
   if (userRole === 'employer') {
@@ -80,46 +83,74 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
   }
 
   return (
-    <nav className="space-y-1">
-      {/* Стрелочка влево для закрытия меню */}
-      <SheetClose asChild>
-        <button
-          className="flex items-center gap-2 mb-4 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Назад</span>
-        </button>
-      </SheetClose>
-      {menuItems.map((item) => {
-        const Icon = item.icon
-        const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onItemClick}
-            className={cn(
-              'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-300',
-              isActive
-                ? 'text-primary'
-                : 'text-muted-foreground hover:text-foreground'
-            )}
+    <div className="flex flex-col h-full">
+      <nav className="flex-1 space-y-1">
+        {/* Стрелочка влево для закрытия меню */}
+        <SheetClose asChild>
+          <button
+            className="flex items-center gap-2 mb-4 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            <Icon className={cn(
-              'h-4 w-4 transition-all duration-300',
-              isActive && 'text-primary'
-            )} />
-            <span className={cn(
-              'transition-all duration-300',
-              isActive && 'font-semibold text-primary'
-            )}>{item.label}</span>
-            {isActive && (
-              <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary ml-auto" />
-            )}
-          </Link>
-        )
-      })}
-    </nav>
+            <ArrowLeft className="h-4 w-4" />
+            <span>Назад</span>
+          </button>
+        </SheetClose>
+        {menuItems.map((item) => {
+          const Icon = item.icon
+          const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+          return (
+            <SheetClose key={item.href} asChild>
+              <Link
+                href={item.href}
+                onClick={onItemClick}
+                className={cn(
+                  'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-300',
+                  isActive
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                <Icon className={cn(
+                  'h-4 w-4 transition-all duration-300',
+                  isActive && 'text-primary'
+                )} />
+                <span className={cn(
+                  'transition-all duration-300',
+                  isActive && 'font-semibold text-primary'
+                )}>{item.label}</span>
+                {isActive && (
+                  <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary ml-auto" />
+                )}
+              </Link>
+            </SheetClose>
+          )
+        })}
+      </nav>
+      
+      {/* Theme toggle and Language selector */}
+      <div className="mt-6 pt-6 border-t border-gray-200/50 dark:border-border/50 space-y-3 px-3">
+        <div className="flex items-center" style={{ paddingLeft: '20%' }}>
+          <ThemeToggle />
+        </div>
+        <div className="flex items-center" style={{ paddingLeft: '20%' }}>
+          <div className="flex items-center gap-1 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg p-0.5">
+            {(['RU', 'KZ', 'EN'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguage(lang)}
+                className={cn(
+                  'px-2 py-1 text-xs font-semibold rounded-md transition-all whitespace-nowrap',
+                  language === lang
+                    ? 'bg-white dark:bg-gray-700 text-[#0F172A] dark:text-white shadow-sm'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-[#0F172A] dark:hover:text-white'
+                )}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

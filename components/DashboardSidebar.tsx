@@ -59,8 +59,9 @@ const moderatorMenuItems = [
 export function DashboardSidebar() {
   const pathname = usePathname()
   const userRole = useAuthStore((state) => state.userRole)
+  const language = useAuthStore((state) => state.language)
+  const setLanguage = useAuthStore((state) => state.setLanguage)
   const [mounted, setMounted] = useState(false)
-  const [language, setLanguage] = useState<'RU' | 'KZ' | 'EN'>('RU')
 
   useEffect(() => {
     setMounted(true)

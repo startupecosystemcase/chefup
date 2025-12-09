@@ -28,6 +28,8 @@ interface AuthState {
   setNotifications: (enabled: boolean) => void
   profilePrivacy: 'public' | 'private'
   setProfilePrivacy: (privacy: 'public' | 'private') => void
+  language: 'RU' | 'KZ' | 'EN'
+  setLanguage: (lang: 'RU' | 'KZ' | 'EN') => void
 }
 
 interface OnboardingState {
@@ -53,13 +55,15 @@ export const useAuthStore = create<AuthState>()(
       setUserRole: (role: UserRole) => set({ userRole: role }),
       setUsername: (username: string) => set({ username }),
       setPhone: (phone: string) => set({ phone }),
-      clearAuth: () => set({ userId: null, userRole: null, username: null, phone: null, subscriptionStatus: 'BASIC', notifications: true, profilePrivacy: 'public' }),
+      clearAuth: () => set({ userId: null, userRole: null, username: null, phone: null, subscriptionStatus: 'BASIC', notifications: true, profilePrivacy: 'public', language: 'RU' }),
       subscriptionStatus: 'BASIC',
       setSubscriptionStatus: (status: 'BASIC' | 'PRO') => set({ subscriptionStatus: status }),
       notifications: true,
       setNotifications: (enabled: boolean) => set({ notifications: enabled }),
       profilePrivacy: 'public',
       setProfilePrivacy: (privacy: 'public' | 'private') => set({ profilePrivacy: privacy }),
+      language: 'RU' as 'RU' | 'KZ' | 'EN',
+      setLanguage: (lang: 'RU' | 'KZ' | 'EN') => set({ language: lang }),
     }),
     {
       name: 'chefapp-auth',
