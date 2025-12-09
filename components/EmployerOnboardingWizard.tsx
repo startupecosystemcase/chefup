@@ -17,9 +17,50 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { employerOnboardingSchema, type EmployerOnboardingFormData } from '@/types/employer.types'
 import { useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
 import { cities, companyTypes, employeeCounts, cuisines, employerNeeds } from '@/lib/data'
-import { ArrowLeft, ArrowRight, Building2 } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Building2, Users, Briefcase, GraduationCap, TrendingUp, Handshake, FileText, CheckCircle2 } from 'lucide-react'
+import { AnimatedCard } from '@/components/magicui/animated-card'
 
-const TOTAL_STEPS = 4
+const TOTAL_STEPS = 5
+
+// Цели регистрации с иконками
+const registrationGoals = [
+  {
+    id: 'hiring',
+    title: 'Найм персонала',
+    description: 'Поиск и подбор квалифицированных сотрудников',
+    icon: Users,
+  },
+  {
+    id: 'erp-integration',
+    title: 'Интеграция ERP',
+    description: 'Внедрение HR-системы для управления персоналом',
+    icon: Building2,
+  },
+  {
+    id: 'education',
+    title: 'Доступ к обучению',
+    description: 'Корпоративные программы обучения и развития',
+    icon: GraduationCap,
+  },
+  {
+    id: 'marketing',
+    title: 'Маркетинг/Партнёрства',
+    description: 'Продвижение бренда и сотрудничество с партнёрами',
+    icon: TrendingUp,
+  },
+  {
+    id: 'job-posting',
+    title: 'Публикация вакансий',
+    description: 'Размещение вакансий и привлечение кандидатов',
+    icon: Briefcase,
+  },
+  {
+    id: 'corporate-training',
+    title: 'Корпоративное обучение',
+    description: 'Организация обучения для сотрудников компании',
+    icon: FileText,
+  },
+]
 
 export function EmployerOnboardingWizard() {
   const router = useRouter()
@@ -43,6 +84,7 @@ export function EmployerOnboardingWizard() {
       cuisines: formData.cuisines || [],
       needs: formData.needs || [],
       hrSystem: formData.hrSystem || false,
+      goals: formData.goals || [],
     },
   })
 
@@ -63,6 +105,9 @@ export function EmployerOnboardingWizard() {
         break
       case 4:
         fieldsToValidate = ['needs']
+        break
+      case 5:
+        fieldsToValidate = ['goals']
         break
     }
 
@@ -405,6 +450,72 @@ export function EmployerOnboardingWizard() {
                             ERP-система для управления персоналом, сменами, KPI и корпоративной культурой
                           </p>
                         </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              )}
+
+              {/* Шаг 5: Цели регистрации */}
+              {currentStep === 5 && (
+                <div className="space-y-6">
+                  <div>
+                    <FormLabel className="text-lg font-semibold mb-2">С какими целями вы регистрируетесь? *</FormLabel>
+                    <p className="text-sm text-muted-foreground mb-6">Выберите одну или несколько целей</p>
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="goals"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {registrationGoals.map((goal) => {
+                              const Icon = goal.icon
+                              const isSelected = (field.value || []).includes(goal.id)
+                              return (
+                                <AnimatedCard
+                                  key={goal.id}
+                                  className={`cursor-pointer transition-all ${
+                                    isSelected
+                                      ? 'border-2 border-primary shadow-lg bg-primary/5'
+                                      : 'border border-gray-200 dark:border-gray-700 hover:border-primary/50'
+                                  }`}
+                                  onClick={() => {
+                                    const current = field.value || []
+                                    if (isSelected) {
+                                      field.onChange(current.filter((id) => id !== goal.id))
+                                    } else {
+                                      field.onChange([...current, goal.id])
+                                    }
+                                  }}
+                                >
+                                  <div className="p-6">
+                                    <div className="flex items-start gap-4">
+                                      <div className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center ${
+                                        isSelected ? 'bg-primary text-white' : 'bg-primary/10 text-primary'
+                                      }`}>
+                                        <Icon className="w-6 h-6" />
+                                      </div>
+                                      <div className="flex-1 min-w-0">
+                                        <div className="flex items-start justify-between gap-2">
+                                          <h3 className="font-semibold text-base mb-1 dark:text-white">{goal.title}</h3>
+                                          {isSelected && (
+                                            <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                                          )}
+                                        </div>
+                                        <p className="text-sm text-muted-foreground dark:text-gray-400">
+                                          {goal.description}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </AnimatedCard>
+                              )
+                            })}
+                          </div>
+                        </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />

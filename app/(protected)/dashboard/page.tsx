@@ -11,11 +11,11 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/magicui/animated-dialog'
-import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsStore } from '@/stores/useOnboardingStore'
+import { useAuthStore, useOnboardingStore, usePortfolioStore, useEmployerJobsStore, useEmployerOnboardingStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostForm } from '@/components/PortfolioPostForm'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
 import { StaggerAnimation, StaggerItem } from '@/components/magicui/stagger-animation'
-import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, DollarSign, Briefcase, Heart } from 'lucide-react'
+import { Plus, Crown, Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, BookOpen, Users, Camera, UserCircle as AvatarIcon, User, Sparkles, ChefHat, Calendar, MapPin, Clock, ArrowRight, TrendingUp, Newspaper, DollarSign, Briefcase, Heart, Building2, Edit, Settings, Briefcase as BriefcaseIcon } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
 import { ProfileAnalytics } from '@/components/ProfileAnalytics'
 import { ProfileCompleteness } from '@/components/ProfileCompleteness'
@@ -146,6 +146,7 @@ export default function DashboardPage() {
   // Показываем разный контент в зависимости от роли
   if (userRole === 'employer') {
     const { jobs } = useEmployerJobsStore()
+    const { formData: employerFormData } = useEmployerOnboardingStore()
     const employerJobs = jobs.filter((job) => job.employerId === userId)
     const pendingJobs = employerJobs.filter((job) => job.status === 'pending' || job.status === 'moderating')
     const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
@@ -154,6 +155,87 @@ export default function DashboardPage() {
       <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
         <div className="mx-auto max-w-6xl">
           <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-8 dark:text-white">Личный кабинет работодателя</h1>
+          
+          {/* Карточка компании */}
+          <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50 mb-8">
+            <div className="p-6">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                {/* Логотип / Аватар */}
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-xl bg-gradient-to-br from-primary/20 to-[#FB923C]/20 flex items-center justify-center">
+                    {employerFormData?.companyLogo ? (
+                      <img src={employerFormData.companyLogo} alt={employerFormData.companyName || 'Company'} className="w-full h-full rounded-xl object-cover" />
+                    ) : (
+                      <Building2 className="w-10 h-10 md:w-12 md:h-12 text-primary" />
+                    )}
+                  </div>
+                </div>
+                
+                {/* Информация о компании */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-xl md:text-2xl font-bold dark:text-white mb-2 truncate">
+                        {employerFormData?.companyName || 'Название компании'}
+                      </h2>
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        {employerFormData?.city && (
+                          <AnimatedBadge variant="outline" className="text-xs">
+                            <MapPin className="w-3 h-3 mr-1" />
+                            {employerFormData.city}
+                          </AnimatedBadge>
+                        )}
+                        <AnimatedBadge variant={subscriptionStatus === 'PRO' ? 'default' : 'secondary'} className="text-xs">
+                          {subscriptionStatus === 'PRO' ? 'PRO' : 'BASIC'}
+                        </AnimatedBadge>
+                      </div>
+                      {employerFormData?.companyDescription && (
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 line-clamp-1">
+                          {employerFormData.companyDescription}
+                        </p>
+                      )}
+                      
+                      {/* Статистика */}
+                      <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-muted-foreground dark:text-gray-400">
+                        <div className="flex items-center gap-1.5">
+                          <BriefcaseIcon className="w-4 h-4" />
+                          <span>{approvedJobs.length} активных вакансий</span>
+                        </div>
+                        {employerFormData?.branchesCount && (
+                          <div className="flex items-center gap-1.5">
+                            <Building2 className="w-4 h-4" />
+                            <span>{employerFormData.branchesCount} филиалов</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Кнопки */}
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <ShinyButton 
+                        variant="outline" 
+                        size="sm"
+                        className="flex items-center gap-2 whitespace-nowrap"
+                        onClick={() => router.push('/dashboard/profile')}
+                      >
+                        <Edit className="w-4 h-4 flex-shrink-0" />
+                        <span>Редактировать профиль</span>
+                      </ShinyButton>
+                      <ShinyButton 
+                        variant="outline" 
+                        size="sm"
+                        className="flex items-center gap-2 whitespace-nowrap"
+                        onClick={() => router.push('/dashboard/subscription')}
+                      >
+                        <Settings className="w-4 h-4 flex-shrink-0" />
+                        <span>Управление подпиской</span>
+                      </ShinyButton>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedCard>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-8">
             <AnimatedCard className="bg-white dark:bg-dark/50">
@@ -176,39 +258,34 @@ export default function DashboardPage() {
             </AnimatedCard>
           </div>
 
-          <AnimatedCard className="bg-white dark:bg-dark/50">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-[#000] dark:text-white mb-2">Подать вакансию на модерацию. История вакансии и кандидаты.</h3>
-                  <p className="text-sm font-semibold text-[#000] dark:text-gray-400">
-                    Подать вакансию на модерацию. Просмотр всех собственных вакансий и просмотров доступных кандидатов.
-                  </p>
-                </div>
+          {/* Блок быстрых действий - упрощённый */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <ShinyButton 
+              onClick={() => router.push('/dashboard/jobs/create')} 
+              className="h-auto min-h-[120px] p-6 flex items-center gap-4 active:scale-100 hover:scale-100 transition-colors"
+            >
+              <div className="flex-shrink-0">
+                <Plus className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ShinyButton 
-                  onClick={() => router.push('/dashboard/jobs/create')} 
-                  className="h-auto py-6 justify-start active:scale-100 hover:scale-100 transition-colors"
-                >
-                  <div className="text-left">
-                    <div className="font-semibold mb-1">Создать вакансию</div>
-                    <div className="text-sm text-muted-foreground">Подать новую вакансию на модерацию</div>
-                  </div>
-                </ShinyButton>
-                <ShinyButton 
-                  variant="outline" 
-                  onClick={() => router.push('/dashboard/jobs')} 
-                  className="h-auto py-6 justify-start active:scale-100 hover:scale-100 transition-colors"
-                >
-                  <div className="text-left">
-                    <div className="font-semibold mb-1">Вакансии</div>
-                    <div className="text-sm text-muted-foreground">Просмотр всех созданных вакансий</div>
-                  </div>
-                </ShinyButton>
+              <div className="text-left flex-1">
+                <div className="text-lg md:text-xl font-bold mb-1">Создать вакансию</div>
+                <div className="text-sm font-medium text-white/80">Подать новую вакансию на модерацию</div>
               </div>
-            </div>
-          </AnimatedCard>
+            </ShinyButton>
+            <ShinyButton 
+              variant="outline" 
+              onClick={() => router.push('/dashboard/jobs')} 
+              className="h-auto min-h-[120px] p-6 flex items-center gap-4 active:scale-100 hover:scale-100 transition-colors"
+            >
+              <div className="flex-shrink-0">
+                <BriefcaseIcon className="w-8 h-8 md:w-10 md:h-10" />
+              </div>
+              <div className="text-left flex-1">
+                <div className="text-lg md:text-xl font-bold mb-1">Вакансии</div>
+                <div className="text-sm font-medium text-muted-foreground">Просмотр всех созданных вакансий</div>
+              </div>
+            </ShinyButton>
+          </div>
         </div>
       </div>
     )

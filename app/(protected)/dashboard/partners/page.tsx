@@ -171,10 +171,10 @@ export default function PartnersPage() {
             <ShinyButton
               variant="ghost"
               onClick={() => router.push('/dashboard/partners')}
-              className="mb-4"
+              className="mb-4 flex items-center gap-2 whitespace-nowrap"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Назад
+              <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+              <span>Назад</span>
             </ShinyButton>
             <h1 className="text-2xl md:text-3xl font-bold mb-2 dark:text-white">{selectedCategory.title}</h1>
             <p className="text-muted-foreground dark:text-gray-400">{selectedCategory.description}</p>
@@ -201,7 +201,12 @@ export default function PartnersPage() {
           {filteredPartnersByCategory.length === 0 ? (
             <AnimatedCard className="bg-white dark:bg-dark/50">
               <div className="py-12 text-center">
-                <p className="text-muted-foreground dark:text-gray-400">Партнёры не найдены</p>
+                <p className="text-muted-foreground dark:text-gray-400 mb-4">Партнёры пока отсутствуют</p>
+                <p className="text-sm text-muted-foreground dark:text-gray-500 mb-6">Мы работаем над добавлением партнёров в эту категорию</p>
+                <ShinyButton variant="outline" size="sm" className="flex items-center gap-2 whitespace-nowrap mx-auto">
+                  <Users className="w-4 h-4 flex-shrink-0" />
+                  <span>Предложить партнёра</span>
+                </ShinyButton>
               </div>
             </AnimatedCard>
           ) : (
@@ -246,10 +251,10 @@ export default function PartnersPage() {
                           </div>
                           <div className="mt-auto space-y-4 pt-4 border-t dark:border-gray-700">
                             {partner.website && (
-                              <ShinyButton variant="outline" className="w-full" asChild>
+                              <ShinyButton variant="outline" className="w-full flex items-center gap-2 whitespace-nowrap justify-center" asChild>
                                 <a href={partner.website} target="_blank" rel="noopener noreferrer">
-                                  <ExternalLink className="w-4 h-4 mr-2" />
-                                  Перейти на сайт
+                                  <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                                  <span>Перейти на сайт</span>
                                 </a>
                               </ShinyButton>
                             )}

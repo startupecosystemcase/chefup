@@ -18,6 +18,9 @@ export const employerOnboardingSchema = z.object({
   
   // Шаг 3: О компании
   description: z.string().min(50, 'Описание должно содержать минимум 50 символов').max(1000, 'Максимум 1000 символов'),
+  companyDescription: z.string().optional(), // Краткое описание/слоган
+  companyLogo: z.string().optional(), // URL логотипа
+  branchesCount: z.number().optional(), // Количество филиалов
   employeeCount: z.enum(['1-10', '11-50', '51-100', '100+'], {
     required_error: 'Выберите количество сотрудников',
   }),
@@ -26,6 +29,9 @@ export const employerOnboardingSchema = z.object({
   // Шаг 4: Потребности
   needs: z.array(z.string()).min(1, 'Выберите хотя бы одну потребность'),
   hrSystem: z.boolean().default(false),
+  
+  // Шаг 5: Цели регистрации
+  goals: z.array(z.string()).min(1, 'Выберите хотя бы одну цель'),
 })
 
 export type EmployerOnboardingFormData = z.infer<typeof employerOnboardingSchema>
