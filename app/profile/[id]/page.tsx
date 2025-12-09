@@ -8,6 +8,8 @@ import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { DashboardSidebar } from '@/components/DashboardSidebar'
+import { MobileBottomNav } from '@/components/MobileBottomNav'
 import { useOnboardingStore, usePortfolioStore, usePublicProfilesStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
 import { Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, Edit, Eye, Heart, UserPlus, Users, Plus, UserCheck, MessageCircle } from 'lucide-react'
@@ -85,8 +87,10 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-dark">
       <Navbar />
-      <main className="flex-1">
-        <div className="container mx-auto px-4 py-6 md:px-6 lg:px-8">
+      <div className="flex flex-1">
+        <DashboardSidebar />
+        <main className="flex-1">
+          <div className="container mx-auto px-4 py-6 md:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             {/* Profile Header with Cover Image or ChefUp Logo */}
             <div className="relative mb-8 rounded-2xl overflow-hidden h-64 md:h-80">
@@ -474,7 +478,9 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 </div>
                 </div>
         </div>
-      </main>
+        </main>
+      </div>
+      <MobileBottomNav />
       <Footer />
     </div>
   )

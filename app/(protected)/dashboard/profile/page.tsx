@@ -475,14 +475,14 @@ export default function ProfilePage() {
                 input.click()
               }}
             >
-              <Upload className="w-4 h-4 mr-1.5" />
-              <span className="text-xs">Загрузить</span>
+              <Upload className="w-4 h-4 flex-shrink-0" />
+              <span className="text-xs whitespace-nowrap">Загрузить</span>
             </ShinyButton>
             {coverImage && (
               <ShinyButton
                 variant="outline"
                 size="sm"
-                className="bg-white/90 hover:bg-white text-gray-700 backdrop-blur-sm"
+                className="bg-white/90 hover:bg-white text-gray-700 backdrop-blur-sm flex items-center gap-1.5"
                 onClick={() => {
                   if (coverImage) {
                     setCoverImageToCrop(coverImage)
@@ -490,8 +490,8 @@ export default function ProfilePage() {
                   }
                 }}
               >
-                <Crop className="w-4 h-4 mr-1.5" />
-                <span className="text-xs">Обрезать</span>
+                <Crop className="w-4 h-4 flex-shrink-0" />
+                <span className="text-xs whitespace-nowrap">Обрезать</span>
               </ShinyButton>
             )}
           </div>
@@ -567,13 +567,13 @@ export default function ProfilePage() {
               {userId && (
                 <div className="flex items-center gap-1.5">
                   <span className="font-medium">ID:</span>
-                  <span className="font-mono">{userId.slice(0, 8)}...</span>
+                  <span className="font-mono break-all">{userId}</span>
                 </div>
               )}
               {username && (
                 <div className="flex items-center gap-1.5">
                   <span className="font-medium">Username:</span>
-                  <span className="font-mono">@{username}</span>
+                  <span className="font-mono break-all">@{username}</span>
                 </div>
               )}
             </div>
@@ -604,9 +604,9 @@ export default function ProfilePage() {
             <div className="flex flex-wrap gap-2 mb-6">
               <Dialog open={isExtendedQuestionnaireOpen} onOpenChange={setIsExtendedQuestionnaireOpen}>
                 <DialogTrigger asChild>
-                  <ShinyButton variant="outline" size="sm" className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2">
-                    <FileCheck className="w-3 h-3 mr-1.5" />
-                    Расширенная анкета
+                  <ShinyButton variant="outline" size="sm" className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2 flex items-center gap-1.5">
+                    <FileCheck className="w-3 h-3 flex-shrink-0" />
+                    <span>Расширенная анкета</span>
                   </ShinyButton>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
@@ -631,10 +631,10 @@ export default function ProfilePage() {
                   <ShinyButton 
                     variant="outline" 
                     size="sm" 
-                    className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2"
+                    className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2 flex items-center gap-1.5"
                   >
-                    <Globe className="w-3 h-3 mr-1.5" />
-                    Опубликовать и поделиться
+                    <Globe className="w-3 h-3 flex-shrink-0" />
+                    <span>Опубликовать и поделиться</span>
                   </ShinyButton>
                 </DialogTrigger>
                 <DialogContent className="bg-white dark:bg-dark">
@@ -746,9 +746,9 @@ export default function ProfilePage() {
                 </DialogContent>
               </Dialog>
               
-              <ShinyButton variant="outline" size="sm" className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2">
-                <Edit className="w-3 h-3 mr-1.5" />
-                Редактировать
+              <ShinyButton variant="outline" size="sm" className="text-xs leading-tight whitespace-nowrap bg-white border-gray-200 hover:bg-gray-50 px-3 py-2 flex items-center gap-1.5">
+                <Edit className="w-3 h-3 flex-shrink-0" />
+                <span>Редактировать</span>
               </ShinyButton>
             </div>
           </div>
@@ -812,9 +812,9 @@ export default function ProfilePage() {
                     </div>
                     <Dialog open={isExtendedQuestionnaireOpen} onOpenChange={setIsExtendedQuestionnaireOpen}>
                       <DialogTrigger asChild>
-                        <ShinyButton variant={formData.extendedQuestionnaire ? "outline" : "default"} size="sm">
-                          <FileCheck className="w-4 h-4 mr-2" />
-                          {formData.extendedQuestionnaire ? 'Редактировать анкету' : 'Заполнить анкету'}
+                        <ShinyButton variant={formData.extendedQuestionnaire ? "outline" : "default"} size="sm" className="flex items-center gap-2 whitespace-nowrap">
+                          <FileCheck className="w-4 h-4 flex-shrink-0" />
+                          <span>{formData.extendedQuestionnaire ? 'Редактировать анкету' : 'Заполнить анкету'}</span>
                         </ShinyButton>
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
@@ -1578,24 +1578,19 @@ export default function ProfilePage() {
 
             {/* Активность Tab */}
             <TabsContent value="activity" className="mt-6">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Main Content */}
-                <div className="lg:col-span-2 space-y-6">
-                  {/* Статистика и аналитика */}
-                  <ProfileAnalytics formData={formData} />
-                  
-                  {/* Прогресс навыков */}
-                  <SkillsProgress skills={[
-                    { name: 'Управление кухней', level: 85 },
-                    { name: 'Работа с командой', level: 75 },
-                    { name: 'Меню-планирование', level: 90 },
-                  ]} />
-                </div>
-
-                {/* Right Sidebar */}
-                <div className="space-y-6">
-                  {/* Завершенность профиля */}
-                  <ProfileCompleteness formData={formData} />
+              <div className="flex flex-col gap-6">
+                {/* Статистика и аналитика */}
+                <ProfileAnalytics formData={formData} />
+                
+                {/* Прогресс навыков */}
+                <SkillsProgress skills={[
+                  { name: 'Управление кухней', level: 85 },
+                  { name: 'Работа с командой', level: 75 },
+                  { name: 'Меню-планирование', level: 90 },
+                ]} />
+                
+                {/* Завершенность профиля */}
+                <ProfileCompleteness formData={formData} />
                   
                   {/* Рекомендации */}
                   <ProfileTips tips={[
@@ -1664,9 +1659,9 @@ export default function ProfilePage() {
                   <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
                     <div className="p-12 text-center">
                       <p className="text-muted-foreground dark:text-gray-400 mb-4">Пока нет постов в микроблоге</p>
-                      <ShinyButton onClick={() => setIsPortfolioDialogOpen(true)}>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Создать первый пост
+                      <ShinyButton onClick={() => setIsPortfolioDialogOpen(true)} className="flex items-center gap-2 whitespace-nowrap">
+                        <Plus className="w-4 h-4 flex-shrink-0" />
+                        <span>Создать первый пост</span>
                       </ShinyButton>
                     </div>
                   </AnimatedCard>

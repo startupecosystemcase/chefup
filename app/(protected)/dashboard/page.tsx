@@ -358,8 +358,8 @@ export default function DashboardPage() {
                           </AnimatedBadge>
                         )}
                         {userId && (
-                          <span className="text-xs text-muted-foreground dark:text-gray-400">
-                            ID: {userId.slice(0, 8)}...
+                          <span className="text-xs text-muted-foreground dark:text-gray-400 font-mono break-all">
+                            ID: {userId}
                           </span>
                         )}
                       </div>
@@ -384,10 +384,10 @@ export default function DashboardPage() {
                     {/* Кнопка перехода в профиль */}
                     <ShinyButton 
                       onClick={() => router.push('/dashboard/profile')}
-                      className="w-full md:w-auto whitespace-nowrap"
+                      className="w-full md:w-auto whitespace-nowrap flex items-center gap-2"
                     >
-                      Перейти в мой профиль
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <span>Перейти в мой профиль</span>
+                      <ArrowRight className="w-4 h-4 flex-shrink-0" />
                     </ShinyButton>
           </div>
         </div>

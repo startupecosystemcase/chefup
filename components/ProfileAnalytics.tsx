@@ -205,20 +205,20 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
             Статистика видимости
           </h3>
           <p className="text-sm text-muted-foreground mb-4 dark:text-gray-400">Активность вашего профиля</p>
-          <div className="flex gap-4">
-            <div className="flex-1 text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
               <div className="text-2xl font-bold text-primary mb-1">{analytics.visibility.views7d}</div>
               <div className="text-xs text-muted-foreground dark:text-gray-400">Просмотров за 7 дней</div>
             </div>
-            <div className="flex-1 text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
               <div className="text-2xl font-bold text-primary mb-1">{analytics.visibility.views30d}</div>
               <div className="text-xs text-muted-foreground dark:text-gray-400">Просмотров за 30 дней</div>
             </div>
-            <div className="flex-1 text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
               <div className="text-2xl font-bold text-primary mb-1">{analytics.visibility.sentToEmployers}</div>
               <div className="text-xs text-muted-foreground dark:text-gray-400">Отправлено работодателям</div>
             </div>
-            <div className="flex-1 text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-dark/70 border border-border/50 dark:border-gray-700/50 rounded-lg">
               <div className="text-2xl font-bold text-primary mb-1">{analytics.visibility.autoMatched}</div>
               <div className="text-xs text-muted-foreground dark:text-gray-400">Автоподбор</div>
             </div>

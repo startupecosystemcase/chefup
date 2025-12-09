@@ -122,6 +122,27 @@ export default function PartnersPage() {
     return null
   }
 
+  // Обработка ошибок
+  try {
+    if (!allPartners || allPartners.length === 0) {
+      // Пустое состояние
+    }
+  } catch (error) {
+    console.error('Ошибка загрузки партнёров:', error)
+    return (
+      <div className="p-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
+        <div className="mx-auto max-w-7xl">
+          <AnimatedCard className="bg-white dark:bg-dark/50">
+            <div className="py-12 text-center">
+              <p className="text-muted-foreground dark:text-gray-400 mb-4">Партнёры пока отсутствуют</p>
+              <p className="text-sm text-muted-foreground dark:text-gray-500">Мы работаем над добавлением партнёров</p>
+            </div>
+          </AnimatedCard>
+        </div>
+      </div>
+    )
+  }
+
   // Фильтруем партнеров по категории, если выбрана
   const filteredPartnersByCategory = useMemo(() => {
     if (!categoryId) return filteredPartners
