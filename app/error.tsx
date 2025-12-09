@@ -1,13 +1,13 @@
 'use client'
 
+// Отключаем статическую генерацию для этой страницы
+export const dynamic = 'force-dynamic'
+
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AlertCircle, RefreshCw, Home, HelpCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
-
-// Отключаем статическую генерацию для этой страницы
-export const dynamic = 'force-dynamic'
 
 export default function Error({
   error,

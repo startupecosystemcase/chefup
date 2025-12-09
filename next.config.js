@@ -5,9 +5,9 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     if (isServer) {
       // Исключаем большие клиентские библиотеки из серверного бандла
+      // НЕ исключаем framer-motion, так как это вызывает проблемы с prerendering
       config.externals = config.externals || []
       config.externals.push({
-        'framer-motion': 'commonjs framer-motion',
         'react-simple-maps': 'commonjs react-simple-maps',
         'swiper': 'commonjs swiper',
         'canvas-confetti': 'commonjs canvas-confetti',

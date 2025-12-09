@@ -1,5 +1,8 @@
 'use client'
 
+// Отключаем статическую генерацию для этой страницы
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -25,9 +28,6 @@ const phoneSchema = z.object({
 })
 
 type PhoneFormData = z.infer<typeof phoneSchema>
-
-// Отключаем статическую генерацию для этой страницы
-export const dynamic = 'force-dynamic'
 
 export default function AuthPage() {
   const router = useRouter()
