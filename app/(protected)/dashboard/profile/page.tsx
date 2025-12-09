@@ -147,6 +147,19 @@ function CompanyProfilePage() {
                 <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Тип заведения</Label>
                 <p className="text-base dark:text-white">{employerFormData?.companyType || 'Не указано'}</p>
               </div>
+              {employerFormData?.referralCode && employerFormData?.referralBy && (
+                <div>
+                  <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Реферальный промокод</Label>
+                  <div className="mt-2 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary/20">
+                    <p className="text-sm dark:text-white">
+                      <span className="font-semibold">Промокод:</span> {employerFormData.referralCode}
+                    </p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">
+                      Пришёл по реферальному промокоду: <span className="font-medium">{employerFormData.referralBy}</span>
+                    </p>
+                  </div>
+                </div>
+              )}
               <div>
                 <Label className="text-sm font-medium text-muted-foreground dark:text-gray-400">Город</Label>
                 <p className="text-base dark:text-white">{employerFormData?.city || 'Не указано'}</p>
