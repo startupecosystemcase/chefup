@@ -22,6 +22,7 @@ import {
 import { useAdminStore } from '@/stores/useAdminStore'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { SheetClose } from '@/components/ui/sheet'
 
 const adminMenuItems = [
   {
@@ -153,7 +154,7 @@ export function AdminSidebar({ mobile = false, onClose }: AdminSidebarProps = {}
         {adminMenuItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
-          return (
+          const linkContent = (
             <Link
               key={item.href}
               href={item.href}
@@ -171,20 +172,44 @@ export function AdminSidebar({ mobile = false, onClose }: AdminSidebarProps = {}
               {(!isCollapsed || mobile) && <span>{item.title}</span>}
             </Link>
           )
+          
+          if (mobile) {
+            return (
+              <SheetClose key={item.href} asChild>
+                {linkContent}
+              </SheetClose>
+            )
+          }
+          
+          return linkContent
         })}
       </nav>
       <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-        <button
-          onClick={handleLogout}
-          className={cn(
-            'flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors',
-            (isCollapsed && !mobile) && 'justify-center'
-          )}
-          title={(isCollapsed && !mobile) ? 'Выйти' : undefined}
-        >
-          <LogOut className="w-5 h-5 flex-shrink-0" />
-          {(!isCollapsed || mobile) && <span>Выйти</span>}
-        </button>
+        {mobile ? (
+          <SheetClose asChild>
+            <button
+              onClick={handleLogout}
+              className={cn(
+                'flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors'
+              )}
+            >
+              <LogOut className="w-5 h-5 flex-shrink-0" />
+              <span>Выйти</span>
+            </button>
+          </SheetClose>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className={cn(
+              'flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors',
+              isCollapsed && 'justify-center'
+            )}
+            title={isCollapsed ? 'Выйти' : undefined}
+          >
+            <LogOut className="w-5 h-5 flex-shrink-0" />
+            {!isCollapsed && <span>Выйти</span>}
+          </button>
+        )}
       </div>
     </motion.div>
   )

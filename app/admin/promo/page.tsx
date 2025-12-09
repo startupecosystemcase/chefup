@@ -249,13 +249,17 @@ export default function AdminPromoPage() {
           </div>
         </CardHeader>
         <CardContent>
-          {filteredPromos.length === 0 ? (
+          {filteredPromos.length === 0 && promoCodes.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground mb-4">Промокоды не найдены</p>
               <Button onClick={() => setIsCreateDialogOpen(true)}>
                 <Plus className="w-4 h-4 mr-2" />
                 Создать промокод
               </Button>
+            </div>
+          ) : filteredPromos.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Промокоды не найдены по заданным фильтрам</p>
             </div>
           ) : (
             <div className="overflow-x-auto">

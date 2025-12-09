@@ -354,7 +354,7 @@ export default function AdminWorkersPage() {
         type="workers"
       />
 
-      {filteredWorkers.length === 0 ? (
+      {filteredWorkers.length === 0 && workers.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
             <p className="text-muted-foreground mb-4">Работники не найдены</p>
@@ -362,6 +362,12 @@ export default function AdminWorkersPage() {
               <Plus className="w-4 h-4 mr-2" />
               Создать работника
             </Button>
+          </CardContent>
+        </Card>
+      ) : filteredWorkers.length === 0 ? (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <p className="text-muted-foreground">Работники не найдены по заданным фильтрам</p>
           </CardContent>
         </Card>
       ) : (

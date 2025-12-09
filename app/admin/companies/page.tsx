@@ -424,9 +424,9 @@ export default function AdminCompaniesPage() {
                 ))}
               </tbody>
             </table>
-            {filteredCompanies.length === 0 && (
+            {filteredCompanies.length === 0 && companies.length > 0 && (
               <div className="text-center py-8 text-muted-foreground">
-                Компании не найдены
+                Компании не найдены по заданным фильтрам
               </div>
             )}
           </div>
