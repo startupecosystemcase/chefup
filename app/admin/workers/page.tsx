@@ -36,7 +36,16 @@ export default function AdminWorkersPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
-  const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null)
+  const [editWorker, setEditWorker] = useState<Worker | null>(null)
+  const [editedWorker, setEditedWorker] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    city: '',
+    position: '',
+    subscriptionStatus: 'BASIC' as 'BASIC' | 'PRO',
+  })
   const [newWorker, setNewWorker] = useState({
     firstName: '',
     lastName: '',
@@ -128,9 +137,53 @@ export default function AdminWorkersPage() {
     })
   }
 
+  const [editWorker, setEditWorker] = useState<Worker | null>(null)
+  const [editedWorker, setEditedWorker] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    city: '',
+    position: '',
+    subscriptionStatus: 'BASIC' as 'BASIC' | 'PRO',
+  })
+
   const handleEditWorker = (worker: Worker) => {
-    setSelectedWorker(worker)
+    setEditWorker(worker)
+    setEditedWorker({
+      firstName: worker.firstName,
+      lastName: worker.lastName,
+      phone: worker.phone,
+      email: worker.email || '',
+      city: worker.city,
+      position: worker.position || '',
+      subscriptionStatus: worker.subscriptionStatus,
+    })
     setIsEditDialogOpen(true)
+  }
+
+  const handleSaveWorker = () => {
+    if (!editWorker) return
+
+    if (!editedWorker.firstName || !editedWorker.lastName || !editedWorker.phone || !editedWorker.city) {
+      toast.error('Заполните все обязательные поля')
+      return
+    }
+
+    // Проверка уникальности телефона (если изменился)
+    if (editedWorker.phone !== editWorker.phone && workers.some((w) => w.phone === editedWorker.phone && w.id !== editWorker.id)) {
+      toast.error('Этот номер телефона уже зарегистрирован')
+      return
+    }
+
+    setWorkers(workers.map((w) => 
+      w.id === editWorker.id 
+        ? { ...w, ...editedWorker }
+        : w
+    ))
+    toast.success('Изменения сохранены')
+    setIsEditDialogOpen(false)
+    setEditWorker(null)
   }
 
   const handleDeleteWorker = (workerId: string) => {
@@ -321,6 +374,106 @@ export default function AdminWorkersPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Диалог редактирования работника */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Редактировать работника</DialogTitle>
+            <DialogDescription>Измените данные работника</DialogDescription>
+          </DialogHeader>
+          {editWorker && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Имя *</Label>
+                  <AnimatedInput
+                    value={editedWorker.firstName}
+                    onChange={(e) => setEditedWorker({ ...editedWorker, firstName: e.target.value })}
+                    placeholder="Имя"
+                  />
+                </div>
+                <div>
+                  <Label>Фамилия *</Label>
+                  <AnimatedInput
+                    value={editedWorker.lastName}
+                    onChange={(e) => setEditedWorker({ ...editedWorker, lastName: e.target.value })}
+                    placeholder="Фамилия"
+                  />
+                </div>
+              </div>
+              <div>
+                <Label>Телефон *</Label>
+                <AnimatedInput
+                  value={editedWorker.phone}
+                  onChange={(e) => setEditedWorker({ ...editedWorker, phone: e.target.value })}
+                  placeholder="+7 (XXX) XXX-XX-XX"
+                />
+              </div>
+              <div>
+                <Label>Email</Label>
+                <AnimatedInput
+                  type="email"
+                  value={editedWorker.email}
+                  onChange={(e) => setEditedWorker({ ...editedWorker, email: e.target.value })}
+                  placeholder="email@example.com"
+                />
+              </div>
+              <div>
+                <Label>Город *</Label>
+                <Select value={editedWorker.city} onValueChange={(value) => setEditedWorker({ ...editedWorker, city: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите город" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cities.map((city) => (
+                      <SelectItem key={city.value} value={city.value}>
+                        {city.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Должность</Label>
+                <Select value={editedWorker.position} onValueChange={(value) => setEditedWorker({ ...editedWorker, position: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите должность" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {positions.map((pos) => (
+                      <SelectItem key={pos.value} value={pos.value}>
+                        {pos.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Статус подписки</Label>
+                <Select 
+                  value={editedWorker.subscriptionStatus} 
+                  onValueChange={(value) => setEditedWorker({ ...editedWorker, subscriptionStatus: value as 'BASIC' | 'PRO' })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="BASIC">BASIC</SelectItem>
+                    <SelectItem value="PRO">PRO</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                  Отмена
+                </Button>
+                <Button onClick={handleSaveWorker}>Сохранить изменения</Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

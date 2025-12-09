@@ -128,6 +128,72 @@ export default function AdminCompaniesPage() {
     })
   }
 
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [editCompany, setEditCompany] = useState<Company | null>(null)
+  const [editedCompany, setEditedCompany] = useState({
+    name: '',
+    legalName: '',
+    inn: '',
+    city: '',
+    address: '',
+    contactPerson: '',
+    phone: '',
+    email: '',
+    branchesCount: '1',
+    subscriptionStatus: 'BASIC' as 'BASIC' | 'PRO',
+  })
+
+  const handleEditCompany = (company: Company) => {
+    setEditCompany(company)
+    setEditedCompany({
+      name: company.name,
+      legalName: company.legalName || '',
+      inn: company.inn || '',
+      city: company.city,
+      address: company.address || '',
+      contactPerson: company.contactPerson,
+      phone: company.phone,
+      email: company.email,
+      branchesCount: company.branchesCount.toString(),
+      subscriptionStatus: company.subscriptionStatus,
+    })
+    setIsEditDialogOpen(true)
+  }
+
+  const handleSaveCompany = () => {
+    if (!editCompany) return
+
+    if (!editedCompany.name || !editedCompany.contactPerson || !editedCompany.phone || !editedCompany.email || !editedCompany.city) {
+      toast.error('Заполните все обязательные поля')
+      return
+    }
+
+    // Проверка уникальности телефона (если изменился)
+    if (editedCompany.phone !== editCompany.phone && companies.some((c) => c.phone === editedCompany.phone && c.id !== editCompany.id)) {
+      toast.error('Этот номер телефона уже зарегистрирован')
+      return
+    }
+
+    // Проверка уникальности email (если изменился)
+    if (editedCompany.email !== editCompany.email && companies.some((c) => c.email === editedCompany.email && c.id !== editCompany.id)) {
+      toast.error('Этот email уже зарегистрирован')
+      return
+    }
+
+    setCompanies(companies.map((c) => 
+      c.id === editCompany.id 
+        ? { 
+            ...c, 
+            ...editedCompany,
+            branchesCount: parseInt(editedCompany.branchesCount) || 1,
+          }
+        : c
+    ))
+    toast.success('Изменения сохранены')
+    setIsEditDialogOpen(false)
+    setEditCompany(null)
+  }
+
   const handleDeleteCompany = (companyId: string) => {
     if (confirm('Вы уверены, что хотите удалить эту компанию?')) {
       setCompanies(companies.filter((c) => c.id !== companyId))
@@ -326,6 +392,123 @@ export default function AdminCompaniesPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Диалог редактирования компании */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Редактировать компанию</DialogTitle>
+            <DialogDescription>Измените данные компании</DialogDescription>
+          </DialogHeader>
+          {editCompany && (
+            <div className="space-y-4">
+              <div>
+                <Label>Название компании *</Label>
+                <AnimatedInput
+                  value={editedCompany.name}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, name: e.target.value })}
+                  placeholder="Название компании"
+                />
+              </div>
+              <div>
+                <Label>Юридическое название</Label>
+                <AnimatedInput
+                  value={editedCompany.legalName}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, legalName: e.target.value })}
+                  placeholder="Юридическое название"
+                />
+              </div>
+              <div>
+                <Label>ИНН</Label>
+                <AnimatedInput
+                  value={editedCompany.inn}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, inn: e.target.value })}
+                  placeholder="ИНН"
+                />
+              </div>
+              <div>
+                <Label>Город *</Label>
+                <Select value={editedCompany.city} onValueChange={(value) => setEditedCompany({ ...editedCompany, city: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите город" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cities.map((city) => (
+                      <SelectItem key={city.value} value={city.label}>
+                        {city.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Адрес</Label>
+                <AnimatedInput
+                  value={editedCompany.address}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, address: e.target.value })}
+                  placeholder="Адрес"
+                />
+              </div>
+              <div>
+                <Label>Контактное лицо *</Label>
+                <AnimatedInput
+                  value={editedCompany.contactPerson}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, contactPerson: e.target.value })}
+                  placeholder="Имя и фамилия"
+                />
+              </div>
+              <div>
+                <Label>Телефон *</Label>
+                <AnimatedInput
+                  value={editedCompany.phone}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, phone: e.target.value })}
+                  placeholder="+7 (XXX) XXX-XX-XX"
+                />
+              </div>
+              <div>
+                <Label>Email *</Label>
+                <AnimatedInput
+                  type="email"
+                  value={editedCompany.email}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, email: e.target.value })}
+                  placeholder="email@example.com"
+                />
+              </div>
+              <div>
+                <Label>Количество филиалов</Label>
+                <AnimatedInput
+                  type="number"
+                  value={editedCompany.branchesCount}
+                  onChange={(e) => setEditedCompany({ ...editedCompany, branchesCount: e.target.value })}
+                  placeholder="1"
+                  min="1"
+                />
+              </div>
+              <div>
+                <Label>Статус подписки</Label>
+                <Select 
+                  value={editedCompany.subscriptionStatus} 
+                  onValueChange={(value) => setEditedCompany({ ...editedCompany, subscriptionStatus: value as 'BASIC' | 'PRO' })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="BASIC">BASIC</SelectItem>
+                    <SelectItem value="PRO">PRO</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                  Отмена
+                </Button>
+                <Button onClick={handleSaveCompany}>Сохранить изменения</Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
