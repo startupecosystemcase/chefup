@@ -94,14 +94,14 @@ export function ProfileAnalytics({ formData }: ProfileAnalyticsProps) {
               </div>
               <div className="relative h-8 bg-muted dark:bg-gray-800 rounded-md overflow-hidden">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="flex-1 h-full bg-gradient-to-r from-orange-500/20 via-primary/30 to-green-500/20" />
+                  <div className="flex-1 h-full bg-gradient-to-r from-primary/10 via-primary/20 to-primary/10" />
                 </div>
                 <div
                   className="absolute top-0 bottom-0 w-0.5 bg-primary"
                   style={{ left: `${Math.max(0, Math.min(100, salaryPosition))}%` }}
                 >
                   <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                    <AnimatedBadge variant="default" className="text-xs">
+                    <AnimatedBadge variant="default" className="text-xs bg-primary text-white">
                       Ваши ожидания: {userSalary.toLocaleString()} ₸
                     </AnimatedBadge>
                   </div>

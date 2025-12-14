@@ -35,7 +35,9 @@ export default function NotFound() {
     }, 2000)
   }
 
-  const homeUrl = userId ? '/dashboard' : '/'
+  // Определяем, находимся ли мы в админ-панели
+  const isAdmin = typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')
+  const homeUrl = isAdmin ? '/admin' : (userId ? '/dashboard' : '/')
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FEFCF9] p-4">

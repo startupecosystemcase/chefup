@@ -81,6 +81,7 @@ export function EmployerOnboardingWizard() {
       phone: formData.phone || '',
       description: formData.description || '',
       employeeCount: formData.employeeCount,
+      branchesCount: formData.branchesCount,
       cuisines: formData.cuisines || [],
       needs: formData.needs || [],
       hrSystem: formData.hrSystem || false,
@@ -386,6 +387,38 @@ export function EmployerOnboardingWizard() {
                           </SelectContent>
                         </Select>
                         <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="branchesCount"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Количество филиалов</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            min="1"
+                            placeholder="Введите количество филиалов"
+                            value={field.value || ''}
+                            onChange={(e) => {
+                              const value = e.target.value
+                              if (value === '') {
+                                field.onChange(undefined)
+                              } else {
+                                const numValue = parseInt(value)
+                                if (!isNaN(numValue) && numValue >= 1) {
+                                  field.onChange(numValue)
+                                }
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                        <p className="text-xs text-muted-foreground">
+                          Оставьте пустым, если филиалов нет
+                        </p>
                       </FormItem>
                     )}
                   />

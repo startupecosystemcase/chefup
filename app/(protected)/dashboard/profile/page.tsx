@@ -1542,15 +1542,31 @@ export default function ProfilePage() {
                     ))}
                   </div>
                 ) : (
-                  <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                    <div className="p-12 text-center">
-                      <p className="text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">Пока нет постов в микроблоге</p>
-                      <ShinyButton onClick={() => setIsPortfolioDialogOpen(true)} className="flex items-center gap-2 whitespace-nowrap">
-                        <Plus className="w-4 h-4 flex-shrink-0" />
-                        <span>Создать первый пост</span>
-                      </ShinyButton>
-                    </div>
-                  </AnimatedCard>
+                  <>
+                    <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
+                      <div className="p-12 text-center">
+                        <p className="text-muted-foreground dark:text-gray-400 mb-6 md:mb-4">Пока нет постов в микроблоге</p>
+                        <ShinyButton onClick={() => setIsPortfolioDialogOpen(true)} className="flex items-center gap-2 whitespace-nowrap">
+                          <Plus className="w-4 h-4 flex-shrink-0" />
+                          <span>Создать первый пост</span>
+                        </ShinyButton>
+                      </div>
+                    </AnimatedCard>
+                    <Dialog open={isPortfolioDialogOpen} onOpenChange={setIsPortfolioDialogOpen}>
+                      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark">
+                        <DialogHeader>
+                          <DialogTitle>Создать пост</DialogTitle>
+                          <DialogDescription>
+                            Создайте новый пост для вашего микроблога
+                          </DialogDescription>
+                        </DialogHeader>
+                        <PortfolioPostForm
+                          onSubmit={handleAddPortfolioPost}
+                          onCancel={() => setIsPortfolioDialogOpen(false)}
+                        />
+                      </DialogContent>
+                    </Dialog>
+                  </>
                 )}
               </div>
             </TabsContent>

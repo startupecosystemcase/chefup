@@ -75,24 +75,60 @@ export default function AdminWorkersPage() {
   })
 
   useEffect(() => {
-    // Загружаем всех пользователей из store (в реальном приложении - API запрос)
-    // Здесь используем mock данные
-    const mockWorkers: Worker[] = [
-      {
-        id: '1',
-        firstName: 'Иван',
-        lastName: 'Иванов',
-        phone: '+7 (777) 123-45-67',
-        email: 'ivan@example.com',
-        city: 'Алматы',
-        position: 'Шеф-повар',
-        subscriptionStatus: 'PRO',
-        responsesCount: 5,
-        createdAt: '2025-01-15',
-      },
-    ]
-    setWorkers(mockWorkers)
+    // Загружаем работников из localStorage (в реальном приложении - API запрос)
+    const savedWorkers = typeof window !== 'undefined' ? localStorage.getItem('admin-workers') : null
+    if (savedWorkers) {
+      try {
+        const parsed = JSON.parse(savedWorkers)
+        setWorkers(parsed)
+      } catch (e) {
+        console.error('Ошибка загрузки работников:', e)
+        // Если ошибка, используем mock данные
+        const mockWorkers: Worker[] = [
+          {
+            id: '1',
+            firstName: 'Иван',
+            lastName: 'Иванов',
+            phone: '+7 (777) 123-45-67',
+            email: 'ivan@example.com',
+            city: 'Алматы',
+            position: 'Шеф-повар',
+            subscriptionStatus: 'PRO',
+            responsesCount: 5,
+            createdAt: '2025-01-15',
+          },
+        ]
+        setWorkers(mockWorkers)
+      }
+    } else {
+      // Используем mock данные при первом запуске
+      const mockWorkers: Worker[] = [
+        {
+          id: '1',
+          firstName: 'Иван',
+          lastName: 'Иванов',
+          phone: '+7 (777) 123-45-67',
+          email: 'ivan@example.com',
+          city: 'Алматы',
+          position: 'Шеф-повар',
+          subscriptionStatus: 'PRO',
+          responsesCount: 5,
+          createdAt: '2025-01-15',
+        },
+      ]
+      setWorkers(mockWorkers)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('admin-workers', JSON.stringify(mockWorkers))
+      }
+    }
   }, [])
+
+  // Сохраняем работников в localStorage при изменении
+  useEffect(() => {
+    if (workers.length > 0 && typeof window !== 'undefined') {
+      localStorage.setItem('admin-workers', JSON.stringify(workers))
+    }
+  }, [workers])
 
   const filteredWorkers = workers.filter((worker) => {
     const fullName = `${worker.firstName} ${worker.lastName}`.toLowerCase()
