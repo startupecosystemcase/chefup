@@ -84,6 +84,17 @@ export default function DashboardPage() {
     setTempSocialLinks(socialLinks)
   }, [socialLinks])
 
+  // Данные для ленты - объявления переменных должны быть после всех хуков и перед условными return
+  const upcomingEvents = [...mockEvents, ...events]
+    .filter((event) => event.status === 'approved')
+    .slice(0, 3)
+  
+  const popularPrograms = mockEducationItems
+    .filter((item) => item.status === 'approved')
+    .slice(0, 3)
+  
+  const recommendedJobs = userRole === 'applicant' ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map((r) => r.job) : mockJobs.slice(0, 6)
+
   const handleAddPortfolioPost = (postData: Omit<PortfolioPost, 'id' | 'createdAt'>) => {
     addPost(postData)
     setIsPortfolioDialogOpen(false)
@@ -374,17 +385,6 @@ export default function DashboardPage() {
     )
   }
 
-  // Данные для ленты
-  const upcomingEvents = [...mockEvents, ...events]
-    .filter((event) => event.status === 'approved')
-    .slice(0, 3)
-  
-  const popularPrograms = mockEducationItems
-    .filter((item) => item.status === 'approved')
-    .slice(0, 3)
-  
-  const recommendedJobs = userRole === 'applicant' ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map((r) => r.job) : mockJobs.slice(0, 6)
-
   return (
     <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
       <div className="mx-auto max-w-7xl w-full space-y-4 md:space-y-8">
@@ -395,7 +395,7 @@ export default function DashboardPage() {
               <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                 {/* Аватар */}
                 <Avatar className="h-20 w-20 md:h-24 md:w-24 flex-shrink-0">
-                <AvatarImage src={formData.avatarUrl} alt={`${formData.firstName} ${formData.lastName}`} />
+                <AvatarImage src={typeof formData.avatarUrl === 'string' ? formData.avatarUrl : ''} alt={`${formData.firstName} ${formData.lastName}`} />
                   <AvatarFallback className="bg-gradient-to-br from-primary/20 to-[#FB923C]/20 text-2xl md:text-3xl">
                     {formData.firstName?.[0] || 'U'}
                     {formData.lastName?.[0] || ''}
@@ -413,12 +413,16 @@ export default function DashboardPage() {
                       
                       {/* Специализация, Город, ID/Username */}
                       <div className="flex flex-wrap items-center gap-3 mb-6 md:mb-3">
-                        {(formData.desiredPosition || formData.currentPosition) && (
-                          <AnimatedBadge variant="outline" className="text-xs">
-                            <Briefcase className="w-3 h-3 mr-1" />
-                            {getLabel(formData.desiredPosition || formData.currentPosition || '', positions)}
-                          </AnimatedBadge>
-                        )}
+                        {(formData.desiredPosition || formData.currentPosition) && (() => {
+                          const position = formData.desiredPosition || formData.currentPosition
+                          const positionValue = typeof position === 'string' ? position : (Array.isArray(position) ? position[0] : '')
+                          return positionValue ? (
+                            <AnimatedBadge variant="outline" className="text-xs">
+                              <Briefcase className="w-3 h-3 mr-1" />
+                              {getLabel(positionValue, positions)}
+                            </AnimatedBadge>
+                          ) : null
+                        })()}
                         {formData.city && (
                           <AnimatedBadge variant="outline" className="text-xs">
                             <MapPin className="w-3 h-3 mr-1" />
@@ -468,7 +472,8 @@ export default function DashboardPage() {
                   </div>
                 </div>
               </div>
-            </AnimatedCard>
+            </div>
+          </AnimatedCard>
         )}
 
         {/* Вакансии для вас */}
@@ -616,8 +621,17 @@ export default function DashboardPage() {
                   </div>
                 </AnimatedCard>
               ))}
+              </div>
+              <div className="pt-4 border-t border-gray-200/50 dark:border-border/50">
+                <Link href="/dashboard/practice">
+                  <ShinyButton variant="outline" size="sm" className="w-full whitespace-nowrap">
+                    Все программы
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </ShinyButton>
+                </Link>
+              </div>
             </div>
-          </div>
+          </AnimatedCard>
         )}
 
       </div>
