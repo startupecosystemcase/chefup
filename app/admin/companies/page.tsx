@@ -46,6 +46,20 @@ export default function AdminCompaniesPage() {
     dateTo: '',
   })
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [editCompany, setEditCompany] = useState<Company | null>(null)
+  const [editedCompany, setEditedCompany] = useState({
+    name: '',
+    legalName: '',
+    inn: '',
+    city: '',
+    address: '',
+    contactPerson: '',
+    phone: '',
+    email: '',
+    branchesCount: '1',
+    subscriptionStatus: 'BASIC' as 'BASIC' | 'PRO',
+  })
   const [newCompany, setNewCompany] = useState({
     name: '',
     legalName: '',
@@ -139,21 +153,6 @@ export default function AdminCompaniesPage() {
       branchesCount: '1',
     })
   }
-
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
-  const [editCompany, setEditCompany] = useState<Company | null>(null)
-  const [editedCompany, setEditedCompany] = useState({
-    name: '',
-    legalName: '',
-    inn: '',
-    city: '',
-    address: '',
-    contactPerson: '',
-    phone: '',
-    email: '',
-    branchesCount: '1',
-    subscriptionStatus: 'BASIC' as 'BASIC' | 'PRO',
-  })
 
   const handleEditCompany = (company: Company) => {
     setEditCompany(company)

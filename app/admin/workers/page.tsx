@@ -200,17 +200,6 @@ export default function AdminWorkersPage() {
     })
   }
 
-  const [editWorker, setEditWorker] = useState<Worker | null>(null)
-  const [editedWorker, setEditedWorker] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    city: '',
-    position: '',
-    subscriptionStatus: 'BASIC' as 'BASIC' | 'PRO',
-  })
-
   const handleEditWorker = (worker: Worker) => {
     setEditWorker(worker)
     setEditedWorker({

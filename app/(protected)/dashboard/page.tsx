@@ -139,14 +139,15 @@ export default function DashboardPage() {
     reader.readAsDataURL(file)
   }
 
+  const { jobs: employerJobs } = useEmployerJobsStore()
+  const { formData: employerFormData } = useEmployerOnboardingStore()
+
   if (!userId) {
     return null
   }
 
   // Показываем разный контент в зависимости от роли
   if (userRole === 'employer') {
-    const { jobs } = useEmployerJobsStore()
-    const { formData: employerFormData } = useEmployerOnboardingStore()
     const employerJobs = jobs.filter((job) => job.employerId === userId)
     const pendingJobs = employerJobs.filter((job) => job.status === 'pending' || job.status === 'moderating')
     const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
@@ -292,9 +293,8 @@ export default function DashboardPage() {
   }
 
   if (userRole === 'moderator') {
-    const { jobs } = useEmployerJobsStore()
-    const pendingJobs = jobs.filter((job) => job.status === 'pending' || job.status === 'moderating')
-    const approvedJobs = jobs.filter((job) => job.status === 'approved')
+    const pendingJobs = employerJobs.filter((job) => job.status === 'pending' || job.status === 'moderating')
+    const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
 
     return (
       <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
@@ -317,7 +317,7 @@ export default function DashboardPage() {
             <AnimatedCard className="bg-white dark:bg-dark/50">
               <div className="p-3 md:p-6">
                 <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Всего вакансий</h3>
-                <div className="text-2xl md:text-3xl font-bold dark:text-white">{jobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold dark:text-white">{employerJobs.length}</div>
               </div>
             </AnimatedCard>
           </div>
