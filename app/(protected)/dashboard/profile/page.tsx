@@ -208,7 +208,16 @@ export default function ProfilePage() {
     }
   }, [userRole, router])
 
-  // Все объявления функций должны быть после всех хуков
+  // Условные return должны быть сразу после всех хуков
+  if (!mounted || !userId) {
+    return null
+  }
+
+  if (userRole === 'employer') {
+    return null
+  }
+
+  // Все объявления функций должны быть после условных return
   const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
     return options.find((opt) => opt.value === value)?.label || value
   }
@@ -268,15 +277,6 @@ export default function ProfilePage() {
     addPost(postData)
     setIsPortfolioDialogOpen(false)
     toast.success('Пост добавлен в микроблог!')
-  }
-
-  // Условные return должны быть после всех объявлений функций
-  if (!mounted || !userId) {
-    return null
-  }
-
-  if (userRole === 'employer') {
-    return null
   }
 
   return (
