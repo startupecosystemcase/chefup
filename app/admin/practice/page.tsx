@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { useEducationStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { useEducationStore, useOnboardingStore, useAuthStore } from '@/stores/useOnboardingStore'
 import { mockEducationItems } from '@/lib/mockEducation'
 import { astanaEducationItems } from '@/lib/mockEducationAstana'
 import { Plus, Search, Edit, Trash2, Eye, Download } from 'lucide-react'
@@ -20,6 +20,7 @@ import type { EducationItem } from '@/types/education.types'
 export default function AdminPracticePage() {
   const { items, enrollments } = useEducationStore()
   const { formData: allUsersData } = useOnboardingStore()
+  const userId = useAuthStore((state) => state.userId) || 'admin'
   const [allItems, setAllItems] = useState<EducationItem[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedItem, setSelectedItem] = useState<EducationItem | null>(null)
@@ -33,6 +34,7 @@ export default function AdminPracticePage() {
     duration: '',
     price: '0',
     city: '',
+    isOnline: true,
   })
 
   useEffect(() => {
@@ -68,15 +70,13 @@ export default function AdminPracticePage() {
       return
     }
 
-    const item: EducationItem = {
-      id: `education-${Date.now()}`,
+    const itemData = {
       ...newItem,
       price: parseFloat(newItem.price) || 0,
-      status: 'approved',
-      createdAt: new Date().toISOString(),
+      isOnline: newItem.isOnline ?? true,
     }
 
-    useEducationStore.getState().addItem(item)
+    useEducationStore.getState().addEducation(itemData, userId)
     toast.success('Курс/тренинг создан')
     setIsCreateDialogOpen(false)
     setNewItem({
@@ -87,12 +87,13 @@ export default function AdminPracticePage() {
       duration: '',
       price: '0',
       city: '',
+      isOnline: true,
     })
   }
 
   const handleDeleteItem = (itemId: string) => {
     if (confirm('Вы уверены, что хотите удалить этот курс/тренинг?')) {
-      useEducationStore.getState().deleteItem(itemId)
+      useEducationStore.getState().deleteEducation(itemId)
       setAllItems(allItems.filter((i) => i.id !== itemId))
       toast.success('Курс/тренинг удален')
     }
@@ -115,7 +116,7 @@ export default function AdminPracticePage() {
     toast.success('Список участников экспортирован')
   }
 
-  const itemEnrollments = selectedItem ? getItemEnrollments(selectedItem.id) : []
+  const itemEnrollments = selectedItem && selectedItem.id ? getItemEnrollments(selectedItem.id) : []
 
   return (
     <div className="space-y-6">
@@ -165,7 +166,7 @@ export default function AdminPracticePage() {
               </thead>
               <tbody>
                 {filteredItems.map((item) => {
-                  const enrollmentsCount = getItemEnrollments(item.id).length
+                  const enrollmentsCount = item.id ? getItemEnrollments(item.id).length : 0
                   return (
                     <tr key={item.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
                       <td className="p-2">{item.title}</td>
@@ -173,7 +174,7 @@ export default function AdminPracticePage() {
                         <Badge variant="outline">{item.type}</Badge>
                       </td>
                       <td className="p-2">{item.author}</td>
-                      <td className="p-2">{item.city || '-'}</td>
+                      <td className="p-2">{item.location || '-'}</td>
                       <td className="p-2">{item.price === 0 ? 'Бесплатно' : `${item.price} KZT`}</td>
                       <td className="p-2">
                         <Badge>{enrollmentsCount}</Badge>
@@ -183,7 +184,7 @@ export default function AdminPracticePage() {
                           <Button variant="ghost" size="sm" onClick={() => handleViewItem(item)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" onClick={() => handleDeleteItem(item.id)}>
+                          <Button variant="ghost" size="sm" onClick={() => item.id && handleDeleteItem(item.id)}>
                             <Trash2 className="w-4 h-4 text-red-600" />
                           </Button>
                         </div>
@@ -231,7 +232,7 @@ export default function AdminPracticePage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-semibold">Участники ({itemEnrollments.length})</h3>
-                  <Button onClick={() => handleExportCSV(selectedItem.id)} variant="outline" size="sm">
+                  <Button onClick={() => selectedItem.id && handleExportCSV(selectedItem.id)} variant="outline" size="sm">
                     <Download className="w-4 h-4 mr-2" />
                     Экспорт CSV
                   </Button>

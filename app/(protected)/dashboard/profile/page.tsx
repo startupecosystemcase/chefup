@@ -444,7 +444,7 @@ export default function ProfilePage() {
                   </button>
                   <button
                     onClick={() => {
-                      toast.info('Редактирование логина будет доступно в следующей версии')
+                      toast('Редактирование логина будет доступно в следующей версии')
                     }}
                     className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                     title="Редактировать логин"
@@ -459,7 +459,7 @@ export default function ProfilePage() {
                   <span className="font-mono break-all text-gray-900 dark:text-white">@{username}</span>
                   <button
                     onClick={() => {
-                      toast.info('Редактирование логина будет доступно в следующей версии')
+                      toast('Редактирование логина будет доступно в следующей версии')
                     }}
                     className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                     title="Редактировать логин"
@@ -486,7 +486,7 @@ export default function ProfilePage() {
               {(formData.desiredPosition || formData.currentPosition) && (
                 <div className="px-3 py-1.5 bg-[#F97316] text-white rounded-lg text-sm font-medium flex items-center gap-1">
                   <Award className="w-3 h-3" />
-                  {formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
+                  {formData.desiredPosition && getLabel(Array.isArray(formData.desiredPosition) ? formData.desiredPosition[0] : formData.desiredPosition, positions)}
                   {!formData.desiredPosition && formData.currentPosition && getLabel(formData.currentPosition, positions)}
                 </div>
               )}
@@ -1090,7 +1090,7 @@ export default function ProfilePage() {
                           color: getCharacteristicColor('position').text
                         }}
                       >
-                        {getLabel(formData.desiredPosition, positions)}
+                        {getLabel(Array.isArray(formData.desiredPosition) ? formData.desiredPosition[0] : formData.desiredPosition, positions)}
                       </div>
                     )}
                     {formData.rank && (
@@ -1142,8 +1142,8 @@ export default function ProfilePage() {
                         <Label className="text-base font-medium">Желаемая позиция</Label>
                         <BadgeSelector
                           options={positions}
-                          selected={formData.desiredPosition ? [formData.desiredPosition] : []}
-                          onChange={(selected) => setFormData({ desiredPosition: selected[0] || '' })}
+                          selected={formData.desiredPosition ? (Array.isArray(formData.desiredPosition) ? formData.desiredPosition : [formData.desiredPosition]) : []}
+                          onChange={(selected) => setFormData({ desiredPosition: selected })}
                           maxSelections={1}
                         />
                       </div>

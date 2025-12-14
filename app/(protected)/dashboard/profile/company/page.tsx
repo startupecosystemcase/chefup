@@ -115,7 +115,7 @@ export default function CompanyProfilePage() {
                             <button
                               onClick={() => {
                                 // TODO: Открыть диалог редактирования логина
-                                toast.info('Редактирование логина будет доступно в следующей версии')
+                                toast('Редактирование логина будет доступно в следующей версии')
                               }}
                               className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                               title="Редактировать логин"
@@ -131,7 +131,7 @@ export default function CompanyProfilePage() {
                             <button
                               onClick={() => {
                                 // TODO: Открыть диалог редактирования логина
-                                toast.info('Редактирование логина будет доступно в следующей версии')
+                                toast('Редактирование логина будет доступно в следующей версии')
                               }}
                               className="ml-1 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                               title="Редактировать логин"

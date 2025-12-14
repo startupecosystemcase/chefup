@@ -10,6 +10,9 @@ interface AnimatedCardProps {
   hover?: boolean
   style?: React.CSSProperties
   onClick?: () => void
+  onMouseDown?: (e: React.MouseEvent<HTMLDivElement>) => void
+  onMouseUp?: (e: React.MouseEvent<HTMLDivElement>) => void
+  onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
 export function AnimatedCard({
@@ -18,6 +21,9 @@ export function AnimatedCard({
   hover = true,
   style,
   onClick,
+  onMouseDown,
+  onMouseUp,
+  onMouseLeave,
 }: AnimatedCardProps) {
   return (
     <motion.div
@@ -33,6 +39,9 @@ export function AnimatedCard({
       transition={{ duration: 0.5 }}
       whileHover={hover ? { scale: 1.02 } : undefined}
       onClick={onClick}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseLeave}
     >
       {children}
     </motion.div>

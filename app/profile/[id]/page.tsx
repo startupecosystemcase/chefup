@@ -73,6 +73,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
     about: resumeData.about,
     currentPosition: resumeData.position,
     desiredPosition: resumeData.position,
+    goals: [],
     avatarUrl: undefined,
     coverImage: undefined,
   } : currentUserFormData
@@ -194,7 +195,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
               <div className="flex flex-wrap gap-2 mb-6">
                 {(formData.desiredPosition && (
                   <AnimatedBadge variant="secondary" className="text-sm px-3 py-1">
-                    {getLabel(formData.desiredPosition, positions)}
+                    {getLabel(Array.isArray(formData.desiredPosition) ? formData.desiredPosition[0] : formData.desiredPosition, positions)}
                   </AnimatedBadge>
                 )) || (formData.currentPosition && (
                   <AnimatedBadge variant="secondary" className="text-sm px-3 py-1">
@@ -346,7 +347,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   <div>
                                 <span className="text-muted-foreground dark:text-gray-400">Позиция: </span>
                                 <span className="dark:text-white">
-                    {(formData.desiredPosition && getLabel(formData.desiredPosition, positions)) || 
+                    {(formData.desiredPosition && getLabel(Array.isArray(formData.desiredPosition) ? formData.desiredPosition[0] : formData.desiredPosition, positions)) || 
                      (formData.currentPosition && getLabel(formData.currentPosition, positions))}
                                 </span>
                   </div>

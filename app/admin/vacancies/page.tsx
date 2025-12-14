@@ -409,19 +409,19 @@ export default function AdminVacanciesPage() {
               <Label>Требования *</Label>
               <div className="space-y-2">
                 {standardJobRequirements.slice(0, 10).map((req) => (
-                  <div key={req} className="flex items-center gap-2">
+                  <div key={req.value} className="flex items-center gap-2">
                     <input
                       type="checkbox"
-                      checked={newJob.requirements.includes(req)}
+                      checked={newJob.requirements.includes(req.value)}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setNewJob({ ...newJob, requirements: [...newJob.requirements, req] })
+                          setNewJob({ ...newJob, requirements: [...newJob.requirements, req.value] })
                         } else {
-                          setNewJob({ ...newJob, requirements: newJob.requirements.filter((r) => r !== req) })
+                          setNewJob({ ...newJob, requirements: newJob.requirements.filter((r) => r !== req.value) })
                         }
                       }}
                     />
-                    <Label className="font-normal">{req}</Label>
+                    <Label className="font-normal">{req.label}</Label>
                   </div>
                 ))}
               </div>

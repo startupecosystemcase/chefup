@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -340,7 +340,7 @@ export default function AdminCompaniesPage() {
 
       <AdminFiltersPanel
         filters={filters}
-        onFiltersChange={setFilters}
+        onFiltersChange={(newFilters) => setFilters({ ...filters, ...newFilters })}
         onReset={() => setFilters({
           name: '',
           phone: '',
@@ -435,6 +435,7 @@ export default function AdminCompaniesPage() {
           </div>
         </CardContent>
       </Card>
+      )}
 
       {/* Диалог редактирования компании */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>

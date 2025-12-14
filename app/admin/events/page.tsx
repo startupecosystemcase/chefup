@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { useEventsStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { useEventsStore, useOnboardingStore, useAuthStore } from '@/stores/useOnboardingStore'
 import { mockEvents } from '@/lib/mockEvents'
 import { astanaEvents } from '@/lib/mockEventsAstana'
 import { Plus, Search, Edit, Trash2, Eye, Download } from 'lucide-react'
@@ -22,6 +22,7 @@ import type { Event } from '@/types/events.types'
 export default function AdminEventsPage() {
   const { events, participations } = useEventsStore()
   const { formData: allUsersData } = useOnboardingStore()
+  const userId = useAuthStore((state) => state.userId) || 'admin'
   const [allEvents, setAllEvents] = useState<Event[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
@@ -76,13 +77,15 @@ export default function AdminEventsPage() {
     const event: Event = {
       id: `event-${Date.now()}`,
       ...newEvent,
+      address: newEvent.location || '',
       price: parseFloat(newEvent.price) || 0,
       maxParticipants: parseInt(newEvent.maxParticipants) || 100,
       status: 'approved',
       createdAt: new Date().toISOString(),
     }
 
-    useEventsStore.getState().addEvent(event)
+    const { id, createdAt, status, ...eventData } = event
+    useEventsStore.getState().addEvent(eventData, userId)
     toast.success('Мероприятие создано')
     setIsCreateDialogOpen(false)
     setNewEvent({
@@ -125,7 +128,7 @@ export default function AdminEventsPage() {
     toast.success('Список участников экспортирован')
   }
 
-  const eventParticipants = selectedEvent ? getEventParticipants(selectedEvent.id) : []
+  const eventParticipants = selectedEvent && selectedEvent.id ? getEventParticipants(selectedEvent.id) : []
 
   return (
     <div className="space-y-6">
@@ -175,7 +178,7 @@ export default function AdminEventsPage() {
               </thead>
               <tbody>
                 {filteredEvents.map((event) => {
-                  const participantsCount = getEventParticipants(event.id).length
+                  const participantsCount = event.id ? getEventParticipants(event.id).length : 0
                   return (
                     <tr key={event.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
                       <td className="p-2">{event.title}</td>
@@ -185,7 +188,7 @@ export default function AdminEventsPage() {
                       <td className="p-2">
                         {event.date ? format(new Date(event.date), 'dd.MM.yyyy', { locale: ru }) : '-'}
                       </td>
-                      <td className="p-2">{event.city || '-'}</td>
+                      <td className="p-2">{event.location || '-'}</td>
                       <td className="p-2">{event.organizer}</td>
                       <td className="p-2">
                         <Badge>{participantsCount}</Badge>
@@ -195,7 +198,7 @@ export default function AdminEventsPage() {
                           <Button variant="ghost" size="sm" onClick={() => handleViewEvent(event)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" onClick={() => handleDeleteEvent(event.id)}>
+                          <Button variant="ghost" size="sm" onClick={() => event.id && handleDeleteEvent(event.id)}>
                             <Trash2 className="w-4 h-4 text-red-600" />
                           </Button>
                         </div>
@@ -243,7 +246,7 @@ export default function AdminEventsPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-semibold">Участники ({eventParticipants.length})</h3>
-                  <Button onClick={() => handleExportCSV(selectedEvent.id)} variant="outline" size="sm">
+                  <Button onClick={() => selectedEvent.id && handleExportCSV(selectedEvent.id)} variant="outline" size="sm">
                     <Download className="w-4 h-4 mr-2" />
                     Экспорт CSV
                   </Button>

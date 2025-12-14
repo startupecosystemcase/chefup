@@ -20,6 +20,8 @@ interface FilterValues {
   cuisines?: string
   salaryMin?: string
   salaryMax?: string
+  branchesMin?: string
+  vacanciesMin?: string
   dateFrom?: string
   dateTo?: string
   status?: string

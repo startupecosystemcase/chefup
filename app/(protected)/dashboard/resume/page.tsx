@@ -92,7 +92,7 @@ export default function ResumePage() {
                 </h2>
                 {(formData.desiredPosition || formData.currentPosition) && (
                   <p className="text-lg text-muted-foreground dark:text-gray-400">
-                    {formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
+                    {formData.desiredPosition && getLabel(Array.isArray(formData.desiredPosition) ? formData.desiredPosition[0] : formData.desiredPosition, positions)}
                     {!formData.desiredPosition && formData.currentPosition && getLabel(formData.currentPosition, positions)}
                   </p>
                 )}
@@ -172,7 +172,7 @@ export default function ResumePage() {
                   </p>
                   <p className="font-medium dark:text-white">
                     {formData.currentPosition && getLabel(formData.currentPosition, positions)}
-                    {!formData.currentPosition && formData.desiredPosition && getLabel(formData.desiredPosition, positions)}
+                    {!formData.currentPosition && formData.desiredPosition && getLabel(Array.isArray(formData.desiredPosition) ? formData.desiredPosition[0] : formData.desiredPosition, positions)}
                   </p>
                 </div>
               )}
