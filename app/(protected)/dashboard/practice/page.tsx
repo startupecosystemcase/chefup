@@ -42,6 +42,8 @@ export default function PracticePage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedType, setSelectedType] = useState<EducationType | 'all'>('all')
   const [priceFilter, setPriceFilter] = useState<'all' | 'free' | 'paid'>('all')
+  const [participantsMin, setParticipantsMin] = useState<string>('')
+  const [participantsMax, setParticipantsMax] = useState<string>('')
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
   const [selectedEducationId, setSelectedEducationId] = useState<string | null>(null)
   const [isAddCertificateOpen, setIsAddCertificateOpen] = useState(false)
@@ -83,9 +85,22 @@ export default function PracticePage() {
         (priceFilter === 'free' && item.price === 0) ||
         (priceFilter === 'paid' && item.price > 0)
 
-      return matchesSearch && matchesType && matchesPrice
+      // Фильтр по количеству участников
+      let matchesParticipants = true
+      if (participantsMin || participantsMax) {
+        // Если у практики нет лимита участников (maxParticipants), она всегда показывается
+        if (!item.maxParticipants) {
+          matchesParticipants = true
+        } else {
+          const min = participantsMin ? parseInt(participantsMin) : 0
+          const max = participantsMax ? parseInt(participantsMax) : Infinity
+          matchesParticipants = item.maxParticipants >= min && item.maxParticipants <= max
+        }
+      }
+
+      return matchesSearch && matchesType && matchesPrice && matchesParticipants
     })
-  }, [allItems, searchTerm, selectedType, priceFilter])
+  }, [allItems, searchTerm, selectedType, priceFilter, participantsMin, participantsMax])
 
   const userEnrollments = useMemo(() => {
     if (!userId) return []
@@ -149,33 +164,73 @@ export default function PracticePage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex items-center gap-3 md:gap-4 flex-wrap">
-                <div className="flex items-center gap-4">
-                  <Filter className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
-                  <span className="text-sm font-medium dark:text-gray-300">Цена:</span>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+                  <div className="flex items-center gap-4">
+                    <Filter className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
+                    <span className="text-sm font-medium dark:text-gray-300">Цена:</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <ShinyButton
+                      variant={priceFilter === 'all' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setPriceFilter('all')}
+                    >
+                      Все
+                    </ShinyButton>
+                    <ShinyButton
+                      variant={priceFilter === 'free' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setPriceFilter('free')}
+                    >
+                      Бесплатные
+                    </ShinyButton>
+                    <ShinyButton
+                      variant={priceFilter === 'paid' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setPriceFilter('paid')}
+                    >
+                      Платные
+                    </ShinyButton>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <ShinyButton
-                    variant={priceFilter === 'all' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setPriceFilter('all')}
-                  >
-                    Все
-                  </ShinyButton>
-                  <ShinyButton
-                    variant={priceFilter === 'free' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setPriceFilter('free')}
-                  >
-                    Бесплатные
-                  </ShinyButton>
-                  <ShinyButton
-                    variant={priceFilter === 'paid' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setPriceFilter('paid')}
-                  >
-                    Платные
-                  </ShinyButton>
+                
+                <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+                  <div className="flex items-center gap-4">
+                    <Users className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
+                    <span className="text-sm font-medium dark:text-gray-300">Количество участников:</span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <AnimatedInput
+                      type="number"
+                      placeholder="От"
+                      value={participantsMin}
+                      onChange={(e) => setParticipantsMin(e.target.value)}
+                      className="w-24"
+                      min="0"
+                    />
+                    <span className="text-muted-foreground dark:text-gray-400">—</span>
+                    <AnimatedInput
+                      type="number"
+                      placeholder="До"
+                      value={participantsMax}
+                      onChange={(e) => setParticipantsMax(e.target.value)}
+                      className="w-24"
+                      min="0"
+                    />
+                    {(participantsMin || participantsMax) && (
+                      <ShinyButton
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setParticipantsMin('')
+                          setParticipantsMax('')
+                        }}
+                      >
+                        Сбросить
+                      </ShinyButton>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

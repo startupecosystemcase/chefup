@@ -122,13 +122,14 @@ export function OnboardingWizard() {
       telegram: formData.telegram || authPhone || '',
       experience: formData.experience || '',
       currentPosition: formData.currentPosition || '',
-      desiredPosition: formData.desiredPosition || '',
+      desiredPosition: Array.isArray(formData.desiredPosition) ? formData.desiredPosition : (formData.desiredPosition ? [formData.desiredPosition] : []),
       hasTeam: formData.hasTeam || '',
       education: formData.education || '',
       rank: formData.rank || '',
       cuisines: formData.cuisines || [],
       certificates: formData.certificates || [],
       additionalSkills: formData.additionalSkills || [],
+      otherSkill: formData.otherSkill || '',
       currentVenueFormat: formData.currentVenueFormat || '',
       preferredVenueFormat: formData.preferredVenueFormat || '',
       currentSalary: formData.currentSalary || '',
@@ -531,7 +532,7 @@ export function OnboardingWizard() {
                       name="desiredPosition"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Желаемая позиция *</FormLabel>
+                          <FormLabel>Желаемые позиции *</FormLabel>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {positions.map((pos) => {
                               const Icon = positionIcons[pos.value] || User
@@ -541,8 +542,15 @@ export function OnboardingWizard() {
                                   icon={Icon}
                                   label={pos.label}
                                   value={pos.value}
-                                  selected={field.value === pos.value}
-                                  onSelect={field.onChange}
+                                  selected={Array.isArray(field.value) ? field.value.includes(pos.value) : false}
+                                  onSelect={(value) => {
+                                    const current = Array.isArray(field.value) ? field.value : []
+                                    if (current.includes(value)) {
+                                      field.onChange(current.filter((v) => v !== value))
+                                    } else {
+                                      field.onChange([...current, value])
+                                    }
+                                  }}
                                 />
                               )
                             })}
@@ -733,11 +741,50 @@ export function OnboardingWizard() {
                                 />
                               )
                             })}
+                            <SelectableBadge
+                              icon={Users}
+                              label="Другое"
+                              value="other"
+                              selected={!!(field.value?.includes('other'))}
+                              onToggle={(value) => {
+                                const current = field.value || []
+                                if (current.includes(value)) {
+                                  field.onChange(current.filter((v) => v !== value))
+                                  form.setValue('otherSkill', '')
+                                } else {
+                                  field.onChange([...current, value])
+                                }
+                              }}
+                            />
                           </div>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+
+                    {form.watch('additionalSkills')?.includes('other') && (
+                      <FormField
+                        control={form.control}
+                        name="otherSkill"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Укажите другой навык</FormLabel>
+                            <FormControl>
+                              <AnimatedTextarea
+                                {...field}
+                                placeholder="Укажите другой навык…"
+                                maxLength={300}
+                                className="min-h-[100px]"
+                              />
+                            </FormControl>
+                            <div className="text-xs text-muted-foreground text-right">
+                              {field.value?.length || 0} / 300 символов
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
                   </motion.div>
                 )}
 

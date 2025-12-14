@@ -13,7 +13,7 @@ export const onboardingSchema = z.object({
   // Шаг 2: Опыт и квалификация
   experience: z.string().min(1, 'Выберите опыт работы'),
   currentPosition: z.string().min(1, 'Выберите текущую позицию'),
-  desiredPosition: z.string().min(1, 'Выберите желаемую позицию'),
+  desiredPosition: z.array(z.string()).min(1, 'Выберите хотя бы одну желаемую позицию'),
   hasTeam: z.string().min(1, 'Укажите наличие команды'),
   education: z.string().min(1, 'Выберите образование'),
   rank: z.string().min(1, 'Выберите разряд'),
@@ -22,6 +22,7 @@ export const onboardingSchema = z.object({
   cuisines: z.array(z.string()).min(1, 'Выберите хотя бы одну кухню'),
   certificates: z.array(z.string()).default([]),
   additionalSkills: z.array(z.string()).default([]),
+  otherSkill: z.string().max(300, 'Максимальная длина навыка - 300 символов').optional().or(z.literal('')),
   
   // Шаг 4: Условия и ожидания
   currentVenueFormat: z.string().min(1, 'Выберите текущий формат заведения'),

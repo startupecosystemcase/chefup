@@ -119,13 +119,73 @@ export const goals = [
 ] as const
 
 export const additionalSkills = [
+  // Кулинарные техники
   { value: 'ttk', label: 'Приготовление по ТТК' },
+  { value: 'sous-vide', label: 'Су-вид' },
+  { value: 'molecular', label: 'Молекулярная кухня' },
+  { value: 'fermentation', label: 'Ферментация' },
+  { value: 'smoking', label: 'Копчение' },
+  { value: 'grilling', label: 'Гриль' },
+  { value: 'baking', label: 'Выпечка' },
+  { value: 'decorating', label: 'Декорирование блюд' },
+  { value: 'presentation', label: 'Презентация блюд' },
+  { value: 'plating', label: 'Пластирование' },
+  
+  // Управление и контроль
   { value: 'cost-control', label: 'Контроль себестоимости' },
   { value: 'menu-development', label: 'Разработка меню' },
   { value: 'team-management', label: 'Управление командой' },
   { value: 'inventory', label: 'Управление складом' },
+  { value: 'procurement', label: 'Закупки' },
+  { value: 'quality-control', label: 'Контроль качества' },
+  { value: 'kitchen-organization', label: 'Организация работы кухни' },
+  { value: 'shift-planning', label: 'Планирование смен' },
+  
+  // Безопасность и санитария
   { value: 'food-safety', label: 'Пищевая безопасность' },
-  { value: 'presentation', label: 'Презентация блюд' },
+  { value: 'haccp', label: 'HACCP' },
+  { value: 'sanitation', label: 'Санитария' },
+  { value: 'hygiene', label: 'Гигиена' },
+  
+  // Работа с оборудованием
+  { value: 'equipment-maintenance', label: 'Обслуживание оборудования' },
+  { value: 'knife-skills', label: 'Работа с ножом' },
+  { value: 'kitchen-equipment', label: 'Кухонное оборудование' },
+  
+  // Специализированные навыки
+  { value: 'pizza-making', label: 'Приготовление пиццы' },
+  { value: 'sushi-making', label: 'Приготовление суши' },
+  { value: 'pastry', label: 'Кондитерское дело' },
+  { value: 'chocolate-work', label: 'Работа с шоколадом' },
+  { value: 'sugar-work', label: 'Работа с сахаром' },
+  { value: 'ice-cream', label: 'Мороженое' },
+  { value: 'cocktails', label: 'Коктейли' },
+  { value: 'coffee', label: 'Кофе' },
+  { value: 'wine', label: 'Вино' },
+  { value: 'beer', label: 'Пиво' },
+  
+  // Коммуникативные навыки
+  { value: 'customer-service', label: 'Работа с клиентами' },
+  { value: 'communication', label: 'Коммуникация' },
+  { value: 'upselling', label: 'Допродажи' },
+  { value: 'conflict-resolution', label: 'Разрешение конфликтов' },
+  
+  // Кассовая дисциплина
+  { value: 'cash-register', label: 'Работа с кассой' },
+  { value: 'payment-processing', label: 'Обработка платежей' },
+  { value: 'cash-handling', label: 'Работа с наличными' },
+  
+  // Speed-skills
+  { value: 'fast-cooking', label: 'Быстрое приготовление' },
+  { value: 'multitasking', label: 'Многозадачность' },
+  { value: 'stress-management', label: 'Управление стрессом' },
+  { value: 'time-management', label: 'Тайм-менеджмент' },
+  
+  // Дополнительные
+  { value: 'catering', label: 'Кейтеринг' },
+  { value: 'banquet-service', label: 'Банкетное обслуживание' },
+  { value: 'event-planning', label: 'Организация мероприятий' },
+  { value: 'training', label: 'Обучение персонала' },
 ] as const
 
 export const salaryRanges = [
