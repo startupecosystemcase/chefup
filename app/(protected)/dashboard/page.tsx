@@ -383,9 +383,7 @@ export default function DashboardPage() {
     .filter((item) => item.status === 'approved')
     .slice(0, 3)
   
-  const recommendedJobs = userRole === 'applicant'
-    ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map((r) => r.job)
-    : mockJobs.slice(0, 6)
+  const recommendedJobs = userRole === 'applicant' ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map((r) => r.job) : mockJobs.slice(0, 6)
 
   return (
     <div className="px-3 py-4 md:p-6 lg:p-8 w-full bg-gray-50 dark:bg-dark transition-colors">
