@@ -141,6 +141,7 @@ export default function DashboardPage() {
 
   const { jobs: employerJobs } = useEmployerJobsStore()
   const { formData: employerFormData } = useEmployerOnboardingStore()
+  const { events } = useEventsStore()
 
   if (!userId) {
     return null
@@ -375,7 +376,6 @@ export default function DashboardPage() {
   }
 
   // Данные для ленты
-  const { events } = useEventsStore()
   const upcomingEvents = [...mockEvents, ...events]
     .filter((event) => event.status === 'approved')
     .slice(0, 3)
