@@ -60,6 +60,9 @@ export default function DashboardPage() {
   const [editingPost, setEditingPost] = useState<PortfolioPost | null>(null)
   const [tempSocialLinks, setTempSocialLinks] = useState(socialLinks)
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false)
+  const { jobs: employerJobs } = useEmployerJobsStore()
+  const { formData: employerFormData } = useEmployerOnboardingStore()
+  const { events } = useEventsStore()
 
   useEffect(() => {
     if (!userId) {
@@ -138,10 +141,6 @@ export default function DashboardPage() {
     }
     reader.readAsDataURL(file)
   }
-
-  const { jobs: employerJobs } = useEmployerJobsStore()
-  const { formData: employerFormData } = useEmployerOnboardingStore()
-  const { events } = useEventsStore()
 
   if (!userId) {
     return null
@@ -243,7 +242,7 @@ export default function DashboardPage() {
             <AnimatedCard className="bg-white dark:bg-dark/50">
               <div className="p-3 md:p-6">
                 <h3 className="text-lg font-semibold mb-6 md:mb-4 dark:text-white">Всего вакансий</h3>
-                <div className="text-2xl md:text-3xl font-bold dark:text-white">{employerJobs.length}</div>
+                <div className="text-2xl md:text-3xl font-bold dark:text-white">{companyJobs.length}</div>
               </div>
             </AnimatedCard>
             <AnimatedCard className="bg-white dark:bg-dark/50">
@@ -384,8 +383,8 @@ export default function DashboardPage() {
     .filter((item) => item.status === 'approved')
     .slice(0, 3)
   
-  const recommendedJobs = userRole === 'applicant' 
-    ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map(r => r.job)
+  const recommendedJobs = userRole === 'applicant'
+    ? getRecommendedJobs(mockJobs, formData).slice(0, 6).map((r) => r.job)
     : mockJobs.slice(0, 6)
 
   return (
@@ -453,11 +452,11 @@ export default function DashboardPage() {
                           <div className="flex items-center gap-1.5">
                             <Heart className="w-4 h-4" />
                             <span>{likesCount} лайков</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-            </div>
-          </div>
-          
+                    </div>
+                    
                     {/* Кнопка перехода в профиль */}
                     <div className="w-full md:w-auto flex justify-center md:justify-end">
                       <ShinyButton 
@@ -468,9 +467,8 @@ export default function DashboardPage() {
                         <ArrowRight className="w-4 h-4 flex-shrink-0" />
                       </ShinyButton>
                     </div>
-          </div>
-        </div>
-              </div>
+                  </div>
+                </div>
               </div>
             </AnimatedCard>
         )}
