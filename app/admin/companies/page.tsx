@@ -91,17 +91,7 @@ export default function AdminCompaniesPage() {
     setCompanies(mockCompanies)
   }, [])
 
-  // Все объявления функций должны быть после всех хуков и перед вычисляемыми переменными
-  const generatePassword = (): string => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    let password = ''
-    for (let i = 0; i < 8; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
-    return password
-  }
-
-  // Вычисляемые переменные должны быть после функций
+  // Вычисляемые переменные должны быть после хуков, но перед функциями
   const filteredCompanies = useMemo(() => {
     return companies.filter((company) => {
       const search = searchTerm.toLowerCase()
@@ -114,6 +104,16 @@ export default function AdminCompaniesPage() {
       )
     })
   }, [companies, searchTerm])
+
+  // Все объявления функций должны быть после вычисляемых переменных
+  const generatePassword = (): string => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let password = ''
+    for (let i = 0; i < 8; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
+    return password
+  }
 
   const handleCreateCompany = () => {
     if (!newCompany.name || !newCompany.contactPerson || !newCompany.phone || !newCompany.email || !newCompany.city) {

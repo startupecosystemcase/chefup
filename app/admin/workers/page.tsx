@@ -130,17 +130,7 @@ export default function AdminWorkersPage() {
     }
   }, [workers])
 
-  // Все объявления функций должны быть после всех хуков и перед вычисляемыми переменными
-  const generatePassword = (): string => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    let password = ''
-    for (let i = 0; i < 8; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
-    return password
-  }
-
-  // Вычисляемые переменные должны быть после функций
+  // Вычисляемые переменные должны быть после хуков, но перед функциями
   const filteredWorkers = useMemo(() => {
     return workers.filter((worker) => {
       const fullName = `${worker.firstName} ${worker.lastName}`.toLowerCase()
@@ -165,6 +155,16 @@ export default function AdminWorkersPage() {
       return matchesSearch && matchesName && matchesPhone && matchesEmail && matchesCity && matchesPosition && matchesStatus
     })
   }, [workers, searchTerm, filters])
+
+  // Все объявления функций должны быть после вычисляемых переменных
+  const generatePassword = (): string => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let password = ''
+    for (let i = 0; i < 8; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
+    return password
+  }
 
   const handleCreateWorker = () => {
     // Валидация

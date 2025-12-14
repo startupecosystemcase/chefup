@@ -201,7 +201,14 @@ export default function ProfilePage() {
     }, 500)
   }, [publishUsername, isUsernameAvailable])
 
-  // Все объявления функций должны быть после всех хуков и перед условными return
+  // Если работодатель - редирект на отдельную страницу профиля компании
+  useEffect(() => {
+    if (userRole === 'employer') {
+      router.push('/dashboard/profile/company')
+    }
+  }, [userRole, router])
+
+  // Все объявления функций должны быть после всех хуков
   const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
     return options.find((opt) => opt.value === value)?.label || value
   }
@@ -268,9 +275,7 @@ export default function ProfilePage() {
     return null
   }
 
-  // Если работодатель - редирект на отдельную страницу профиля компании
   if (userRole === 'employer') {
-    router.push('/dashboard/profile/company')
     return null
   }
 
