@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { AlertCircle, RefreshCw, Home, HelpCircle, MessageCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Error({
   error,
@@ -18,6 +19,7 @@ export default function Error({
 }) {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
+  const t = useTranslation()
   const [retryCount, setRetryCount] = useState(0)
   const [showSupport, setShowSupport] = useState(false)
 
@@ -49,7 +51,7 @@ export default function Error({
         </div>
         <div>
           <h1 className="text-2xl font-bold text-[#0F172A] mb-2">
-            Что-то пошло не так
+            {t.common.somethingWentWrong}
           </h1>
           <p className="text-[#64748B] mb-4">
             Произошла ошибка при загрузке страницы. Пожалуйста, попробуйте еще раз.
@@ -76,7 +78,7 @@ export default function Error({
             className="w-full bg-white dark:bg-white hover:bg-gray-50 flex items-center justify-center whitespace-nowrap"
           >
             <Home className="w-4 h-4 mr-2 flex-shrink-0" />
-            <span>На главную</span>
+            <span>{t.buttons.toHome}</span>
           </ShinyButton>
           <ShinyButton 
             variant="outline" 
@@ -90,7 +92,7 @@ export default function Error({
             className="w-full bg-white dark:bg-white hover:bg-gray-50 flex items-center justify-center whitespace-nowrap"
           >
             <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0 text-green-600" />
-            <span>Связаться через WhatsApp</span>
+            <span>{t.buttons.contactViaWhatsApp}</span>
           </ShinyButton>
           {showSupport && (
             <ShinyButton 

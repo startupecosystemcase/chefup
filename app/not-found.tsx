@@ -9,10 +9,12 @@ import { useRouter } from 'next/navigation'
 import { ShinyButton } from '@/components/magicui/shiny-button'
 import { Home, Search, RefreshCw, HelpCircle, MessageCircle } from 'lucide-react'
 import { useAuthStore } from '@/stores/useOnboardingStore'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function NotFound() {
   const router = useRouter()
   const userId = useAuthStore((state) => state.userId)
+  const t = useTranslation()
   const [retryCount, setRetryCount] = useState(0)
   const [showSupport, setShowSupport] = useState(false)
 
@@ -41,7 +43,7 @@ export default function NotFound() {
         <div className="space-y-2">
           <h1 className="text-6xl font-bold text-[#0F172A]">404</h1>
           <h2 className="text-2xl font-semibold text-[#0F172A]">
-            Страница не найдена
+            {t.common.pageNotFound}
           </h2>
           <p className="text-[#64748B]">
             К сожалению, запрашиваемая страница не существует или была перемещена.
@@ -60,7 +62,7 @@ export default function NotFound() {
           <ShinyButton variant="outline" asChild className="w-full bg-white dark:bg-white hover:bg-gray-50">
             <Link href={homeUrl} className="flex items-center justify-center whitespace-nowrap">
               <Home className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>На главную</span>
+              <span>{t.buttons.toHome}</span>
             </Link>
           </ShinyButton>
           <ShinyButton 
@@ -75,7 +77,7 @@ export default function NotFound() {
             className="w-full bg-white dark:bg-white hover:bg-gray-50 flex items-center justify-center whitespace-nowrap"
           >
             <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0 text-green-600" />
-            <span>Связаться через WhatsApp</span>
+            <span>{t.buttons.contactViaWhatsApp}</span>
           </ShinyButton>
           {showSupport && (
             <ShinyButton 

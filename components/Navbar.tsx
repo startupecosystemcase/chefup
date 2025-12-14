@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuthStore, useOnboardingStore } from '@/stores/useOnboardingStore'
+import { useTranslation } from '@/hooks/useTranslation'
 import { Logo } from '@/components/Logo'
 import { LogOut, User, Settings, FileText, MapPin, Award, Crown, Bell } from 'lucide-react'
 import { cities, positions, cuisines } from '@/lib/data'
@@ -24,6 +25,7 @@ export function Navbar() {
   const userRole = useAuthStore((state) => state.userRole)
   const formData = useOnboardingStore((state) => state.formData)
   const clearAuth = useAuthStore((state) => state.clearAuth)
+  const t = useTranslation()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -45,11 +47,11 @@ export function Navbar() {
   const getRoleLabel = () => {
     switch (userRole) {
       case 'applicant':
-        return 'Шеф-повар'
+        return t.roles.applicant
       case 'employer':
-        return 'Работодатель'
+        return t.roles.employer
       case 'moderator':
-        return 'Модератор'
+        return t.roles.moderator
       default:
         return ''
     }
@@ -84,7 +86,7 @@ export function Navbar() {
                   <button className="flex items-center justify-center gap-2 h-8 md:h-9 px-3 md:px-4 rounded-lg bg-[#F97316] hover:bg-[#F97316]/90 transition-colors">
                     <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
                     <span className="text-white text-xs md:text-sm font-medium hidden sm:inline">
-                      {userRole === 'employer' ? 'Профиль компании' : 'Мой профиль'}
+                      {userRole === 'employer' ? t.common.companyProfile : t.common.myProfile}
                     </span>
                   </button>
                 </DropdownMenuTrigger>
@@ -119,26 +121,26 @@ export function Navbar() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push(userRole === 'employer' ? '/profile/company' : '/profile/worker')}>
                   <User className="w-4 h-4 mr-2" />
-                    Профиль
+                    {t.common.profile}
                   </DropdownMenuItem>
                   {userRole === 'applicant' && (
                     <DropdownMenuItem onClick={() => router.push('/dashboard/responses')}>
                       <FileText className="w-4 h-4 mr-2" />
-                      Мои заявки
+                      {t.menu.myResponses}
                 </DropdownMenuItem>
                   )}
                   <DropdownMenuItem onClick={() => router.push('/dashboard/subscription')}>
                     <Crown className="w-4 h-4 mr-2" />
-                    Подписка
+                    {t.menu.subscription}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
                   <Settings className="w-4 h-4 mr-2" />
-                  Настройки
+                  {t.common.settings}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="w-4 h-4 mr-2" />
-                  Выйти
+                  {t.buttons.logout}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

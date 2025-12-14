@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useAuthStore, type UserRole } from '@/stores/useOnboardingStore'
+import { useTranslation } from '@/hooks/useTranslation'
 import { 
   LayoutDashboard, 
   Crown, 
@@ -27,40 +28,12 @@ import {
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/magicui/theme-toggle'
 
-const applicantMenuItems = [
-  { href: '/dashboard', label: 'Главная', icon: Home },
-  { href: '/dashboard/team', label: 'Команда', icon: Users },
-  { href: '/dashboard/practice', label: 'Практика', icon: BookOpen },
-  { href: '/dashboard/certificates', label: 'Сертификаты', icon: Award },
-  { href: '/dashboard/community', label: 'Коммьюнити', icon: Calendar },
-  { href: '/dashboard/jobs', label: 'Вакансии', icon: Briefcase },
-  { href: '/dashboard/resumes', label: 'Сообщество', icon: FileText },
-  { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
-]
-
-const employerMenuItems = [
-  { href: '/dashboard', label: 'Главная', icon: Home },
-  { href: '/dashboard/jobs', label: 'Вакансии', icon: FilePlus },
-  { href: '/dashboard/education', label: 'Образование', icon: GraduationCap },
-  { href: '/dashboard/hr-system', label: 'HR-система', icon: Settings },
-  { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
-]
-
-const moderatorMenuItems = [
-  { href: '/dashboard', label: 'Главная', icon: LayoutDashboard },
-  { href: '/dashboard/moderate/jobs', label: 'Проверка вакансий', icon: CheckCircle },
-  { href: '/dashboard/moderate/candidates', label: 'Автоподбор кандидатов', icon: Search },
-  { href: '/dashboard/moderate/profiles', label: 'Модерация профилей', icon: Shield },
-  { href: '/dashboard/moderate/education', label: 'Модерация образования', icon: BookOpen },
-  { href: '/dashboard/moderate/events', label: 'Модерация событий', icon: Calendar },
-  { href: '/dashboard/moderate/users', label: 'Управление пользователями', icon: Users },
-]
-
 export function DashboardSidebar() {
   const pathname = usePathname()
   const userRole = useAuthStore((state) => state.userRole)
   const language = useAuthStore((state) => state.language)
   const setLanguage = useAuthStore((state) => state.setLanguage)
+  const t = useTranslation()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -71,6 +44,39 @@ export function DashboardSidebar() {
     }
   }, [language, setLanguage])
 
+  const menuItems = useMemo(() => {
+    if (userRole === 'employer') {
+      return [
+        { href: '/dashboard', label: t.menu.home, icon: Home },
+        { href: '/dashboard/jobs', label: t.menu.jobs, icon: FilePlus },
+        { href: '/dashboard/education', label: t.menu.education, icon: GraduationCap },
+        { href: '/dashboard/hr-system', label: t.menu.hrSystem, icon: Settings },
+        { href: '/dashboard/partners', label: t.menu.partners, icon: Handshake },
+      ]
+    } else if (userRole === 'moderator') {
+      return [
+        { href: '/dashboard', label: t.menu.home, icon: LayoutDashboard },
+        { href: '/dashboard/moderate/jobs', label: t.admin.moderateJobs, icon: CheckCircle },
+        { href: '/dashboard/moderate/candidates', label: t.admin.moderateCandidates, icon: Search },
+        { href: '/dashboard/moderate/profiles', label: t.admin.moderateProfiles, icon: Shield },
+        { href: '/dashboard/moderate/education', label: t.admin.moderateEducation, icon: BookOpen },
+        { href: '/dashboard/moderate/events', label: t.admin.moderateEvents, icon: Calendar },
+        { href: '/dashboard/moderate/users', label: t.admin.manageUsers, icon: Users },
+      ]
+    } else {
+      return [
+        { href: '/dashboard', label: t.menu.home, icon: Home },
+        { href: '/dashboard/team', label: t.menu.team, icon: Users },
+        { href: '/dashboard/practice', label: t.menu.practice, icon: BookOpen },
+        { href: '/dashboard/certificates', label: t.menu.certificates, icon: Award },
+        { href: '/dashboard/community', label: t.menu.community, icon: Calendar },
+        { href: '/dashboard/jobs', label: t.menu.jobs, icon: Briefcase },
+        { href: '/dashboard/resumes', label: t.menu.resumes, icon: FileText },
+        { href: '/dashboard/partners', label: t.menu.partners, icon: Handshake },
+      ]
+    }
+  }, [userRole, t])
+
   if (!mounted) {
     return (
       <aside className="hidden md:block w-64 p-4 md:p-6">
@@ -79,13 +85,6 @@ export function DashboardSidebar() {
         </nav>
       </aside>
     )
-  }
-
-  let menuItems = applicantMenuItems
-  if (userRole === 'employer') {
-    menuItems = employerMenuItems
-  } else if (userRole === 'moderator') {
-    menuItems = moderatorMenuItems
   }
 
   return (

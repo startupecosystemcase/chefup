@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -20,62 +20,10 @@ import {
   TrendingUp,
 } from 'lucide-react'
 import { useAdminStore } from '@/stores/useAdminStore'
+import { useTranslation } from '@/hooks/useTranslation'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SheetClose } from '@/components/ui/sheet'
-
-const adminMenuItems = [
-  {
-    title: 'Работники',
-    href: '/admin/workers',
-    icon: Users,
-  },
-  {
-    title: 'Компании',
-    href: '/admin/companies',
-    icon: Building2,
-  },
-  {
-    title: 'Вакансии',
-    href: '/admin/vacancies',
-    icon: Briefcase,
-  },
-  {
-    title: 'Мероприятия',
-    href: '/admin/events',
-    icon: Calendar,
-  },
-  {
-    title: 'Практика',
-    href: '/admin/practice',
-    icon: GraduationCap,
-  },
-  {
-    title: 'Сообщество',
-    href: '/admin/community',
-    icon: UsersRound,
-  },
-  {
-    title: 'Промокоды',
-    href: '/admin/promo',
-    icon: Ticket,
-  },
-  {
-    title: 'Аналитика промокодов',
-    href: '/admin/promo-analytics',
-    icon: TrendingUp,
-  },
-  {
-    title: 'Статистика',
-    href: '/admin/stats',
-    icon: BarChart3,
-  },
-  {
-    title: 'Настройки',
-    href: '/admin/settings',
-    icon: Settings,
-  },
-]
 
 interface AdminSidebarProps {
   mobile?: boolean
@@ -86,7 +34,61 @@ export function AdminSidebar({ mobile = false, onClose }: AdminSidebarProps = {}
   const pathname = usePathname()
   const { logout, adminLogin } = useAdminStore()
   const router = useRouter()
+  const t = useTranslation()
   const [isCollapsed, setIsCollapsed] = useState(false)
+
+  const adminMenuItems = useMemo(() => [
+    {
+      title: t.admin.workers,
+      href: '/admin/workers',
+      icon: Users,
+    },
+    {
+      title: t.admin.companies,
+      href: '/admin/companies',
+      icon: Building2,
+    },
+    {
+      title: t.admin.vacancies,
+      href: '/admin/vacancies',
+      icon: Briefcase,
+    },
+    {
+      title: t.admin.events,
+      href: '/admin/events',
+      icon: Calendar,
+    },
+    {
+      title: t.admin.practice,
+      href: '/admin/practice',
+      icon: GraduationCap,
+    },
+    {
+      title: t.admin.community,
+      href: '/admin/community',
+      icon: UsersRound,
+    },
+    {
+      title: t.admin.promo,
+      href: '/admin/promo',
+      icon: Ticket,
+    },
+    {
+      title: t.admin.promoAnalytics,
+      href: '/admin/promo-analytics',
+      icon: TrendingUp,
+    },
+    {
+      title: t.admin.statistics,
+      href: '/admin/stats',
+      icon: BarChart3,
+    },
+    {
+      title: t.admin.settings,
+      href: '/admin/settings',
+      icon: Settings,
+    },
+  ], [t])
 
   const handleLogout = () => {
     logout()
@@ -194,7 +196,7 @@ export function AdminSidebar({ mobile = false, onClose }: AdminSidebarProps = {}
               )}
             >
               <LogOut className="w-5 h-5 flex-shrink-0" />
-              <span>Выйти</span>
+              <span>{t.buttons.logout}</span>
             </button>
           </SheetClose>
         ) : (
@@ -204,10 +206,10 @@ export function AdminSidebar({ mobile = false, onClose }: AdminSidebarProps = {}
               'flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors',
               isCollapsed && 'justify-center'
             )}
-            title={isCollapsed ? 'Выйти' : undefined}
+            title={isCollapsed ? t.buttons.logout : undefined}
           >
             <LogOut className="w-5 h-5 flex-shrink-0" />
-            {!isCollapsed && <span>Выйти</span>}
+            {!isCollapsed && <span>{t.buttons.logout}</span>}
           </button>
         )}
       </div>

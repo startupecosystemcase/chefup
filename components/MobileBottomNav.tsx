@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -28,42 +28,9 @@ import {
   ArrowLeft
 } from 'lucide-react'
 import { useAuthStore, type UserRole } from '@/stores/useOnboardingStore'
+import { useTranslation } from '@/hooks/useTranslation'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
 import { ThemeToggle } from '@/components/magicui/theme-toggle'
-
-const applicantMenuItems = [
-  { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
-  { href: '/dashboard/resume', label: 'Моё резюме', icon: FileText },
-  { href: '/dashboard/subscription', label: 'Подписка', icon: Crown },
-  { href: '/dashboard/team', label: 'Команда', icon: Users },
-  { href: '/dashboard/practice', label: 'Практика', icon: BookOpen },
-  { href: '/dashboard/certificates', label: 'Сертификаты', icon: Award },
-  { href: '/dashboard/community', label: 'Коммьюнити', icon: Calendar },
-  { href: '/dashboard/jobs', label: 'Вакансии', icon: Briefcase },
-  { href: '/dashboard/responses', label: 'Мои отклики', icon: FileText },
-  { href: '/dashboard/resumes', label: 'Сообщество', icon: FileText },
-  { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
-  { href: '/dashboard/settings', label: 'Настройки', icon: Settings },
-]
-
-const employerMenuItems = [
-  { href: '/dashboard', label: 'Личный кабинет', icon: LayoutDashboard },
-  { href: '/dashboard/jobs', label: 'Вакансии', icon: FilePlus },
-  { href: '/dashboard/education', label: 'Образование', icon: GraduationCap },
-  { href: '/dashboard/hr-system', label: 'HR-система', icon: Settings },
-  { href: '/dashboard/partners', label: 'Партнёры', icon: Handshake },
-  { href: '/dashboard/settings', label: 'Настройки', icon: Settings },
-]
-
-const moderatorMenuItems = [
-  { href: '/dashboard', label: 'Главная', icon: LayoutDashboard },
-  { href: '/dashboard/moderate/jobs', label: 'Проверка вакансий', icon: CheckCircle },
-  { href: '/dashboard/moderate/candidates', label: 'Автоподбор кандидатов', icon: Search },
-  { href: '/dashboard/moderate/profiles', label: 'Модерация профилей', icon: Shield },
-  { href: '/dashboard/moderate/education', label: 'Модерация образования', icon: BookOpen },
-  { href: '/dashboard/moderate/events', label: 'Модерация событий', icon: Calendar },
-  { href: '/dashboard/moderate/users', label: 'Управление пользователями', icon: Users },
-]
 
 const bottomNavItems = [
   { href: '/dashboard', icon: LayoutDashboard },
@@ -74,6 +41,7 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
   const userRole = useAuthStore((state) => state.userRole)
   const language = useAuthStore((state) => state.language)
   const setLanguage = useAuthStore((state) => state.setLanguage)
+  const t = useTranslation()
   
   useEffect(() => {
     // Убеждаемся, что язык инициализирован
@@ -82,12 +50,43 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
     }
   }, [language, setLanguage])
 
-  let menuItems = applicantMenuItems
-  if (userRole === 'employer') {
-    menuItems = employerMenuItems
-  } else if (userRole === 'moderator') {
-    menuItems = moderatorMenuItems
-  }
+  const menuItems = useMemo(() => {
+    if (userRole === 'employer') {
+      return [
+        { href: '/dashboard', label: t.menu.personalCabinet, icon: LayoutDashboard },
+        { href: '/dashboard/jobs', label: t.menu.jobs, icon: FilePlus },
+        { href: '/dashboard/education', label: t.menu.education, icon: GraduationCap },
+        { href: '/dashboard/hr-system', label: t.menu.hrSystem, icon: Settings },
+        { href: '/dashboard/partners', label: t.menu.partners, icon: Handshake },
+        { href: '/dashboard/settings', label: t.menu.settings, icon: Settings },
+      ]
+    } else if (userRole === 'moderator') {
+      return [
+        { href: '/dashboard', label: t.menu.home, icon: LayoutDashboard },
+        { href: '/dashboard/moderate/jobs', label: t.admin.moderateJobs, icon: CheckCircle },
+        { href: '/dashboard/moderate/candidates', label: t.admin.moderateCandidates, icon: Search },
+        { href: '/dashboard/moderate/profiles', label: t.admin.moderateProfiles, icon: Shield },
+        { href: '/dashboard/moderate/education', label: t.admin.moderateEducation, icon: BookOpen },
+        { href: '/dashboard/moderate/events', label: t.admin.moderateEvents, icon: Calendar },
+        { href: '/dashboard/moderate/users', label: t.admin.manageUsers, icon: Users },
+      ]
+    } else {
+      return [
+        { href: '/dashboard', label: t.menu.personalCabinet, icon: LayoutDashboard },
+        { href: '/dashboard/resume', label: t.menu.myResume, icon: FileText },
+        { href: '/dashboard/subscription', label: t.menu.subscription, icon: Crown },
+        { href: '/dashboard/team', label: t.menu.team, icon: Users },
+        { href: '/dashboard/practice', label: t.menu.practice, icon: BookOpen },
+        { href: '/dashboard/certificates', label: t.menu.certificates, icon: Award },
+        { href: '/dashboard/community', label: t.menu.community, icon: Calendar },
+        { href: '/dashboard/jobs', label: t.menu.jobs, icon: Briefcase },
+        { href: '/dashboard/responses', label: t.menu.myResponses, icon: FileText },
+        { href: '/dashboard/resumes', label: t.menu.resumes, icon: FileText },
+        { href: '/dashboard/partners', label: t.menu.partners, icon: Handshake },
+        { href: '/dashboard/settings', label: t.menu.settings, icon: Settings },
+      ]
+    }
+  }, [userRole, t])
 
   return (
     <div className="flex flex-col h-full">
@@ -98,7 +97,7 @@ function MobileMenuContent({ onItemClick }: { onItemClick?: () => void }) {
             className="flex items-center gap-2 mb-4 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Назад</span>
+            <span>{t.buttons.back}</span>
           </button>
         </SheetClose>
         {menuItems.map((item) => {
