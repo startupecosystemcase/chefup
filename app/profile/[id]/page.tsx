@@ -10,7 +10,7 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { DashboardSidebar } from '@/components/DashboardSidebar'
 import { MobileBottomNav } from '@/components/MobileBottomNav'
-import { useOnboardingStore, usePortfolioStore, usePublicProfilesStore } from '@/stores/useOnboardingStore'
+import { useOnboardingStore, usePortfolioStore, usePublicProfilesStore, useAuthStore } from '@/stores/useOnboardingStore'
 import { PortfolioPostCard } from '@/components/PortfolioPostCard'
 import { Share2, Instagram, Send, Facebook, Linkedin, Globe, Youtube, CheckCircle2, Edit, Eye, Heart, UserPlus, Users, Plus, UserCheck, MessageCircle } from 'lucide-react'
 import { AvatarImage } from '@/components/ui/avatar'
@@ -23,6 +23,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { AnimatedInput } from '@/components/magicui/animated-input'
 import { AnimatedTextarea } from '@/components/magicui/animated-textarea'
 import { Label } from '@/components/ui/label'
+import { mockResumes } from '@/lib/mockData'
 import {
   cities,
   ageRanges,
@@ -36,7 +37,8 @@ import {
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
   const { id } = params
-  const formData = useOnboardingStore((state) => state.formData)
+  const currentUserFormData = useOnboardingStore((state) => state.formData)
+  const currentUserId = useAuthStore((state) => state.userId)
   const { posts, socialLinks } = usePortfolioStore()
   const [mounted, setMounted] = useState(false)
   const [activeTab, setActiveTab] = useState<'activity' | 'about' | 'data'>('activity')
@@ -48,15 +50,37 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   
   const { getUserIdByUsername } = usePublicProfilesStore()
 
+  // Находим данные пользователя по ID
+  // Сначала проверяем, является ли это ID резюме из mockResumes
+  const resumeData = mockResumes.find((r) => r.id === id)
+  
+  // Если это не резюме, проверяем username
+  const userIdFromUsername = getUserIdByUsername(id)
+  
+  // Определяем, показываем ли мы профиль текущего пользователя или другого
+  const isCurrentUser = currentUserId === id || currentUserId === userIdFromUsername
+  
+  // Используем данные резюме, если найдены, иначе данные текущего пользователя
+  const formData = resumeData ? {
+    firstName: resumeData.firstName,
+    lastName: resumeData.lastName,
+    city: resumeData.city,
+    age: resumeData.age,
+    experience: resumeData.experience,
+    education: resumeData.education,
+    rank: resumeData.rank,
+    cuisines: [resumeData.cuisine],
+    about: resumeData.about,
+    currentPosition: resumeData.position,
+    desiredPosition: resumeData.position,
+    avatarUrl: undefined,
+    coverImage: undefined,
+  } : currentUserFormData
+
   useEffect(() => {
     setMounted(true)
     // В реальном приложении здесь будет запрос к API для получения данных подписки
-    // Если id - это username, получаем userId
-    const userId = getUserIdByUsername(id)
-    if (userId) {
-      // В реальном приложении здесь будет загрузка данных профиля по userId
-    }
-  }, [id, getUserIdByUsername])
+  }, [id])
 
   const handleShareProfile = () => {
     const profileUrl = window.location.href
@@ -119,8 +143,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 ring-4 ring-white shadow-xl rounded-full">
                   <AvatarImage src={formData.avatarUrl} />
                   <AvatarFallback className="text-3xl md:text-4xl bg-white text-gray-700 rounded-full">
-                {formData.firstName?.[0] || 'U'}
-                {formData.lastName?.[0] || ''}
+                {resumeData ? resumeData.avatarFallback : (formData.firstName?.[0] || 'U') + (formData.lastName?.[0] || '')}
               </AvatarFallback>
             </Avatar>
               </div>
@@ -239,7 +262,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 {activeTab === 'activity' && (
                   <>
                     {/* Микроблог / Портфолио */}
-                    {posts.length > 0 ? (
+                    {isCurrentUser && posts.length > 0 ? (
                       <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
                         <div className="p-6">
                           <div className="flex items-center justify-between mb-6">
@@ -259,7 +282,9 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                     ) : (
                       <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
                         <div className="p-6 text-center py-12">
-                          <p className="text-muted-foreground dark:text-gray-400">Пока нет активности</p>
+                          <p className="text-muted-foreground dark:text-gray-400">
+                            {isCurrentUser ? 'Пока нет активности' : 'Активность недоступна'}
+                          </p>
                         </div>
                       </AnimatedCard>
                     )}
@@ -384,7 +409,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
                   <div className="p-6">
                     <h3 className="text-lg font-semibold mb-4 dark:text-white">Контакты</h3>
-                    {Object.keys(socialLinks).length > 0 ? (
+                    {isCurrentUser && Object.keys(socialLinks).length > 0 ? (
                       <div className="space-y-3">
                   {socialLinks.instagram && (
                     <a
@@ -456,24 +481,28 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                     ) : (
                       <p className="text-sm text-muted-foreground dark:text-gray-400">Контакты не указаны</p>
                     )}
-                    <ShinyButton variant="outline" size="sm" className="w-full mt-4">
-                      <Edit className="w-4 h-4 mr-2" />
-                      Редактировать контакты
-                    </ShinyButton>
+                    {isCurrentUser && (
+                      <ShinyButton variant="outline" size="sm" className="w-full mt-4">
+                        <Edit className="w-4 h-4 mr-2" />
+                        Редактировать контакты
+                      </ShinyButton>
+                    )}
                   </div>
                 </AnimatedCard>
 
                 {/* Компании (placeholder) */}
-                <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold mb-4 dark:text-white">Компании</h3>
-                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4">Компании не указаны</p>
-                    <ShinyButton variant="outline" size="sm" className="w-full">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Добавить компанию
-                    </ShinyButton>
-                  </div>
-                </AnimatedCard>
+                {isCurrentUser && (
+                  <AnimatedCard className="bg-white dark:bg-dark/50 shadow-sm rounded-xl border border-gray-200/50 dark:border-border/50">
+                    <div className="p-6">
+                      <h3 className="text-lg font-semibold mb-4 dark:text-white">Компании</h3>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4">Компании не указаны</p>
+                      <ShinyButton variant="outline" size="sm" className="w-full">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Добавить компанию
+                      </ShinyButton>
+                    </div>
+                  </AnimatedCard>
+                )}
               </div>
                 </div>
                 </div>
