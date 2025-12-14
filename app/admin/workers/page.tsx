@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -130,28 +130,41 @@ export default function AdminWorkersPage() {
     }
   }, [workers])
 
-  const filteredWorkers = workers.filter((worker) => {
-    const fullName = `${worker.firstName} ${worker.lastName}`.toLowerCase()
-    const search = searchTerm.toLowerCase()
-    
-    // Базовый поиск
-    const matchesSearch = searchTerm === '' || (
-      fullName.includes(search) ||
-      worker.phone.includes(search) ||
-      worker.email?.toLowerCase().includes(search) ||
-      worker.city.toLowerCase().includes(search)
-    )
+  // Все объявления функций должны быть после всех хуков и перед вычисляемыми переменными
+  const generatePassword = (): string => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let password = ''
+    for (let i = 0; i < 8; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
+    return password
+  }
 
-    // Фильтры
-    const matchesName = !filters.name || fullName.includes(filters.name.toLowerCase())
-    const matchesPhone = !filters.phone || worker.phone.includes(filters.phone)
-    const matchesEmail = !filters.email || worker.email?.toLowerCase().includes(filters.email.toLowerCase())
-    const matchesCity = !filters.city || worker.city === filters.city
-    const matchesPosition = !filters.position || worker.position === filters.position
-    const matchesStatus = !filters.status || (filters.status === 'active' ? worker.subscriptionStatus === 'PRO' : true)
+  // Вычисляемые переменные должны быть после функций
+  const filteredWorkers = useMemo(() => {
+    return workers.filter((worker) => {
+      const fullName = `${worker.firstName} ${worker.lastName}`.toLowerCase()
+      const search = searchTerm.toLowerCase()
+      
+      // Базовый поиск
+      const matchesSearch = searchTerm === '' || (
+        fullName.includes(search) ||
+        worker.phone.includes(search) ||
+        worker.email?.toLowerCase().includes(search) ||
+        worker.city.toLowerCase().includes(search)
+      )
 
-    return matchesSearch && matchesName && matchesPhone && matchesEmail && matchesCity && matchesPosition && matchesStatus
-  })
+      // Фильтры
+      const matchesName = !filters.name || fullName.includes(filters.name.toLowerCase())
+      const matchesPhone = !filters.phone || worker.phone.includes(filters.phone)
+      const matchesEmail = !filters.email || worker.email?.toLowerCase().includes(filters.email.toLowerCase())
+      const matchesCity = !filters.city || worker.city === filters.city
+      const matchesPosition = !filters.position || worker.position === filters.position
+      const matchesStatus = !filters.status || (filters.status === 'active' ? worker.subscriptionStatus === 'PRO' : true)
+
+      return matchesSearch && matchesName && matchesPhone && matchesEmail && matchesCity && matchesPosition && matchesStatus
+    })
+  }, [workers, searchTerm, filters])
 
   const handleCreateWorker = () => {
     // Валидация
@@ -243,15 +256,6 @@ export default function AdminWorkersPage() {
       setWorkers(workers.filter((w) => w.id !== workerId))
       toast.success('Работник удален')
     }
-  }
-
-  const generatePassword = (): string => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    let password = ''
-    for (let i = 0; i < 8; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
-    return password
   }
 
   return (

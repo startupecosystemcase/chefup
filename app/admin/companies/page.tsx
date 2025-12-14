@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -91,16 +91,29 @@ export default function AdminCompaniesPage() {
     setCompanies(mockCompanies)
   }, [])
 
-  const filteredCompanies = companies.filter((company) => {
-    const search = searchTerm.toLowerCase()
-    return (
-      company.name.toLowerCase().includes(search) ||
-      company.contactPerson.toLowerCase().includes(search) ||
-      company.phone.includes(search) ||
-      company.email.toLowerCase().includes(search) ||
-      company.city.toLowerCase().includes(search)
-    )
-  })
+  // Все объявления функций должны быть после всех хуков и перед вычисляемыми переменными
+  const generatePassword = (): string => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let password = ''
+    for (let i = 0; i < 8; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
+    return password
+  }
+
+  // Вычисляемые переменные должны быть после функций
+  const filteredCompanies = useMemo(() => {
+    return companies.filter((company) => {
+      const search = searchTerm.toLowerCase()
+      return (
+        company.name.toLowerCase().includes(search) ||
+        company.contactPerson.toLowerCase().includes(search) ||
+        company.phone.includes(search) ||
+        company.email.toLowerCase().includes(search) ||
+        company.city.toLowerCase().includes(search)
+      )
+    })
+  }, [companies, searchTerm])
 
   const handleCreateCompany = () => {
     if (!newCompany.name || !newCompany.contactPerson || !newCompany.phone || !newCompany.email || !newCompany.city) {
@@ -210,15 +223,6 @@ export default function AdminCompaniesPage() {
       setCompanies(companies.filter((c) => c.id !== companyId))
       toast.success('Компания удалена')
     }
-  }
-
-  const generatePassword = (): string => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    let password = ''
-    for (let i = 0; i < 8; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
-    return password
   }
 
   return (

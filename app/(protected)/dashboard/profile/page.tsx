@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { AnimatedCard } from '@/components/magicui/animated-card'
 import { ShinyButton } from '@/components/magicui/shiny-button'
@@ -54,6 +54,7 @@ export default function ProfilePage() {
   const { posts, addPost } = usePortfolioStore()
   const isUsernameAvailable = usePublicProfilesStore((state) => state.isUsernameAvailable)
   const publishProfile = usePublicProfilesStore((state) => state.publishProfile)
+  const setFormData = useOnboardingStore((state) => state.setFormData)
   const [mounted, setMounted] = useState(false)
   const [activeTab, setActiveTab] = useState<'about' | 'activity' | 'blog'>('about')
   const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false)
@@ -173,34 +174,6 @@ export default function ProfilePage() {
     }
   }, [mounted, coverImage])
 
-  const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
-    return options.find((opt) => opt.value === value)?.label || value
-  }
-
-  // Пастельные цвета Notion для характеристик
-  const getCharacteristicColor = (type: string) => {
-    const colors: Record<string, { bg: string; text: string }> = {
-      rank: { bg: '#DBE4EF', text: '#1E3A5F' }, // Синий
-      specialization: { bg: '#F4E4C1', text: '#8B6914' }, // Оранжевый
-      experience: { bg: '#DBEDDB', text: '#2D5016' }, // Зеленый
-      education: { bg: '#E4DFEC', text: '#5B4E77' }, // Фиолетовый
-      goals: { bg: '#F4DFEB', text: '#8B3A5B' }, // Розовый
-      venueFormat: { bg: '#EDE4D9', text: '#6B5B47' }, // Коричневый
-      salary: { bg: '#FBF3DB', text: '#8B6F1E' }, // Желтый
-      city: { bg: '#E3E2E0', text: '#37352F' }, // Серый
-      position: { bg: '#FBE4E4', text: '#8B2E2E' }, // Красный
-    }
-    return colors[type] || { bg: '#E3E2E0', text: '#37352F' }
-  }
-
-  const setFormData = useOnboardingStore((state) => state.setFormData)
-
-  const handleShareProfile = () => {
-    const profileUrl = `${window.location.origin}/profile/${userId}`
-    navigator.clipboard.writeText(profileUrl)
-    toast.success('Ссылка на профиль скопирована!')
-  }
-
   // Проверка доступности username
   useEffect(() => {
     if (!publishUsername.trim()) {
@@ -227,6 +200,33 @@ export default function ProfilePage() {
       setUsernameCheckStatus(available ? 'available' : 'taken')
     }, 500)
   }, [publishUsername, isUsernameAvailable])
+
+  // Все объявления функций должны быть после всех хуков и перед условными return
+  const getLabel = (value: string, options: readonly { readonly value: string; readonly label: string }[]) => {
+    return options.find((opt) => opt.value === value)?.label || value
+  }
+
+  // Пастельные цвета Notion для характеристик
+  const getCharacteristicColor = (type: string) => {
+    const colors: Record<string, { bg: string; text: string }> = {
+      rank: { bg: '#DBE4EF', text: '#1E3A5F' }, // Синий
+      specialization: { bg: '#F4E4C1', text: '#8B6914' }, // Оранжевый
+      experience: { bg: '#DBEDDB', text: '#2D5016' }, // Зеленый
+      education: { bg: '#E4DFEC', text: '#5B4E77' }, // Фиолетовый
+      goals: { bg: '#F4DFEB', text: '#8B3A5B' }, // Розовый
+      venueFormat: { bg: '#EDE4D9', text: '#6B5B47' }, // Коричневый
+      salary: { bg: '#FBF3DB', text: '#8B6F1E' }, // Желтый
+      city: { bg: '#E3E2E0', text: '#37352F' }, // Серый
+      position: { bg: '#FBE4E4', text: '#8B2E2E' }, // Красный
+    }
+    return colors[type] || { bg: '#E3E2E0', text: '#37352F' }
+  }
+
+  const handleShareProfile = () => {
+    const profileUrl = `${window.location.origin}/profile/${userId}`
+    navigator.clipboard.writeText(profileUrl)
+    toast.success('Ссылка на профиль скопирована!')
+  }
 
   const handlePublishPage = async () => {
     if (!publishUsername.trim()) {
@@ -257,12 +257,13 @@ export default function ProfilePage() {
     }, 1000)
   }
 
-  const handleAddPortfolioPost = (postData: Omit<PortfolioPost, 'id' | 'createdAt'>) => {
+  const handleAddPortfolioPost = (postData: any) => {
     addPost(postData)
     setIsPortfolioDialogOpen(false)
     toast.success('Пост добавлен в микроблог!')
   }
 
+  // Условные return должны быть после всех объявлений функций
   if (!mounted || !userId) {
     return null
   }
