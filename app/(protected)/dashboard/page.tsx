@@ -148,9 +148,9 @@ export default function DashboardPage() {
 
   // Показываем разный контент в зависимости от роли
   if (userRole === 'employer') {
-    const employerJobs = jobs.filter((job) => job.employerId === userId)
-    const pendingJobs = employerJobs.filter((job) => job.status === 'pending' || job.status === 'moderating')
-    const approvedJobs = employerJobs.filter((job) => job.status === 'approved')
+    const companyJobs = employerJobs.filter((job) => job.employerId === userId)
+    const pendingJobs = companyJobs.filter((job) => job.status === 'pending' || job.status === 'moderating')
+    const approvedJobs = companyJobs.filter((job) => job.status === 'approved')
 
     return (
       <div className="px-3 py-4 md:p-6 lg:p-8 bg-white dark:bg-dark transition-colors">
